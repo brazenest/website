@@ -3,6 +3,7 @@ export type ImageModel = {
   alt: string
   width: number
   height: number
+  preload: boolean
 }
 
 export type ImageLinkModel = ImageModel & {

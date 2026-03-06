@@ -44,6 +44,7 @@ export default function HomePage() {
 					alt: "Some swirls of shades of blue mixed with light, infused with tech influenced shapes pointing toward the middle.",
 					width: 1024,
 					height: 1024,
+					preload: true,
 				}}
 				title="I build interfaces with product-grade engineering and cinematic polish."
 				subtitle="Full-stack software engineer, web designer, and video producer — bridging resilient systems with visuals that feel intentional."
