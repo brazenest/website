@@ -32,4 +32,5 @@ jobs:
 
       - name: Run remote commands
         run: |
-          ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=50 myserver 'bash -s' < "./scripts/deploy_production_script.sh"
+          ssh -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=10 myserver 'echo "[remote] ssh connected"'
+          ssh -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=10 myserver 'bash -s' < "./scripts/deploy_production_script.sh"
