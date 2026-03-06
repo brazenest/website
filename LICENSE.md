@@ -1,8 +1,8 @@
 # SUNTHETIC Source Code Evaluation License Version 1.2
 
-_NOTE: This document is written in Markdown for convenience of formatting, and **is not a substitute** for [the actual license](LICENSE.txt)._
+_NOTE: This document is written in Markdown for convenience of formatting, and **is not a substitute** for [the actual license](LICENSE)._
 
-An open-source software license by [Sunthetic Media Ventures](https://sunthetic.media).\
+An open-source software license by [Sunthetic Media Ventures](https://sunthetic.media).
 
 Obtain an original copy at https://sunthetic.media/licenses/scel-1.2.
 
