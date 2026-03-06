@@ -7,6 +7,7 @@ export const Section = ({
 	width = 'default',
 	id,
 	backgroundImage,
+	preloadBackgroundImage = false,
 	className,
 	children,
 }: SectionProps) => {
@@ -33,6 +34,7 @@ export const Section = ({
 							width={backgroundImage.width}
 							height={backgroundImage.height}
 							className="w-full h-full object-cover"
+							preload={preloadBackgroundImage}
 						/>
 					</div>
 				)}
@@ -52,6 +54,7 @@ type SectionProps = {
   width?: SectionWidth
   id: string
   backgroundImage?: ImageModel
+	preloadBackgroundImage?: boolean
   className?: string
   children: React.ReactNode
 }
