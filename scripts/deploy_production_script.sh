@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
+echo "[deploy] script start at $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+
 handle_error() {
   echo "$1. Terminating script..."
   exit 1
@@ -94,7 +96,7 @@ wait "$BUILD_HEARTBEAT_PID" 2>/dev/null || true
 # yarn test
 
 trap 'handle_error "Failed to restart nginx"' ERR
-sudo systemctl restart nginx
+sudo -n systemctl restart nginx
 
 trap 'handle_error "Failed to restart production server"' ERR
 pm2 start npm --name "$APP_PROD_DEPLOYMENT_NAME" -- run start
