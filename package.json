@@ -1,6 +1,6 @@
 {
-  "name": "@sunthetic/agcom-website",
-  "version": "2.1.0",
+  "name": "@brazenest/website",
+  "version": "2.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
@@ -68,9 +68,9 @@
     "ts-node": "^10.9.2",
     "typescript": "^5"
   },
-  "description": "The code for the aldengillespy.com website",
+  "description": "My personal website (aldengillespy.com).",
   "main": "index.js",
-  "repository": "https://github.com/brazenest/agcom-website",
+  "repository": "https://github.com/brazenest/website",
   "author": "Alden Gillespy <61519345+brazenest@users.noreply.github.com>",
-  "license": "CC-BY-NC-ND-4.0"
+  "license": "SCEL-1.2"
 }
