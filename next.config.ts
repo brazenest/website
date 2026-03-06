@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
-import removeImports from 'next-remove-imports';
 import path from "path";
 // @ts-check
 
-const nextConfigFn = (phase, { defaultConfig }) => {
+const nextConfigFn = () => {
 	/**
    * @type {import('next').NextConfig}
    */
@@ -36,9 +35,6 @@ const nextConfigFn = (phase, { defaultConfig }) => {
 				},
 			];
 		},
-		...removeImports({
-			...defaultConfig
-		}),
 		experimental: {
 			serverActions: {
 				// edit: updated to new key. Was previously `allowedForwardedHosts`
