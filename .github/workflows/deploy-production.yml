@@ -32,4 +32,4 @@ jobs:
 
       - name: Run remote commands
         run: |
-          ssh myserver 'bash -s' < "./scripts/deploy_production_script.sh"
+          ssh -o ServerAliveInterval=30 -o ServerAliveCountMax=50 myserver 'bash -s' < "./scripts/deploy_production_script.sh"
