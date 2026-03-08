@@ -7,12 +7,12 @@ import { CardList } from "./layout/CardList"
 export const BlogLatestPosts = async () => {
 
 	const posts: BlogPostModel[] = await getBlogPostsFromDB({})
-  
+
 	return (
 		<SplitContentPanelSection
 			id="latest-blog-posts"
 			title="Insights from the Intersection of Code and Creativity"
-			subtitle="Stay updated with my most recent articles exploring software engineering, design systems, creative workflows, and the intersection of technical precision and visual storytelling from an experienced software engineer and video producer."
+			subtitle="Stay updated with my most recent posts exploring software engineering, design systems, creative workflows, and the intersection of technical precision and visual storytelling from an experienced software engineer and video producer."
 			thumbnail={{
 				src: "/assets/images/home/blog-thumbnail.jpg",
 				alt: "A collage of images, including a laptop, tablet, and smartphone, a piece of engineering equipment, a man wearing a hoodie and headphones, working on a laptop, with a cup of coffee, on a motion picture production set.",

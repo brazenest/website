@@ -34,20 +34,5 @@ jobs:
 
       - name: Run remote commands
         run: |
-          SSH_OPTS="-o BatchMode=yes -o ConnectTimeout=20 -o ConnectionAttempts=1 -o ServerAliveInterval=30 -o ServerAliveCountMax=10"
-
-          ATTEMPTS=6
-          for i in $(seq 1 "$ATTEMPTS"); do
-            echo "[ci] SSH preflight attempt $i/$ATTEMPTS"
-            if ssh $SSH_OPTS myserver 'echo "[remote] ssh connected"'; then
-              echo "[ci] SSH preflight succeeded"
-              break
-            fi
-            if [ "$i" -eq "$ATTEMPTS" ]; then
-              echo "[ci] SSH preflight failed after $ATTEMPTS attempts"
-              exit 255
-            fi
-            sleep 15
-          done
-
-          ssh $SSH_OPTS myserver 'bash -s' < "./scripts/deploy_production_script.sh"
+          ssh -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=10 myserver 'echo "[remote] ssh connected"'
+          ssh -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=10 myserver 'bash -s' < "./scripts/deploy_production_script.sh"

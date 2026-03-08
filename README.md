@@ -4,8 +4,8 @@ The code for the official website for [Alden Gillespy](https://aldengillespy.com
 
 ## Release Info
 
-* Version __`2.1.1`__
-* Released on `2026-03-06`
+* Version __`2.1.2`__
+* Released on `2026-03-08`
 
 ## License Info
 

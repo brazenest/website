@@ -14,10 +14,10 @@ export async function GET(req: NextRequest) {
 
 		query.push(
 			'SELECT *',
-			'FROM articles',
+			'FROM posts',
 			'JOIN categories',
-			'ON articles.category = categories.slug',
-			'WHERE articles.slug=? AND articles.visible=?',
+			'ON posts.category = categories.slug',
+			'WHERE posts.slug=? AND posts.visible=?',
 			'LIMIT 1',
 		)
 		values.push(
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 		query.push(`SELECT ${selectColumns.join(', ')}`)
 
 		// FROM
-		const fromTables = ['articles']
+		const fromTables = ['posts']
 		query.push(`FROM ${fromTables.join(', ')}`)
 
 		// WHERE
