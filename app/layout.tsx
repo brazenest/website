@@ -41,7 +41,7 @@ export const metadata: Metadata = {
 	openGraph: {
 		title: "Alden Gillespy — Full-Stack Software Engineer, Web Designer & Video Producer",
 		description:
-			"Full-stack engineering meets cinematic storytelling — portfolio, case studies, and articles.",
+			"Full-stack engineering meets cinematic storytelling — portfolio, case studies, and blog posts.",
 		url: "https://aldengillespy.com",
 		type: "website",
 	},
