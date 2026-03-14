@@ -1,28 +1,55 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+import js from "@eslint/js";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import { globalIgnores } from "eslint/config";
+import { qwikEslint9Plugin } from "eslint-plugin-qwik";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-	baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-	...compat.extends("next/core-web-vitals", "next/typescript"),
-	{
-		ignores: [
-			"node_modules/**",
-			".next/**",
-			"out/**",
-			"build/**",
-			"next-env.d.ts",
-		],
-		rules: {
-			"indent": ["error", "tab"],
-		}
-	},
+const ignores = [
+  "**/*.log",
+  "**/.DS_Store",
+  "**/.history",
+  "**/.yarn",
+  "**/build",
+  "**/dist",
+  "**/dist-dev",
+  "**/node_modules",
+  "**/.cache",
+  "**/.rollup.cache",
+  "**/package-lock.json",
+  "**/pnpm-lock.yaml",
+  "**/tsconfig.tsbuildinfo",
+  "**/yarn.lock",
+  "app/**",
+  "components/**",
+  "data/**",
+  "functions/**",
+  "hooks/**",
+  "lib/**",
+  "types/**",
 ];
 
-export default eslintConfig;
+export default tseslint.config(
+  globalIgnores(ignores),
+  js.configs.recommended,
+  tseslint.configs.recommended,
+  qwikEslint9Plugin.configs.recommended,
+  {
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.es2021,
+        ...globals.serviceworker,
+      },
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
+);

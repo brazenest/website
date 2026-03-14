@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Alden Gillespy",
+  "short_name": "Alden",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#f8f5ee",
+  "theme_color": "#4f83b6",
+  "description": "Personal site v3 foundation built with Qwik."
+}
