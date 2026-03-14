@@ -19,13 +19,7 @@ const ignores = [
   "**/pnpm-lock.yaml",
   "**/tsconfig.tsbuildinfo",
   "**/yarn.lock",
-  "app/**",
-  "components/**",
-  "data/**",
-  "functions/**",
-  "hooks/**",
-  "lib/**",
-  "types/**",
+  "next-app/**",
 ];
 
 export default tseslint.config(

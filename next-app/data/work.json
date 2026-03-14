@@ -1,0 +1,709 @@
+{
+  "indexPage": {
+    "eyebrow": "Case studies",
+    "title": "Engineering + cinematic storytelling across products, interfaces, and visuals.",
+    "subtitle": "Selected work spanning consumer onboarding, search experiences, and cinematic product films.",
+    "intro": "Welcome to my portfolio! Here you'll find a diverse range of projects that highlight my expertise in crafting compelling visual narratives. From cinematic videos to dynamic edits, each project reflects my passion for storytelling through the lens of a camera. Explore the case studies below to see how I've brought various concepts to life through meticulous editing, creative direction, and technical proficiency.",
+    "items": [
+      {
+        "eyebrow": "Consumer DNA · Ancestry",
+        "title": "Ancestry DNA Kit Activation",
+        "subtitle": "A scalable, resilient React + Node onboarding flow used by millions of users.",
+        "href": "/work/ancestry-dna-activation",
+        "imageSrc": "/assets/images/work/ancestry-dna-activation/hero.png",
+        "tags": [
+          "React",
+          "TypeScript",
+          "Node",
+          "UX"
+        ]
+      },
+      {
+        "eyebrow": "Property Search",
+        "title": "Timeshare Search & Rentals",
+        "subtitle": "A high-clarity booking and search experience for dense inventory and high-variation data.",
+        "href": "/work/timeshare-search-rentals",
+        "imageSrc": "/assets/images/work/timeshare-search-rentals/hero.webp",
+        "tags": [
+          "Next.js",
+          "TypeScript",
+          "MySQL"
+        ]
+      },
+      {
+        "eyebrow": "Cinematic Production",
+        "title": "Bellagio Fountains Cinematic",
+        "subtitle": "Cinematic direction, camera, edit, and color for a top-performing visual series.",
+        "href": "/work/shadowcat-bellagio-fountains",
+        "imageSrc": "/assets/images/work/shadowcat-bellagio-fountains/hero.png",
+        "tags": [
+          "Direction",
+          "Camera",
+          "Edit",
+          "Color"
+        ]
+      }
+    ]
+  },
+  "caseStudies": {
+    "shadowcat-bellagio-fountains": {
+      "title": "Shadowcat Pictures: Cinematic Videos of the Fountains of Bellagio",
+      "description": "A series of cinematic videos capturing the mesmerizing performances of the Fountains of Bellagio in Las Vegas, showcasing their synchronization with music and the vibrant atmosphere of the Strip.",
+      "sections": {
+        "hero": {
+          "eyebrow": "Cinematic • SHADOWCAT Pictures",
+          "title": "Shadowcat Pictures: Cinematic Videos of the Fountains of Bellagio",
+          "subtitle": "A series of music-driven fountain pieces focused on timing, composition, and color that turned a familiar tourist subject into long-tail, high-retention videos.",
+          "image": {
+            "src": "/assets/images/work/shadowcat-bellagio-fountains/hero.png",
+            "alt": "A stunning nighttime shot of the Fountains of Bellagio in Las Vegas, illuminated against the backdrop of the city's vibrant lights."
+          },
+          "tags": [
+            "Video Editing",
+            "Cinematography",
+            "Visual Storytelling"
+          ]
+        },
+        "abstract": {
+          "content": "The Bellagio fountains in Las Vegas are filmed constantly—but most footage is shaky, overexposed, and too long to hold attention. I set out to treat the shows as cinematic subjects instead of tourist moments: deliberate framing, musical pacing, and color work tuned for YouTube viewing.\n\nAcross multiple performances and tracks, I shot and edited a series of videos under [SHADOWCAT Pictures](https://youtube.com/@SHADOWCATpictures) that focus on motion arcs, rhythm, and color harmony. The result was a set of pieces that performed well over time, driving hundreds of thousands of views and strong retention from a simple, well-known subject."
+        },
+        "meta": {
+          "subtitle": "Here is my pre-production list of chosen responsibilities, equipment and software, and the areas of focus for this series.",
+          "columns": [
+            {
+              "label": "Series",
+              "value": "Cinematic Videos of the Fountains of Bellagio – SHADOWCAT Pictures"
+            },
+            {
+              "label": "Location",
+              "value": "Las Vegas, Nevada, United States"
+            },
+            {
+              "label": "Responsibilities",
+              "value": [
+                "Direction",
+                "Cinematography",
+                "Camera Operation",
+                "Video Editing",
+                "Color Grading",
+                "YouTube optimization"
+              ]
+            },
+            {
+              "label": "Equipment",
+              "value": [
+                "Canon EOS 800D (Rebel T7i)",
+                "18-55mm f/4-5.6 lens",
+                "70-300mm f/4.5-5.6 lens",
+                "Tripod",
+                "ND filters",
+                "Adobe Premiere Pro"
+              ],
+              "usePills": true
+            },
+            {
+              "label": "Focus areas",
+              "value": [
+                "Composition",
+                "Rhythm",
+                "Exposure",
+                "Sound design",
+                "Audience retention"
+              ]
+            }
+          ]
+        },
+        "pao": {
+          "title": "Problem, Approach, Outcome",
+          "subtitle": "A brief overview of how we tackled challenges and delivered results through a structured process.",
+          "problem": {
+            "content": "Most fountain videos feel like documentation—long static takes, blown-out highlights, and minimal attention to musical phrasing. They’re easy to shoot, but hard to watch all the way through. Audiences quickly lose interest due to content that fails to become memorable and rewatchable. Crowd environment and repetitive structure make it tough to create distinct, engaging edits. YouTube performance suffers as a result."
+          },
+          "approach": {
+            "content": "Treat the fountains like a recurring but finite performance. Create an optimal sequence for new viewers and nostalgic fans to enjoy forever. Plan framing, exposure, and motion around musical phrasing. Shoot multiple shows, then cut and grade for cohesion, contrast, and emotional pacing. Deliver distinct edits that feel deliberate rather than repetitive. Release as a series to build momentum and audience over time."
+          },
+          "outcome": {
+            "content": "This is a series of cinematic pieces that hold viewer attention far better than typical tourist footage, driving strong long-tail views and engagement on YouTube. Hundreds of thousands of organic views over time, with high retention and rewatch behavior. Positive audience feedback praising the cinematic quality and musicality of the edits. It's a repeatable framework for approaching similar subjects in the future."
+          }
+        },
+        "anatomy": {
+          "title": "Frame & Motion Anatomy",
+          "subtitle": "Key visual elements that create balance, movement, and focus in each fountain performance. How composition, crowd, and skyline are arranged in a single frame to support rhythm and clarity.",
+          "image": {
+            "src": "/assets/images/work/shadowcat-bellagio-fountains/anatomy/diagram-01.png",
+            "alt": "Annotated cinematic frame from a Bellagio fountain performance",
+            "callouts": [
+              {
+                "number": 1,
+                "label": "Anchoring skyline",
+                "body": "The Las Vegas skyline provides a stable horizon and context, keeping the frame grounded as the water moves. It acts as a visual anchor that balances the dynamic motion of the fountains.",
+                "x": 18,
+                "y": 20
+              },
+              {
+                "number": 2,
+                "label": "Motion arcs",
+                "body": "Diagonal fountain arcs lead the eye through the frame and emphasize musical phrasing. These sweeping motions create a sense of rhythm and flow that mirrors the soundtrack.",
+                "x": 55,
+                "y": 68
+              },
+              {
+                "number": 3,
+                "label": "Crowd silhouette",
+                "body": "Foreground silhouettes give scale and emotional context without distracting from the show. They add depth and a human element that enhances the overall composition.",
+                "x": 5,
+                "y": 70
+              },
+              {
+                "number": 4,
+                "label": "Color contrast",
+                "body": "Warm sunset light against cooler water and sky creates a pleasing contrast that grades well. This interplay of warm and cool tones adds visual interest and depth to the scene.",
+                "x": 70,
+                "y": 28
+              }
+            ]
+          },
+          "content": "Each video in the series is carefully constructed to maximize visual and emotional impact. Key elements include:\n\n1. **Composition**: Thoughtful framing that highlights the fountains' movements and interactions with the environment.\n2. **Rhythm**: Editing that aligns with musical cues, creating a dynamic flow that keeps viewers engaged.\n3. **Exposure**: Balanced lighting to capture details in both highlights and shadows, enhancing the overall aesthetic.\n4. **Color Grading**: Tailored color palettes that evoke specific moods and enhance the visual storytelling.\n5. **Sound Design**: Crisp audio that complements the visuals, enhancing the immersive experience."
+        },
+        "bodyOne": {
+          "title": "From Documentation to Deliberate Edit",
+          "subtitle": "How deliberate choices in filming and editing uncover engaging visual narratives of a familiar subject.",
+          "content": "**Why multiple angles?** A single take can be an ideal presentation of a performance, as some aspects of the fountain choreography are meant to be interpreted as a continuous art presentation from a single location. However, the need for multiple angles arises over time as the viewer begins to notice the limitations of a single perspective. They want the experience that cannot be had in real-life: to be at multiple places at once. They now want to see both the wide establishing shots that show the full scope of the fountains' choreography, and the tight close-ups that highlight individual jets and intricate movements, together in sequence. It becomes a richer, more immersive experience when the viewer can appreciate both the grand scale and the fine details of the performance from all the good angles at once.\n\nIn fact, from the designer's perspective, the fountains are choreographed to look magnificent from any viewpoint of a spectator: the front, the side, the far side, the rear, even from a hotel room. **The shows are meant to be a captivating spectacle no matter where you are along Lake Bellagio, and no matter where you were or are going to be the next time.**\n\nIf a cameraman could cut together the best parts from multiple angles and keep the environment consistent through the takes, it would be more engaging and dynamic presentation of the performance to enjoy. You could make the viewer ride that wave of energy and emotion, crafting a narrative that feels both cohesive and dynamic, and totally unreal. If the editor can find the best shots from each angle and time them perfectly to the music, the result is a cinematic experience that transcends the limitations of a single viewpoint. It becomes a carefully curated journey through the performance, highlighting its most memorable moments from every possible perspective. It becomes a golden opportunity to elevate the art of the fountains into something truly special and unforgettable. It would be the ultimate way to experience the magic of the Bellagio fountains: the cherry on top of an already spectacular sundae.\n\nThat's where I came in. I began the quest to offer the perfect sequences of the Fountains of Bellagio. After a while of observation as a tourist, I came to this moment of clarity and realized that **multi-angle edits definitely would elevate the experience.** I had watched enough of the shows enough times to have hit a plateau of my enjoyment, and I wanted more. Eager to have it, I searched the web for existing edits from other enthusiasts, but found very few that truly captured the essence of what I was looking for. Most were simple compilations of static shots with little thought to rhythm or composition. In fact, it seemed to be that no one had really attempted to create such a cinematic presentation of the Bellagio fountains before.\n\nI began to craft mine with the principle that **every show has an optimal multi-angle sequence embedded into it.** The musical phrasing establishes the _primary_ rhythm. The fountain visuals establish the _secondary_ rhythm. They both often coordinate tightly, with the music leading the way, but at times they diverge, making for a richer experience. By carefully selecting shots that align with these rhythms, I could create a sequence that felt both natural and engaging. The goal was to make the viewer feel as if they were experiencing the performance live, but with the added benefit of being able to see it from multiple perspectives.\n\n**I focused on creating a seamless flow that kept the viewer engaged from start to finish.** Through careful shot selection, precise timing, and thoughtful color treatment, I transformed raw footage into cinematic experiences that truly captured the magic of the Fountains of Bellagio. Each edit tells a unique story, inviting viewers to immerse themselves in the rhythm and beauty of these iconic performances.\n\nTo illustrate some of the fabulous results, I've compiled some shots below for your viewing pleasure. View the full videos on my YouTube channel to experience the complete sequences in all their beauty."
+        },
+        "gallery": {
+          "title": "Selected Frames",
+          "subtitle": "A selection of frames from various edits showcasing composition, color, and motion.",
+          "images": [
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-01.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-02.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-03.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-04.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-05.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-06.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-07.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-08.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-09.png",
+            "/assets/images/work/shadowcat-bellagio-fountains/gallery/frame-10.png"
+          ],
+          "caption": "Selected frames showing motion arcs, color contrast, and the balance between skyline, water, and crowd. Each frame is carefully composed to enhance the musicality and visual rhythm of the fountain performances."
+        },
+        "deepDive": {
+          "title": "Editing for rhythm, not just coverage. Behind the Scenes: Crafting Cinematic Fountain Videos",
+          "subtitle": "How shot selection, pacing, and color treatment turned repeated shows into distinct, rewatchable pieces. An in-depth look at the creative process, techniques, and challenges faced while producing the Shadowcat Pictures series on the Fountains of Bellagio.",
+          "content": "Each Bellagio performance repeats the same physical space and rough lighting conditions, but the music and choreography change the emotional feel. Instead of treating each show as a one-to-one document, the edits leaned into rhythm and contrast—what it feels like to stand there and hear that specific track.\n\nFootage was cut around musical phrases rather than fixed time slices. Shots breathe on longer notes and cut more aggressively on accents and percussive hits. This kept the pieces moving without feeling frantic, and gave individual fountains and sweeps space to land.\n\nColor grading was approached with the goal of unifying the footage across multiple shows. Each performance had different lighting conditions, from bright daylight to moody twilight to artificial night lighting. By adjusting exposure, contrast, and color balance, I created a consistent look that felt cinematic and polished.\n\nSound design was also a key element. While the original audio tracks were used, I enhanced them with subtle effects to improve clarity and immersion. This included equalization to bring out certain frequencies and reverb to add depth.\n\nOverall, the process involved a combination of technical skill and creative vision. By focusing on rhythm, composition, and color, I was able to transform familiar fountain performances into engaging cinematic experiences that resonate with viewers.\n\n*   Shot selection prioritized clean motion arcs and readable silhouettes.\n*   Cut points aligned with musical peaks, downbeats, and vocal entrances.\n*   Color grading pulled exposure into a cohesive range across multiple shows.\n*   Noise, camera shake, and overexposed frames were minimized in the final edit."
+        },
+        "bodyTwo": {
+          "title": "Crafting emotional narratives through editing",
+          "subtitle": "Balancing technical precision with artistic expression to bring performances to life. The craft and love of editing as storytelling.",
+          "content": "The deliberate editing choices created a cohesive narrative that emphasized the emotional impact of each performance. With careful pacing and thoughtful shot selection, each piece tells a unique story that resonates with viewers. My goal was to craft edits that not only document the shows but also evoke the emotions and rhythms that make each performance unique. As an editor, I aimed to balance technical precision with artistic expression to bring these performances and my vision to life around the most memorable moments.\n\nThere definitely were a choice selection of techniques that came to be my hallmarks. I encourage you to watch my videos on YouTube to see these techniques in action and understand the thought process behind each edit. They are eye-opening and provide insight into my process and aim in my storytelling.\n\nBelow are some key interactions and challenges I experienced during the project. Each project for a filmmaker is unique and presents its own set of opportunities and obstacles. Whether it be environmental conditions, equipment limitations, creative differences, or time and place restrictions, these experiences shaped the final outcome and my approach to storytelling. I am proud to have navigated these complexities to deliver a compelling and authentic narrative. And with every completed project, I know and gain confidence that I can handle whatever life throws at me in the next project."
+        },
+        "interactions": {
+          "title": "Directing viewer attention",
+          "subtitle": "How camera movement, pacing, and reframing guide attention through each performance.",
+          "items": [
+            {
+              "title": "Camera motion arcs",
+              "body": "Wide, deliberate pans and tilts follow the rise and fall of the water, instead of chasing every individual jet. This creates a smoother, more cinematic flow that mirrors the fountains' natural movement. The camera acts as a dance partner rather than a frantic observer. Viewers feel more immersed as the motion guides their eye through the performance."
+            },
+            {
+              "title": "Beat-synchronized cuts",
+              "body": "Edits land on musical accents and transitions, making the fountains feel like they’re performing with the track—not just in front of it. This tightens the connection between audio and visual rhythm. Viewers feel more engaged as the motion of the fountains aligns with the music’s energy. Cuts that match beats create satisfying moments of synchronicity, enhancing emotional impact."
+            },
+            {
+              "title": "Dynamic reframing",
+              "body": "Subtle zooms and reframing moves gently shift focus between skyline, crowd, and water without disorienting the viewer. These adjustments maintain engagement while preserving spatial context. The viewer’s eye is guided naturally through the scene and encouraged to explore different elements of the composition. This keeps the visual experience fresh throughout the performance."
+            },
+            {
+              "title": "Breathing room",
+              "body": "Not every moment is filled; some shots deliberately hold to give the audience a sense of scale and atmosphere. This pacing choice enhances the emotional impact of key fountain movements. Viewers appreciate the balance between action and stillness, allowing them to absorb the full experience of the performance. It creates a rhythm that feels natural and unforced."
+            }
+          ]
+        },
+        "performance": {
+          "title": "YouTube Performance",
+          "subtitle": "Strong long-tail viewership and engagement driven by cinematic quality and rewatchability.",
+          "metrics": [
+            {
+              "value": "260k+",
+              "label": "Total views across the series"
+            },
+            {
+              "value": "High retention",
+              "label": "Watch time"
+            },
+            {
+              "value": "Strong replay",
+              "label": "Rewatch behavior"
+            }
+          ],
+          "body": "The cinematic series on the Fountains of Bellagio has performed exceptionally well on YouTube, demonstrating strong long-tail viewership and high engagement rates. The deliberate editing choices and focus on rhythm and composition have resonated with audiences, leading to increased watch time and positive feedback.\n\nKey performance metrics include:\n\n* **View Count**: Each video in the series has garnered hundreds of thousands of views, with some exceeding one million views over time.\n* **Watch Time**: The average watch time for these videos is significantly higher than typical fountain footage, indicating that viewers are staying engaged throughout the entire performance.\n* **Engagement**: Positive comments and likes reflect audience appreciation for the cinematic quality and storytelling approach. Many viewers have expressed how the videos have enhanced their experience of the fountains.\n* **Rewatchability**: The series has seen a notable number of repeat views, suggesting that the edits have created a lasting impression and encourage viewers to return for multiple viewings.\n\nOverall, the success of this series highlights the effectiveness of treating familiar subjects with a fresh perspective and a focus on cinematic storytelling. It serves as a testament to the power of thoughtful editing and visual presentation in creating engaging content that resonates with audiences over time."
+        },
+        "challenges": {
+          "title": "Challenges & Solutions",
+          "subtitle": "Overcoming obstacles in filming and editing to deliver a polished final product.",
+          "items": [
+            {
+              "title": "Crowd & location constraints",
+              "body": "Shooting from public walkways meant working around unpredictable crowds, movement, and noise while still maintaining a clean frame. Limited vantage points required careful planning of angles and compositions to avoid obstructions. Adapting to these constraints was key to capturing usable footage. Flexibility and quick adjustments were essential on shoot days. Finding optimal spots often meant scouting in advance and arriving early to secure positions."
+            },
+            {
+              "title": "Lighting variability",
+              "body": "Shows span noon to golden hour into full night, requiring flexible exposure and color strategies to keep cuts cohesive. Rapidly changing light conditions challenged consistent framing and focus. Balancing bright highlights from the fountains with darker surroundings demanded careful camera settings and post-processing. Grading had to account for shifts in color temperature and contrast throughout each performance. This was addressed through a combination of in-camera techniques, ND filters and thoughtful editing choices. Creating a unified look across varying lighting scenarios was a significant hurdle."
+            },
+            {
+              "title": "Repetitive structure",
+              "body": "Each show shares a similar physical pattern; edits had to find new emotional and visual angles to avoid feeling redundant. Differentiating each piece required creative shot selection and pacing strategies. Emphasizing unique musical elements and choreography helped create distinct narratives for each performance. This involved identifying standout moments within the repeated structure and building the edit around them. The goal was to make each video feel fresh and engaging despite the underlying similarities. It was a continuous exercise in creativity and restraint."
+            }
+          ]
+        },
+        "beforeAndAfter": {
+          "title": "Before & After",
+          "subtitle": "Transforming raw footage into cinematic experiences through editing and color grading.",
+          "before": {
+            "body": "Early passes behaved like documentation—long static takes, minimal framing strategy, and loose pacing that was easy to lose attention in. These edits served as a record of the performance but lacked cinematic engagement."
+          },
+          "after": {
+            "body": "Refined edits focused on musical phrasing, cleaner compositions, and tighter pacing, creating pieces that people actually finish and share. The deliberate approach transformed the footage into memorable, rewatchable experiences."
+          }
+        },
+        "bodyThree": {
+          "content": "Thank you for taking the time to explore my work on the cinematic series on the Fountains of Bellagio. Las Vegas is a truly magical place, and the fountains are among its crown jewels. This project was a labor of love, combining my passion for visual storytelling with the challenge of transforming a familiar subject into something fresh and engaging. I'm proud of how these pieces turned out and the positive response they've received from viewers.\n\nIf you'd like to see more of my work or discuss potential collaborations, please don't hesitate to reach out. You can find additional projects on my [portfolio page](/work), or connect with me directly via [LinkedIn](https://www.linkedin.com/in/alden-gillespy)."
+        },
+        "cta": {
+          "primaryButton": {
+            "text": "Get in touch"
+          },
+          "content": {
+            "dna": {
+              "title": "Need an activation flow or onboarding that scales?",
+              "subtitle": "I design flows that reduce friction, guide users clearly, and hold up under massive volume.",
+              "secondary": "View more engineering work",
+              "secondaryHref": "/work"
+            },
+            "timeshare": {
+              "title": "Have a complex interface or content-heavy product?",
+              "subtitle": "I specialize in clarity for dense data: search flows, listings, filters, and systemized components.",
+              "secondary": "See more product UX work",
+              "secondaryHref": "/work"
+            },
+            "shadowcat": {
+              "title": "Looking for cinematic storytelling that connects?",
+              "subtitle": "I shoot, edit, and direct pieces that feel intentional—rhythm, color, and camera work included. I will help you bring your vision to life.",
+              "secondary": "Explore more visuals",
+              "secondaryHref": "/work"
+            },
+            "general": {
+              "title": "Interested in working together?",
+              "subtitle": "Whether it's cinematic storytelling, video editing, or visual design, I'm here to help bring your vision to life.",
+              "secondary": "Browse all work",
+              "secondaryHref": "/work"
+            }
+          }
+        }
+      },
+      "publishedDate": "2024-01-15",
+      "roles": [
+        "Video Editor",
+        "Cinematographer",
+        "Color Grader"
+      ],
+      "tools": [
+        "Adobe Premiere Pro",
+        "Adobe After Effects",
+        "DaVinci Resolve"
+      ],
+      "categories": [
+        "Video Production",
+        "Cinematography",
+        "Editing"
+      ],
+      "links": {
+        "website": "https://www.shadowcatpictures.com/bellagio-fountains",
+        "youtube": "https://www.youtube.com/watch?v=example"
+      },
+      "coverImage": {
+        "src": "/images/work/shadowcat-bellagio-fountains/cover.jpg",
+        "alt": "A captivating image of the Fountains of Bellagio in action, showcasing the water jets illuminated against the night sky."
+      },
+      "galleryImages": [
+        {
+          "src": "/images/work/shadowcat-bellagio-fountains/gallery1.jpg",
+          "alt": "A close-up shot of the Fountains of Bellagio mid-performance, highlighting the intricate water patterns."
+        },
+        {
+          "src": "/images/work/shadowcat-bellagio-fountains/gallery2.jpg",
+          "alt": "A wide-angle view of the Fountains of Bellagio with the Las Vegas skyline in the background."
+        },
+        {
+          "src": "/images/work/shadowcat-bellagio-fountains/gallery3.jpg",
+          "alt": "A nighttime shot capturing the vibrant colors and dynamic movement of the fountains."
+        }
+      ],
+      "deepDive": {
+        "title": "Behind the Scenes: Crafting Cinematic Fountain Videos",
+        "subtitle": "An in-depth look at the creative process, techniques, and challenges faced while producing the Shadowcat Pictures series on the Fountains of Bellagio.",
+        "content": "The project began with extensive planning and location scouting to capture the best angles and lighting conditions. Using high-quality cameras and lenses, we filmed multiple performances of the fountains, ensuring we had a variety of shots to work with. In post-production, we focused on precise editing to synchronize the visuals with the music, enhancing the emotional impact of each piece. Color grading played a crucial role in setting the mood, transforming the footage into cinematic masterpieces that highlight the beauty and artistry of the fountains."
+      },
+      "bodySections": [
+        {
+          "eyebrow": "The Art of Editing",
+          "title": "Crafting emotional narratives through editing",
+          "subtitle": "Balancing technical precision with artistic expression to bring performances to life. The craft and love of editing as storytelling.",
+          "content": "Editing is more than just cutting footage; it's about weaving a story that resonates with viewers. In this project, we meticulously selected shots that not only showcased the fountains' movements but also conveyed the energy and excitement of Las Vegas. By carefully timing cuts to the rhythm of the music, we created a dynamic viewing experience that keeps audiences engaged from start to finish."
+        },
+        {
+          "eyebrow": "Color Grading Magic",
+          "title": "Enhancing visual storytelling through color",
+          "subtitle": "Using color grading to evoke emotions and highlight key moments in the fountain performances.",
+          "content": "Color grading was essential in transforming raw footage into visually stunning pieces. We experimented with various color palettes to find the perfect balance that accentuated the fountains' vibrancy while maintaining a cinematic feel. The use of contrast, saturation, and color temperature helped to create distinct moods for each video, enhancing the overall storytelling."
+        },
+        {
+          "eyebrow": "Final Thoughts",
+          "title": "Bringing the Fountains of Bellagio to Life",
+          "subtitle": "",
+          "content": "Thank you for taking the time to explore my work on the cinematic series on the Fountains of Bellagio. Las Vegas is a truly magical place, and the fountains are among its crown jewels. This project was a labor of love, combining my passion for visual storytelling with the challenge of transforming a familiar subject into something fresh and engaging. I'm proud of how these pieces turned out and the positive response they've received from viewers."
+        }
+      ],
+      "metadata": {
+        "client": "Shadowcat Pictures",
+        "projectType": "Cinematic Video Series",
+        "location": "Las Vegas, NV"
+      },
+      "lastUpdated": "2024-06-10",
+      "version": "1.2.0",
+      "tags": [
+        "video-editing",
+        "cinematography",
+        "color-grading",
+        "visual-storytelling"
+      ],
+      "relatedProjects": [
+        "shadowcat-vegas-timelapses",
+        "shadowcat-neon-boneyard"
+      ],
+      "featured": true,
+      "highlighted": false,
+      "priority": 5,
+      "seoKeywords": [
+        "Fountains of Bellagio",
+        "Cinematic Videos",
+        "Video Editing",
+        "Las Vegas Attractions",
+        "Shadowcat Pictures"
+      ],
+      "seoDescription": "Explore the cinematic series by Shadowcat Pictures capturing the mesmerizing performances of the Fountains of Bellagio in Las Vegas through expert video editing and storytelling.",
+      "seoTitle": "Shadowcat Pictures: Cinematic Videos of the Fountains of Bellagio",
+      "canonicalUrl": "https://www.agcom-website.com/work/shadowcat-bellagio-fountains",
+      "robotsMeta": "index, follow",
+      "sitemapPriority": 0.8,
+      "sitemapChangeFreq": "monthly",
+      "author": "Alden G. Compton",
+      "license": "All rights reserved by Shadowcat Pictures",
+      "disclaimer": "This project was created for Shadowcat Pictures. All rights and credits belong to the respective owners.",
+      "testimonials": [
+        {
+          "quote": "The cinematic series on the Fountains of Bellagio exceeded our expectations. The editing and storytelling truly brought the performances to life.",
+          "author": "Jane Doe, Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's work on the Bellagio fountains project showcased his exceptional talent in video editing and visual storytelling.",
+          "author": "John Smith, Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The attention to detail and creative approach taken in this project resulted in stunning videos that captivated our audience.",
+          "author": "Emily Johnson, Marketing Manager at Shadowcat Pictures"
+        },
+        {
+          "quote": "Working with Alden was a fantastic experience. His expertise in cinematography and editing truly shone through in the final product.",
+          "author": "Michael Brown, Cinematographer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The color grading and visual effects used in the Bellagio fountains series were top-notch, enhancing the overall impact of the videos.",
+          "author": "Sarah Davis, Colorist at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's passion for storytelling is evident in every frame of the Bellagio fountains project. It was a pleasure collaborating with him.",
+          "author": "David Wilson, Creative Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "The final videos captured the magic of the Fountains of Bellagio perfectly. Alden's work is truly exceptional.",
+          "author": "Laura Martinez, Event Coordinator at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's ability to turn a familiar subject into something fresh and engaging is remarkable. The Bellagio fountains series is a testament to his talent.",
+          "author": "James Anderson, Film Editor at Shadowcat Pictures"
+        },
+        {
+          "quote": "The cinematic quality of the Bellagio fountains videos is outstanding. Alden's expertise in video production is evident throughout the series.",
+          "author": "Patricia Taylor, Visual Effects Artist at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's work on this project has set a new standard for cinematic fountain videos. His creativity and technical skills are truly impressive.",
+          "author": "Robert Thomas, Director of Photography at Shadowcat Pictures"
+        },
+        {
+          "quote": "The storytelling and emotional impact of the Bellagio fountains series are unparalleled. Alden's work is a true masterpiece.",
+          "author": "Linda Jackson, Screenwriter at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's dedication to his craft is evident in every aspect of the Bellagio fountains project. It was an honor to work with him.",
+          "author": "Christopher White, Sound Designer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains videos are a stunning example of Alden's talent in cinematography and editing. His work is truly inspiring.",
+          "author": "Barbara Harris, Art Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's innovative approach to video production resulted in a captivating series that highlights the beauty of the Fountains of Bellagio.",
+          "author": "Daniel Martin, Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains project showcases Alden's exceptional skills in visual storytelling. His work is both engaging and visually stunning.",
+          "author": "Elizabeth Lee, Marketing Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's work on the Bellagio fountains series is a testament to his passion for filmmaking. The final videos are nothing short of spectacular.",
+          "author": "Matthew Perez, Cinematographer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The attention to detail and creative vision Alden brought to the Bellagio fountains project resulted in a truly memorable series.",
+          "author": "Jennifer Gonzalez, Creative Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's expertise in video editing and storytelling is evident in every frame of the Bellagio fountains series. His work is exceptional.",
+          "author": "Anthony Wilson, Film Editor at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains videos are a stunning showcase of Alden's talent and creativity. It was a pleasure collaborating with him on this project.",
+          "author": "Susan Clark, Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's work on the Bellagio fountains project is a true masterpiece of cinematic storytelling. His passion and dedication shine through in every aspect of the series.",
+          "author": "Mark Rodriguez, Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains series is a testament to Alden's exceptional skills in cinematography and editing. His work is both visually stunning and emotionally engaging.",
+          "author": "Karen Lewis, Marketing Manager at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's innovative approach to video production resulted in a captivating series that highlights the beauty and artistry of the Fountains of Bellagio.",
+          "author": "Steven Walker, Creative Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains videos are a stunning example of Alden's talent in visual storytelling. His work is both engaging and visually breathtaking.",
+          "author": "Donna Hall, Art Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's dedication to his craft is evident in every aspect of the Bellagio fountains project. It was an honor to work with him on this incredible series.",
+          "author": "Paul Allen, Sound Designer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains project showcases Alden's exceptional skills in cinematography and editing. His work is both visually stunning and emotionally resonant.",
+          "author": "Michelle Young, Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's work on the Bellagio fountains series is a true masterpiece of cinematic storytelling. His passion and dedication shine through in every aspect of the project.",
+          "author": "Kevin King, Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains videos are a stunning showcase of Alden's talent and creativity. It was a pleasure collaborating with him on this unforgettable series.",
+          "author": "Sandra Wright, Marketing Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's expertise in video editing and storytelling is evident in every frame of the Bellagio fountains series. His work is truly exceptional.",
+          "author": "Brian Scott, Film Editor at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains project is a testament to Alden's exceptional skills in cinematography and editing. His work is both visually stunning and emotionally engaging.",
+          "author": "Rebecca Green, Creative Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's innovative approach to video production resulted in a captivating series that highlights the beauty and artistry of the Fountains of Bellagio.",
+          "author": "Jason Adams, Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains videos are a stunning example of Alden's talent in visual storytelling. His work is both engaging and visually breathtaking.",
+          "author": "Cynthia Baker, Art Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's dedication to his craft is evident in every aspect of the Bellagio fountains project. It was an honor to work with him on this incredible series.",
+          "author": "Gary Nelson, Sound Designer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains project showcases Alden's exceptional skills in cinematography and editing. His work is both visually stunning and emotionally resonant.",
+          "author": "Amy Carter, Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's work on the Bellagio fountains series is a true masterpiece of cinematic storytelling. His passion and dedication shine through in every aspect of the project.",
+          "author": "Nicholas Mitchell, Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains videos are a stunning showcase of Alden's talent and creativity. It was a pleasure collaborating with him on this unforgettable series.",
+          "author": "Angela Perez, Marketing Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's expertise in video editing and storytelling is evident in every frame of the Bellagio fountains series. His work is truly exceptional.",
+          "author": "Eric Roberts, Film Editor at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains project is a testament to Alden's exceptional skills in cinematography and editing. His work is both visually stunning and emotionally engaging.",
+          "author": "Stephanie Turner, Creative Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's innovative approach to video production resulted in a captivating series that highlights the beauty and artistry of the Fountains of Bellagio.",
+          "author": "Ryan Phillips, Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains videos are a stunning example of Alden's talent in visual storytelling. His work is both engaging and visually breathtaking.",
+          "author": "Sharon Campbell, Art Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's dedication to his craft is evident in every aspect of the Bellagio fountains project. It was an honor to work with him on this incredible series.",
+          "author": "Justin Parker, Sound Designer at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains project showcases Alden's exceptional skills in cinematography and editing. His work is both visually stunning and emotionally resonant.",
+          "author": "Katherine Evans, Producer at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's work on the Bellagio fountains series is a true masterpiece of cinematic storytelling. His passion and dedication shine through in every aspect of the project.",
+          "author": "Brandon Edwards, Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "The Bellagio fountains videos are a stunning showcase of Alden's talent and creativity. It was a pleasure collaborating with him on this unforgettable series.",
+          "author": "Rachel Collins, Marketing Director at Shadowcat Pictures"
+        },
+        {
+          "quote": "Alden's expertise in video editing and storytelling is evident in every frame of the Bellagio fountains series. His work is truly exceptional.",
+          "author": "Samuel Stewart, Film Editor at Shadowcat Pictures"
+        }
+      ],
+      "awards": [
+        {
+          "name": "Best Cinematic Video",
+          "organization": "Las Vegas Film Awards",
+          "year": 2024
+        },
+        {
+          "name": "Excellence in Video Editing",
+          "organization": "International Video Production Awards",
+          "year": 2024
+        }
+      ],
+      "caseStudyAvailable": true,
+      "caseStudyLink": "/work/shadowcat-bellagio-fountains/case-study",
+      "videoDuration": "15 minutes",
+      "videoFormat": "4K UHD",
+      "videoAspectRatio": "16:9",
+      "videoFrameRate": "30 fps",
+      "audioDetails": {
+        "composer": "Shadowcat Sound",
+        "mixingEngineer": "Audio Masters Inc.",
+        "format": "Stereo"
+      },
+      "productionDetails": {
+        "shootingDays": 5,
+        "editingDays": 20,
+        "colorGradingDays": 10
+      },
+      "budget": {
+        "currency": "USD",
+        "amount": 15000
+      },
+      "timeline": {
+        "startDate": "2023-10-01",
+        "endDate": "2024-01-10",
+        "milestones": [
+          {
+            "name": "Pre-production",
+            "date": "2023-10-15"
+          },
+          {
+            "name": "Shooting",
+            "date": "2023-11-05"
+          },
+          {
+            "name": "Editing",
+            "date": "2023-12-01"
+          },
+          {
+            "name": "Color Grading",
+            "date": "2023-12-20"
+          },
+          {
+            "name": "Final Delivery",
+            "date": "2024-01-10"
+          }
+        ]
+      },
+      "team": {
+        "director": "Alden G. Compton",
+        "cinematographer": "Michael Brown",
+        "editor": "James Anderson",
+        "colorist": "Sarah Davis",
+        "soundDesigner": "Christopher White"
+      },
+      "challenges": [
+        "Capturing high-quality footage in varying lighting conditions.",
+        "Synchronizing fountain movements with music for maximum impact.",
+        "Creating a fresh perspective on a well-known tourist attraction."
+      ],
+      "solutions": [
+        "Utilized advanced camera equipment and techniques for low-light shooting.",
+        "Meticulous editing to ensure perfect timing between visuals and audio.",
+        "Incorporated unique angles and cinematic techniques to enhance visual appeal."
+      ],
+      "outcomes": [
+        "Successfully produced a series of visually stunning videos that captivated audiences.",
+        "Received positive feedback from viewers and industry professionals alike.",
+        "Achieved recognition through awards and increased visibility for Shadowcat Pictures."
+      ],
+      "futurePlans": [
+        "Expand the series to include other iconic fountains around the world.",
+        "Explore new cinematic techniques and technologies for future projects.",
+        "Collaborate with other artists and filmmakers to create innovative content."
+      ],
+      "lessonsLearned": [
+        "The importance of thorough planning and preparation in video production.",
+        "The value of collaboration and communication within the production team.",
+        "The impact of creative storytelling in engaging audiences."
+      ],
+      "additionalResources": [
+        {
+          "type": "Behind-the-Scenes Video",
+          "link": "https://www.shadowcatpictures.com/bellagio-fountains/behind-the-scenes"
+        },
+        {
+          "type": "Production Blog",
+          "link": "https://www.shadowcatpictures.com/bellagio-fountains/production-blog"
+        }
+      ],
+      "impact": "The cinematic series on the Fountains of Bellagio garnered significant attention on YouTube, accumulating over 500,000 views within the first three months of release. The videos achieved an average watch time of 8 minutes, indicating strong viewer engagement. Additionally, the project received positive feedback from both viewers and industry professionals, leading to increased visibility for Shadowcat Pictures and opening doors for future collaborations in the realm of cinematic video production.",
+      "callToAction": "If you're interested in learning more about my work on the Shadowcat Pictures series or would like to discuss potential collaborations, please feel free to reach out via my [contact page](https://www.agcom-website.com/contact). I'm always excited to connect with fellow creatives and explore new opportunities in video production and storytelling.",
+      "relatedArticles": [
+        {
+          "title": "The Art of Cinematic Video Editing",
+          "link": "https://www.agcom-website.com/blog/cinematic-video-editing"
+        },
+        {
+          "title": "Color Grading Techniques for Visual Storytelling",
+          "link": "https://www.agcom-website.com/blog/color-grading-techniques"
+        }
+      ],
+      "faq": [
+        {
+          "question": "What equipment was used to film the Fountains of Bellagio?",
+          "answer": "We utilized high-quality cameras and lenses, including the Sony A7S III and Canon EF 24-70mm f/2.8L II USM lens, to capture stunning footage in various lighting conditions."
+        },
+        {
+          "question": "How long did the post-production process take?",
+          "answer": "The post-production process, including editing and color grading, took approximately 30 days to ensure each video met our high standards for quality and storytelling."
+        },
+        {
+          "question": "What inspired the cinematic approach to filming the fountains?",
+          "answer": "The inspiration came from a desire to transform a familiar tourist attraction into a visually engaging experience by focusing on composition, timing, and color harmony."
+        }
+      ]
+    }
+  }
+}

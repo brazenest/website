@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --container-8xl: 88rem;
+  --container-9xl: 96rem;
+}
+
+@theme inline {
+  --color-accent: var(--color-blue-600);
+}
+
+.cardlink .card-title::after {
+  content: \1F517;
+}
+
+.card-content > :last-child {
+  margin-bottom: 0;
+}
+
+#home-page #hero-focus {
+  background-image: url('/assets/images/home-page/hero-engineering-bg.png');
+}
+
+a:hover {
+  @apply text-accent;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .prose strong {
+    color: inherit;
+    font-weight: 700;
+  }
+}

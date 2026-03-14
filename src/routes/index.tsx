@@ -1,67 +1,141 @@
 import { component$ } from "@builder.io/qwik";
 import { Link, type DocumentHead } from "@builder.io/qwik-city";
-import { SectionEyebrow } from "~/components/ui";
-import { databaseLayerStatus } from "~/lib/db";
-import { homeLinkGroups } from "~/lib/content";
-import { createPageHead, siteConfig } from "~/lib/seo";
+import { ContactPlaceholder } from "~/components/contact";
+import { ContentWidth } from "~/components/layout";
+import { ActionLink, SectionEyebrow } from "~/components/ui";
+import { siteConfig } from "~/lib/config";
+import {
+  homeIndexGroups,
+  homeSecondaryCtas,
+  type HomeIndexItem,
+} from "~/lib/content";
+import { createPageHead } from "~/lib/seo";
+
+const renderHomeIndexItem = (item: HomeIndexItem) => {
+  const key = `${item.label}-${item.note}`;
+
+  if (!item.href) {
+    return (
+      <li key={key} class="home-index-item">
+        <span class="home-index-link">{item.label}</span>
+        <span class="home-index-note">{item.note}</span>
+      </li>
+    );
+  }
+
+  if (item.external || item.href.startsWith("http")) {
+    return (
+      <li key={key} class="home-index-item">
+        <a
+          href={item.href}
+          class="home-index-link"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          {item.label}
+        </a>
+        <span class="home-index-note">{item.note}</span>
+      </li>
+    );
+  }
+
+  return (
+    <li key={key} class="home-index-item">
+      <Link href={item.href} class="home-index-link">
+        {item.label}
+      </Link>
+      <span class="home-index-note">{item.note}</span>
+    </li>
+  );
+};
 
 export default component$(() => {
   return (
-    <section class="grid gap-12 lg:grid-cols-[minmax(0,1.25fr)_minmax(18rem,0.95fr)] lg:items-start">
-      <div class="space-y-8">
-        <SectionEyebrow label="Personal site v3" />
+    <ContentWidth>
+      <article class="home-page" id="top">
+        <header class="home-hero" aria-labelledby="greeting-headline">
+          <SectionEyebrow label="Personal index" />
 
-        <div class="space-y-5">
-          <h1 class="max-w-3xl text-5xl sm:text-6xl">
-            Hi, I&apos;m Alden. This is the clean slate for the next version of
-            my site.
-          </h1>
-          <p class="max-w-2xl text-lg leading-8 subtle-text sm:text-xl">
-            A lighter Qwik foundation for writing, selected work, and the
-            practical parts of my online home. The polish can come later; the
-            structure is here now.
+          <div class="section-stack section-stack--compact">
+            <h1 id="greeting-headline" class="home-title">
+              Hi, I&apos;m Alden Gillespy.
+            </h1>
+            <p class="home-lede">
+              I build thoughtful software, write about the process, and keep a
+              compact public record of the projects I&apos;m making.
+            </p>
+          </div>
+
+          <div class="home-actions">
+            <ActionLink href="#contact" variant="primary">
+              Contact
+            </ActionLink>
+          </div>
+
+          <nav class="home-secondary-actions" aria-label="Secondary">
+            {homeSecondaryCtas.map((item) => (
+              <ActionLink key={item.href} href={item.href} variant="secondary">
+                {item.label}
+              </ActionLink>
+            ))}
+          </nav>
+        </header>
+
+        <section class="home-index" aria-labelledby="index-heading">
+          <div class="section-stack section-stack--compact">
+            <SectionEyebrow label="Start here" />
+            <h2 id="index-heading" class="section-title">
+              A compact map of the site.
+            </h2>
+          </div>
+
+          <div class="home-index-groups">
+            {homeIndexGroups.map((group) => (
+              <section key={group.title} class="home-index-group">
+                <h3 class="home-index-title">{group.title}</h3>
+                <ul class="home-index-list">
+                  {group.items.map((item) => renderHomeIndexItem(item))}
+                </ul>
+              </section>
+            ))}
+          </div>
+        </section>
+
+        <section class="home-blurb" aria-labelledby="blurb-heading">
+          <div class="section-stack section-stack--compact">
+            <SectionEyebrow label="About" />
+            <h2 id="blurb-heading" class="section-title">
+              This is the short version.
+            </h2>
+            <p class="prose-copy">
+              I care about clarity over noise, durable systems over novelty,
+              and personal sites that feel closer to an index than a pitch
+              deck. v3 is intentionally spare: enough context to show the work,
+              the writing, and what I&apos;m focused on right now.
+            </p>
+          </div>
+        </section>
+
+        <section id="contact" class="home-contact" aria-labelledby="contact-heading">
+          <SectionEyebrow label="Contact" />
+          <h2 id="contact-heading" class="section-title">
+            If the work overlaps with something you&apos;re building, reach out.
+          </h2>
+          <p class="prose-copy">
+            The dedicated contact flow is still being rebuilt for v3, but this
+            is the intended handoff point and the homepage CTA now lands here.
           </p>
-        </div>
-
-        <div class="flex flex-wrap gap-3">
-          <Link href="/projects" class="button-primary">
-            Explore the v3 placeholder
-          </Link>
-          <Link href="/about" class="button-secondary">
-            Read the direction
-          </Link>
-        </div>
-
-        <div class="max-w-2xl rounded-[1.5rem] border px-5 py-4 subtle-text">
-          <p>{databaseLayerStatus}</p>
-        </div>
-      </div>
-
-      <aside class="space-y-4">
-        <SectionEyebrow label="Link groups" />
-        <div class="grid gap-4">
-          {homeLinkGroups.map((group) => (
-            <section
-              key={group.title}
-              class="rounded-[1.5rem] border p-4 sm:p-5"
-            >
-              <h2 class="text-lg font-semibold">{group.title}</h2>
-              <div class="mt-4 grid gap-3">
-                {group.links.map((link) => (
-                  <Link key={link.href} href={link.href} class="link-card">
-                    <div class="flex items-center justify-between gap-4">
-                      <span class="font-medium">{link.label}</span>
-                      <span class="text-sm subtle-text">/{link.href.replace(/^\//, "") || ""}</span>
-                    </div>
-                    <p class="mt-2 text-sm leading-6 subtle-text">{link.note}</p>
-                  </Link>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      </aside>
-    </section>
+          <ContactPlaceholder />
+          <ActionLink
+            href="https://github.com/brazenest"
+            variant="tertiary"
+            newTab
+          >
+            Find the public work on GitHub
+          </ActionLink>
+        </section>
+      </article>
+    </ContentWidth>
   );
 });
 

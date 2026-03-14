@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import { ContentWidth } from "~/components/layout";
 import { SectionEyebrow } from "~/components/ui";
 
 type PlaceholderPageProps = {
@@ -10,13 +11,15 @@ type PlaceholderPageProps = {
 export const PlaceholderPage = component$<PlaceholderPageProps>(
   ({ eyebrow, title, description }) => {
     return (
-      <section class="mx-auto max-w-3xl space-y-6">
-        <SectionEyebrow label={eyebrow} />
-        <div class="space-y-4">
-          <h1 class="max-w-2xl text-4xl sm:text-5xl">{title}</h1>
-          <p class="max-w-2xl text-lg leading-8 subtle-text">{description}</p>
-        </div>
-      </section>
+      <ContentWidth variant="prose">
+        <section class="page-intro">
+          <SectionEyebrow label={eyebrow} />
+          <div class="section-stack section-stack--compact">
+            <h1 class="page-title">{title}</h1>
+            <p class="page-description">{description}</p>
+          </div>
+        </section>
+      </ContentWidth>
     );
   },
 );
