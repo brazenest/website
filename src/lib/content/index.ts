@@ -1,160 +1,207 @@
-export type SiteLink = {
-  href: string;
-  label: string;
-  note?: string;
-  external?: boolean;
+import { blogPosts } from "./blog";
+import type {
+  BlogPostMeta,
+  HomePageContent,
+  HomeIndexGroup,
+  PhotoCatalog,
+  PhotoItem,
+  Project,
+  ResumeEntry,
+  ResumeSection,
+  AboutPageContent,
+  SiteLink,
+  SiteSettings,
+  SocialLink,
+  TechnologyItem,
+  UsesGroup,
+  UsesItem,
+} from "./model";
+import { aboutPageContent, homePageContent } from "./pages";
+import { photoCatalogs, photos } from "./photos";
+import { projects } from "./projects";
+import { resumeEntries, resumeSectionOrder } from "./resume";
+import {
+  homeSecondaryCtas,
+  primaryNav,
+  resumeAssetHref,
+  siteSettings,
+} from "./site";
+import { socialLinks } from "./social";
+import { technologyItems } from "./technologies";
+import { usesGroupOrder, usesItems } from "./uses";
+
+const groupItems = <T extends Record<string, unknown>>(
+  items: readonly T[],
+  key: keyof T,
+  order: readonly string[],
+) => {
+  return order.map((title) => ({
+    title,
+    items: items.filter((item) => String(item[key]) === title),
+  }));
 };
 
-export type HomeIndexItem = {
-  label: string;
-  note: string;
-  href?: string;
-  external?: boolean;
+export const getSiteSettings = (): SiteSettings => siteSettings;
+
+export const getPrimaryNav = (): SiteLink[] => [...primaryNav];
+
+export const getHomeSecondaryCtas = (): SiteLink[] => [...homeSecondaryCtas];
+
+export const getSocialLinks = (): SocialLink[] => [...socialLinks];
+
+export const getTechnologyItems = (): TechnologyItem[] => [...technologyItems];
+
+export const getHomePageContent = (): HomePageContent => homePageContent;
+
+export const getAboutPageContent = (): AboutPageContent => aboutPageContent;
+
+export const getProjects = (): Project[] => [...projects];
+
+export const getPhotoCatalogs = (): PhotoCatalog[] => [...photoCatalogs];
+
+export const getPhotos = (): PhotoItem[] => [...photos];
+
+export const getFeaturedPhotos = (): PhotoItem[] =>
+  photos.filter((photo) => photo.featured);
+
+export const getCurrentProjects = (): Project[] =>
+  projects.filter((project) => project.status === "Current");
+
+export const getFeaturedProjects = (): Project[] =>
+  projects.filter((project) => project.status === "Featured");
+
+export const getBlogPostMetas = (): BlogPostMeta[] => [...blogPosts];
+
+export const getResumeEntries = (): ResumeEntry[] => [...resumeEntries];
+
+export const getResumeSections = (): ResumeSection[] =>
+  groupItems(resumeEntries, "section", resumeSectionOrder);
+
+export const getUsesItems = (): UsesItem[] => [...usesItems];
+
+export const getUsesGroups = (): UsesGroup[] =>
+  groupItems(usesItems, "group", usesGroupOrder);
+
+export const getFooterLinks = (): SiteLink[] => {
+  const githubLink = socialLinks.find((link) => link.label === "GitHub");
+  const links: SiteLink[] = [
+    { href: "/photos", label: "Photos" },
+    { href: siteSettings.resumeHref, label: "Resume PDF", external: true },
+    { href: "/blog", label: "Blog" },
+  ];
+
+  if (githubLink?.href) {
+    links.push({
+      href: githubLink.href,
+      label: githubLink.label,
+      external: githubLink.external,
+    });
+  }
+
+  return links;
 };
 
-export type HomeIndexGroup = {
-  title: string;
-  items: HomeIndexItem[];
-};
+export const getHomeIndexGroups = (): HomeIndexGroup[] => {
+  const currentProjects = getCurrentProjects();
+  const recentWriting = getBlogPostMetas();
 
-export const resumeAssetHref = "/assets/files/Resume_with_Cover_Letter_2026-02.pdf";
-
-export const primaryNav: SiteLink[] = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-  { href: "/uses", label: "Uses" },
-  { href: "/resume", label: "Resume" },
-];
-
-export const footerLinks: SiteLink[] = [
-  { href: resumeAssetHref, label: "Resume PDF" },
-  {
-    href: "https://github.com/brazenest",
-    label: "GitHub",
-    external: true,
-  },
-];
-
-export const homeSecondaryCtas: SiteLink[] = [
-  { href: "/resume", label: "Resume" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-];
-
-export const homeIndexGroups: HomeIndexGroup[] = [
-  {
-    title: "Technologies I use",
-    items: [
-      {
-        label: "Qwik + TypeScript",
-        note: "Current app shell and front-end foundation",
-        href: "/uses",
-      },
-      {
-        label: "Node.js + PostgreSQL",
-        note: "Application and data work",
-        href: "/uses",
-      },
-      {
-        label: "Figma + plain CSS",
-        note: "Interface systems and layout thinking",
-        href: "/uses",
-      },
-    ],
-  },
-  {
-    title: "Projects I'm working on",
-    items: [
-      {
-        label: "Personal site v3",
-        note: "Design foundation and information architecture",
+  return [
+    {
+      title: "Technologies I use",
+      items: getTechnologyItems().slice(0, 3).map((item) => ({
+        label: item.name,
+        note: item.note,
+        href: item.href ?? "/uses",
+      })),
+    },
+    {
+      title: "Projects I'm working on",
+      items: currentProjects.map((project) => ({
+        label: project.title,
+        note: project.summary,
         href: "/projects",
-      },
-      {
-        label: "Case study compression",
-        note: "Turning long work into shorter, clearer reads",
-        href: "/projects",
-      },
-      {
-        label: "Writing pipeline refresh",
-        note: "A lighter system for notes and essays",
-        href: "/projects",
-      },
-    ],
-  },
-  {
-    title: "Recent writing",
-    items: [
-      {
-        label: "Build notes for the rewrite",
-        note: "Starter draft",
+      })),
+    },
+    {
+      title: "Recent writing",
+      items: recentWriting.map((post) => ({
+        label: post.title,
+        note:
+          post.status === "Published"
+            ? post.publishedOn
+            : `${post.status} post shell / ${post.publishedOn}`,
         href: "/blog",
-      },
-      {
-        label: "Selected engineering essays",
-        note: "Archive coming online next",
-        href: "/blog",
-      },
-      {
-        label: "Short working notes",
-        note: "Placeholder for quick entries",
-      },
-    ],
-  },
-  {
-    title: "About",
-    items: [
-      {
-        label: "Background",
-        note: "The through-line between software and storytelling",
-        href: "/about",
-      },
-      {
-        label: "Uses",
-        note: "Tools, setup, and defaults",
-        href: "/uses",
-      },
-      {
-        label: "Resume snapshot",
-        note: "Concise history and current focus",
-        href: "/resume",
-      },
-    ],
-  },
-  {
-    title: "Social handles",
-    items: [
-      {
-        label: "GitHub / @brazenest",
-        note: "Public code and experiments",
-        href: "https://github.com/brazenest",
-        external: true,
-      },
-      {
-        label: "LinkedIn / pending",
-        note: "Public profile link will be added here",
-      },
-      {
-        label: "Other socials / pending",
-        note: "Consolidating the public set for v3",
-      },
-    ],
-  },
-  {
-    title: "Resume PDF",
-    items: [
-      {
-        label: "February 2026 PDF",
-        note: "Current downloadable resume",
-        href: resumeAssetHref,
-      },
-      {
-        label: "Resume page",
-        note: "Short on-site summary",
-        href: "/resume",
-      },
-    ],
-  },
-];
+      })),
+    },
+    {
+      title: "About",
+      items: [
+        {
+          label: siteSettings.role,
+          note: `${siteSettings.location} / ${siteSettings.availability}`,
+          href: "/about",
+        },
+        {
+          label: "Uses",
+          note: "Tools, workflow, and small defaults.",
+          href: "/uses",
+        },
+        {
+          label: "Resume snapshot",
+          note: "Structured sections backed by shared data.",
+          href: "/resume",
+        },
+        {
+          label: "Photos",
+          note: "Personal frames and starter catalogs.",
+          href: "/photos",
+        },
+      ],
+    },
+    {
+      title: "Social handles",
+      items: socialLinks.map((link) => ({
+        label: link.handle ? `${link.label} / ${link.handle}` : link.label,
+        note: link.note,
+        href: link.href,
+        external: link.external,
+      })),
+    },
+    {
+      title: "Resume PDF",
+      items: [
+        {
+          label: "Current PDF",
+          note: "Downloadable resume file.",
+          href: resumeAssetHref,
+          external: true,
+        },
+        {
+          label: "Resume page",
+          note: "On-site summary rendered from typed content.",
+          href: "/resume",
+        },
+      ],
+    },
+  ];
+};
+
+export type {
+  AboutPageContent,
+  BlogPostMeta,
+  HomePageContent,
+  HomeIndexGroup,
+  HomeIndexItem,
+  MediaAsset,
+  PhotoCatalog,
+  PhotoItem,
+  Project,
+  ResumeEntry,
+  ResumeSection,
+  SiteLink,
+  SiteSettings,
+  SocialLink,
+  TechnologyItem,
+  UsesGroup,
+  UsesItem,
+} from "./model";

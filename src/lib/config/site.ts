@@ -1,7 +1,10 @@
+import { getSiteSettings } from "~/lib/content";
+
+const settings = getSiteSettings();
+
 export const siteConfig = {
-  title: "Alden Gillespy",
-  description:
-    "Minimal personal index for Alden Gillespy's work, writing, and current projects.",
+  title: settings.title,
+  description: settings.description,
 } as const;
 
 export const workspaceBoundaries = {

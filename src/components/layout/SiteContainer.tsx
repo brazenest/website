@@ -5,7 +5,7 @@ type SiteContainerProps = {
 };
 
 export const SiteContainer = component$<SiteContainerProps>(({ class: className }) => {
-  const classes = className ? `site-container ${className}` : "site-container";
+  const classes = className ? `site-container w-[min(calc(100%-2rem),var(--site-width))] mx-auto ${className}` : "site-container w-[min(calc(100%-2rem),var(--site-width))] mx-auto";
 
   return (
     <div class={classes}>

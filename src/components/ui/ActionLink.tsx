@@ -18,6 +18,7 @@ export const ActionLink = component$<ActionLinkProps>(
       external ||
       newTab ||
       href.startsWith("#") ||
+      href.startsWith("/assets/") ||
       href.startsWith("http") ||
       href.startsWith("mailto:");
 

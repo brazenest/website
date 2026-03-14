@@ -1,87 +1,102 @@
 import { component$ } from "@builder.io/qwik";
-import { Link, type DocumentHead } from "@builder.io/qwik-city";
+import { type DocumentHead } from "@builder.io/qwik-city";
 import { ContactPlaceholder } from "~/components/contact";
+import { DeferredMediaFigure } from "~/components/content";
 import { ContentWidth } from "~/components/layout";
-import { ActionLink, SectionEyebrow } from "~/components/ui";
-import { siteConfig } from "~/lib/config";
+import { ActionLink, SectionEyebrow, SmartLink } from "~/components/ui";
 import {
-  homeIndexGroups,
-  homeSecondaryCtas,
-  type HomeIndexItem,
+  getFeaturedPhotos,
+  getHomeIndexGroups,
+  getHomePageContent,
+  getHomeSecondaryCtas,
+  getSiteSettings,
+  type PhotoItem,
 } from "~/lib/content";
 import { createPageHead } from "~/lib/seo";
 
-const renderHomeIndexItem = (item: HomeIndexItem) => {
-  const key = `${item.label}-${item.note}`;
-
-  if (!item.href) {
-    return (
-      <li key={key} class="home-index-item">
-        <span class="home-index-link">{item.label}</span>
-        <span class="home-index-note">{item.note}</span>
-      </li>
-    );
-  }
-
-  if (item.external || item.href.startsWith("http")) {
-    return (
-      <li key={key} class="home-index-item">
-        <a
-          href={item.href}
-          class="home-index-link"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          {item.label}
-        </a>
-        <span class="home-index-note">{item.note}</span>
-      </li>
-    );
-  }
-
+const renderPhotoCard = (photo: PhotoItem, index: number) => {
   return (
-    <li key={key} class="home-index-item">
-      <Link href={item.href} class="home-index-link">
-        {item.label}
-      </Link>
-      <span class="home-index-note">{item.note}</span>
-    </li>
+    <article key={photo.slug} class="photo-card">
+      <DeferredMediaFigure
+        asset={photo.image}
+        class="photo-card__media"
+        eager={index === 0}
+        placeholderLabel={`Loading ${photo.title}`}
+      />
+      <div class="photo-card__body">
+        <p class="entry-meta">
+          {photo.location} / {photo.year}
+        </p>
+        <h3 class="photo-card__title">{photo.title}</h3>
+        {photo.note && <p class="photo-card__note">{photo.note}</p>}
+      </div>
+    </article>
   );
 };
 
 export default component$(() => {
+  const settings = getSiteSettings();
+  const homePageContent = getHomePageContent();
+  const homeIndexGroups = getHomeIndexGroups();
+  const homeSecondaryCtas = getHomeSecondaryCtas();
+  const featuredPhotos = getFeaturedPhotos();
+
   return (
-    <ContentWidth>
-      <article class="home-page" id="top">
-        <header class="home-hero" aria-labelledby="greeting-headline">
-          <SectionEyebrow label="Personal index" />
+    <ContentWidth variant="page">
+      <article class="home-page flex flex-col gap-[var(--space-7)]" id="top">
+        <header
+          class="home-hero"
+          aria-labelledby="greeting-headline"
+          style={{ "--home-hero-image": `url(${homePageContent.heroImage.src})` }}
+        >
+          <div class="home-hero__content">
+            <div class="home-hero__copy">
+              <SectionEyebrow label="Engineering + visual storytelling" />
 
-          <div class="section-stack section-stack--compact">
-            <h1 id="greeting-headline" class="home-title">
-              Hi, I&apos;m Alden Gillespy.
-            </h1>
-            <p class="home-lede">
-              I build thoughtful software, write about the process, and keep a
-              compact public record of the projects I&apos;m making.
-            </p>
-          </div>
+              <div class="section-stack section-stack--compact">
+                <p class="home-kicker">
+                  {settings.personName} / {settings.location}
+                </p>
+                <h1 id="greeting-headline" class="home-title">
+                  {settings.introHeadline}
+                </h1>
+                <p class="home-lede">{settings.positioning}</p>
+                <p class="home-support">{settings.availability}</p>
+              </div>
+            </div>
 
-          <div class="home-actions">
-            <ActionLink href="#contact" variant="primary">
-              Contact
-            </ActionLink>
-          </div>
-
-          <nav class="home-secondary-actions" aria-label="Secondary">
-            {homeSecondaryCtas.map((item) => (
-              <ActionLink key={item.href} href={item.href} variant="secondary">
-                {item.label}
+            <div class="home-actions">
+              <ActionLink href={settings.contactHref} variant="primary">
+                {settings.contactLabel}
               </ActionLink>
-            ))}
-          </nav>
+            </div>
+
+            <nav class="home-secondary-actions" aria-label="Secondary">
+              {homeSecondaryCtas.map((item) => (
+                <ActionLink key={item.href} href={item.href} variant="secondary">
+                  {item.label}
+                </ActionLink>
+              ))}
+            </nav>
+
+            <dl class="home-signal-grid">
+              <div class="home-signal">
+                <dt class="home-signal__label">Focus</dt>
+                <dd class="home-signal__value">Front-end systems</dd>
+              </div>
+              <div class="home-signal">
+                <dt class="home-signal__label">Base</dt>
+                <dd class="home-signal__value">{settings.location}</dd>
+              </div>
+              <div class="home-signal">
+                <dt class="home-signal__label">Mode</dt>
+                <dd class="home-signal__value">Engineering + cinematic work</dd>
+              </div>
+            </dl>
+          </div>
         </header>
 
-        <section class="home-index" aria-labelledby="index-heading">
+        <section class="home-index flex flex-col gap-[var(--space-5)]" aria-labelledby="index-heading">
           <div class="section-stack section-stack--compact">
             <SectionEyebrow label="Start here" />
             <h2 id="index-heading" class="section-title">
@@ -94,7 +109,21 @@ export default component$(() => {
               <section key={group.title} class="home-index-group">
                 <h3 class="home-index-title">{group.title}</h3>
                 <ul class="home-index-list">
-                  {group.items.map((item) => renderHomeIndexItem(item))}
+                  {group.items.map((item) => {
+                    const key = `${item.label}-${item.note}`;
+                    return (
+                      <li key={key} class="home-index-item">
+                        <SmartLink
+                          href={item.href}
+                          external={item.external}
+                          class="home-index-link"
+                        >
+                          {item.label}
+                        </SmartLink>
+                        <span class="home-index-note">{item.note}</span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </section>
             ))}
@@ -107,32 +136,50 @@ export default component$(() => {
             <h2 id="blurb-heading" class="section-title">
               This is the short version.
             </h2>
+            <p class="prose-copy">{settings.aboutBlurb}</p>
+          </div>
+        </section>
+
+        <section class="home-photos" aria-labelledby="photos-heading">
+          <div class="home-photos__intro">
+            <SectionEyebrow label="Selected photos" />
+            <h2 id="photos-heading" class="section-title">
+              A few frames from the cinematic side of the work.
+            </h2>
             <p class="prose-copy">
-              I care about clarity over noise, durable systems over novelty,
-              and personal sites that feel closer to an index than a pitch
-              deck. v3 is intentionally spare: enough context to show the work,
-              the writing, and what I&apos;m focused on right now.
+              More stills and photo work will come later, but the homepage now
+              has a dedicated place for image-first work instead of treating it
+              like an afterthought.
             </p>
+            <ActionLink href="/photos" variant="tertiary">
+              Open the photo catalogs
+            </ActionLink>
+          </div>
+
+          <div class="photo-rail" aria-label="Selected photos">
+            {featuredPhotos.map((photo, index) => renderPhotoCard(photo, index))}
           </div>
         </section>
 
         <section id="contact" class="home-contact" aria-labelledby="contact-heading">
           <SectionEyebrow label="Contact" />
           <h2 id="contact-heading" class="section-title">
-            If the work overlaps with something you&apos;re building, reach out.
+            {settings.contactPromptHeading}
           </h2>
-          <p class="prose-copy">
-            The dedicated contact flow is still being rebuilt for v3, but this
-            is the intended handoff point and the homepage CTA now lands here.
-          </p>
+          <p class="prose-copy">{settings.contactPromptBody}</p>
           <ContactPlaceholder />
-          <ActionLink
-            href="https://github.com/brazenest"
-            variant="tertiary"
-            newTab
-          >
-            Find the public work on GitHub
-          </ActionLink>
+          <div class="home-actions">
+            <ActionLink href={settings.contactHref} variant="secondary">
+              {settings.contactLabel}
+            </ActionLink>
+            <ActionLink
+              href="https://github.com/brazenest"
+              variant="tertiary"
+              newTab
+            >
+              Find the public work on GitHub
+            </ActionLink>
+          </div>
         </section>
       </article>
     </ContentWidth>
@@ -141,5 +188,5 @@ export default component$(() => {
 
 export const head: DocumentHead = createPageHead(
   undefined,
-  siteConfig.description,
+  getSiteSettings().description,
 );
