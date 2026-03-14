@@ -59,7 +59,7 @@ export const getBlogPostsFromDB = async ({ slug, showHidden = false }: fnGetpost
 	]
 		.join(' ')
 		.replace(/\?/g, () => `$${++substitutionValue}`)
-
+console.log('Constructed query:', query)
 	// Return the result of the direct-to-DB query.
 	const result: DB_PostModel[] = await queryDatabase<DB_PostModel>({ query, values });
 	const posts = await Promise.all(

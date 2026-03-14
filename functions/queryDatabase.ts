@@ -8,7 +8,7 @@ export const queryDatabase = async<T> ({ query, values = [] }: QueryDatabaseProp
      NOTE: Presume that any use of this function includes pre-sanitization of the query string and values provided.
      TODO: Make this function more robust, i.e. able to handle a variety of potential cases.
     */
-
+console.log('Executing database query with values:', { query, values })
 	try {
 		const { rows } = await db.query(query, values);
 		return rows as T[]
