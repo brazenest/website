@@ -40,6 +40,9 @@ export default component$(() => {
   const homeIndexGroups = getHomeIndexGroups();
   const homeSecondaryCtas = getHomeSecondaryCtas();
   const featuredPhotos = getFeaturedPhotos();
+  const introHeadlinePhrase = "product-grade";
+  const [introHeadlineBefore, introHeadlineAfter] =
+    settings.introHeadline.split(introHeadlinePhrase);
 
   return (
     <ContentWidth variant="page">
@@ -58,7 +61,15 @@ export default component$(() => {
                   {settings.personName} / {settings.location}
                 </p>
                 <h1 id="greeting-headline" class="home-title">
-                  {settings.introHeadline}
+                  {introHeadlineAfter !== undefined ? (
+                    <>
+                      {introHeadlineBefore}
+                      <span class="whitespace-nowrap">{introHeadlinePhrase}</span>
+                      {introHeadlineAfter}
+                    </>
+                  ) : (
+                    settings.introHeadline
+                  )}
                 </h1>
                 <p class="home-lede">{settings.positioning}</p>
                 <p class="home-support">{settings.availability}</p>
@@ -69,14 +80,15 @@ export default component$(() => {
               <ActionLink href={settings.contactHref} variant="primary">
                 {settings.contactLabel}
               </ActionLink>
-            </div>
-
-            <nav class="home-secondary-actions" aria-label="Secondary">
-              {homeSecondaryCtas.map((item) => (
+                            {homeSecondaryCtas.map((item) => (
                 <ActionLink key={item.href} href={item.href} variant="secondary">
                   {item.label}
                 </ActionLink>
               ))}
+            </div>
+
+            <nav class="home-secondary-actions" aria-label="Secondary">
+
             </nav>
 
             <dl class="home-signal-grid">

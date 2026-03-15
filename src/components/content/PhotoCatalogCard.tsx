@@ -18,9 +18,11 @@ export const PhotoCatalogCard = component$<PhotoCatalogCardProps>(({ catalog, ea
           placeholderLabel={`Loading ${catalog.title}`}
         />
         <div class="photo-catalog-card__body">
-          <p class="entry-meta">{catalog.years}</p>
-          <h3 class="entry-title">{catalog.title}</h3>
-          <p class="entry-summary">{catalog.note}</p>
+          <p class="entry-meta text-[var(--color-text-muted)] font-[var(--font-mono)] text-[0.74rem] leading-[1.45] tracking-[0.08em] uppercase">
+            {catalog.years}
+          </p>
+          <h3 class="entry-title photo-card__title">{catalog.title}</h3>
+          <p class="entry-summary photo-card__note">{catalog.note}</p>
         </div>
       </article>
     </li>

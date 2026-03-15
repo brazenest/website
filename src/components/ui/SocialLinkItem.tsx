@@ -11,8 +11,10 @@ export const SocialLinkItem = component$<SocialLinkItemProps>(({ link }) => {
 
   if (!link.href) {
     return (
-      <li class="link-list-item flex flex-wrap items-baseline justify-between gap-[0.4rem_1rem] p-[0.9rem_1rem]">
-        <span class="link-list-label text-[1.04rem] font-semibold tracking-[-0.015em]">{label}</span>
+      <li class="link-list-item flex flex-col gap-[0.65rem] p-[1rem_1.05rem]">
+        <span class="link-list-label text-[1.04rem] font-semibold tracking-[-0.015em]">
+          {label}
+        </span>
         <span class="meta-text font-mono">{link.note}</span>
       </li>
     );
@@ -20,7 +22,7 @@ export const SocialLinkItem = component$<SocialLinkItemProps>(({ link }) => {
 
   if (link.external || link.href.startsWith("http")) {
     return (
-      <li class="link-list-item">
+      <li class="link-list-item flex flex-col gap-[0.65rem] p-[1rem_1.05rem]">
         <a
           href={link.href}
           class="link-list-label"
@@ -35,7 +37,7 @@ export const SocialLinkItem = component$<SocialLinkItemProps>(({ link }) => {
   }
 
   return (
-    <li class="link-list-item">
+    <li class="link-list-item flex flex-col gap-[0.65rem] p-[1rem_1.05rem]">
       <Link href={link.href} class="link-list-label">
         {label}
       </Link>

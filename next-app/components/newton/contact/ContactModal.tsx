@@ -45,7 +45,7 @@ export default function ContactModal() {
 					exit={{ opacity: 0 }}
 					className="
             fixed inset-0 z-[9999] 
-            bg-black/50 
+            bg-black/30 
             backdrop-blur-sm 
             flex items-center justify-center 
             px-4
@@ -77,15 +77,15 @@ export default function ContactModal() {
               "
 							aria-label="Close contact form"
 						>
-                            ✕
+							✕
 						</button>
 
 						{/* HEADER */}
 						<h2 className="text-2xl font-semibold mb-4 text-[var(--color-text)]">
-                            Get in Touch
+							Get in Touch
 						</h2>
 						<p className="text-[var(--color-text-subtle)] mb-6">
-                            Send me a message and I’ll get back to you soon.
+							Send me a message and I’ll get back to you soon.
 						</p>
 
 						{/* CONTACT FORM — SUCCESS CLOSES MODAL */}

@@ -7,20 +7,23 @@ type PageIntroProps = {
   title: string;
   description: string;
   backgroundImage?: MediaAsset;
+  heroTone?: "default" | "inverse";
 };
 
 export const PageIntro = component$<PageIntroProps>(
-  ({ eyebrow, title, description, backgroundImage }) => {
+  ({ eyebrow, title, description, backgroundImage, heroTone = "default" }) => {
     return (
       <header
         class={{
           "page-intro": true,
           "page-intro--hero": Boolean(backgroundImage),
+          "page-intro--hero-inverse":
+            Boolean(backgroundImage) && heroTone === "inverse",
         }}
         style={
           backgroundImage
             ? {
-              "--page-intro-image": `url(${backgroundImage.src})`,
+              "--page-intro-image": `url("${encodeURI(backgroundImage.src)}")`,
             }
             : undefined
         }

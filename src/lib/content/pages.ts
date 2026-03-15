@@ -11,34 +11,54 @@ export const homePageContent: HomePageContent = {
 
 export const aboutPageContent: AboutPageContent = {
   heroImage: {
-    src: "/assets/images/7583870720_IMG_0312.JPG",
-    alt: "Colorful floral installations hanging beneath a warm yellow domed ceiling.",
-    width: 6000,
-    height: 4000,
-    caption: "A floral dome detail repurposed as an about-page hero.",
+    src: "/assets/images/ChatGPT Image Mar 15, 2026, 12_02_02 AM.png",
+    alt: "An AI-generated image representing personal background and hybrid creative-technical work.",
+    width: 1920,
+    height: 1080,
   },
   portraitImage: {
-    src: "/assets/images/profile/IMG_1603.JPG",
-    alt: "Alden Gillespy outdoors against a cloudy sky.",
-    width: 2400,
-    height: 1600,
-    caption: "A current portrait image from the live site.",
+    src: "/assets/images/me-coffeeshop-cropped_Original.png",
+    alt: "Alden Gillespy seated in a coffeeshop.",
+    width: 957,
+    height: 690,
+    caption: "A coffeeshop portrait for the about page.",
   },
   storyImage: {
-    src: "/assets/images/about-me/more-description-image.jpg",
+    src: "/assets/images/ChatGPT Image Mar 15, 2026, 12_04_41 AM.png",
     alt: "Collage representing software engineering and video production.",
-    width: 800,
-    height: 1200,
+    width: 1024,
+    height: 1536,
     caption: "Engineering, design, and production in the same frame.",
   },
   introduction: [
     "As a young student of creativity, I studied Computer Science at the University of Florida and later earned a Film and Video Production degree from Full Sail University. Those two identities collided early and never separated.",
     "I've worked as a full-stack engineer on high-visibility projects, including a consumer-scale onboarding flow used by millions annually. I've also spent years shooting, editing, and producing videos designed to communicate ideas visually and memorably.",
-    "Outside of work, you'll usually find me experimenting with camera setups, writing about product and design, or solving problems no one asked me to solve because that's often where the interesting systems work begins.",
+    "Outside of work, you'll find me experimenting with cameras, writing about design, or solving interesting technical problems.",
   ],
   philosophy: [
-    "Whether I'm engineering a product or producing a video, my philosophy stays the same: clarity over complexity, craft over shortcuts, and emotion over decoration. Code should feel as intentional as narrative editing.",
-    "I believe the best digital products feel less like software and more like stories you move through. Every transition, every interaction, and every frame should serve a purpose.",
-    "I don't see design, engineering, and storytelling as separate disciplines, but as parts of the same system. Strategy informs structure, structure informs visuals, and visuals reinforce meaning.",
+    {
+      heading: "Start with the real friction",
+      paragraphs: [
+        "The first thing I look for is <strong>where the friction actually lives</strong>. I tend to think from the user's point of view first, then work backward into architecture, states, and interface decisions that can support a cleaner experience. That bias toward clarity runs through the <a href=\"/projects\">project work</a> on this site.",
+      ],
+    },
+    {
+      heading: "Build systems that stay usable",
+      paragraphs: [
+        "That is why I care so much about <strong>front-end systems</strong>. I like interfaces that feel deliberate, but visual quality doesn't last if the structure is brittle. Reusable patterns, typed content, and maintainable data flow make good decisions repeatable. If something looks polished but is hard to extend, the job isn't finished. That durability mindset shapes the <a href=\"/blog\">writing and system work</a> behind this site.",
+      ],
+    },
+    {
+      heading: "Use visual thinking practically",
+      paragraphs: [
+        "My film background shapes my work practically. Editing teaches rhythm. Cinematography teaches attention and frame composition. In product work, this shows as pacing, hierarchy, and restraint. The visual side is clearer in my <a href=\"/photos\">photo work</a>, but influences interface decisions.",
+      ],
+    },
+    {
+      heading: "Work at the overlap",
+      paragraphs: [
+        "I don't separate technical and creative work. Engineering gives me reliability and scale concerns. Production gives tone and emotional clarity. <strong>The overlap is where I excel.</strong> I'm most useful when products need solid implementation and a clear experience vision. The resume has the short version; this site the long record.",
+      ],
+    },
   ],
 };

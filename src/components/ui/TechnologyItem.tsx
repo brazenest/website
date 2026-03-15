@@ -9,7 +9,7 @@ type TechnologyItemProps = {
 
 export const TechnologyItemComponent = component$<TechnologyItemProps>(({ item }) => {
   return (
-    <li class="link-list-item">
+    <li class="link-list-item flex flex-col gap-[0.65rem] p-[1rem_1.05rem]">
       <Link href={item.href ?? "/uses"} class="link-list-label technology-link inline-flex items-center gap-[0.6rem]">
         <span class="technology-link__icons" aria-hidden="true">
           {item.icons.map((icon) => (

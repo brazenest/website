@@ -14,6 +14,8 @@ export type MediaAsset = {
 };
 
 export type SiteSettings = {
+  ownerName: string;
+  githubHref: string;
   title: string;
   description: string;
   personName: string;
@@ -149,10 +151,15 @@ export type HomePageContent = {
   heroImage: MediaAsset;
 };
 
+export type ProseSection = {
+  heading: string;
+  paragraphs: string[];
+};
+
 export type AboutPageContent = {
   heroImage: MediaAsset;
   portraitImage: MediaAsset;
   storyImage: MediaAsset;
   introduction: string[];
-  philosophy: string[];
+  philosophy: ProseSection[];
 };

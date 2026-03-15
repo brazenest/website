@@ -3,6 +3,8 @@ import type { SiteLink, SiteSettings } from "./model";
 export const resumeAssetHref = "/assets/files/Resume_with_Cover_Letter_2026-02.pdf";
 
 export const siteSettings: SiteSettings = {
+  ownerName: "Alden Gillespy",
+  githubHref: "https://github.com/brazenest/website",
   title: "Alden Gillespy",
   description:
     "Personal index for Alden Gillespy's engineering, design, writing, and cinematic work.",
@@ -11,7 +13,7 @@ export const siteSettings: SiteSettings = {
   brandTag: "Front-end engineer / design / video",
   location: "Salt Lake City, UT",
   availability: "Open to full-time roles and select freelance work",
-  introHeadline: "I build interfaces with product-grade engineering and cinematic polish.",
+  introHeadline: "I build interfaces that combine product-grade engineering and cinematic polish.",
   positioning:
     "Front-end software engineer, web designer, and video producer bridging resilient systems with visuals that feel intentional.",
   aboutBlurb:
@@ -23,7 +25,7 @@ export const siteSettings: SiteSettings = {
   footerNote:
     "Front-end software engineer, web designer, and video producer.",
   resumeHref: resumeAssetHref,
-  contactHref: "mailto:ag@aldengillespy.com",
+  contactHref: "mailto:contact@aldengillespy.com",
   contactLabel: "Email me",
 };
 

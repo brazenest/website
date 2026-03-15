@@ -2,6 +2,7 @@ export { BlogPostItem } from "./BlogPostItem";
 export { DeferredMediaFigure } from "./DeferredMediaFigure";
 export { Entry } from "./Entry";
 export { MediaFigure } from "./MediaFigure";
+export { PageCallToAction } from "./PageCallToAction";
 export { PageIntro } from "./PageIntro";
 export { PhotoCatalogCard } from "./PhotoCatalogCard";
 export { PhotoGalleryCard } from "./PhotoGalleryCard";

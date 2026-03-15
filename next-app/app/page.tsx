@@ -45,7 +45,7 @@ export default function HomePage() {
 					width: 1024,
 					height: 1024,
 				}}
-				title="I build interfaces with product-grade engineering and cinematic polish."
+				title="I build interfaces that combine product-grade engineering and cinematic polish."
 				subtitle="Full-stack software engineer, web designer, and video producer — bridging resilient systems with visuals that feel intentional."
 				actions={heroActions}
 				pageTitleClassName="text-gray-200"
@@ -64,7 +64,7 @@ export default function HomePage() {
 						height: 200,
 					}}
 				/>
-				
+
 				<CardList>
 					<Card
 						title="Product-grade engineering"

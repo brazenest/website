@@ -11,7 +11,10 @@ export const PageSection = component$<PageSectionProps>(({ title, titleId, title
   const finalTitleId = titleId || (title ? `section-${title.toLowerCase().replace(/\s+/g, "-")}` : undefined);
 
   return (
-    <section class={`page-section ${className || ""}`.trim()} aria-labelledby={finalTitleId}>
+    <section
+      class={`page-section flex flex-col gap-[var(--space-5)] overflow-hidden p-[var(--space-5)] sm:gap-[var(--space-6)] sm:p-[var(--space-6)] ${className || ""}`.trim()}
+      aria-labelledby={finalTitleId}
+    >
       {title && (
         <h2 id={finalTitleId} class={`section-title ${titleClass || ""}`.trim()}>
           {title}
