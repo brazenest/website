@@ -32,6 +32,40 @@ export type SystemThinkingItem = {
   description: string
 }
 
+export type MediaItem = {
+  type: 'image' | 'video'
+  src: string
+  alt?: string
+}
+
+export type ProductionSection = {
+  title: string
+  content?: string
+  media?: MediaItem[]
+}
+
+export type ProductionProject = {
+  id: string
+  title: string
+  slug: string
+  description: string
+  media: MediaItem[]
+  sections: ProductionSection[]
+  seo?: SEO
+}
+
+export type ProductionHeroContent = {
+  headline: string
+  description: string
+  primaryCtaLabel: string
+  primaryCtaHref: string
+}
+
+export type ProcessItem = {
+  title: string
+  description: string
+}
+
 export type HeroContent = {
   name: string
   headline: string
