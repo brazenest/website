@@ -1,7 +1,7 @@
 @import './styles/theme.css';
 
 body {
-  font-family: system-ui, sans-serif;
+  font-family: "Inter Variable", system-ui, sans-serif;
   line-height: 1.5;
 }
 
