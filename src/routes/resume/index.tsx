@@ -23,7 +23,7 @@ export default component$(() => {
     <PageShell theme="neutral">
       <Header />
 
-      <main class="flex-1">
+      <main id="main-content" class="flex-1 scroll-mt-24">
         <Section spacing="hero">
           <Container width="narrow">
             <div class="flex flex-col gap-10 md:gap-12">

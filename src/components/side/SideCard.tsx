@@ -16,7 +16,7 @@ export const SideCard = component$(
           'group flex h-full flex-col rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] p-6 md:p-8',
           'transition duration-150 ease-out hover:-translate-y-0.5 hover:shadow-md',
           accentClass,
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2',
+          'focus-visible:border-[var(--border-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:translate-y-0',
         )}
       >
         <div class="flex flex-1 flex-col gap-4">

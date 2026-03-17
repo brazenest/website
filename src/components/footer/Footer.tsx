@@ -17,30 +17,33 @@ export const Footer = component$(() => {
           <div class="flex flex-col gap-3">
             <p class="text-sm font-semibold tracking-tight">Navigation</p>
             <nav aria-label="Footer" class="flex flex-col gap-2">
-              <a href="/" class="text-sm text-[var(--muted)] transition hover:text-[var(--fg)]">
+              <a
+                href="/"
+                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
+              >
                 Home
               </a>
               <a
                 href="/about"
-                class="text-sm text-[var(--muted)] transition hover:text-[var(--fg)]"
+                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
               >
                 About
               </a>
               <a
                 href="/resume"
-                class="text-sm text-[var(--muted)] transition hover:text-[var(--fg)]"
+                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
               >
                 Resume
               </a>
               <a
                 href="/engineering"
-                class="text-sm text-[var(--muted)] transition hover:text-[var(--fg)]"
+                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
               >
                 Engineering
               </a>
               <a
                 href="/production"
-                class="text-sm text-[var(--muted)] transition hover:text-[var(--fg)]"
+                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
               >
                 Production
               </a>
@@ -53,7 +56,7 @@ export const Footer = component$(() => {
               Let's build something interesting.
             </p>
             <div>
-              <TextLink href="/about" label="Learn more" />
+              <TextLink href="/about" label="Read about Alden Gillespy" />
             </div>
           </div>
         </div>

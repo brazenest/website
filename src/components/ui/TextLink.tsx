@@ -6,8 +6,8 @@ export const TextLink = component$(({ href, label, className }: TextLinkProps) =
     <a
       href={href}
       class={cn(
-        'group inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)] transition duration-150 ease-out hover:opacity-90',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2',
+        'group inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)] underline-offset-4 transition duration-150 ease-out hover:text-[var(--fg)] hover:underline',
+        'focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:underline',
         className,
       )}
     >

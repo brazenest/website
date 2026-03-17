@@ -34,7 +34,7 @@ export default component$(() => {
 		<PageShell theme="neutral">
 			<Header />
 
-			<main className="flex-1">
+			<main id="main-content" class="flex-1 scroll-mt-24">
 				<HomeHero {...heroContent}>
 					<SideSelector items={sideLinkCards} />
 				</HomeHero>
