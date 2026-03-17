@@ -3,6 +3,35 @@ export type SEO = {
   description: string
 }
 
+export type EngineeringSection = {
+  title: string
+  content: string
+}
+
+export type EngineeringProject = {
+  id: string
+  title: string
+  slug: string
+  description: string
+  techStack: string[]
+  sections: EngineeringSection[]
+  seo?: SEO
+}
+
+export type EngineeringHeroContent = {
+  headline: string
+  description: string
+  primaryCtaLabel: string
+  primaryCtaHref: string
+  secondaryCtaLabel: string
+  secondaryCtaHref: string
+}
+
+export type SystemThinkingItem = {
+  title: string
+  description: string
+}
+
 export type HeroContent = {
   name: string
   headline: string
