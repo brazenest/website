@@ -1,10 +1,22 @@
 import { component$ } from '@builder.io/qwik'
+import type { DocumentHead } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
 import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { aboutContent } from '~/content/identity/about'
+import { buildTitle } from '~/fns/seo'
+
+export const head: DocumentHead = {
+  title: buildTitle('About'),
+  meta: [
+    {
+      name: 'description',
+      content: 'About Alden Gillespy — software engineer and visual storyteller.',
+    },
+  ],
+}
 
 export default component$(() => {
   return (

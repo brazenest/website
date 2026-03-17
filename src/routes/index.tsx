@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik'
+import type { DocumentHead } from '@builder.io/qwik-city'
 import { AboutPreview } from '~/components/hero/AboutPreview'
 import { HomeHero } from '~/components/hero/HomeHero'
 import { PageShell } from '~/components/layout/PageShell'
@@ -8,6 +9,25 @@ import { SideSelector } from '~/components/side/SideSelector'
 import { aboutPreviewContent } from '~/content/identity/about-preview'
 import { heroContent } from '~/content/identity/hero'
 import { sideLinkCards } from '~/content/identity/side-links'
+import { buildTitle, personStructuredData } from '~/fns/seo'
+
+export const head: DocumentHead = {
+	title: buildTitle('Home'),
+	meta: [
+		{
+			name: 'description',
+			content: 'Software engineering and cinematic production by Alden Gillespy.',
+		},
+	],
+	scripts: [
+		{
+			props: {
+				type: 'application/ld+json',
+			},
+			script: JSON.stringify(personStructuredData),
+		},
+	],
+}
 
 export default component$(() => {
 	return (
