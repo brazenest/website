@@ -42,7 +42,7 @@ export default component$(() => {
           </Container>
         </Section>
 
-        <Section spacing="default">
+        <Section spacing="compact">
           <Container width="narrow">
             <div id="system-thinking" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">

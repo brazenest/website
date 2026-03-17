@@ -16,17 +16,17 @@ export const EngineeringHero = component$(
     return (
       <Section spacing="hero">
         <Container>
-          <div class="flex flex-col gap-6 md:gap-8">
-            <div class="flex max-w-[72ch] flex-col gap-4 md:gap-5">
+          <div class="flex flex-col gap-5 md:gap-7">
+            <div class="flex max-w-[68ch] flex-col gap-3 md:gap-4">
               <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 Engineering
               </p>
 
-              <h1 class="max-w-[14ch] text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
+              <h1 class="max-w-[12ch] text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
                 {headline}
               </h1>
 
-              <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 {description}
               </p>
             </div>

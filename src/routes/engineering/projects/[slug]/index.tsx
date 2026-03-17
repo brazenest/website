@@ -81,11 +81,11 @@ export default component$(() => {
                 Engineering Project
               </p>
 
-              <h1 class="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
+              <h1 class="max-w-[14ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                 {project.title}
               </h1>
 
-              <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 {project.description}
               </p>
 
@@ -103,12 +103,14 @@ export default component$(() => {
           </Container>
         </Section>
 
-        {project.sections.map((section) => (
-          <Section key={section.title} spacing="default">
+        {project.sections.map((section, index) => (
+          <Section key={section.title} spacing={index === 0 ? 'compact' : 'default'}>
             <Container width="narrow">
               <div class="flex flex-col gap-3 md:gap-4">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">{section.title}</h2>
-                <p class="text-base leading-7 text-[var(--muted)] md:text-lg">{section.content}</p>
+                <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                  {section.content}
+                </p>
               </div>
             </Container>
           </Section>
