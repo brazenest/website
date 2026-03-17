@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik'
+import type { DocumentHead } from '@builder.io/qwik-city'
 import { ProjectGrid } from '~/components/engineering/ProjectGrid'
 import { Footer } from '~/components/footer/Footer'
 import { EngineeringHero } from '~/components/hero/EngineeringHero'
@@ -9,6 +10,18 @@ import { Section } from '~/components/ui/Section'
 import { engineeringHeroContent } from '~/content/engineering/hero'
 import { engineeringProjects } from '~/content/engineering/projects'
 import { systemThinkingItems } from '~/content/engineering/system-thinking'
+import { buildTitle } from '~/fns/seo'
+
+export const head: DocumentHead = {
+  title: buildTitle('Engineering'),
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Software engineering work by Alden Gillespy, focused on systems, frontend architecture, and durable implementation.',
+    },
+  ],
+}
 
 export default component$(() => {
   return (

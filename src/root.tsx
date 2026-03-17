@@ -1,5 +1,5 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
+import { QwikCityProvider, RouterOutlet, useDocumentHead } from "@builder.io/qwik-city";
 import {} from "~/types/ui";
 import "./global.css";
 
@@ -14,11 +14,33 @@ export default component$(() => {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Personal Site v3</title>
+        <DocumentRouterHead />
       </head>
       <body>
         <RouterOutlet />
       </body>
     </QwikCityProvider>
+  );
+});
+
+export const DocumentRouterHead = component$(() => {
+  const head = useDocumentHead();
+
+  return (
+    <>
+      <title>{head.title || "Personal Site v3"}</title>
+      {head.meta.map((meta) => (
+        <meta key={meta.key} {...meta} />
+      ))}
+      {head.links.map((link) => (
+        <link key={link.key} {...link} />
+      ))}
+      {head.styles.map((style) => (
+        <style key={style.key} {...style.props} dangerouslySetInnerHTML={style.style} />
+      ))}
+      {head.scripts.map((script) => (
+        <script key={script.key} {...script.props} dangerouslySetInnerHTML={script.script} />
+      ))}
+    </>
   );
 });
