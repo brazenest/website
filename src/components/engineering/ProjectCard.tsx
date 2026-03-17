@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik'
-import { TextLink } from '@/components/ui/TextLink'
-import type { EngineeringProject } from '@/types/content'
+import { TextLink } from '~/components/ui/TextLink'
+import type { EngineeringProject } from '~/types/content'
 
 export const ProjectCard = component$(
   ({ title, slug, description, techStack }: ProjectCardProps) => {

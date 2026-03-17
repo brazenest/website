@@ -1,4 +1,4 @@
-import type { EngineeringProject } from '@/types/content'
+import type { EngineeringProject } from '~/types/content'
 
 export const andacityBookingSystemProject: EngineeringProject = {
   id: 'andacity-booking-system',

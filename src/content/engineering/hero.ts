@@ -1,4 +1,4 @@
-import type { EngineeringHeroContent } from '@/types/content'
+import type { EngineeringHeroContent } from '~/types/content'
 
 export const engineeringHeroContent: EngineeringHeroContent = {
   headline: 'I design and build software systems.',

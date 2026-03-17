@@ -1,4 +1,4 @@
-import type { SystemThinkingItem } from '@/types/content'
+import type { SystemThinkingItem } from '~/types/content'
 
 export const systemThinkingItems: SystemThinkingItem[] = [
   {

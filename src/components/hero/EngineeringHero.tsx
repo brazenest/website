@@ -1,8 +1,8 @@
 import { component$ } from '@builder.io/qwik'
-import { TextLink } from '@/components/ui/TextLink'
-import { Container } from '@/components/ui/Container'
-import { Section } from '@/components/ui/Section'
-import type { EngineeringHeroContent } from '@/types/content'
+import { TextLink } from '~/components/ui/TextLink'
+import { Container } from '~/components/ui/Container'
+import { Section } from '~/components/ui/Section'
+import type { EngineeringHeroContent } from '~/types/content'
 
 export const EngineeringHero = component$(
   ({

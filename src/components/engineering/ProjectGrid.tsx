@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik'
-import { ProjectCard } from '@/components/engineering/ProjectCard'
-import type { EngineeringProject } from '@/types/content'
+import { ProjectCard } from '~/components/engineering/ProjectCard'
+import type { EngineeringProject } from '~/types/content'
 
 export const ProjectGrid = component$(({ projects }: ProjectGridProps) => {
   return (
