@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig(() => ({
-  plugins: [qwikCity(), qwikVite(), tsconfigPaths()],
+  plugins: [qwikCity({ trailingSlash: false }), qwikVite(), tsconfigPaths()],
   server: {
     headers: {
       "Cache-Control": "no-store",
