@@ -13,6 +13,8 @@ export type EngineeringProject = {
   title: string
   slug: string
   description: string
+  cardDescriptor?: string
+  cardHighlight?: string
   techStack: string[]
   sections: EngineeringSection[]
   seo?: SEO
