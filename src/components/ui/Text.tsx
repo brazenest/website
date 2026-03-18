@@ -10,13 +10,29 @@ type TextProps = {
 type TypographyStyle = {
   fontSize: string
   lineHeight: string
-  color?: string
+  letterSpacing: string
+  color: string
 }
 
 const VARIANT_STYLES: Record<TextVariant, TypographyStyle> = {
-  body: { fontSize: 'var(--text-base)', lineHeight: 'var(--leading-normal)' },
-  muted: { fontSize: 'var(--text-base)', lineHeight: 'var(--leading-normal)', color: 'var(--muted)' },
-  small: { fontSize: 'var(--text-sm)', lineHeight: 'var(--leading-normal)', color: 'var(--muted)' },
+  body: {
+    fontSize: 'var(--body-size)',
+    lineHeight: 'var(--body-leading)',
+    letterSpacing: 'var(--body-tracking)',
+    color: 'var(--text-body)',
+  },
+  muted: {
+    fontSize: 'var(--muted-size)',
+    lineHeight: 'var(--muted-leading)',
+    letterSpacing: 'var(--muted-tracking)',
+    color: 'var(--text-muted)',
+  },
+  small: {
+    fontSize: 'var(--small-size)',
+    lineHeight: 'var(--small-leading)',
+    letterSpacing: 'var(--small-tracking)',
+    color: 'var(--text-muted)',
+  },
 }
 
 export const Text = component$(({ variant = 'body', class: className }: TextProps) => {

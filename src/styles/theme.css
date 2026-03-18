@@ -115,6 +115,20 @@
   --heading-5-tracking: var(--tracking-normal);
   --heading-6-tracking: var(--tracking-normal);
 
+  /* Semantic body text scale */
+  --body-size: var(--text-base);
+  --body-leading: var(--leading-normal);
+  --body-tracking: var(--tracking-normal);
+  --muted-size: var(--text-base);
+  --muted-leading: var(--leading-normal);
+  --muted-tracking: var(--tracking-normal);
+  --small-size: var(--text-sm);
+  --small-leading: var(--leading-normal);
+  --small-tracking: var(--tracking-normal);
+  --text-strong: var(--fg);
+  --text-body: var(--fg);
+  --text-muted: var(--muted);
+
   /* Semantic layout spacing aliases — mobile-first base values */
   --section-pad-y: var(--space-16);
   --section-pad-y-compact: var(--space-12);

@@ -29,7 +29,7 @@ export const Heading = component$(({ level, class: className }: HeadingProps) =>
   const Tag = TAGS[level]
 
   return (
-    <Tag class={cn('font-semibold', className)} style={{ ...LEVEL_STYLES[level], margin: '0' }}>
+    <Tag class={cn('font-semibold text-[var(--text-strong)]', className)} style={{ ...LEVEL_STYLES[level], margin: '0' }}>
       <Slot />
     </Tag>
   )
