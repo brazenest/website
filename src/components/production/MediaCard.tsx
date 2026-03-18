@@ -1,6 +1,6 @@
 import { component$ } from '@builder.io/qwik'
-import { TextLink } from '@/components/ui/TextLink'
-import type { ProductionProject } from '@/types/content'
+import { TextLink } from '~/components/ui/TextLink'
+import type { ProductionProject } from '~/types/content'
 
 export const MediaCard = component$(
   ({ title, slug, description, media }: MediaCardProps) => {

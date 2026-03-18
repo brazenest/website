@@ -1,4 +1,4 @@
-import type { ProcessItem } from '@/types/content'
+import type { ProcessItem } from '~/types/content'
 
 export const processItems: ProcessItem[] = [
   {

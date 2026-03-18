@@ -1,4 +1,4 @@
-import type { ProductionHeroContent } from '@/types/content'
+import type { ProductionHeroContent } from '~/types/content'
 
 export const productionHeroContent: ProductionHeroContent = {
   headline: 'I create cinematic visual work.',

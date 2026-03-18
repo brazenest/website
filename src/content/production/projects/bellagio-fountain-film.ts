@@ -1,4 +1,4 @@
-import type { ProductionProject } from '@/types/content'
+import type { ProductionProject } from '~/types/content'
 
 export const bellagioFountainFilmProject: ProductionProject = {
   id: 'bellagio-fountain-film',
