@@ -86,12 +86,12 @@ export default component$(() => {
               </p>
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                Explore the full case study for a deeper breakdown of framing, pacing, and editorial
-                decisions from concept to final cut.
+                The full case study covers framing decisions, coverage strategy, and editorial choices
+                from concept to final cut.
               </p>
 
               <div class="ui-cta-group flex-col items-start sm:flex-row">
-                <ButtonLink href={caseStudyHref} label="Open Production Case Study" variant="primary" />
+                <ButtonLink href={caseStudyHref} label="Read the Case Study" variant="primary" />
               </div>
             </div>
           </Container>

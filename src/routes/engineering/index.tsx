@@ -7,6 +7,7 @@ import { PageShell } from '~/components/layout/PageShell'
 import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
+import { ButtonLink } from '~/components/ui/ButtonLink'
 import { engineeringHeroContent } from '~/content/engineering/hero'
 import { engineeringProjects } from '~/content/engineering/projects'
 import { systemThinkingItems } from '~/content/engineering/system-thinking'
@@ -60,6 +61,24 @@ export default component$(() => {
                     <p class="text-base leading-7 text-[var(--muted)]">{item.description}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </Container>
+        </Section>
+        <Section spacing="compact">
+          <Container width="content">
+            <div id="engineering-cta" class="flex flex-col gap-4 md:gap-5">
+              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                Next
+              </p>
+
+              <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                Each case study covers the system decisions, architecture tradeoffs, and
+                implementation details behind the work.
+              </p>
+
+              <div class="ui-cta-group flex-col items-start sm:flex-row">
+                <ButtonLink href="/engineering#selected-work" label="Browse Engineering Projects" variant="primary" />
               </div>
             </div>
           </Container>

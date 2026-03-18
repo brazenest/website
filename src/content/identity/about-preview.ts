@@ -6,5 +6,5 @@ export const aboutPreviewContent: AboutPreviewContent = {
   description:
     'Engineering documents architecture and implementation decisions. Production documents framing, coverage, and editorial storytelling.',
   href: '/about',
-  ctaLabel: 'Learn More',
+  ctaLabel: 'About the Work',
 }
