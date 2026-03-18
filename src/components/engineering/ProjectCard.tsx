@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { Card } from '~/components/ui/Card'
 import { Heading } from '~/components/ui/Heading'
+import { Tag } from '~/components/ui/Tag'
 import { Text } from '~/components/ui/Text'
 import { TextLink } from '~/components/ui/TextLink'
 import type { EngineeringProject } from '~/types/content'
@@ -15,18 +16,10 @@ export const ProjectCard = component$(
             <Text variant="muted">{description}</Text>
           </div>
 
-          <ul class="flex flex-wrap gap-2" style={{ paddingTop: 'var(--card-meta-gap)' }}>
+          <ul class="ui-tag-list" style={{ paddingTop: 'var(--card-meta-gap)' }}>
             {techStack.map((tech) => (
-              <li
-                key={tech}
-                class="rounded-[var(--radius-input)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1 font-medium text-[var(--text-muted)]"
-                style={{
-                  fontSize: 'var(--small-size)',
-                  lineHeight: 'var(--small-leading)',
-                  letterSpacing: 'var(--small-tracking)',
-                }}
-              >
-                {tech}
+              <li key={tech}>
+                <Tag>{tech}</Tag>
               </li>
             ))}
           </ul>

@@ -31,7 +31,7 @@ const VARIANT_STYLES: Record<TextVariant, TypographyStyle> = {
     fontSize: 'var(--small-size)',
     lineHeight: 'var(--small-leading)',
     letterSpacing: 'var(--small-tracking)',
-    color: 'var(--text-muted)',
+    color: 'var(--meta-fg)',
   },
 }
 
