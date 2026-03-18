@@ -14,7 +14,7 @@ export const EngineeringHero = component$(
     secondaryCtaHref,
   }: EngineeringHeroProps) => {
     return (
-      <Section spacing="hero">
+      <Section spacing="spacious">
         <Container>
           <div class="flex flex-col gap-5 md:gap-7">
             <div class="flex max-w-[68ch] flex-col gap-3 md:gap-4">

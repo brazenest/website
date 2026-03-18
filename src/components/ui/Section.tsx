@@ -4,7 +4,7 @@ import type { SectionSpacing } from '~/types/ui'
 const SPACING_TOKEN: Record<NonNullable<SectionSpacing>, string> = {
   default: 'var(--section-pad-y)',
   compact: 'var(--section-pad-y-compact)',
-  hero: 'var(--section-pad-y-hero)',
+  spacious: 'var(--section-pad-y-spacious)',
 }
 
 export const Section = component$(({ spacing = 'default' }: SectionProps) => {

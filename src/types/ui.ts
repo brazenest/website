@@ -1,6 +1,6 @@
 export type ThemeName = 'neutral' | 'engineering' | 'production'
 
-export type SectionSpacing = 'compact' | 'default' | 'hero'
+export type SectionSpacing = 'compact' | 'default' | 'spacious'
 export type ContainerWidth = 'default' | 'narrow'
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6

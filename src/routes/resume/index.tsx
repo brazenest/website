@@ -24,7 +24,7 @@ export default component$(() => {
       <Header />
 
       <main id="main-content" class="flex-1 scroll-mt-24">
-        <Section spacing="hero">
+        <Section spacing="spacious">
           <Container width="narrow">
             <div class="flex flex-col gap-10 md:gap-12">
               <div class="flex flex-col gap-3 md:gap-4">

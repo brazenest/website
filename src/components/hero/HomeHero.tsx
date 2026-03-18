@@ -5,7 +5,7 @@ import type { HeroContent } from '~/types/content'
 
 export const HomeHero = component$(({ name, headline, description }: HomeHeroProps) => {
   return (
-    <Section spacing="hero">
+    <Section spacing="spacious">
       <Container>
         <div class="flex flex-col gap-8 md:gap-10">
           <div class="flex max-w-[70ch] flex-col gap-4 md:gap-6">

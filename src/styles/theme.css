@@ -98,7 +98,7 @@
   /* Semantic layout spacing aliases — mobile-first base values */
   --section-pad-y: var(--space-16);
   --section-pad-y-compact: var(--space-12);
-  --section-pad-y-hero: 5rem;
+  --section-pad-y-spacious: 5rem;
   --container-pad-x: var(--space-4);
   --stack-gap-sm: var(--space-2);
   --stack-gap-md: var(--space-4);
@@ -167,7 +167,7 @@
   :root {
     --section-pad-y: 6rem;
     --section-pad-y-compact: var(--space-16);
-    --section-pad-y-hero: 7rem;
+    --section-pad-y-spacious: 7rem;
     --container-pad-x: var(--space-8);
   }
 }

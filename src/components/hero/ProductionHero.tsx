@@ -7,7 +7,7 @@ import type { ProductionHeroContent } from '@/types/content'
 export const ProductionHero = component$(
   ({ headline, description, primaryCtaLabel, primaryCtaHref }: ProductionHeroProps) => {
     return (
-      <Section spacing="hero">
+      <Section spacing="spacious">
         <Container>
           <div class="flex flex-col gap-6 md:gap-8">
             <div class="flex max-w-[72ch] flex-col gap-4 md:gap-5">

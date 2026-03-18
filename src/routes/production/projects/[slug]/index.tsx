@@ -47,7 +47,7 @@ export default component$(() => {
         <Header />
 
         <main id="main-content" class="flex-1">
-          <Section spacing="hero">
+          <Section spacing="spacious">
             <Container width="narrow">
               <div class="flex flex-col gap-4">
                 <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
@@ -76,7 +76,7 @@ export default component$(() => {
       <Header />
 
       <main id="main-content" class="flex-1">
-        <Section spacing="hero">
+        <Section spacing="spacious">
           <Container>
             <div class="flex flex-col gap-6 md:gap-8">
               <div class="aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)]">
