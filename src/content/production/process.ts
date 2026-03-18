@@ -2,18 +2,18 @@ import type { ProcessItem } from '~/types/content'
 
 export const processItems: ProcessItem[] = [
   {
-    title: 'Composition first',
+    title: 'Frame the story before shooting',
     description:
-      'I pay close attention to framing, spacing, and how visual elements direct attention within the shot.',
+      'Before capture, I define the story beat for each sequence and choose composition, lensing, and movement to support it.',
   },
   {
-    title: 'Editorial rhythm',
+    title: 'Capture coverage with edit intent',
     description:
-      'Editing is not just assembly. I use pacing and sequencing to create clarity, mood, and narrative movement.',
+      'I shoot wide, medium, and detail coverage with planned transitions so the edit has options without losing continuity.',
   },
   {
-    title: 'Practical storytelling',
+    title: 'Cut for rhythm and emotional clarity',
     description:
-      'Even visually driven work benefits from structure, intention, and a clear sense of what the viewer should feel or understand.',
+      'In post, pacing and shot order are tuned to guide attention and build momentum while keeping the story legible.',
   },
 ]
