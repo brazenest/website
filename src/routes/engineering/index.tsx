@@ -35,10 +35,11 @@ export default component$(() => {
           <Container>
             <div id="selected-work" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Engineering Work</h2>
+                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Engineering Case Studies</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Start with outcomes that show architecture, data modeling, and implementation
-                  tradeoffs under real product constraints.
+                  Start with compact case studies. Each project surfaces the operating challenge,
+                  the engineering role I held, and the architectural judgment that made the system
+                  resilient and maintainable.
                 </p>
               </div>
 

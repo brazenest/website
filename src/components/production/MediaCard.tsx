@@ -52,7 +52,7 @@ export const MediaCard = component$(
             <TextLink
               href={`/production/projects/${slug}`}
               label="View production case study"
-              className="inline-flex min-h-10 items-center"
+              class="inline-flex min-h-10 items-center"
             />
           </div>
         </div>

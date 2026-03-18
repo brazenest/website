@@ -17,17 +17,32 @@ export const ProjectCard = component$(
           <div class="flex flex-col" style={{ gap: 'var(--card-title-body-gap)' }}>
             <Heading level={3}>{title}</Heading>
 
-            {cardDescriptor ? (
-              <p class="text-sm font-medium text-[var(--fg)]">{cardDescriptor}</p>
-            ) : null}
+            <div class="flex flex-col gap-3 md:gap-3.5">
+              {cardDescriptor ? (
+                <div class="flex flex-col gap-1">
+                  <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                    Role and scope
+                  </p>
+                  <p class="text-sm leading-6 text-[var(--fg)]">{cardDescriptor}</p>
+                </div>
+              ) : null}
 
-            <Text variant="muted">{description}</Text>
+              <div class="flex flex-col gap-1">
+                <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                  Project challenge
+                </p>
+                <Text variant="muted">{description}</Text>
+              </div>
 
-            {cardHighlight ? (
-              <p class="text-sm leading-6 text-[var(--muted)]">
-                <span class="font-medium text-[var(--fg)]">Key outcome:</span> {cardHighlight}
-              </p>
-            ) : null}
+              {cardHighlight ? (
+                <div class="flex flex-col gap-1">
+                  <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                    Why it mattered
+                  </p>
+                  <p class="text-sm leading-6 text-[var(--muted)]">{cardHighlight}</p>
+                </div>
+              ) : null}
+            </div>
           </div>
 
           <ul class="ui-tag-list pt-3 md:pt-2">
@@ -48,7 +63,7 @@ export const ProjectCard = component$(
             <TextLink
               href={`/engineering/projects/${slug}`}
               label="Read engineering case study"
-              className="inline-flex min-h-10 items-center"
+              class="inline-flex min-h-10 items-center"
             />
           </div>
         </div>
