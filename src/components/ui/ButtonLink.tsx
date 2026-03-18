@@ -9,6 +9,7 @@ type ButtonLinkProps = {
   label: string
   variant?: ButtonVariant
   size?: ButtonSize
+  disabled?: boolean
   class?: string
 }
 
@@ -24,9 +25,14 @@ const SIZE_CLASS: Record<ButtonSize, string> = {
 }
 
 export const ButtonLink = component$(
-  ({ href, label, variant = 'secondary', size = 'md', class: className }: ButtonLinkProps) => {
+  ({ href, label, variant = 'secondary', size = 'md', disabled = false, class: className }: ButtonLinkProps) => {
     return (
-      <a href={href} class={cn('ui-button-link', VARIANT_CLASS[variant], SIZE_CLASS[size], className)}>
+      <a
+        href={disabled ? undefined : href}
+        aria-disabled={disabled ? 'true' : undefined}
+        tabIndex={disabled ? -1 : undefined}
+        class={cn('ui-button-link', VARIANT_CLASS[variant], SIZE_CLASS[size], className)}
+      >
         {label}
       </a>
     )

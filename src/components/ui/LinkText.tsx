@@ -5,6 +5,7 @@ type LinkTextProps = {
   href?: string
   label: string
   showArrow?: boolean
+  disabled?: boolean
   class?: string
 }
 
@@ -14,7 +15,7 @@ const LINK_TEXT_STYLE = {
   letterSpacing: 'var(--small-tracking)',
 }
 
-export const LinkText = component$(({ href, label, showArrow = false, class: className }: LinkTextProps) => {
+export const LinkText = component$(({ href, label, showArrow = false, disabled = false, class: className }: LinkTextProps) => {
   const rootClass = cn('ui-link inline-flex items-center gap-[var(--stack-gap-sm)] group', className)
 
   const content = (
@@ -28,7 +29,7 @@ export const LinkText = component$(({ href, label, showArrow = false, class: cla
     </>
   )
 
-  if (href) {
+  if (href && !disabled) {
     return (
       <a href={href} class={rootClass} style={LINK_TEXT_STYLE}>
         {content}
@@ -37,7 +38,7 @@ export const LinkText = component$(({ href, label, showArrow = false, class: cla
   }
 
   return (
-    <span class={rootClass} style={LINK_TEXT_STYLE}>
+    <span aria-disabled={disabled ? 'true' : undefined} class={rootClass} style={LINK_TEXT_STYLE}>
       {content}
     </span>
   )

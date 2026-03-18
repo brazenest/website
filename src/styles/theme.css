@@ -131,12 +131,22 @@
 
   /* Semantic interactive text */
   --link-color: var(--accent);
-  --link-color-hover: var(--text-strong);
+  --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
   --link-decoration: underline;
   --link-decoration-hover: underline;
   --interactive-text-weight: 500;
-  --focus-ring-color: var(--focus);
+  --focus-ring-color: var(--state-focus-ring);
+
+  /* Semantic interaction states */
+  --state-hover-surface: var(--surface-subtle);
+  --state-hover-border: var(--border-strong);
+  --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
+  --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
+  --state-active-border: color-mix(in srgb, var(--accent) 80%, black);
+  --state-focus-ring: var(--focus);
+  --state-focus-ring-offset: 2px;
+  --state-disabled-opacity: 0.45;
 
   /* Semantic CTA/button system */
   --button-height-sm: 2.25rem;
@@ -153,7 +163,7 @@
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
-  --button-focus-ring: var(--focus-ring-color);
+  --button-focus-ring: var(--state-focus-ring);
 
   /* Semantic tag and metadata system */
   --tag-height: 1.75rem;
@@ -214,16 +224,24 @@
   --accent: var(--color-neutral-700);
   --focus: var(--color-neutral-700);
   --link-color: var(--accent);
-  --link-color-hover: var(--text-strong);
+  --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
-  --focus-ring-color: var(--focus);
+  --focus-ring-color: var(--state-focus-ring);
+  --state-hover-surface: var(--surface-subtle);
+  --state-hover-border: var(--border-strong);
+  --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
+  --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
+  --state-active-border: color-mix(in srgb, var(--accent) 80%, black);
+  --state-focus-ring: var(--focus);
+  --state-focus-ring-offset: 2px;
+  --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
   --button-fg-primary: var(--color-neutral-0);
   --button-bg-secondary: var(--surface);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
-  --button-focus-ring: var(--focus-ring-color);
+  --button-focus-ring: var(--state-focus-ring);
   --tag-border: var(--border);
   --tag-bg: var(--surface-subtle);
   --tag-fg: var(--meta-fg);
@@ -246,16 +264,24 @@
   --accent: var(--color-engineering-500);
   --focus: var(--color-engineering-500);
   --link-color: var(--accent);
-  --link-color-hover: var(--text-strong);
+  --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
-  --focus-ring-color: var(--focus);
+  --focus-ring-color: var(--state-focus-ring);
+  --state-hover-surface: var(--surface-subtle);
+  --state-hover-border: var(--border-strong);
+  --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
+  --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
+  --state-active-border: color-mix(in srgb, var(--accent) 80%, black);
+  --state-focus-ring: var(--focus);
+  --state-focus-ring-offset: 2px;
+  --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
   --button-fg-primary: var(--color-neutral-0);
   --button-bg-secondary: var(--surface);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
-  --button-focus-ring: var(--focus-ring-color);
+  --button-focus-ring: var(--state-focus-ring);
   --tag-border: var(--border);
   --tag-bg: var(--surface-subtle);
   --tag-fg: var(--meta-fg);
@@ -278,16 +304,24 @@
   --accent: var(--color-production-500);
   --focus: var(--color-production-500);
   --link-color: var(--accent);
-  --link-color-hover: var(--text-strong);
+  --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
-  --focus-ring-color: var(--focus);
+  --focus-ring-color: var(--state-focus-ring);
+  --state-hover-surface: var(--surface-subtle);
+  --state-hover-border: var(--border-strong);
+  --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
+  --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
+  --state-active-border: color-mix(in srgb, var(--accent) 80%, black);
+  --state-focus-ring: var(--focus);
+  --state-focus-ring-offset: 2px;
+  --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
   --button-fg-primary: var(--color-neutral-0);
   --button-bg-secondary: var(--surface);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
-  --button-focus-ring: var(--focus-ring-color);
+  --button-focus-ring: var(--state-focus-ring);
   --tag-border: var(--border);
   --tag-bg: var(--surface-subtle);
   --tag-fg: var(--meta-fg);
@@ -363,6 +397,7 @@ a {
   font-weight: var(--button-font-weight);
   line-height: 1;
   text-decoration: none;
+  cursor: pointer;
   transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
 }
 
@@ -377,7 +412,8 @@ a {
 }
 
 .ui-button-link--primary:hover {
-  filter: brightness(0.95);
+  background: var(--state-hover-accent);
+  border-color: var(--state-hover-accent);
 }
 
 .ui-button-link--secondary {
@@ -387,7 +423,8 @@ a {
 }
 
 .ui-button-link--secondary:hover {
-  background: var(--surface-subtle);
+  background: var(--state-hover-surface);
+  border-color: var(--state-hover-border);
 }
 
 .ui-button-link--ghost {
@@ -397,12 +434,29 @@ a {
 }
 
 .ui-button-link--ghost:hover {
-  background: var(--surface-subtle);
+  background: var(--state-hover-surface);
+  border-color: var(--state-hover-border);
+}
+
+.ui-button-link--primary:active {
+  background: var(--state-active-border);
+  border-color: var(--state-active-border);
+}
+
+.ui-button-link--secondary:active,
+.ui-button-link--ghost:active {
+  background: var(--state-active-surface);
+  border-color: var(--state-active-border);
 }
 
 .ui-button-link:focus-visible {
-  outline: 2px solid var(--button-focus-ring);
-  outline-offset: 2px;
+  outline: 2px solid var(--state-focus-ring);
+  outline-offset: var(--state-focus-ring-offset);
+}
+
+.ui-button-link[aria-disabled='true'] {
+  opacity: var(--state-disabled-opacity);
+  pointer-events: none;
 }
 
 .ui-tag-list {
@@ -449,7 +503,17 @@ a {
 }
 
 .ui-card--interactive {
+  cursor: pointer;
   transition: transform 150ms ease-out, box-shadow 150ms ease-out, border-color 150ms ease-out;
+}
+
+.ui-card--interactive:hover {
+  background: var(--state-hover-surface);
+}
+
+.ui-card--interactive:active {
+  background: var(--state-active-surface);
+  border-color: var(--state-active-border);
 }
 
 @media (min-width: 768px) {
@@ -461,8 +525,8 @@ a {
 
 .ui-card--interactive:focus-visible {
   border-radius: var(--card-radius);
-  outline: 2px solid var(--focus-ring-color);
-  outline-offset: 2px;
+  outline: 2px solid var(--state-focus-ring);
+  outline-offset: var(--state-focus-ring-offset);
 }
 
 /* Shared interactive text treatment for inline links and text-based CTAs. */
@@ -479,12 +543,21 @@ a {
 }
 
 :where(.ui-link, .ui-text a):hover {
-  color: var(--link-color-hover);
+  color: var(--state-hover-accent);
   text-decoration-line: var(--link-decoration-hover);
+}
+
+:where(.ui-link, .ui-text a):active {
+  color: var(--state-active-border);
+}
+
+:where(.ui-link, .ui-text a)[aria-disabled='true'] {
+  opacity: var(--state-disabled-opacity);
+  pointer-events: none;
 }
 
 :where(.ui-link, .ui-text a):focus-visible {
   border-radius: var(--radius-sm);
-  outline: 2px solid var(--focus-ring-color);
-  outline-offset: 2px;
+  outline: 2px solid var(--state-focus-ring);
+  outline-offset: var(--state-focus-ring-offset);
 }
