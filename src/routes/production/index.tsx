@@ -32,7 +32,7 @@ export default component$(() => {
     <PageShell theme="production">
       <Header />
 
-      <main id="main-content" class="flex-1">
+      <main id="main-content" class="flex-1 p-0">
         <ProductionHero {...productionHeroContent} />
 
         <Section spacing="default">
@@ -90,8 +90,13 @@ export default component$(() => {
                 coverage strategy, and editorial choices from concept to final cut.
               </p>
 
-              <div class="ui-cta-group flex-col items-start sm:flex-row">
-                <ButtonLink href={caseStudyHref} label="Read the Case Study" variant="primary" />
+              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+                <ButtonLink
+                  href={caseStudyHref}
+                  label="Read the Case Study"
+                  variant="primary"
+                  class="w-full sm:w-auto"
+                />
               </div>
             </div>
           </Container>

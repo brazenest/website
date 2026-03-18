@@ -14,15 +14,15 @@ export const EngineeringHero = component$(
     secondaryCtaHref,
   }: EngineeringHeroProps) => {
     return (
-      <Section spacing="spacious">
+      <Section spacing="default">
         <Container>
-          <div class="flex flex-col gap-5 md:gap-7">
+          <div class="flex flex-col gap-4 md:gap-7">
             <div class="flex max-w-[68ch] flex-col gap-3 md:gap-4">
               <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 Engineering
               </p>
 
-              <h1 class="max-w-[12ch] text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
+              <h1 class="max-w-[15ch] text-4xl font-semibold leading-tight tracking-tight md:max-w-[12ch] md:text-6xl">
                 {headline}
               </h1>
 
@@ -31,9 +31,19 @@ export const EngineeringHero = component$(
               </p>
             </div>
 
-            <div class="ui-cta-group flex-col items-start sm:flex-row">
-              <ButtonLink href={primaryCtaHref} label={primaryCtaLabel} variant="primary" />
-              <ButtonLink href={secondaryCtaHref} label={secondaryCtaLabel} variant="secondary" />
+            <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+              <ButtonLink
+                href={primaryCtaHref}
+                label={primaryCtaLabel}
+                variant="primary"
+                class="w-full sm:w-auto"
+              />
+              <ButtonLink
+                href={secondaryCtaHref}
+                label={secondaryCtaLabel}
+                variant="secondary"
+                class="w-full sm:w-auto"
+              />
             </div>
           </div>
         </Container>

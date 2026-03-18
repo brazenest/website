@@ -28,7 +28,7 @@ export default component$(() => {
   return (
     <PageShell theme="engineering">
       <Header />
-      <main id="main-content" class="flex-1">
+      <main id="main-content" class="flex-1 p-0">
         <EngineeringHero {...engineeringHeroContent} />
 
         <Section spacing="default">
@@ -81,8 +81,13 @@ export default component$(() => {
                 implementation detail.
               </p>
 
-              <div class="ui-cta-group flex-col items-start sm:flex-row">
-                <ButtonLink href="/engineering#selected-work" label="Browse Engineering Projects" variant="primary" />
+              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+                <ButtonLink
+                  href="/engineering#selected-work"
+                  label="Browse Engineering Projects"
+                  variant="primary"
+                  class="w-full sm:w-auto"
+                />
               </div>
             </div>
           </Container>

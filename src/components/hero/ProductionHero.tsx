@@ -7,15 +7,15 @@ import type { ProductionHeroContent } from '~/types/content'
 export const ProductionHero = component$(
   ({ headline, description, primaryCtaLabel, primaryCtaHref }: ProductionHeroProps) => {
     return (
-      <Section spacing="spacious">
+      <Section spacing="default">
         <Container>
-          <div class="flex flex-col gap-6 md:gap-8">
-            <div class="flex max-w-[72ch] flex-col gap-4 md:gap-5">
+          <div class="flex flex-col gap-5 md:gap-8">
+            <div class="flex max-w-[72ch] flex-col gap-3 md:gap-5">
               <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 Production
               </p>
 
-              <h1 class="max-w-[15ch] text-4xl font-semibold leading-tight tracking-tight md:text-6xl">
+              <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:max-w-[15ch] md:text-6xl">
                 {headline}
               </h1>
 
@@ -24,8 +24,13 @@ export const ProductionHero = component$(
               </p>
             </div>
 
-            <div class="ui-cta-group">
-              <ButtonLink href={primaryCtaHref} label={primaryCtaLabel} variant="primary" />
+            <div class="ui-cta-group w-full">
+              <ButtonLink
+                href={primaryCtaHref}
+                label={primaryCtaLabel}
+                variant="primary"
+                class="w-full sm:w-auto"
+              />
             </div>
           </div>
         </Container>

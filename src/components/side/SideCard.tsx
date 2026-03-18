@@ -20,7 +20,7 @@ export const SideCard = component$(
         padding="spacious"
         class={cn(
           accentBorderClass,
-          'focus-visible:border-[var(--link-color)]',
+          'touch-manipulation focus-visible:border-[var(--link-color)]',
         )}
       >
         <div class="flex flex-1 flex-col" style={{ gap: 'var(--card-content-gap)' }}>
@@ -29,7 +29,7 @@ export const SideCard = component$(
             {description}
           </Text>
 
-          <div style={{ paddingTop: 'var(--card-cta-gap)' }}>
+          <div class="pt-3 md:pt-2">
             <LinkText
               label={ctaLabel}
               showArrow

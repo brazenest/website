@@ -30,7 +30,7 @@ export const ProjectCard = component$(
             ) : null}
           </div>
 
-          <ul class="ui-tag-list" style={{ paddingTop: 'var(--card-meta-gap)' }}>
+          <ul class="ui-tag-list pt-3 md:pt-2">
             {visibleTech.map((tech) => (
               <li key={tech}>
                 <Tag>{tech}</Tag>
@@ -44,8 +44,12 @@ export const ProjectCard = component$(
             ) : null}
           </ul>
 
-          <div style={{ paddingTop: 'var(--card-cta-gap)' }}>
-            <TextLink href={`/engineering/projects/${slug}`} label="Read engineering case study" />
+          <div class="pt-3 md:pt-2">
+            <TextLink
+              href={`/engineering/projects/${slug}`}
+              label="Read engineering case study"
+              className="inline-flex min-h-10 items-center"
+            />
           </div>
         </div>
       </Card>

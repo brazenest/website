@@ -48,8 +48,12 @@ export const MediaCard = component$(
             ) : null}
           </div>
 
-          <div style={{ paddingTop: 'var(--card-cta-gap)' }}>
-            <TextLink href={`/production/projects/${slug}`} label="View production case study" />
+          <div class="pt-3 md:pt-2">
+            <TextLink
+              href={`/production/projects/${slug}`}
+              label="View production case study"
+              className="inline-flex min-h-10 items-center"
+            />
           </div>
         </div>
       </Card>

@@ -34,7 +34,7 @@ export default component$(() => {
 		<PageShell theme="neutral">
 			<Header />
 
-			<main id="main-content" class="flex-1 scroll-mt-24">
+			<main id="main-content" class="flex-1 scroll-mt-24 p-0">
 				<HomeHero {...heroContent}>
 					<div class="flex flex-col gap-4 md:gap-5">
 						<p class="max-w-[62ch] text-sm leading-6 text-[var(--muted)] md:text-base">
