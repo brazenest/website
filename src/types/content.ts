@@ -98,6 +98,23 @@ export type AboutContent = {
   paragraphs: string[]
 }
 
+export type BlogPostSide = 'engineering' | 'production' | 'bridge'
+
+export type BlogPostSection = {
+  title: string
+  paragraphs: string[]
+}
+
+export type BlogPost = {
+  title: string
+  slug: string
+  date: string
+  summary: string
+  side: BlogPostSide
+  published: boolean
+  sections: BlogPostSection[]
+}
+
 export type ResumeEntry = {
   title: string
   organization: string
