@@ -5,7 +5,8 @@ import { PageShell } from '~/components/layout/PageShell'
 import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
-import { resumeExperience, resumeSkills } from '~/content/identity/resume'
+import { TextLink } from '~/components/ui/TextLink'
+import { resumePageContent } from '~/content/resume'
 import { buildTitle } from '~/fns/seo'
 
 export const head: DocumentHead = {
@@ -13,7 +14,8 @@ export const head: DocumentHead = {
   meta: [
     {
       name: 'description',
-      content: 'Resume of Alden Gillespy — engineering and production experience.',
+      content:
+        'Web resume for Alden Gillespy across software engineering, systems thinking, and production storytelling.',
     },
   ],
 }
@@ -25,35 +27,87 @@ export default component$(() => {
 
       <main id="main-content" class="flex-1 scroll-mt-24">
         <Section spacing="spacious">
-          <Container width="content">
-            <div class="flex flex-col gap-10 md:gap-12">
-              <div class="flex flex-col gap-3 md:gap-4">
-                <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                  Resume
-                </p>
+          <Container width="wide">
+            <div class="flex flex-col gap-12 md:gap-16">
+              <header class="grid gap-8 border-b border-[var(--border)] pb-10 md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] md:items-start md:gap-10 md:pb-12">
+                <div class="flex flex-col gap-3 md:gap-4">
+                  <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                    {resumePageContent.header.eyebrow}
+                  </p>
 
-                <h1 class="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-                  Experience and skills
-                </h1>
+                  <div class="flex flex-col gap-2">
+                    <h1 class="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
+                      {resumePageContent.header.name}
+                    </h1>
 
-                <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  A structured overview of software engineering, production, and related work.
-                </p>
-              </div>
+                    <p class="text-lg font-medium leading-7 text-[var(--muted)] md:text-xl">
+                      {resumePageContent.header.title}
+                    </p>
+                  </div>
+                </div>
 
-              <section class="flex flex-col gap-6 md:gap-8" aria-labelledby="resume-experience">
-                <h2
-                  id="resume-experience"
-                  class="text-2xl font-semibold tracking-tight md:text-3xl"
-                >
-                  Experience
+                <div class="flex flex-col gap-3 md:gap-4">
+                  <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                    Contact
+                  </p>
+
+                  <ul class="grid gap-2 text-sm leading-6 text-[var(--muted)] md:text-base">
+                    {resumePageContent.header.contactItems.map((item) => (
+                      <li key={`${item.label}-${'href' in item ? item.href : 'text'}`}>
+                        {'href' in item ? (
+                          <a
+                            href={item.href}
+                            target={item.href.startsWith('http') ? '_blank' : undefined}
+                            rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+                            class="rounded-[var(--radius-lg)] transition hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
+                          >
+                            {item.label}
+                          </a>
+                        ) : (
+                          <span>{item.label}</span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </header>
+
+              <section
+                class="grid gap-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+                aria-labelledby="resume-summary"
+              >
+                <h2 id="resume-summary" class="text-2xl font-semibold tracking-tight md:text-3xl">
+                  Summary
                 </h2>
 
-                <div class="flex flex-col gap-6 md:gap-8">
-                  {resumeExperience.map((entry) => (
+                <p class="max-w-[72ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                  {resumePageContent.summary}
+                </p>
+              </section>
+
+              <section
+                class="grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+                aria-labelledby="resume-experience"
+              >
+                <div class="flex flex-col gap-2">
+                  <h2
+                    id="resume-experience"
+                    class="text-2xl font-semibold tracking-tight md:text-3xl"
+                  >
+                    Experience
+                  </h2>
+
+                  <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
+                    Reverse-chronological roles focused on product delivery, reliability, and
+                    full-stack system ownership.
+                  </p>
+                </div>
+
+                <div class="flex flex-col gap-8 md:gap-10">
+                  {resumePageContent.experience.map((entry) => (
                     <article
-                      key={`${entry.title}-${entry.organization}-${entry.start}`}
-                      class="flex flex-col gap-3 border-t border-[var(--border)] pt-6 first:border-t-0 first:pt-0"
+                      key={`${entry.title}-${entry.organization}-${entry.timeframe}`}
+                      class="grid gap-4 border-t border-[var(--border)] pt-6 first:border-t-0 first:pt-0 md:grid-cols-[minmax(15rem,18rem)_minmax(0,1fr)] md:gap-8"
                     >
                       <div class="flex flex-col gap-1">
                         <h3 class="text-lg font-semibold tracking-tight md:text-xl">
@@ -65,12 +119,16 @@ export default component$(() => {
                         </p>
 
                         <p class="text-sm text-[var(--muted)]">
-                          {entry.start} — {entry.end ?? 'Present'}
+                          {entry.timeframe}
+                        </p>
+
+                        <p class="text-sm text-[var(--muted)]">
+                          {entry.context}
                         </p>
                       </div>
 
                       <ul class="flex flex-col gap-2 pl-5 text-sm leading-6 text-[var(--fg)] md:text-base">
-                        {entry.description.map((item) => (
+                        {entry.bullets.map((item) => (
                           <li key={item} class="list-disc">
                             {item}
                           </li>
@@ -80,7 +138,69 @@ export default component$(() => {
                   ))}
                 </div>
               </section>
+            </div>
+          </Container>
+        </Section>
 
+        <Section spacing="compact" surface="subtle">
+          <Container width="wide">
+            <section
+              class="grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+              aria-labelledby="resume-selected-projects"
+            >
+              <div class="flex flex-col gap-2">
+                <h2
+                  id="resume-selected-projects"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
+                  Selected Projects
+                </h2>
+
+                <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
+                  Compact cross-disciplinary examples adapted from the longer engineering and
+                  production case studies.
+                </p>
+              </div>
+
+              <div class="grid gap-4 md:grid-cols-2">
+                {resumePageContent.selectedProjects.map((project) => (
+                  <article
+                    key={`${project.discipline}-${project.title}`}
+                    class="flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                  >
+                    <div class="flex flex-col gap-2">
+                      <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                        {project.discipline}
+                      </p>
+
+                      <div class="flex flex-col gap-1">
+                        <h3 class="text-lg font-semibold tracking-tight md:text-xl">
+                          {project.title}
+                        </h3>
+
+                        <p class="text-sm font-medium text-[var(--muted)] md:text-base">
+                          {project.role}
+                        </p>
+                      </div>
+                    </div>
+
+                    <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
+                      {project.description}
+                    </p>
+
+                    <div class="mt-auto pt-1">
+                      <TextLink href={project.href} label="View case study" />
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </Container>
+        </Section>
+
+        <Section spacing="compact">
+          <Container width="wide">
+            <div class="grid gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:gap-12">
               <section class="flex flex-col gap-5 md:gap-6" aria-labelledby="resume-skills">
                 <h2
                   id="resume-skills"
@@ -89,16 +209,65 @@ export default component$(() => {
                   Skills
                 </h2>
 
-                <ul class="flex flex-wrap gap-3">
-                  {resumeSkills.map((skill) => (
-                    <li
-                      key={skill}
-                      class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-sm text-[var(--fg)]"
+                <div class="grid gap-4">
+                  {resumePageContent.skills.map((group) => (
+                    <article
+                      key={group.title}
+                      class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
                     >
-                      {skill}
-                    </li>
+                      <h3 class="text-lg font-semibold tracking-tight md:text-xl">
+                        {group.title}
+                      </h3>
+
+                      <ul class="flex flex-wrap gap-2">
+                        {group.items.map((item) => (
+                          <li
+                            key={`${group.title}-${item}`}
+                            class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)] px-3 py-2 text-sm text-[var(--fg)]"
+                          >
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
                   ))}
-                </ul>
+                </div>
+              </section>
+
+              <section class="flex flex-col gap-6 md:gap-8" aria-labelledby="resume-education">
+                <h2
+                  id="resume-education"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
+                  Education
+                </h2>
+
+                <div class="flex flex-col gap-5 md:gap-6">
+                  {resumePageContent.education.map((entry) => (
+                    <article
+                      key={`${entry.credential}-${entry.institution}`}
+                      class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                    >
+                      <div class="flex flex-col gap-1">
+                        <h3 class="text-lg font-semibold tracking-tight md:text-xl">
+                          {entry.credential}
+                        </h3>
+
+                        <p class="text-sm font-medium text-[var(--muted)] md:text-base">
+                          {entry.institution}
+                        </p>
+
+                        <p class="text-sm text-[var(--muted)]">
+                          {entry.timeframe}
+                        </p>
+                      </div>
+
+                      <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
+                        {entry.description}
+                      </p>
+                    </article>
+                  ))}
+                </div>
               </section>
             </div>
           </Container>
