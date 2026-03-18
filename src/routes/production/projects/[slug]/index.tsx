@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik'
+import type { DocumentHead } from '@builder.io/qwik-city'
 import { useLocation } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
@@ -6,6 +7,33 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { productionProjects } from '~/content/production/projects'
+import { buildTitle } from '~/fns/seo'
+
+export const head: DocumentHead = ({ params }) => {
+  const project = productionProjects.find((item) => item.slug === params.slug)
+
+  if (!project) {
+    return {
+      title: buildTitle('Production Project'),
+      meta: [
+        {
+          name: 'description',
+          content: 'Production project detail by Alden Gillespy.',
+        },
+      ],
+    }
+  }
+
+  return {
+    title: buildTitle(project.seo?.title ?? project.title),
+    meta: [
+      {
+        name: 'description',
+        content: project.seo?.description ?? project.description,
+      },
+    ],
+  }
+}
 
 export default component$(() => {
   const location = useLocation()

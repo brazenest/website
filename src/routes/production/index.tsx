@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik'
+import type { DocumentHead } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer/Footer'
 import { ProductionHero } from '~/components/hero/ProductionHero'
 import { PageShell } from '~/components/layout/PageShell'
@@ -9,6 +10,18 @@ import { Section } from '~/components/ui/Section'
 import { processItems } from '~/content/production/process'
 import { productionHeroContent } from '~/content/production/hero'
 import { productionProjects } from '~/content/production/projects'
+import { buildTitle } from '~/fns/seo'
+
+export const head: DocumentHead = {
+  title: buildTitle('Production'),
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Video production and cinematic visual work by Alden Gillespy, focused on composition, rhythm, and storytelling.',
+    },
+  ],
+}
 
 export default component$(() => {
   return (
