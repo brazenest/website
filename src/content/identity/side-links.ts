@@ -3,7 +3,7 @@ import type { SideLinkCardContent } from '~/types/content'
 export const sideLinkCards: SideLinkCardContent[] = [
   {
     title: 'Engineering',
-    description: 'Full-stack software projects, developer tools, and systems built with modern web technologies',
+    description: 'Full-stack software, developer tools, and systems',
     href: '/engineering',
     ctaLabel: 'Explore Engineering',
     themeHint: 'engineering',

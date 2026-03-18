@@ -10,8 +10,8 @@ export const SideCard = component$(
   ({ title, description, href, ctaLabel, themeHint }: SideCardProps) => {
     const accentBorderClass =
       themeHint === 'engineering'
-        ? 'border-l-2 border-l-[var(--color-engineering-500)] md:border-l-0 md:hover:border-[var(--color-engineering-500)]'
-        : 'border-l-2 border-l-[var(--color-production-500)] md:border-l-0 md:hover:border-[var(--color-production-500)]'
+        ? 'border-l-[3px] border-l-[var(--color-engineering-500)]'
+        : 'border-l-[3px] border-l-[var(--color-production-500)]'
 
     return (
       <Card

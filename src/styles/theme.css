@@ -583,6 +583,7 @@ a {
 .ui-card--interactive:active {
   background: var(--state-active-surface);
   border-color: var(--state-active-border);
+  transform: scale(0.99);
 }
 
 @media (min-width: 768px) {
