@@ -48,7 +48,7 @@ export default component$(() => {
 
         <main id="main-content" class="flex-1">
           <Section spacing="spacious">
-            <Container width="narrow">
+            <Container width="content">
               <div class="flex flex-col gap-4">
                 <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                   Engineering
@@ -75,7 +75,7 @@ export default component$(() => {
 
       <main id="main-content" class="flex-1">
         <Section spacing="spacious">
-          <Container width="narrow">
+          <Container width="content">
             <div class="flex flex-col gap-4 md:gap-5">
               <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 Engineering Project
@@ -105,7 +105,7 @@ export default component$(() => {
 
         {project.sections.map((section, index) => (
           <Section key={section.title} spacing={index === 0 ? 'compact' : 'default'}>
-            <Container width="narrow">
+            <Container width="content">
               <div class="flex flex-col gap-3 md:gap-4">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">{section.title}</h2>
                 <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">

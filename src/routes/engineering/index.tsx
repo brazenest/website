@@ -43,7 +43,7 @@ export default component$(() => {
         </Section>
 
         <Section spacing="compact">
-          <Container width="narrow">
+          <Container width="content">
             <div id="system-thinking" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">System Thinking</h2>

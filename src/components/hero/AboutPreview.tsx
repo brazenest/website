@@ -8,7 +8,7 @@ export const AboutPreview = component$(
   ({ eyebrow, heading, description, href, ctaLabel }: AboutPreviewProps) => {
     return (
       <Section spacing="default">
-        <Container width="narrow">
+        <Container width="content">
           <div class="flex flex-col gap-4 md:gap-5">
             {eyebrow ? (
               <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">

@@ -25,7 +25,7 @@ export default component$(() => {
 
       <main id="main-content" class="flex-1 scroll-mt-24">
         <Section spacing="spacious">
-          <Container width="narrow">
+          <Container width="content">
             <div class="flex flex-col gap-10 md:gap-12">
               <div class="flex flex-col gap-3 md:gap-4">
                 <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">

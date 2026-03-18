@@ -48,7 +48,7 @@ export default component$(() => {
 
         <main id="main-content" class="flex-1">
           <Section spacing="spacious">
-            <Container width="narrow">
+            <Container width="content">
               <div class="flex flex-col gap-4">
                 <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                   Production
@@ -120,7 +120,7 @@ export default component$(() => {
 
         {project.sections.map((section) => (
           <Section key={section.title} spacing="default">
-            <Container width="narrow">
+            <Container width="content">
               <div class="flex flex-col gap-3 md:gap-4">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">{section.title}</h2>
 

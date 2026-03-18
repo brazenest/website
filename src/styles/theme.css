@@ -104,6 +104,11 @@
   --stack-gap-md: var(--space-4);
   --stack-gap-lg: var(--space-8);
 
+  /* Container max-width tokens */
+  --max-w-content: 70ch;
+  --max-w-wide: 80rem;
+  --max-w-full: 100%;
+
   /* Backwards-compatible aliases while components migrate to canonical names. */
   --border-strong: var(--color-neutral-300);
   --surface-subtle: var(--surface-2);
