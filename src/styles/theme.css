@@ -20,6 +20,27 @@
   --radius-lg: var(--radius-card);
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
+
+  /* Typography scale — font-size */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* Typography scale — line-height */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  /* Typography scale — letter-spacing */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
 }
 
 :root {
@@ -35,6 +56,10 @@
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
   --radius-card: 1rem;
+
+  /* Font families */
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Inter Variable", system-ui, sans-serif;
 
   /* Backwards-compatible aliases while components migrate to canonical names. */
   --border-strong: var(--color-neutral-300);
@@ -54,6 +79,8 @@
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
   --radius-card: 1rem;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Inter Variable", system-ui, sans-serif;
 
   --border-strong: var(--color-neutral-300);
   --surface-subtle: var(--surface-2);
@@ -72,6 +99,8 @@
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
   --radius-card: 1rem;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Inter Variable", system-ui, sans-serif;
 
   --border-strong: var(--color-neutral-300);
   --surface-subtle: var(--surface-2);
@@ -90,6 +119,8 @@
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
   --radius-card: 1rem;
+  --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
+  --font-display: "Space Grotesk Variable", system-ui, sans-serif;
 
   --border-strong: var(--color-neutral-300);
   --surface-subtle: var(--surface-2);
@@ -98,6 +129,11 @@
 
 :root {
   color-scheme: light;
+}
+
+/* Apply theme font to all themed sections so children inherit correctly. */
+[data-theme] {
+  font-family: var(--font-sans);
 }
 
 html,

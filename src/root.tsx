@@ -4,10 +4,12 @@ import {} from "~/types/ui";
 import "./global.css";
 
 import fontInterStyles from "@fontsource-variable/inter?inline";
+import fontSpaceGroteskStyles from "@fontsource-variable/space-grotesk?inline";
 
 export default component$(() => {
 
   useStyles$(fontInterStyles);
+  useStyles$(fontSpaceGroteskStyles);
 
   return (
     <QwikCityProvider>
