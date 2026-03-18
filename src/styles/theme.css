@@ -41,6 +41,17 @@
   --tracking-tight: -0.025em;
   --tracking-normal: 0em;
   --tracking-wide: 0.025em;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
 }
 
 :root {
@@ -60,6 +71,15 @@
   /* Font families */
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
+
+  /* Semantic layout spacing aliases — mobile-first base values */
+  --section-pad-y: var(--space-16);
+  --section-pad-y-compact: var(--space-12);
+  --section-pad-y-hero: 5rem;
+  --container-pad-x: var(--space-4);
+  --stack-gap-sm: var(--space-2);
+  --stack-gap-md: var(--space-4);
+  --stack-gap-lg: var(--space-8);
 
   /* Backwards-compatible aliases while components migrate to canonical names. */
   --border-strong: var(--color-neutral-300);
@@ -129,6 +149,16 @@
 
 :root {
   color-scheme: light;
+}
+
+/* Responsive layout token overrides (≥ 768px). */
+@media (min-width: 768px) {
+  :root {
+    --section-pad-y: 6rem;
+    --section-pad-y-compact: var(--space-16);
+    --section-pad-y-hero: 7rem;
+    --container-pad-x: var(--space-8);
+  }
 }
 
 /* Apply theme font to all themed sections so children inherit correctly. */

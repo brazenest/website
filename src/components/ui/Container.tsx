@@ -8,7 +8,7 @@ export const Container = component$(({ width = 'default' }: ContainerProps) => {
       : 'max-w-[80rem]'
 
   return (
-    <div class={`mx-auto w-full px-4 md:px-8 ${maxWidthClass}`}>
+    <div class={`mx-auto w-full ${maxWidthClass}`} style={{ paddingInline: 'var(--container-pad-x)' }}>
       <Slot />
     </div>
   )

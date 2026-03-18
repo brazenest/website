@@ -1,16 +1,15 @@
 import { Slot, component$ } from '@builder.io/qwik'
 import type { SectionSpacing } from '~/types/ui'
 
-export const Section = component$(({ spacing = 'default' }: SectionProps) => {
-  const spacingClass =
-    spacing === 'compact'
-      ? 'py-12 md:py-16'
-      : spacing === 'hero'
-        ? 'py-20 md:py-28'
-        : 'py-16 md:py-24'
+const SPACING_TOKEN: Record<NonNullable<SectionSpacing>, string> = {
+  default: 'var(--section-pad-y)',
+  compact: 'var(--section-pad-y-compact)',
+  hero: 'var(--section-pad-y-hero)',
+}
 
+export const Section = component$(({ spacing = 'default' }: SectionProps) => {
   return (
-    <section class={spacingClass}>
+    <section style={{ paddingBlock: SPACING_TOKEN[spacing] }}>
       <Slot />
     </section>
   )
