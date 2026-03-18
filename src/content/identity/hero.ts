@@ -4,5 +4,5 @@ export const heroContent: HeroContent = {
   name: 'Alden',
   headline: 'Software Systems & Visual Storytelling',
   description:
-    'I am Alden, a software engineer and filmmaker. This site splits one body of work into two connected sides: Engineering for architecture and implementation, and Production for visual storytelling and editorial craft.',
+    'I am Alden, a software engineer and visual storyteller. Home is shared context, then the work splits into two connected sides: Side 1 (Engineering) for architecture and implementation decisions, and Side 2 (Production) for framing, coverage, and editorial judgment.',
 }

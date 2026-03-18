@@ -1,10 +1,10 @@
 import type { AboutPreviewContent } from '~/types/content'
 
 export const aboutPreviewContent: AboutPreviewContent = {
-  eyebrow: 'Shared Context',
-  heading: 'Both sides come from one working method.',
+  eyebrow: 'Narrative Context',
+  heading: 'How Side 1 and Side 2 connect.',
   description:
-    'Engineering makes system and implementation decisions visible. Production makes framing and editorial decisions visible. The About page connects both perspectives inside one practice.',
+    'The About page explains who I am, what kind of work I do, why the site is split, and how engineering and production inform each other in day-to-day practice.',
   href: '/about',
   ctaLabel: 'About the Work',
 }
