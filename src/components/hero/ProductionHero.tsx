@@ -1,8 +1,8 @@
 import { component$ } from '@builder.io/qwik'
-import { TextLink } from '@/components/ui/TextLink'
-import { Container } from '@/components/ui/Container'
-import { Section } from '@/components/ui/Section'
-import type { ProductionHeroContent } from '@/types/content'
+import { ButtonLink } from '~/components/ui/ButtonLink'
+import { Container } from '~/components/ui/Container'
+import { Section } from '~/components/ui/Section'
+import type { ProductionHeroContent } from '~/types/content'
 
 export const ProductionHero = component$(
   ({ headline, description, primaryCtaLabel, primaryCtaHref }: ProductionHeroProps) => {
@@ -24,8 +24,8 @@ export const ProductionHero = component$(
               </p>
             </div>
 
-            <div>
-              <TextLink href={primaryCtaHref} label={primaryCtaLabel} />
+            <div class="ui-cta-group">
+              <ButtonLink href={primaryCtaHref} label={primaryCtaLabel} variant="primary" />
             </div>
           </div>
         </Container>

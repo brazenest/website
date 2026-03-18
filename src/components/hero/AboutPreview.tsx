@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik'
+import { ButtonLink } from '~/components/ui/ButtonLink'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
-import { TextLink } from '~/components/ui/TextLink'
 import type { AboutPreviewContent } from '~/types/content'
 
 export const AboutPreview = component$(
@@ -24,8 +24,8 @@ export const AboutPreview = component$(
               {description}
             </p>
 
-            <div>
-              <TextLink href={href} label={ctaLabel} />
+            <div class="ui-cta-group">
+              <ButtonLink href={href} label={ctaLabel} variant="secondary" />
             </div>
           </div>
         </Container>

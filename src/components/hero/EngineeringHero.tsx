@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik'
-import { TextLink } from '~/components/ui/TextLink'
+import { ButtonLink } from '~/components/ui/ButtonLink'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import type { EngineeringHeroContent } from '~/types/content'
@@ -31,9 +31,9 @@ export const EngineeringHero = component$(
               </p>
             </div>
 
-            <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
-              <TextLink href={primaryCtaHref} label={primaryCtaLabel} />
-              <TextLink href={secondaryCtaHref} label={secondaryCtaLabel} />
+            <div class="ui-cta-group flex-col items-start sm:flex-row">
+              <ButtonLink href={primaryCtaHref} label={primaryCtaLabel} variant="primary" />
+              <ButtonLink href={secondaryCtaHref} label={secondaryCtaLabel} variant="secondary" />
             </div>
           </div>
         </Container>
