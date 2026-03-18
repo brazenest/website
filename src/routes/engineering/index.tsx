@@ -35,10 +35,10 @@ export default component$(() => {
           <Container>
             <div id="selected-work" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Work</h2>
+                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Engineering Work</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Selected projects from the engineering side, chosen for the system decisions they
-                  make visible: architecture, data modeling, and implementation tradeoffs.
+                  Start with project outcomes that show architecture, data modeling, and
+                  implementation tradeoffs under real product constraints.
                 </p>
               </div>
 
@@ -51,7 +51,11 @@ export default component$(() => {
           <Container width="content">
             <div id="system-thinking" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">System Thinking</h2>
+                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">How I Make System Decisions</h2>
+                <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
+                  The projects show the outcomes; these principles explain the decision model behind
+                  them.
+                </p>
               </div>
 
               <div class="flex flex-col gap-5 md:gap-6">
@@ -73,8 +77,8 @@ export default component$(() => {
               </p>
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                Each case study covers the system decisions, architecture tradeoffs, and
-                implementation details behind the work.
+                To go deeper, open a case study for full architecture rationale, tradeoffs, and
+                implementation detail.
               </p>
 
               <div class="ui-cta-group flex-col items-start sm:flex-row">

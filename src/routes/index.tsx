@@ -36,7 +36,14 @@ export default component$(() => {
 
 			<main id="main-content" class="flex-1 scroll-mt-24">
 				<HomeHero {...heroContent}>
-					<SideSelector items={sideLinkCards} />
+					<div class="flex flex-col gap-4 md:gap-5">
+						<p class="max-w-[62ch] text-sm leading-6 text-[var(--muted)] md:text-base">
+							Choose the side that best matches what you want to evaluate first, then use the
+							shared context to connect both perspectives.
+						</p>
+
+						<SideSelector items={sideLinkCards} />
+					</div>
 				</HomeHero>
 
 				<AboutPreview {...aboutPreviewContent} />

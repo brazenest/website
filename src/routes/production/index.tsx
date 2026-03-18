@@ -39,10 +39,10 @@ export default component$(() => {
           <Container>
             <div id="selected-work" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Work</h2>
+                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Production Work</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Selected projects from the production side, chosen for the storytelling decisions
-                  they make visible: framing, coverage strategy, pacing, and editorial control.
+                  Start with finished pieces that make storytelling decisions visible: framing,
+                  coverage strategy, pacing, and editorial control.
                 </p>
               </div>
 
@@ -55,10 +55,10 @@ export default component$(() => {
           <Container width="content">
             <div class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Storytelling Approach</h2>
+                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">How I Build the Story</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  This approach stays practical: define visual intent, capture adaptable coverage,
-                  and cut for rhythm, clarity, and mood.
+                  After reviewing the work, this is the repeatable method behind it: define visual
+                  intent, capture adaptable coverage, and cut for rhythm, clarity, and mood.
                 </p>
               </div>
 
@@ -86,8 +86,8 @@ export default component$(() => {
               </p>
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                The full case study covers framing decisions, coverage strategy, and editorial choices
-                from concept to final cut.
+                To see this approach applied end-to-end, the full case study covers framing
+                decisions, coverage strategy, and editorial choices from concept to final cut.
               </p>
 
               <div class="ui-cta-group flex-col items-start sm:flex-row">
