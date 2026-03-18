@@ -15,7 +15,7 @@ export const head: DocumentHead = {
     {
       name: 'description',
       content:
-          'Web resume for Alden Gillespy across software engineering and production storytelling.',
+        'Web resume for Alden Gillespy across software engineering and production storytelling.',
     },
   ],
 }

@@ -85,7 +85,7 @@ export default component$(() => {
               <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
                 <ButtonLink
                   href="/engineering#selected-work"
-                    label="Browse Engineering Case Studies"
+                  label="Browse Engineering Case Studies"
                   variant="primary"
                   class="w-full sm:w-auto"
                 />
