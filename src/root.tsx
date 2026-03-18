@@ -19,7 +19,9 @@ export default component$(() => {
         <DocumentRouterHead />
       </head>
       <body>
-        <RouterOutlet />
+        <div class="route-transition">
+          <RouterOutlet />
+        </div>
       </body>
     </QwikCityProvider>
   );
