@@ -37,15 +37,32 @@ export const MediaCard = component$(
           <div class="flex flex-col" style={{ gap: 'var(--card-title-body-gap)' }}>
             <Heading level={3}>{title}</Heading>
 
-            {cardContext ? <Text variant="small">{cardContext}</Text> : null}
+            <div class="flex flex-col gap-3 md:gap-3.5">
+              {cardContext ? (
+                <div class="flex flex-col gap-1">
+                  <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                    Role and context
+                  </p>
+                  <p class="text-sm leading-6 text-[var(--fg)]">{cardContext}</p>
+                </div>
+              ) : null}
 
-            <Text>{description}</Text>
+              <div class="flex flex-col gap-1">
+                <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                  Production challenge
+                </p>
+                <Text>{description}</Text>
+              </div>
 
-            {cardDemonstrates ? (
-              <Text variant="small">
-                <span class="font-medium text-[var(--fg)]">Demonstrates:</span> {cardDemonstrates}
-              </Text>
-            ) : null}
+              {cardDemonstrates ? (
+                <div class="flex flex-col gap-1">
+                  <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                    What it demonstrates
+                  </p>
+                  <p class="text-sm leading-6 text-[var(--muted)]">{cardDemonstrates}</p>
+                </div>
+              ) : null}
+            </div>
           </div>
 
           <div class="pt-3 md:pt-2">

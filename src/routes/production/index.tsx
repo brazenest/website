@@ -39,10 +39,11 @@ export default component$(() => {
           <Container>
             <div id="selected-work" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Production Work</h2>
+                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Production Case Studies</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Start with finished pieces that surface storytelling decisions in practice:
-                  framing, coverage strategy, pacing, and editorial control.
+                  Start with compact case studies. Each piece shows project context, the role I
+                  held in production, and the framing, coverage, pacing, and editorial decisions
+                  that shaped the final result.
                 </p>
               </div>
 
