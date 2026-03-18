@@ -1,6 +1,6 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
 import { QwikCityProvider, RouterOutlet, useDocumentHead } from "@builder.io/qwik-city";
-import {} from "~/types/ui";
+import { } from "~/types/ui";
 import "./global.css";
 
 import fontInterStyles from "@fontsource-variable/inter?inline";
