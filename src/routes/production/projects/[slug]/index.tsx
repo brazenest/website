@@ -103,7 +103,7 @@ export default component$(() => {
 
               <div class="flex max-w-[72ch] flex-col gap-4 md:gap-5">
                 <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                  Production Project
+                  Production Case Study
                 </p>
 
                 <h1 class="max-w-[15ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">

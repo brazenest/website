@@ -4,7 +4,7 @@ export const systemThinkingItems: SystemThinkingItem[] = [
   {
     title: 'Set architectural defaults that scale',
     description:
-      'I turn key decisions into defaults - typed contracts, explicit boundaries, and shared patterns - so teams move quickly without drift.',
+      'I turn key decisions into defaults — typed contracts, explicit boundaries, and shared patterns — so teams move quickly without drift.',
   },
   {
     title: 'Keep layers accountable',

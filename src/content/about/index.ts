@@ -71,15 +71,15 @@ export const aboutPageContent = {
     eyebrow: 'Next',
     heading: 'Choose the lens that matches your question.',
     description:
-      'If you want technical depth, start with engineering projects and case studies. If you want narrative and visual execution, start with production work. For role context across both, review the resume.',
+      'If you want technical depth, start with engineering case studies. If you want narrative and visual execution, start with production case studies. For role context across both, review the resume.',
     links: [
       {
-        label: 'Browse Engineering Projects',
+        label: 'Browse Engineering Case Studies',
         href: '/engineering#selected-work',
         variant: 'primary',
       },
       {
-        label: 'Browse Production Projects',
+        label: 'Browse Production Case Studies',
         href: '/production#selected-work',
         variant: 'secondary',
       },

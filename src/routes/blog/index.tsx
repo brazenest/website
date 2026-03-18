@@ -199,9 +199,8 @@ export default component$(() => {
               </h2>
 
               <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                If you want the applied work behind these notes, move into the engineering and
-                production sections. If you have a project or role in mind, the contact page is the
-                right next step.
+                If you want the applied work behind these notes, browse the case studies on either
+                side. If you have a project or role in mind, the contact page is the right next step.
               </p>
 
               <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">

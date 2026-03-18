@@ -37,7 +37,7 @@ export default component$(() => {
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Engineering Case Studies</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Start with compact case studies. Each project surfaces the operating challenge,
+                  Start with compact case studies. Each case study surfaces the operating challenge,
                   the engineering role I held, and the architectural judgment that made the system
                   resilient and maintainable.
                 </p>
@@ -85,7 +85,7 @@ export default component$(() => {
               <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
                 <ButtonLink
                   href="/engineering#selected-work"
-                  label="Browse Engineering Projects"
+                    label="Browse Engineering Case Studies"
                   variant="primary"
                   class="w-full sm:w-auto"
                 />
