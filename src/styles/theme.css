@@ -478,7 +478,10 @@ a {
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out;
+  transition: background-color var(--motion-duration-quick) var(--motion-easing-quick),
+    color var(--motion-duration-quick) var(--motion-easing-quick),
+    border-color var(--motion-duration-quick) var(--motion-easing-quick),
+    transform var(--motion-duration-quick) var(--motion-easing-quick);
 }
 
 .ui-button-link--sm {
@@ -491,9 +494,12 @@ a {
   border-color: var(--button-bg-primary);
 }
 
-.ui-button-link--primary:hover {
-  background: var(--state-hover-accent);
-  border-color: var(--state-hover-accent);
+/* Primary CTA hover: color shift (desktop only) */
+@media (hover: hover) {
+  .ui-button-link--primary:hover {
+    background: var(--state-hover-accent);
+    border-color: var(--state-hover-accent);
+  }
 }
 
 .ui-button-link--secondary {
@@ -502,9 +508,12 @@ a {
   border-color: var(--button-border);
 }
 
-.ui-button-link--secondary:hover {
-  background: var(--state-hover-surface);
-  border-color: var(--state-hover-border);
+/* Secondary CTA hover: color shift (desktop only) */
+@media (hover: hover) {
+  .ui-button-link--secondary:hover {
+    background: var(--state-hover-surface);
+    border-color: var(--state-hover-border);
+  }
 }
 
 .ui-button-link--ghost {
@@ -513,25 +522,37 @@ a {
   border-color: transparent;
 }
 
-.ui-button-link--ghost:hover {
-  background: var(--state-hover-surface);
-  border-color: var(--state-hover-border);
+/* Ghost CTA hover: color shift (desktop only) */
+@media (hover: hover) {
+  .ui-button-link--ghost:hover {
+    background: var(--state-hover-surface);
+    border-color: var(--state-hover-border);
+  }
 }
 
+/* CTA press/active state: immediate, snappy scale-down feedback */
 .ui-button-link--primary:active {
   background: var(--accent-active);
   border-color: var(--accent-active);
+  transform: scale(0.95);
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-easing-ease-out);
 }
 
 .ui-button-link--secondary:active,
 .ui-button-link--ghost:active {
   background: var(--state-active-surface);
   border-color: var(--state-active-border);
+  transform: scale(0.95);
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-easing-ease-out);
 }
 
+/* CTA focus state: clear focus ring for keyboard navigation */
 .ui-button-link:focus-visible {
   outline: 2px solid var(--state-focus-ring);
   outline-offset: var(--state-focus-ring-offset);
+  transition-duration: 0s;
 }
 
 .ui-button-link[aria-disabled='true'] {
