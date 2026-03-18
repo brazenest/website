@@ -80,6 +80,13 @@
   --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
   --separator-color: var(--border-subtle);
   --border: var(--border-default);
+  /* Semantic surface-layer hierarchy */
+  --surface-base: var(--bg);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-interactive: var(--color-neutral-0);
+  --surface-interactive-hover: var(--color-neutral-50);
+  --surface-inset: var(--color-neutral-100);
   /* Radius semantic aliases */
   --radius-card: 1rem;
   --radius-button: 0.375rem;
@@ -145,10 +152,10 @@
   --focus-ring-color: var(--state-focus-ring);
 
   /* Semantic interaction states */
-  --state-hover-surface: var(--surface-subtle);
+  --state-hover-surface: var(--surface-interactive-hover);
   --state-hover-border: var(--border-interactive);
   --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
-  --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
+  --state-active-surface: var(--surface-inset);
   --state-active-border: var(--border-interactive-hover);
   --state-focus-ring: var(--focus);
   --state-focus-ring-offset: 2px;
@@ -165,7 +172,7 @@
   --button-border: var(--border-interactive);
   --button-bg-primary: var(--accent);
   --button-fg-primary: var(--color-neutral-0);
-  --button-bg-secondary: var(--surface);
+  --button-bg-secondary: var(--surface-interactive);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
@@ -186,7 +193,7 @@
   --meta-strong-fg: var(--text-strong);
 
   /* Semantic card system */
-  --card-surface: var(--surface);
+  --card-surface: var(--surface-elevated);
   --card-border: var(--border-default);
   --card-radius: var(--radius-card);
   --card-shadow: none;
@@ -214,8 +221,8 @@
   --max-w-wide: 80rem;
   --max-w-full: 100%;
 
-  /* Backwards-compatible aliases while components migrate to canonical names. */
-  --surface-subtle: var(--surface-2);
+  /* Backwards-compatible aliases. */
+  --surface-2: var(--surface-subtle);
   --radius-lg: var(--radius-card);
 }
 
@@ -234,21 +241,27 @@
   --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
   --separator-color: var(--border-subtle);
   --border: var(--border-default);
+  --surface-base: var(--bg);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-interactive: var(--color-neutral-0);
+  --surface-interactive-hover: var(--color-neutral-50);
+  --surface-inset: var(--color-neutral-100);
   --link-color: var(--accent);
   --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
   --focus-ring-color: var(--state-focus-ring);
-  --state-hover-surface: var(--surface-subtle);
+  --state-hover-surface: var(--surface-interactive-hover);
   --state-hover-border: var(--border-interactive);
   --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
-  --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
+  --state-active-surface: var(--surface-inset);
   --state-active-border: var(--border-interactive-hover);
   --state-focus-ring: var(--focus);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
   --button-fg-primary: var(--color-neutral-0);
-  --button-bg-secondary: var(--surface);
+  --button-bg-secondary: var(--surface-interactive);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
@@ -260,8 +273,6 @@
   --meta-strong-fg: var(--text-strong);
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
-
-  --surface-subtle: var(--surface-2);
 }
 
 [data-theme='engineering'] {
@@ -279,21 +290,27 @@
   --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
   --separator-color: var(--border-subtle);
   --border: var(--border-default);
+  --surface-base: var(--bg);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-interactive: var(--color-neutral-0);
+  --surface-interactive-hover: var(--color-neutral-50);
+  --surface-inset: var(--color-neutral-100);
   --link-color: var(--accent);
   --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
   --focus-ring-color: var(--state-focus-ring);
-  --state-hover-surface: var(--surface-subtle);
+  --state-hover-surface: var(--surface-interactive-hover);
   --state-hover-border: var(--border-interactive);
   --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
-  --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
+  --state-active-surface: var(--surface-inset);
   --state-active-border: var(--border-interactive-hover);
   --state-focus-ring: var(--focus);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
   --button-fg-primary: var(--color-neutral-0);
-  --button-bg-secondary: var(--surface);
+  --button-bg-secondary: var(--surface-interactive);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
@@ -305,8 +322,6 @@
   --meta-strong-fg: var(--text-strong);
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
-
-  --surface-subtle: var(--surface-2);
 }
 
 [data-theme='production'] {
@@ -324,21 +339,27 @@
   --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
   --separator-color: var(--border-subtle);
   --border: var(--border-default);
+  --surface-base: var(--bg);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-interactive: var(--color-neutral-0);
+  --surface-interactive-hover: var(--color-neutral-50);
+  --surface-inset: var(--color-neutral-100);
   --link-color: var(--accent);
   --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
   --focus-ring-color: var(--state-focus-ring);
-  --state-hover-surface: var(--surface-subtle);
+  --state-hover-surface: var(--surface-interactive-hover);
   --state-hover-border: var(--border-interactive);
   --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
-  --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
+  --state-active-surface: var(--surface-inset);
   --state-active-border: var(--border-interactive-hover);
   --state-focus-ring: var(--focus);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
   --button-fg-primary: var(--color-neutral-0);
-  --button-bg-secondary: var(--surface);
+  --button-bg-secondary: var(--surface-interactive);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
@@ -350,8 +371,6 @@
   --meta-strong-fg: var(--text-strong);
   --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
   --font-display: "Space Grotesk Variable", system-ui, sans-serif;
-
-  --surface-subtle: var(--surface-2);
 }
 
 :root {

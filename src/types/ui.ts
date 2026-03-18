@@ -1,6 +1,7 @@
 export type ThemeName = 'neutral' | 'engineering' | 'production'
 
 export type SectionSpacing = 'compact' | 'default' | 'spacious'
+export type SectionSurface = 'base' | 'subtle' | 'inset'
 export type ContainerWidth = 'content' | 'wide' | 'full'
 export type StackGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type CardPadding = 'none' | 'default' | 'spacious'

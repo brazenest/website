@@ -1,5 +1,5 @@
 import { Slot, component$ } from '@builder.io/qwik'
-import type { SectionSpacing } from '~/types/ui'
+import type { SectionSpacing, SectionSurface } from '~/types/ui'
 
 const SPACING_TOKEN: Record<NonNullable<SectionSpacing>, string> = {
   default: 'var(--section-pad-y)',
@@ -7,9 +7,17 @@ const SPACING_TOKEN: Record<NonNullable<SectionSpacing>, string> = {
   spacious: 'var(--section-pad-y-spacious)',
 }
 
-export const Section = component$(({ spacing = 'default' }: SectionProps) => {
+const SURFACE_TOKEN: Record<SectionSurface, string> = {
+  base: 'var(--surface-base)',
+  subtle: 'var(--surface-subtle)',
+  inset: 'var(--surface-inset)',
+}
+
+export const Section = component$(({ spacing = 'default', surface }: SectionProps) => {
+  const style: Record<string, string> = { paddingBlock: SPACING_TOKEN[spacing] }
+  if (surface) style.background = SURFACE_TOKEN[surface]
   return (
-    <section style={{ paddingBlock: SPACING_TOKEN[spacing] }}>
+    <section style={style}>
       <Slot />
     </section>
   )
@@ -17,4 +25,5 @@ export const Section = component$(({ spacing = 'default' }: SectionProps) => {
 
 type SectionProps = {
   spacing?: SectionSpacing
+  surface?: SectionSurface
 }
