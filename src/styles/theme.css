@@ -76,6 +76,14 @@
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-neutral-700);
   --focus: var(--accent);
+  /* Semantic accent-role system */
+  --accent-fg: var(--color-neutral-0);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--surface-base));
+  --accent-soft-fg: var(--accent);
+  --accent-border: var(--border-interactive);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
+  --accent-active: color-mix(in srgb, var(--accent) 75%, black);
+  --accent-focus-ring: var(--accent);
   --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
   --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
   --separator-color: var(--border-subtle);
@@ -154,10 +162,10 @@
   /* Semantic interaction states */
   --state-hover-surface: var(--surface-interactive-hover);
   --state-hover-border: var(--border-interactive);
-  --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
+  --state-hover-accent: var(--accent-hover);
   --state-active-surface: var(--surface-inset);
   --state-active-border: var(--border-interactive-hover);
-  --state-focus-ring: var(--focus);
+  --state-focus-ring: var(--accent-focus-ring);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
 
@@ -169,9 +177,9 @@
   --button-font-size: var(--small-size);
   --button-font-weight: 600;
   --button-radius: var(--radius-button);
-  --button-border: var(--border-interactive);
+  --button-border: var(--accent-border);
   --button-bg-primary: var(--accent);
-  --button-fg-primary: var(--color-neutral-0);
+  --button-fg-primary: var(--accent-fg);
   --button-bg-secondary: var(--surface-interactive);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
@@ -237,6 +245,13 @@
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-neutral-700);
   --focus: var(--color-neutral-700);
+  --accent-fg: var(--color-neutral-0);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--surface-base));
+  --accent-soft-fg: var(--accent);
+  --accent-border: var(--border-interactive);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
+  --accent-active: color-mix(in srgb, var(--accent) 75%, black);
+  --accent-focus-ring: var(--accent);
   --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
   --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
   --separator-color: var(--border-subtle);
@@ -253,14 +268,14 @@
   --focus-ring-color: var(--state-focus-ring);
   --state-hover-surface: var(--surface-interactive-hover);
   --state-hover-border: var(--border-interactive);
-  --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
+  --state-hover-accent: var(--accent-hover);
   --state-active-surface: var(--surface-inset);
   --state-active-border: var(--border-interactive-hover);
-  --state-focus-ring: var(--focus);
+  --state-focus-ring: var(--accent-focus-ring);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
-  --button-fg-primary: var(--color-neutral-0);
+  --button-fg-primary: var(--accent-fg);
   --button-bg-secondary: var(--surface-interactive);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
@@ -286,6 +301,13 @@
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-engineering-500);
   --focus: var(--color-engineering-500);
+  --accent-fg: var(--color-neutral-0);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--surface-base));
+  --accent-soft-fg: var(--accent);
+  --accent-border: var(--border-interactive);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
+  --accent-active: color-mix(in srgb, var(--accent) 75%, black);
+  --accent-focus-ring: var(--accent);
   --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
   --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
   --separator-color: var(--border-subtle);
@@ -302,14 +324,14 @@
   --focus-ring-color: var(--state-focus-ring);
   --state-hover-surface: var(--surface-interactive-hover);
   --state-hover-border: var(--border-interactive);
-  --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
+  --state-hover-accent: var(--accent-hover);
   --state-active-surface: var(--surface-inset);
   --state-active-border: var(--border-interactive-hover);
-  --state-focus-ring: var(--focus);
+  --state-focus-ring: var(--accent-focus-ring);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
-  --button-fg-primary: var(--color-neutral-0);
+  --button-fg-primary: var(--accent-fg);
   --button-bg-secondary: var(--surface-interactive);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
@@ -335,6 +357,13 @@
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-production-500);
   --focus: var(--color-production-500);
+  --accent-fg: var(--color-neutral-0);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--surface-base));
+  --accent-soft-fg: var(--accent);
+  --accent-border: var(--border-interactive);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
+  --accent-active: color-mix(in srgb, var(--accent) 75%, black);
+  --accent-focus-ring: var(--accent);
   --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
   --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
   --separator-color: var(--border-subtle);
@@ -351,14 +380,14 @@
   --focus-ring-color: var(--state-focus-ring);
   --state-hover-surface: var(--surface-interactive-hover);
   --state-hover-border: var(--border-interactive);
-  --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
+  --state-hover-accent: var(--accent-hover);
   --state-active-surface: var(--surface-inset);
   --state-active-border: var(--border-interactive-hover);
-  --state-focus-ring: var(--focus);
+  --state-focus-ring: var(--accent-focus-ring);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
   --button-bg-primary: var(--accent);
-  --button-fg-primary: var(--color-neutral-0);
+  --button-fg-primary: var(--accent-fg);
   --button-bg-secondary: var(--surface-interactive);
   --button-fg-secondary: var(--text-strong);
   --button-bg-ghost: transparent;
@@ -478,8 +507,8 @@ a {
 }
 
 .ui-button-link--primary:active {
-  background: var(--state-active-border);
-  border-color: var(--state-active-border);
+  background: var(--accent-active);
+  border-color: var(--accent-active);
 }
 
 .ui-button-link--secondary:active,
