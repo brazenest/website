@@ -95,6 +95,26 @@
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
 
+  /* Semantic heading scale */
+  --heading-1-size: var(--text-4xl);
+  --heading-2-size: var(--text-3xl);
+  --heading-3-size: var(--text-2xl);
+  --heading-4-size: var(--text-xl);
+  --heading-5-size: var(--text-lg);
+  --heading-6-size: var(--text-base);
+  --heading-1-leading: var(--leading-tight);
+  --heading-2-leading: var(--leading-tight);
+  --heading-3-leading: var(--leading-snug);
+  --heading-4-leading: var(--leading-snug);
+  --heading-5-leading: var(--leading-normal);
+  --heading-6-leading: var(--leading-normal);
+  --heading-1-tracking: var(--tracking-tight);
+  --heading-2-tracking: var(--tracking-tight);
+  --heading-3-tracking: var(--tracking-tight);
+  --heading-4-tracking: var(--tracking-normal);
+  --heading-5-tracking: var(--tracking-normal);
+  --heading-6-tracking: var(--tracking-normal);
+
   /* Semantic layout spacing aliases — mobile-first base values */
   --section-pad-y: var(--space-16);
   --section-pad-y-compact: var(--space-12);

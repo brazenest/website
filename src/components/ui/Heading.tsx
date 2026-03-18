@@ -15,12 +15,12 @@ type TypographyStyle = {
 }
 
 const LEVEL_STYLES: Record<HeadingLevel, TypographyStyle> = {
-  1: { fontFamily: 'var(--font-display)', fontSize: 'var(--text-4xl)', lineHeight: 'var(--leading-tight)', letterSpacing: 'var(--tracking-tight)' },
-  2: { fontFamily: 'var(--font-display)', fontSize: 'var(--text-3xl)', lineHeight: 'var(--leading-tight)', letterSpacing: 'var(--tracking-tight)' },
-  3: { fontFamily: 'var(--font-display)', fontSize: 'var(--text-2xl)', lineHeight: 'var(--leading-snug)', letterSpacing: 'var(--tracking-tight)' },
-  4: { fontFamily: 'var(--font-display)', fontSize: 'var(--text-xl)', lineHeight: 'var(--leading-snug)', letterSpacing: 'var(--tracking-normal)' },
-  5: { fontFamily: 'var(--font-display)', fontSize: 'var(--text-lg)', lineHeight: 'var(--leading-normal)', letterSpacing: 'var(--tracking-normal)' },
-  6: { fontFamily: 'var(--font-display)', fontSize: 'var(--text-base)', lineHeight: 'var(--leading-normal)', letterSpacing: 'var(--tracking-normal)' },
+  1: { fontFamily: 'var(--font-display)', fontSize: 'var(--heading-1-size)', lineHeight: 'var(--heading-1-leading)', letterSpacing: 'var(--heading-1-tracking)' },
+  2: { fontFamily: 'var(--font-display)', fontSize: 'var(--heading-2-size)', lineHeight: 'var(--heading-2-leading)', letterSpacing: 'var(--heading-2-tracking)' },
+  3: { fontFamily: 'var(--font-display)', fontSize: 'var(--heading-3-size)', lineHeight: 'var(--heading-3-leading)', letterSpacing: 'var(--heading-3-tracking)' },
+  4: { fontFamily: 'var(--font-display)', fontSize: 'var(--heading-4-size)', lineHeight: 'var(--heading-4-leading)', letterSpacing: 'var(--heading-4-tracking)' },
+  5: { fontFamily: 'var(--font-display)', fontSize: 'var(--heading-5-size)', lineHeight: 'var(--heading-5-leading)', letterSpacing: 'var(--heading-5-tracking)' },
+  6: { fontFamily: 'var(--font-display)', fontSize: 'var(--heading-6-size)', lineHeight: 'var(--heading-6-leading)', letterSpacing: 'var(--heading-6-tracking)' },
 }
 
 const TAGS = { 1: 'h1', 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' } as const
