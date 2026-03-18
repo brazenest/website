@@ -51,6 +51,8 @@ export type ProductionProject = {
   title: string
   slug: string
   description: string
+  cardContext?: string
+  cardDemonstrates?: string
   media: MediaItem[]
   sections: ProductionSection[]
   seo?: SEO

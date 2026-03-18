@@ -6,7 +6,7 @@ import { TextLink } from '~/components/ui/TextLink'
 import type { ProductionProject } from '~/types/content'
 
 export const MediaCard = component$(
-  ({ title, slug, description, media }: MediaCardProps) => {
+  ({ title, slug, description, media, cardContext, cardDemonstrates }: MediaCardProps) => {
     const primaryMedia = media[0]
 
     return (
@@ -36,7 +36,16 @@ export const MediaCard = component$(
         <div class="flex flex-1 flex-col" style={{ gap: 'var(--card-content-gap)', padding: 'var(--card-pad)' }}>
           <div class="flex flex-col" style={{ gap: 'var(--card-title-body-gap)' }}>
             <Heading level={3}>{title}</Heading>
-            <Text variant="muted">{description}</Text>
+
+            {cardContext ? <Text variant="small">{cardContext}</Text> : null}
+
+            <Text>{description}</Text>
+
+            {cardDemonstrates ? (
+              <Text variant="small">
+                <span class="font-medium text-[var(--fg)]">Demonstrates:</span> {cardDemonstrates}
+              </Text>
+            ) : null}
           </div>
 
           <div style={{ paddingTop: 'var(--card-cta-gap)' }}>
@@ -48,4 +57,7 @@ export const MediaCard = component$(
   },
 )
 
-type MediaCardProps = Pick<ProductionProject, 'title' | 'slug' | 'description' | 'media'>
+type MediaCardProps = Pick<
+  ProductionProject,
+  'title' | 'slug' | 'description' | 'media' | 'cardContext' | 'cardDemonstrates'
+>

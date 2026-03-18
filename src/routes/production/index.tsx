@@ -41,8 +41,8 @@ export default component$(() => {
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Work</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Representative projects selected for the production decisions they reveal:
-                  framing choices, coverage strategy, and editorial judgment.
+                  Curated work selected for the production judgment it surfaces:
+                  composition, coverage strategy in live conditions, and editorial rhythm.
                 </p>
               </div>
 
