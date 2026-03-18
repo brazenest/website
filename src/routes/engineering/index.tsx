@@ -35,6 +35,7 @@ export default component$(() => {
             <div id="selected-work" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Work</h2>
+                <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">Projects chosen for the architectural problems they required solving, not just the features they delivered.</p>
               </div>
 
               <ProjectGrid projects={engineeringProjects} />

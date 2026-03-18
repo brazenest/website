@@ -2,18 +2,18 @@ import type { SystemThinkingItem } from '~/types/content'
 
 export const systemThinkingItems: SystemThinkingItem[] = [
   {
-    title: 'Reusable systems',
+    title: 'Make good decisions repeatable',
     description:
-      'I prefer systems that make good implementation decisions repeatable rather than one-off.',
+      'Strong systems encode architectural choices into shared conventions — typed models, reusable patterns, explicit boundaries — so the right path is also the easiest one.',
   },
   {
-    title: 'Typed structure',
+    title: 'Separate concerns explicitly',
     description:
-      'I use strong typing and clear content/data boundaries to keep complexity manageable as projects grow.',
+      'I keep content structure, data modeling, and rendering logic distinct. When each layer has one job, complexity stays navigable as a codebase scales.',
   },
   {
-    title: 'Durable frontend architecture',
+    title: 'Optimize for the next change',
     description:
-      'I care about interfaces that remain maintainable, extensible, and coherent after the first implementation pass.',
+      "The architecture that survives iteration isn't the most clever — it's the one with clear naming, predictable boundaries, and no hidden coupling.",
   },
 ]

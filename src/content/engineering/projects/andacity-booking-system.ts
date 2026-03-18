@@ -5,7 +5,7 @@ export const andacityBookingSystemProject: EngineeringProject = {
   title: 'Andacity Booking System',
   slug: 'andacity-booking-system',
   description:
-    'A structured travel booking application focused on canonical search architecture, typed content, and scalable frontend systems.',
+    'A full-stack travel booking system built around canonical search inputs, normalized data models, and a maintainable frontend composition layer.',
   techStack: ['Qwik', 'TypeScript', 'Tailwind CSS', 'PostgreSQL', 'Drizzle'],
   sections: [
     {
