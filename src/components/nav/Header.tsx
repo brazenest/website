@@ -40,6 +40,12 @@ export const Header = component$(() => {
             >
               Resume
             </a>
+            <a
+              href="/contact"
+              class="text-sm font-medium text-[var(--muted)] transition hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
+            >
+              Contact
+            </a>
           </nav>
 
           <MobileMenu />

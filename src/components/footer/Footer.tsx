@@ -36,6 +36,12 @@ export const Footer = component$(() => {
                 Resume
               </a>
               <a
+                href="/contact"
+                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
+              >
+                Contact
+              </a>
+              <a
                 href="/engineering"
                 class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
               >
@@ -53,10 +59,10 @@ export const Footer = component$(() => {
           <div class="flex flex-col gap-3">
             <p class="text-sm font-semibold tracking-tight">Contact</p>
             <p class="max-w-[30ch] text-sm leading-6 text-[var(--muted)]">
-              Let's build something interesting.
+              Engineering work, production inquiries, and selected opportunities.
             </p>
             <div>
-              <TextLink href="/about" label="Read about Alden Gillespy" />
+              <TextLink href="/contact" label="Start a project conversation" />
             </div>
           </div>
         </div>
