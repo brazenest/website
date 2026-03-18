@@ -3,16 +3,16 @@ import type { SideLinkCardContent } from '~/types/content'
 export const sideLinkCards: SideLinkCardContent[] = [
   {
     title: 'Engineering',
-    description: 'Technical projects, tools, and experiments in modern web development',
+    description: 'Full-stack software projects, developer tools, and systems built with modern web technologies',
     href: '/engineering',
     ctaLabel: 'Explore Engineering',
     themeHint: 'engineering',
   },
   {
-    title: 'Production Design',
-    description: 'Visual work, design systems, and thoughtful product interfaces',
+    title: 'Production',
+    description: 'Cinematic video and photography — composition, pacing, and visual storytelling',
     href: '/production',
-    ctaLabel: 'View Production Work',
+    ctaLabel: 'Explore Production',
     themeHint: 'production',
   },
 ]

@@ -2,7 +2,7 @@ import type { HeroContent } from '~/types/content'
 
 export const heroContent: HeroContent = {
   name: 'Alden',
-  headline: 'Creative Full-Stack Engineer',
+  headline: 'Software Engineer & Filmmaker',
   description:
-    'I build carefully crafted digital experiences that bridge design, code, and user delight. Currently exploring the intersection of modern web frameworks and thoughtful product design.',
+    'I work across two disciplines — building software and making films. This site is split into two sides, one for each.',
 }
