@@ -138,6 +138,19 @@
   --interactive-text-weight: 500;
   --focus-ring-color: var(--focus);
 
+  /* Semantic card system */
+  --card-surface: var(--surface);
+  --card-border: var(--border);
+  --card-radius: var(--radius-card);
+  --card-shadow: none;
+  --card-shadow-hover: var(--shadow-surface);
+  --card-pad: var(--space-6);
+  --card-pad-spacious: var(--space-6);
+  --card-content-gap: var(--stack-gap-md);
+  --card-title-body-gap: var(--stack-gap-sm);
+  --card-meta-gap: var(--stack-gap-xs);
+  --card-cta-gap: var(--stack-gap-sm);
+
   /* Semantic layout spacing aliases — mobile-first base values */
   --section-pad-y: var(--space-16);
   --section-pad-y-compact: var(--space-12);
@@ -231,6 +244,8 @@
     --section-pad-y-compact: var(--space-16);
     --section-pad-y-spacious: 7rem;
     --container-pad-x: var(--space-8);
+    --card-pad: 1.75rem;
+    --card-pad-spacious: var(--space-8);
   }
 }
 
@@ -257,6 +272,34 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Shared card structure for linked and non-linked surfaces. */
+.ui-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+  box-shadow: var(--card-shadow);
+}
+
+.ui-card--interactive {
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out, border-color 150ms ease-out;
+}
+
+@media (min-width: 768px) {
+  .ui-card--interactive:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: var(--card-shadow-hover);
+  }
+}
+
+.ui-card--interactive:focus-visible {
+  border-radius: var(--card-radius);
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
 }
 
 /* Shared interactive text treatment for inline links and text-based CTAs. */

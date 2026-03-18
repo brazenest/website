@@ -1,5 +1,8 @@
 import { component$ } from '@builder.io/qwik'
+import { Card } from '~/components/ui/Card'
+import { Heading } from '~/components/ui/Heading'
 import { LinkText } from '~/components/ui/LinkText'
+import { Text } from '~/components/ui/Text'
 import { cn } from '~/fns/cn'
 import type { SideLinkCardContent } from '~/types/content'
 
@@ -11,22 +14,22 @@ export const SideCard = component$(
         : 'border-l-2 border-l-[var(--color-production-500)] md:border-l-0 md:hover:border-[var(--color-production-500)]'
 
     return (
-      <a
+      <Card
         href={href}
+        interactive
+        padding="spacious"
         class={cn(
-          'group flex h-full flex-col rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] p-6 md:p-8',
-          'transition duration-150 ease-out md:hover:-translate-y-0.5 md:hover:shadow-md',
           accentBorderClass,
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2',
+          'focus-visible:border-[var(--link-color)]',
         )}
       >
-        <div class="flex flex-1 flex-col gap-4">
-          <h3 class="text-xl font-semibold tracking-tight">{title}</h3>
-          <p class="max-w-[32ch] text-sm leading-6 text-[var(--muted)] md:text-base">
+        <div class="flex flex-1 flex-col" style={{ gap: 'var(--card-content-gap)' }}>
+          <Heading level={3}>{title}</Heading>
+          <Text variant="muted" class="max-w-[32ch]">
             {description}
-          </p>
+          </Text>
 
-          <div class="pt-2">
+          <div style={{ paddingTop: 'var(--card-cta-gap)' }}>
             <LinkText
               label={ctaLabel}
               showArrow
@@ -34,7 +37,7 @@ export const SideCard = component$(
             />
           </div>
         </div>
-      </a>
+      </Card>
     )
   },
 )

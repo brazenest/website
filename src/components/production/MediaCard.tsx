@@ -1,4 +1,7 @@
 import { component$ } from '@builder.io/qwik'
+import { Card } from '~/components/ui/Card'
+import { Heading } from '~/components/ui/Heading'
+import { Text } from '~/components/ui/Text'
 import { TextLink } from '~/components/ui/TextLink'
 import type { ProductionProject } from '~/types/content'
 
@@ -7,7 +10,7 @@ export const MediaCard = component$(
     const primaryMedia = media[0]
 
     return (
-      <article class="flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)]">
+      <Card padding="none" class="overflow-hidden">
         <div class="aspect-[16/10] w-full border-b border-[var(--border)] bg-[var(--surface-subtle)]">
           {primaryMedia ? (
             primaryMedia.type === 'image' ? (
@@ -19,28 +22,28 @@ export const MediaCard = component$(
                 class="h-full w-full object-cover"
               />
             ) : (
-              <div class="flex h-full items-center justify-center px-4 text-sm text-[var(--muted)]">
-                Video preview
+              <div class="flex h-full items-center justify-center px-4">
+                <Text variant="small">Video preview</Text>
               </div>
             )
           ) : (
-            <div class="flex h-full items-center justify-center px-4 text-sm text-[var(--muted)]">
-              Media preview
+            <div class="flex h-full items-center justify-center px-4">
+              <Text variant="small">Media preview</Text>
             </div>
           )}
         </div>
 
-        <div class="flex flex-1 flex-col gap-4 p-6 md:p-7">
-          <div class="flex flex-col gap-2">
-            <h3 class="text-xl font-semibold tracking-tight">{title}</h3>
-            <p class="text-sm leading-6 text-[var(--muted)] md:text-base">{description}</p>
+        <div class="flex flex-1 flex-col" style={{ gap: 'var(--card-content-gap)', padding: 'var(--card-pad)' }}>
+          <div class="flex flex-col" style={{ gap: 'var(--card-title-body-gap)' }}>
+            <Heading level={3}>{title}</Heading>
+            <Text variant="muted">{description}</Text>
           </div>
 
-          <div class="pt-1">
+          <div style={{ paddingTop: 'var(--card-cta-gap)' }}>
             <TextLink href={`/production/projects/${slug}`} label="View project" />
           </div>
         </div>
-      </article>
+      </Card>
     )
   },
 )
