@@ -113,7 +113,7 @@ export const contactPageContent = {
       },
     ],
     note:
-      'Reply timing depends on scope and availability, but both engineering and production inquiries are welcome here.',
+      'Replies are direct and personal, not routed through an intake system. If the work looks aligned, the first response will be specific to your context rather than a generic acknowledgment.',
   },
   cta: {
     eyebrow: 'Start here',

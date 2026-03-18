@@ -16,7 +16,7 @@ const rawBlogPosts: BlogPost[] = [
     slug: 'designing-for-revision-in-schema-driven-systems',
     date: '2026-03-18',
     summary:
-      'A draft on why schema-driven platforms need revision paths designed into the system from the start, not added after authoring complexity appears.',
+      'Schema-driven platforms are often designed around the publishing moment, but the real operating pressure arrives later, during revision. Getting the revision model right from the start determines whether the system stays composable as requirements grow.',
     side: 'engineering',
     published: false,
     sections: [
@@ -24,18 +24,21 @@ const rawBlogPosts: BlogPost[] = [
         title: 'Revision is not an edge case',
         paragraphs: [
           'Most content systems are described as publishing systems, but the real operating load usually comes from revision. Requirements shift, teams learn in public, and releases need to absorb new information without collapsing their own structure.',
+          'The clearest sign a system was not designed for revision is when updating live content requires a workaround instead of a workflow. That friction accumulates quietly until routine changes become expensive coordination problems that drain team trust in the platform itself.',
         ],
       },
       {
         title: 'Version boundaries need intent',
         paragraphs: [
-          'This piece will focus on versioned schema evolution, authoring guardrails, and what it means to make drafts, previews, and releases behave like first-class states instead of informal conventions.',
+          'Draft, preview, and published are not just labels on a content object. They are different contracts with different audiences, different permission scopes, and different expectations about stability. When those distinctions are left implicit, teams build workarounds around the gaps and call the result process.',
+          'Versioned schema evolution requires making early commitments about which fields are stable, which can change without notice, and what constitutes a breaking change. Systems that defer those decisions eventually discover the cost mid-release, when a live version needs to coexist with an in-progress revision that violates a rule no one wrote down.',
         ],
       },
       {
         title: 'Why this matters operationally',
         paragraphs: [
-          'The goal is to show how revision-friendly systems reduce launch anxiety, make ownership clearer, and keep engineering energy focused on platform capability instead of repetitive rescue work.',
+          'When revision workflows are explicit and safe, the launch window is not a source of anxiety. Editors know what they are changing. Reviewers know what they are approving. Engineers know what state the content is in and can reason about side effects before they become incidents.',
+          'The operational payoff is focus. When the revision model is reliable, engineering capacity goes toward platform capability rather than toward repetitive correction work. Teams get to move forward instead of defending ground they already shipped.',
         ],
       },
     ],
@@ -117,6 +120,7 @@ const rawBlogPosts: BlogPost[] = [
         title: 'Rhythm controls comprehension before it controls style',
         paragraphs: [
           'Editors often talk about pacing as mood, but the first job of pacing is comprehension. Viewers need enough time to recognize what matters, register the transition, and understand why one beat follows another. If the rhythm obscures that sequence, the piece can feel energetic while still failing to communicate.',
+          'Pacing is also where the quality of the coverage becomes visible. If an editor has to cut faster to compensate for thin coverage, the energy is borrowed from clarity. The viewer keeps up with the rhythm, but the arc stops landing.',
         ],
       },
       {
@@ -140,26 +144,29 @@ const rawBlogPosts: BlogPost[] = [
     slug: 'one-shoot-many-deliverables-without-losing-intent',
     date: '2026-03-05',
     summary:
-      'A draft on planning coverage for multiple formats without letting the project dissolve into generic footage that can be cut a hundred ways but says nothing clearly.',
+      'Designing coverage around multiple format deliverables creates a specific authorship problem: the temptation to shoot for maximum flexibility usually produces footage that reframes safely but says nothing with conviction. The right frame for multi-format work is story-first coverage, with reframing built in second.',
     side: 'production',
     published: false,
     sections: [
       {
         title: 'Coverage for formats is not the same as coverage for story',
         paragraphs: [
-          'This piece will look at how vertical, square, and horizontal delivery requirements change framing plans, and how to preserve narrative clarity while still creating enough flexibility for post-production.',
+          'Multi-format production creates a specific kind of pressure: design every setup for maximum reframing flexibility, shoot wide for safety, and trust post-production to find the narrative in neutral footage. This produces deliverables efficiently. It rarely produces work that feels authored.',
+          'The difference between format-first coverage and story-first coverage is intent at the moment of setup. Format coverage asks what can be reframed into a vertical or a square without losing usability. Story coverage asks what must remain in the frame for the idea to survive any cut.',
         ],
       },
       {
         title: 'Safe framing still needs intention',
         paragraphs: [
-          'The core argument is that multi-format production should not turn every setup into neutral filler. The challenge is to design modular coverage that survives reframing while still carrying point of view, rhythm, and emphasis.',
+          'Working within format constraints does not require surrendering point of view. Vertical and square crops expose different parts of the frame, but they do not require removing rhythm, emphasis, or editorial control from the setup itself.',
+          'The practical move is to plan framing around narrative beats first, then identify the safe zones for reframing second. When those decisions are made at the shoot stage, the coverage serves both the story and the delivery requirement rather than trading one against the other.',
         ],
       },
       {
         title: 'Operational planning protects the final cut',
         paragraphs: [
-          'The draft will connect production planning to editorial outcomes, especially how early decisions about movement, orientation, and transition options reduce revision churn later.',
+          'The connection between acquisition planning and editorial outcome is tight in multi-format production. Decisions about movement, orientation, and transition options made during the shoot directly determine what the editor can build in the timeline.',
+          'That means the most consequential editing choices in a multi-format project are actually planning decisions. Coverage built with clear transition options, intentional movement, and defined anchor frames gives the edit room to shape the work rather than rescue it.',
         ],
       },
     ],
