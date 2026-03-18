@@ -100,9 +100,11 @@
   --section-pad-y-compact: var(--space-12);
   --section-pad-y-spacious: 5rem;
   --container-pad-x: var(--space-4);
+  --stack-gap-xs: var(--space-1);
   --stack-gap-sm: var(--space-2);
   --stack-gap-md: var(--space-4);
   --stack-gap-lg: var(--space-8);
+  --stack-gap-xl: var(--space-12);
 
   /* Container max-width tokens */
   --max-w-content: 70ch;

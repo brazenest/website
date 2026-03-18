@@ -21,7 +21,7 @@ const VARIANT_STYLES: Record<TextVariant, TypographyStyle> = {
 
 export const Text = component$(({ variant = 'body', class: className }: TextProps) => {
   return (
-    <p class={cn(className)} style={VARIANT_STYLES[variant]}>
+    <p class={cn(className)} style={{ ...VARIANT_STYLES[variant], margin: '0' }}>
       <Slot />
     </p>
   )
