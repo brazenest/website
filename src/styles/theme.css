@@ -129,6 +129,15 @@
   --text-body: var(--fg);
   --text-muted: var(--muted);
 
+  /* Semantic interactive text */
+  --link-color: var(--accent);
+  --link-color-hover: var(--text-strong);
+  --link-color-visited: var(--accent);
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --interactive-text-weight: 500;
+  --focus-ring-color: var(--focus);
+
   /* Semantic layout spacing aliases — mobile-first base values */
   --section-pad-y: var(--space-16);
   --section-pad-y-compact: var(--space-12);
@@ -160,6 +169,10 @@
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-neutral-700);
   --focus: var(--color-neutral-700);
+  --link-color: var(--accent);
+  --link-color-hover: var(--text-strong);
+  --link-color-visited: var(--accent);
+  --focus-ring-color: var(--focus);
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
 
@@ -176,6 +189,10 @@
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-engineering-500);
   --focus: var(--color-engineering-500);
+  --link-color: var(--accent);
+  --link-color-hover: var(--text-strong);
+  --link-color-visited: var(--accent);
+  --focus-ring-color: var(--focus);
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
 
@@ -192,6 +209,10 @@
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-production-500);
   --focus: var(--color-production-500);
+  --link-color: var(--accent);
+  --link-color-hover: var(--text-strong);
+  --link-color-visited: var(--accent);
+  --focus-ring-color: var(--focus);
   --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
   --font-display: "Space Grotesk Variable", system-ui, sans-serif;
 
@@ -226,7 +247,7 @@ body {
 body {
   margin: 0;
   background: var(--bg);
-  color: var(--fg);
+  color: var(--text-body);
 }
 
 * {
@@ -236,4 +257,28 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Shared interactive text treatment for inline links and text-based CTAs. */
+:where(.ui-link, .ui-text a) {
+  color: var(--link-color);
+  font-weight: var(--interactive-text-weight);
+  text-decoration-line: var(--link-decoration);
+  text-underline-offset: 0.2em;
+  transition: color 150ms ease-out, text-decoration-color 150ms ease-out;
+}
+
+:where(.ui-link, .ui-text a):visited {
+  color: var(--link-color-visited);
+}
+
+:where(.ui-link, .ui-text a):hover {
+  color: var(--link-color-hover);
+  text-decoration-line: var(--link-decoration-hover);
+}
+
+:where(.ui-link, .ui-text a):focus-visible {
+  border-radius: var(--radius-sm);
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
 }

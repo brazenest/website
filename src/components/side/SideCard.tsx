@@ -1,4 +1,5 @@
 import { component$ } from '@builder.io/qwik'
+import { LinkText } from '~/components/ui/LinkText'
 import { cn } from '~/fns/cn'
 import type { SideLinkCardContent } from '~/types/content'
 
@@ -26,15 +27,11 @@ export const SideCard = component$(
           </p>
 
           <div class="pt-2">
-            <span class="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent)]">
-              <span>{ctaLabel}</span>
-              <span
-                aria-hidden="true"
-                class="transition-transform duration-150 group-hover:translate-x-0.5"
-              >
-                →
-              </span>
-            </span>
+            <LinkText
+              label={ctaLabel}
+              showArrow
+              class="group-hover:text-[var(--link-color-hover)] group-hover:[text-decoration-line:var(--link-decoration-hover)]"
+            />
           </div>
         </div>
       </a>
