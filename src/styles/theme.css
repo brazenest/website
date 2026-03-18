@@ -69,11 +69,17 @@
   --bg: var(--color-neutral-0);
   --fg: var(--color-neutral-900);
   --muted: var(--color-neutral-600);
-  --border: var(--color-neutral-200);
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
   --surface: var(--color-neutral-0);
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-neutral-700);
   --focus: var(--accent);
+  --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
+  --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
+  --separator-color: var(--border-subtle);
+  --border: var(--border-default);
   /* Radius semantic aliases */
   --radius-card: 1rem;
   --radius-button: 0.375rem;
@@ -140,10 +146,10 @@
 
   /* Semantic interaction states */
   --state-hover-surface: var(--surface-subtle);
-  --state-hover-border: var(--border-strong);
+  --state-hover-border: var(--border-interactive);
   --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
   --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
-  --state-active-border: color-mix(in srgb, var(--accent) 80%, black);
+  --state-active-border: var(--border-interactive-hover);
   --state-focus-ring: var(--focus);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
@@ -156,7 +162,7 @@
   --button-font-size: var(--small-size);
   --button-font-weight: 600;
   --button-radius: var(--radius-button);
-  --button-border: var(--border);
+  --button-border: var(--border-interactive);
   --button-bg-primary: var(--accent);
   --button-fg-primary: var(--color-neutral-0);
   --button-bg-secondary: var(--surface);
@@ -170,7 +176,7 @@
   --tag-pad-x: var(--space-2);
   --tag-gap: var(--space-2);
   --tag-radius: var(--radius-pill);
-  --tag-border: var(--border);
+  --tag-border: var(--border-subtle);
   --tag-bg: var(--surface-subtle);
   --tag-fg: var(--meta-fg);
   --tag-font-size: var(--small-size);
@@ -181,7 +187,7 @@
 
   /* Semantic card system */
   --card-surface: var(--surface);
-  --card-border: var(--border);
+  --card-border: var(--border-default);
   --card-radius: var(--radius-card);
   --card-shadow: none;
   --card-shadow-hover: var(--shadow-surface);
@@ -209,7 +215,6 @@
   --max-w-full: 100%;
 
   /* Backwards-compatible aliases while components migrate to canonical names. */
-  --border-strong: var(--color-neutral-300);
   --surface-subtle: var(--surface-2);
   --radius-lg: var(--radius-card);
 }
@@ -218,20 +223,26 @@
   --bg: var(--color-neutral-0);
   --fg: var(--color-neutral-900);
   --muted: var(--color-neutral-600);
-  --border: var(--color-neutral-200);
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
   --surface: var(--color-neutral-0);
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-neutral-700);
   --focus: var(--color-neutral-700);
+  --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
+  --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
+  --separator-color: var(--border-subtle);
+  --border: var(--border-default);
   --link-color: var(--accent);
   --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
   --focus-ring-color: var(--state-focus-ring);
   --state-hover-surface: var(--surface-subtle);
-  --state-hover-border: var(--border-strong);
+  --state-hover-border: var(--border-interactive);
   --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
   --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
-  --state-active-border: color-mix(in srgb, var(--accent) 80%, black);
+  --state-active-border: var(--border-interactive-hover);
   --state-focus-ring: var(--focus);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
@@ -242,7 +253,7 @@
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
   --button-focus-ring: var(--state-focus-ring);
-  --tag-border: var(--border);
+  --tag-border: var(--border-subtle);
   --tag-bg: var(--surface-subtle);
   --tag-fg: var(--meta-fg);
   --meta-fg: var(--text-muted);
@@ -250,7 +261,6 @@
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
 
-  --border-strong: var(--color-neutral-300);
   --surface-subtle: var(--surface-2);
 }
 
@@ -258,20 +268,26 @@
   --bg: var(--color-neutral-0);
   --fg: var(--color-neutral-900);
   --muted: var(--color-neutral-600);
-  --border: var(--color-neutral-200);
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
   --surface: var(--color-neutral-0);
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-engineering-500);
   --focus: var(--color-engineering-500);
+  --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
+  --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
+  --separator-color: var(--border-subtle);
+  --border: var(--border-default);
   --link-color: var(--accent);
   --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
   --focus-ring-color: var(--state-focus-ring);
   --state-hover-surface: var(--surface-subtle);
-  --state-hover-border: var(--border-strong);
+  --state-hover-border: var(--border-interactive);
   --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
   --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
-  --state-active-border: color-mix(in srgb, var(--accent) 80%, black);
+  --state-active-border: var(--border-interactive-hover);
   --state-focus-ring: var(--focus);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
@@ -282,7 +298,7 @@
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
   --button-focus-ring: var(--state-focus-ring);
-  --tag-border: var(--border);
+  --tag-border: var(--border-subtle);
   --tag-bg: var(--surface-subtle);
   --tag-fg: var(--meta-fg);
   --meta-fg: var(--text-muted);
@@ -290,7 +306,6 @@
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
 
-  --border-strong: var(--color-neutral-300);
   --surface-subtle: var(--surface-2);
 }
 
@@ -298,20 +313,26 @@
   --bg: var(--color-neutral-0);
   --fg: var(--color-neutral-900);
   --muted: var(--color-neutral-600);
-  --border: var(--color-neutral-200);
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
   --surface: var(--color-neutral-0);
   --surface-2: var(--color-neutral-50);
   --accent: var(--color-production-500);
   --focus: var(--color-production-500);
+  --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
+  --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
+  --separator-color: var(--border-subtle);
+  --border: var(--border-default);
   --link-color: var(--accent);
   --link-color-hover: var(--state-hover-accent);
   --link-color-visited: var(--accent);
   --focus-ring-color: var(--state-focus-ring);
   --state-hover-surface: var(--surface-subtle);
-  --state-hover-border: var(--border-strong);
+  --state-hover-border: var(--border-interactive);
   --state-hover-accent: color-mix(in srgb, var(--accent) 88%, black);
   --state-active-surface: color-mix(in srgb, var(--surface-subtle) 85%, var(--surface));
-  --state-active-border: color-mix(in srgb, var(--accent) 80%, black);
+  --state-active-border: var(--border-interactive-hover);
   --state-focus-ring: var(--focus);
   --state-focus-ring-offset: 2px;
   --state-disabled-opacity: 0.45;
@@ -322,7 +343,7 @@
   --button-bg-ghost: transparent;
   --button-fg-ghost: var(--text-strong);
   --button-focus-ring: var(--state-focus-ring);
-  --tag-border: var(--border);
+  --tag-border: var(--border-subtle);
   --tag-bg: var(--surface-subtle);
   --tag-fg: var(--meta-fg);
   --meta-fg: var(--text-muted);
@@ -330,7 +351,6 @@
   --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
   --font-display: "Space Grotesk Variable", system-ui, sans-serif;
 
-  --border-strong: var(--color-neutral-300);
   --surface-subtle: var(--surface-2);
 }
 
@@ -509,6 +529,7 @@ a {
 
 .ui-card--interactive:hover {
   background: var(--state-hover-surface);
+  border-color: var(--state-hover-border);
 }
 
 .ui-card--interactive:active {
@@ -524,6 +545,7 @@ a {
 }
 
 .ui-card--interactive:focus-visible {
+  border-color: var(--border-interactive-hover);
   border-radius: var(--card-radius);
   outline: 2px solid var(--state-focus-ring);
   outline-offset: var(--state-focus-ring-offset);
