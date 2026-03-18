@@ -16,21 +16,30 @@
   --color-engineering-500: #2563eb;
   --color-production-500: #f59e0b;
 
-  --radius-lg: 1rem;
+  --radius-card: 1rem;
+  --radius-lg: var(--radius-card);
   --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
   --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
 }
 
 :root {
+  /* Canonical semantic surface tokens shared by all site themes. */
   --bg: var(--color-neutral-0);
   --fg: var(--color-neutral-900);
   --muted: var(--color-neutral-600);
   --border: var(--color-neutral-200);
-  --border-strong: var(--color-neutral-300);
   --surface: var(--color-neutral-0);
-  --surface-subtle: var(--color-neutral-50);
+  --surface-2: var(--color-neutral-50);
   --accent: var(--color-neutral-700);
   --focus: var(--accent);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
+  --radius-card: 1rem;
+
+  /* Backwards-compatible aliases while components migrate to canonical names. */
+  --border-strong: var(--color-neutral-300);
+  --surface-subtle: var(--surface-2);
+  --radius-lg: var(--radius-card);
 }
 
 [data-theme='neutral'] {
@@ -38,11 +47,17 @@
   --fg: var(--color-neutral-900);
   --muted: var(--color-neutral-600);
   --border: var(--color-neutral-200);
-  --border-strong: var(--color-neutral-300);
   --surface: var(--color-neutral-0);
-  --surface-subtle: var(--color-neutral-50);
+  --surface-2: var(--color-neutral-50);
   --accent: var(--color-neutral-700);
   --focus: var(--color-neutral-700);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
+  --radius-card: 1rem;
+
+  --border-strong: var(--color-neutral-300);
+  --surface-subtle: var(--surface-2);
+  --radius-lg: var(--radius-card);
 }
 
 [data-theme='engineering'] {
@@ -50,11 +65,17 @@
   --fg: var(--color-neutral-900);
   --muted: var(--color-neutral-600);
   --border: var(--color-neutral-200);
-  --border-strong: var(--color-neutral-300);
   --surface: var(--color-neutral-0);
-  --surface-subtle: var(--color-neutral-50);
+  --surface-2: var(--color-neutral-50);
   --accent: var(--color-engineering-500);
   --focus: var(--color-engineering-500);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
+  --radius-card: 1rem;
+
+  --border-strong: var(--color-neutral-300);
+  --surface-subtle: var(--surface-2);
+  --radius-lg: var(--radius-card);
 }
 
 [data-theme='production'] {
@@ -62,11 +83,17 @@
   --fg: var(--color-neutral-900);
   --muted: var(--color-neutral-600);
   --border: var(--color-neutral-200);
-  --border-strong: var(--color-neutral-300);
   --surface: var(--color-neutral-0);
-  --surface-subtle: var(--color-neutral-50);
+  --surface-2: var(--color-neutral-50);
   --accent: var(--color-production-500);
   --focus: var(--color-production-500);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
+  --radius-card: 1rem;
+
+  --border-strong: var(--color-neutral-300);
+  --surface-subtle: var(--surface-2);
+  --radius-lg: var(--radius-card);
 }
 
 :root {
