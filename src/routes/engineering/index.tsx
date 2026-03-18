@@ -18,7 +18,7 @@ export const head: DocumentHead = {
     {
       name: 'description',
       content:
-        'Software engineering work by Alden Gillespy, focused on systems, frontend architecture, and durable implementation.',
+        'Engineering side of Alden Gillespy\'s work, focused on systems architecture, implementation tradeoffs, and maintainable software.',
     },
   ],
 }
@@ -36,8 +36,8 @@ export default component$(() => {
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Work</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Representative case studies selected for the engineering judgment they surface:
-                  architecture, data modeling, and implementation tradeoffs.
+                  Selected projects from the engineering side, chosen for the system decisions they
+                  make visible: architecture, data modeling, and implementation tradeoffs.
                 </p>
               </div>
 

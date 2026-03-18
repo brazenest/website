@@ -2,7 +2,7 @@ import type { HeroContent } from '~/types/content'
 
 export const heroContent: HeroContent = {
   name: 'Alden',
-  headline: 'Software Engineer & Filmmaker',
+  headline: 'Software Systems & Visual Storytelling',
   description:
-    'I work across two disciplines — building software and making films. This site is split into two sides, one for each.',
+    'I am Alden, a software engineer and filmmaker. This site maps one body of work into two connected sides: Engineering for systems and implementation, Production for visual storytelling and editorial craft.',
 }

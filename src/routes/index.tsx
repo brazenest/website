@@ -16,7 +16,7 @@ export const head: DocumentHead = {
 	meta: [
 		{
 			name: 'description',
-			content: 'Software engineering and cinematic production by Alden Gillespy.',
+			content: 'One body of work by Alden Gillespy across two connected practices: engineering systems and production storytelling.',
 		},
 	],
 	scripts: [

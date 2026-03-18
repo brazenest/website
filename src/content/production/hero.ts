@@ -1,9 +1,9 @@
 import type { ProductionHeroContent } from '~/types/content'
 
 export const productionHeroContent: ProductionHeroContent = {
-  headline: 'I produce and edit cinematic visual stories.',
+  headline: 'I direct, shoot, and edit visual stories.',
   description:
-    'This side is focused on image-making: framing, coverage, pacing, and editorial decisions across video and photography. It documents production craft, not software architecture.',
+    'This side focuses on production judgment: framing, coverage, pacing, and tone across video and photography. The work shows how those decisions shape narrative clarity and atmosphere.',
   primaryCtaLabel: 'View Selected Work',
   primaryCtaHref: '/production#selected-work',
 }

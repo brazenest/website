@@ -19,7 +19,7 @@ export const head: DocumentHead = {
     {
       name: 'description',
       content:
-        'Video production and cinematic visual work by Alden Gillespy, focused on composition, rhythm, and storytelling.',
+        'Production side of Alden Gillespy\'s work, focused on visual storytelling, editorial judgment, and cinematic craft.',
     },
   ],
 }
@@ -41,8 +41,8 @@ export default component$(() => {
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Work</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Curated work selected for the production judgment it surfaces:
-                  composition, coverage strategy in live conditions, and editorial rhythm.
+                  Selected projects from the production side, chosen for the storytelling decisions
+                  they make visible: framing, coverage strategy, pacing, and editorial control.
                 </p>
               </div>
 
@@ -57,8 +57,8 @@ export default component$(() => {
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Storytelling Approach</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  My workflow stays practical: define visual intent, capture flexible coverage, and edit
-                  for rhythm, clarity, and emotional direction.
+                  This approach stays practical: define visual intent, capture adaptable coverage,
+                  and cut for rhythm, clarity, and mood.
                 </p>
               </div>
 

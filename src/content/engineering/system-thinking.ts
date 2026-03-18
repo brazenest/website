@@ -2,18 +2,18 @@ import type { SystemThinkingItem } from '~/types/content'
 
 export const systemThinkingItems: SystemThinkingItem[] = [
   {
-    title: 'Make good decisions repeatable',
+    title: 'Set architectural defaults that scale',
     description:
-      'Strong systems encode architectural choices into shared conventions — typed models, reusable patterns, explicit boundaries — so the right path is also the easiest one.',
+      'I turn key decisions into repeatable conventions - typed contracts, explicit boundaries, and shared patterns - so teams can move quickly without drifting.',
   },
   {
-    title: 'Separate concerns explicitly',
+    title: 'Keep layers accountable',
     description:
-      'I keep content structure, data modeling, and rendering logic distinct. When each layer has one job, complexity stays navigable as a codebase scales.',
+      'Domain logic, content structure, and rendering concerns are separated on purpose, which keeps complexity legible as features and collaborators increase.',
   },
   {
-    title: 'Optimize for the next change',
+    title: 'Design for change, not just launch',
     description:
-      "The architecture that survives iteration isn't the most clever — it's the one with clear naming, predictable boundaries, and no hidden coupling.",
+      'Every implementation choice is evaluated by future cost: clarity of naming, testable seams, and how safely the system can evolve.',
   },
 ]

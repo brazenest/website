@@ -1,9 +1,9 @@
 import type { EngineeringHeroContent } from '~/types/content'
 
 export const engineeringHeroContent: EngineeringHeroContent = {
-  headline: 'I design and build software systems.',
+  headline: 'I architect and ship maintainable software systems.',
   description:
-    'I build full-stack systems with a focus on clean architecture, typed data models, and interfaces that stay maintainable as they grow.',
+    'This side focuses on system design, implementation tradeoffs, and long-term maintainability. The work shows how architecture, data models, and frontend structure hold up as products evolve.',
   primaryCtaLabel: 'View Projects',
   primaryCtaHref: '/engineering#selected-work',
   secondaryCtaLabel: 'Read My Approach',

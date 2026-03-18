@@ -2,9 +2,9 @@ import type { AboutPreviewContent } from '~/types/content'
 
 export const aboutPreviewContent: AboutPreviewContent = {
   eyebrow: 'About',
-  heading: 'A full-stack engineer. A filmmaker.',
+  heading: 'One practice, two distinct disciplines.',
   description:
-    'Each side of this site is a distinct, developed practice. The about page covers the context behind both.',
+    'Engineering documents architecture and implementation decisions. Production documents framing, coverage, and editorial storytelling.',
   href: '/about',
   ctaLabel: 'Learn More',
 }
