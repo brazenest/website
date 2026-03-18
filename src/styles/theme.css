@@ -229,6 +229,18 @@
   --max-w-wide: 80rem;
   --max-w-full: 100%;
 
+  /* Motion tokens for interactions and animations */
+  --motion-duration-micro: 75ms;
+  --motion-duration-quick: 150ms;
+  --motion-duration-standard: 200ms;
+  --motion-duration-transition: 300ms;
+  --motion-duration-slow: 400ms;
+  --motion-easing-quick: cubic-bezier(0.3, 0.3, 0.3, 1);
+  --motion-easing-standard: cubic-bezier(0.2, 0.3, 0.3, 1);
+  --motion-easing-smooth: cubic-bezier(0.1, 0.1, 0.3, 1);
+  --motion-easing-ease-out: ease-out;
+  --motion-easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
   /* Backwards-compatible aliases. */
   --surface-2: var(--surface-subtle);
   --radius-lg: var(--radius-card);
@@ -572,32 +584,33 @@ a {
 
 .ui-card--interactive {
   cursor: pointer;
-  transition: transform 150ms ease-out, box-shadow 150ms ease-out, border-color 150ms ease-out;
+  transition: transform var(--motion-duration-standard) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-standard) var(--motion-easing-standard),
+    border-color var(--motion-duration-standard) var(--motion-easing-standard);
 }
 
-.ui-card--interactive:hover {
-  background: var(--state-hover-surface);
-  border-color: var(--state-hover-border);
-}
-
+/* Card press/active state: immediate, snappy feedback */
 .ui-card--interactive:active {
-  background: var(--state-active-surface);
-  border-color: var(--state-active-border);
-  transform: scale(0.99);
+  transform: scale(0.98);
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-easing-ease-out);
 }
 
-@media (min-width: 768px) {
+/* Card hover state (desktop only): subtle scale up with shadow expansion */
+@media (hover: hover) {
   .ui-card--interactive:hover {
-    transform: translateY(-0.125rem);
+    transform: scale(1.02);
     box-shadow: var(--card-shadow-hover);
   }
 }
 
+/* Card focus state: clear focus ring for keyboard navigation */
 .ui-card--interactive:focus-visible {
   border-color: var(--border-interactive-hover);
   border-radius: var(--card-radius);
   outline: 2px solid var(--state-focus-ring);
   outline-offset: var(--state-focus-ring-offset);
+  transition-duration: 0s;
 }
 
 /* Shared interactive text treatment for inline links and text-based CTAs. */
