@@ -71,9 +71,9 @@ export default component$(() => {
         <Section spacing="compact">
           <Container width="content">
             <section id="engineering-cta" aria-labelledby="engineering-cta-title" class="flex flex-col gap-4 md:gap-5">
-              <p id="engineering-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <h2 id="engineering-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 Next
-              </p>
+              </h2>
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 To go deeper, open a case study for architecture rationale, tradeoffs, and

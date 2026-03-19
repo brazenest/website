@@ -80,9 +80,9 @@ export default component$(() => {
         <Section spacing="compact">
           <Container width="content">
             <section id="production-cta" aria-labelledby="production-cta-title" class="flex flex-col gap-4 md:gap-5">
-              <p id="production-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <h2 id="production-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 Next
-              </p>
+              </h2>
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 To see this approach end-to-end, the full case study covers framing decisions,
