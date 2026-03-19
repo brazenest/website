@@ -32,8 +32,8 @@ export const resumePageContent = {
         href: 'https://youtube.com/@SHADOWCATpictures',
       },
     ],
-  },  intro:
-    'Below is my complete professional background across software engineering, product work, and production roles. Each section shows the scope, impact, and decisions from roles I have held.',  summary:
+  }, intro:
+    'Below is my complete professional background across software engineering, product work, and production roles. Each section shows the scope, impact, and decisions from roles I have held.', summary:
     'Full-stack software engineer with a production background, working at the overlap of systems and storytelling. Builds scalable web applications across frontend, backend, and cloud infrastructure while bringing narrative clarity, usability judgment, and cross-disciplinary execution to product work.',
   experience: [
     {
