@@ -70,6 +70,10 @@ export default component$(() => {
                 </div>
               </header>
 
+              <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                {resumePageContent.intro}
+              </p>
+
               <section
                 class="grid gap-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
                 aria-labelledby="resume-summary"

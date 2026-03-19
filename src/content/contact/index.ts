@@ -2,7 +2,7 @@ export const contactPageContent = {
   eyebrow: 'Contact',
   title: 'Engineering work, production projects, and focused collaborations.',
   intro:
-    'I take on software engineering engagements, production assignments, and selected professional opportunities where clarity, execution, and ownership matter. If you have a product, platform, film, or campaign that needs disciplined structure and a clear point of view, this is the right place to start the conversation.',
+    'I take on software engineering engagements, production assignments, and professional collaborations where clarity, execution, and ownership matter.',
   bridge:
     'If the work sits somewhere between engineering and production rather than neatly inside one category, that is usually useful context, not a problem.',
   contactPanel: {
