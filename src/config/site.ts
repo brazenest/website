@@ -20,7 +20,7 @@ export const siteConfig: SiteConfig = {
     type: 'image/jpeg',
   },
   twitterHandle: '@aldengillespy',
-  
+
   // Canonical entity identity — source of truth for person representation across site
   personFullName: 'Alden Gillespy',
   personGivenName: 'Alden',
