@@ -126,7 +126,7 @@ export default component$(() => {
                         </p>
 
                         <div>
-                          <TextLink href={`/blog/${post.slug}`} label="Read note" />
+                          <TextLink href={`/blog/${post.slug}`} label={`Read: ${post.title}`} />
                         </div>
                       </div>
                     </article>

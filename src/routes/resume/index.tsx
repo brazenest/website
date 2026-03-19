@@ -193,7 +193,7 @@ export default component$(() => {
                     </p>
 
                     <div class="mt-auto pt-1">
-                      <TextLink href={project.href} label="View case study" />
+                      <TextLink href={project.href} label={`View ${project.discipline} case study`} />
                     </div>
                   </article>
                 ))}
