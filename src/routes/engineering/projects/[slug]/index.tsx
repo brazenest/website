@@ -8,6 +8,7 @@ import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { engineeringProjects } from '~/content/engineering/projects'
 import { buildTitle } from '~/fns/seo'
+import { buildProjectStructuredData } from '~/fns/seo/buildStructuredData'
 
 export const head: DocumentHead = ({ params }) => {
   const project = engineeringProjects.find((item) => item.slug === params.slug)
@@ -24,12 +25,29 @@ export const head: DocumentHead = ({ params }) => {
     }
   }
 
+  // Build CreativeWork schema for this engineering project
+  const projectSchema = buildProjectStructuredData({
+    title: project.title,
+    description: project.description,
+    url: `/engineering/projects/${params.slug}`,
+    image: project.image,
+    section: 'Engineering',
+  })
+
   return {
     title: buildTitle(project.seo?.title ?? project.title),
     meta: [
       {
         name: 'description',
         content: project.seo?.description ?? project.description,
+      },
+    ],
+    scripts: [
+      {
+        props: {
+          type: 'application/ld+json',
+        },
+        script: JSON.stringify(projectSchema),
       },
     ],
   }

@@ -14,6 +14,7 @@ import {
   getPublishedBlogPostBySlug,
 } from '~/content/blog/posts'
 import { buildTitle } from '~/fns/seo'
+import { buildArticleStructuredData } from '~/fns/seo/buildStructuredData'
 
 export const head: DocumentHead = ({ params }) => {
   const post = getPublishedBlogPostBySlug(params.slug)
@@ -30,12 +31,29 @@ export const head: DocumentHead = ({ params }) => {
     }
   }
 
+  // Build Article schema for this blog post
+  const articleSchema = buildArticleStructuredData({
+    title: post.title,
+    description: post.summary,
+    url: `/blog/${params.slug}`,
+    datePublished: post.date,
+    keywords: post.side ? [post.side] : undefined,
+  })
+
   return {
     title: buildTitle(post.title),
     meta: [
       {
         name: 'description',
         content: post.summary,
+      },
+    ],
+    scripts: [
+      {
+        props: {
+          type: 'application/ld+json',
+        },
+        script: JSON.stringify(articleSchema),
       },
     ],
   }
