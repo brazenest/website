@@ -204,8 +204,8 @@
   --card-surface: var(--surface-elevated);
   --card-border: var(--border-default);
   --card-radius: var(--radius-card);
-  --card-shadow: none;
-  --card-shadow-hover: var(--shadow-surface);
+  --card-shadow: var(--shadow-xs);
+  --card-shadow-hover: var(--shadow-md);
   --card-pad: var(--space-6);
   --card-pad-spacious: var(--space-6);
   --card-content-gap: var(--stack-gap-md);
@@ -494,11 +494,11 @@ a {
   border-color: var(--button-bg-primary);
 }
 
-/* Primary CTA hover: color shift (desktop only) */
+/* Primary CTA hover: restrained color shift (desktop only) */
 @media (hover: hover) {
   .ui-button-link--primary:hover {
-    background: var(--state-hover-accent);
-    border-color: var(--state-hover-accent);
+    background: color-mix(in srgb, var(--accent) 88%, black);
+    border-color: color-mix(in srgb, var(--accent) 88%, black);
   }
 }
 
@@ -530,11 +530,11 @@ a {
   }
 }
 
-/* CTA press/active state: immediate, snappy scale-down feedback */
+/* CTA press/active state: immediate, restrained scale-down feedback */
 .ui-button-link--primary:active {
-  background: var(--accent-active);
-  border-color: var(--accent-active);
-  transform: scale(0.95);
+  background: color-mix(in srgb, var(--accent) 75%, black);
+  border-color: color-mix(in srgb, var(--accent) 75%, black);
+  transform: scale(0.97);
   transition-duration: var(--motion-duration-micro);
   transition-timing-function: var(--motion-easing-ease-out);
 }
@@ -543,7 +543,7 @@ a {
 .ui-button-link--ghost:active {
   background: var(--state-active-surface);
   border-color: var(--state-active-border);
-  transform: scale(0.95);
+  transform: scale(0.97);
   transition-duration: var(--motion-duration-micro);
   transition-timing-function: var(--motion-easing-ease-out);
 }
@@ -612,15 +612,15 @@ a {
 
 /* Card press/active state: immediate, snappy feedback */
 .ui-card--interactive:active {
-  transform: scale(0.98);
+  transform: scale(0.99);
   transition-duration: var(--motion-duration-micro);
   transition-timing-function: var(--motion-easing-ease-out);
 }
 
-/* Card hover state (desktop only): subtle scale up with shadow expansion */
+/* Card hover state (desktop only): minimal scale with restrained shadow expansion */
 @media (hover: hover) {
   .ui-card--interactive:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
     box-shadow: var(--card-shadow-hover);
   }
 }
@@ -665,6 +665,12 @@ a {
   border-radius: var(--radius-sm);
   outline: 2px solid var(--state-focus-ring);
   outline-offset: var(--state-focus-ring-offset);
+}
+
+/* LinkText arrow animation: restrained forward motion on hover */
+.group:hover .group-hover\\:translate-x-0\.5 {
+  transform: translateX(0.125rem);
+  transition: transform 150ms ease-out;
 }
 
 /* Route transition polish: lightweight page-entry settle on navigation. */
