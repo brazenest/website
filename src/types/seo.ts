@@ -199,3 +199,38 @@ export type ArticleStructuredData = StructuredDataObject & {
   articleBody?: string
   author?: StructuredDataObject
 }
+
+/**
+ * Type identifier for a page with structured data presets.
+ * Maps to a specific route or route pattern.
+ */
+export type StructuredDataPageKey =
+  | 'blog'
+  | 'blog-article'
+  | 'engineering'
+  | 'engineering-project'
+  | 'production'
+  | 'production-project'
+
+/**
+ * Preset input for a page that should emit structured data.
+ * Declares the schema type and necessary input fields.
+ */
+export type StructuredDataPreset = {
+  kind: 'project' | 'article' | 'none'
+  pathname?: string // For static pages; omit for dynamic routes
+  title: string
+  description: string
+  image?: string
+  keywords?: string[]
+  datePublished?: string
+  dateModified?: string
+  section?: string // for projects
+  excerpt?: string
+}
+
+/**
+ * Typed mapping from page identifiers to their structured data presets.
+ * Central inventory of which routes should emit what schema types.
+ */
+export type StructuredDataPresetMap = Record<StructuredDataPageKey, StructuredDataPreset>
