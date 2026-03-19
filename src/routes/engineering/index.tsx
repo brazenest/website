@@ -11,18 +11,16 @@ import { ButtonLink } from '~/components/ui/ButtonLink'
 import { engineeringHeroContent } from '~/content/engineering/hero'
 import { engineeringProjects } from '~/content/engineering/projects'
 import { systemThinkingItems } from '~/content/engineering/system-thinking'
-import { buildTitle } from '~/fns/seo'
+import { buildMetadata } from '~/fns/seo/buildMetadata'
+import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
+import { seoPresets } from '~/config/seo'
 
-export const head: DocumentHead = {
-  title: buildTitle('Engineering'),
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Engineering side of Alden Gillespy\'s work, focused on systems architecture, implementation tradeoffs, and maintainable software.',
-    },
-  ],
-}
+export const head: DocumentHead = metadataToDocumentHead(
+  buildMetadata({
+    ...seoPresets.engineering,
+    pathname: '/engineering',
+  })
+)
 
 export default component$(() => {
   return (

@@ -14,18 +14,16 @@ import {
   getBlogSideLabel,
   publishedBlogPosts,
 } from '~/content/blog/posts'
-import { buildTitle } from '~/fns/seo'
+import { buildMetadata } from '~/fns/seo/buildMetadata'
+import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
+import { seoPresets } from '~/config/seo'
 
-export const head: DocumentHead = {
-  title: buildTitle('Blog'),
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Writing by Alden Gillespy across engineering systems, production storytelling, and the space where both disciplines overlap.',
-    },
-  ],
-}
+export const head: DocumentHead = metadataToDocumentHead(
+  buildMetadata({
+    ...seoPresets.blog,
+    pathname: '/blog',
+  })
+)
 
 export default component$(() => {
   return (

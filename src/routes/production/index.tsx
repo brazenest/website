@@ -11,18 +11,16 @@ import { Section } from '~/components/ui/Section'
 import { processItems } from '~/content/production/process'
 import { productionHeroContent } from '~/content/production/hero'
 import { productionProjects } from '~/content/production/projects'
-import { buildTitle } from '~/fns/seo'
+import { buildMetadata } from '~/fns/seo/buildMetadata'
+import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
+import { seoPresets } from '~/config/seo'
 
-export const head: DocumentHead = {
-  title: buildTitle('Production'),
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Production side of Alden Gillespy\'s work, focused on visual storytelling, editorial judgment, and cinematic craft.',
-    },
-  ],
-}
+export const head: DocumentHead = metadataToDocumentHead(
+  buildMetadata({
+    ...seoPresets.production,
+    pathname: '/production',
+  })
+)
 
 export default component$(() => {
   const featuredProject = productionProjects[0]

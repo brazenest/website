@@ -9,25 +9,29 @@ import { SideSelector } from '~/components/side/SideSelector'
 import { aboutPreviewContent } from '~/content/identity/about-preview'
 import { heroContent } from '~/content/identity/hero'
 import { sideLinkCards } from '~/content/identity/side-links'
-import { buildTitle, personStructuredData } from '~/fns/seo'
+import { personStructuredData } from '~/fns/seo'
+import { buildMetadata } from '~/fns/seo/buildMetadata'
+import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
+import { seoPresets } from '~/config/seo'
 
-export const head: DocumentHead = {
-	title: buildTitle('Home'),
-	meta: [
-		{
-			name: 'description',
-			content: 'One body of work by Alden Gillespy across two connected practices: engineering systems and production storytelling.',
-		},
-	],
-	scripts: [
-		{
-			props: {
-				type: 'application/ld+json',
+export const head: DocumentHead = (() => {
+	const metadata = buildMetadata({
+		...seoPresets.home,
+		pathname: '/',
+	})
+	const documentHead = metadataToDocumentHead(metadata)
+	return {
+		...documentHead,
+		scripts: [
+			{
+				props: {
+					type: 'application/ld+json',
+				},
+				script: JSON.stringify(personStructuredData),
 			},
-			script: JSON.stringify(personStructuredData),
-		},
-	],
-}
+		],
+	}
+})()
 
 export default component$(() => {
 	return (

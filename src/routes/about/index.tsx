@@ -7,18 +7,16 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { aboutPageContent } from '~/content/about'
-import { buildTitle } from '~/fns/seo'
+import { buildMetadata } from '~/fns/seo/buildMetadata'
+import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
+import { seoPresets } from '~/config/seo'
 
-export const head: DocumentHead = {
-  title: buildTitle('About'),
-  meta: [
-    {
-      name: 'description',
-      content:
-        'About Alden Gillespy, a multidisciplinary practice across engineering systems and production storytelling.',
-    },
-  ],
-}
+export const head: DocumentHead = metadataToDocumentHead(
+  buildMetadata({
+    ...seoPresets.about,
+    pathname: '/about',
+  })
+)
 
 export default component$(() => {
   return (

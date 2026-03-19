@@ -7,18 +7,16 @@ import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { TextLink } from '~/components/ui/TextLink'
 import { resumePageContent } from '~/content/resume'
-import { buildTitle } from '~/fns/seo'
+import { buildMetadata } from '~/fns/seo/buildMetadata'
+import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
+import { seoPresets } from '~/config/seo'
 
-export const head: DocumentHead = {
-  title: buildTitle('Resume'),
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Web resume for Alden Gillespy across software engineering and production storytelling.',
-    },
-  ],
-}
+export const head: DocumentHead = metadataToDocumentHead(
+  buildMetadata({
+    ...seoPresets.resume,
+    pathname: '/resume',
+  })
+)
 
 export default component$(() => {
   return (
