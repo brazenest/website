@@ -99,9 +99,6 @@ export default component$(() => {
                         key={side.title}
                         class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
                       >
-                        <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                          {side.label}
-                        </p>
                         <h3 class="text-lg font-semibold tracking-tight md:text-xl">
                           {side.title}
                         </h3>

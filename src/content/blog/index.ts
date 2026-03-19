@@ -1,14 +1,14 @@
 export const blogPageContent = {
   eyebrow: 'Blog',
-  title: 'Writing across systems, stories, and the space between them.',
+  title: 'Essays on Software Systems, Visual Production, and How They Connect',
   intro:
-    'Writing by Alden Gillespy across systems, stories, and the space between them. Some posts stay close to engineering decisions, some stay close to production and editorial craft, and some sit directly in the overlap where both disciplines use the same decision model.',
+    'Writing by Alden Gillespy across engineering, production, and their unified approach. Some posts analyze engineering decisions, some explore production craft, and some examine how both disciplines share the same working method.',
   bridge:
     'The writing exists to explain the thinking behind the work on the rest of the site. Expect selected essays, process notes, and reflections rather than a high-volume publishing feed.',
   positioning: {
     heading: 'How this section fits the site',
     intro:
-      'Projects show evidence. The blog explains the operating logic behind them and makes the connection between Side 1, Side 2, and the shared method more explicit.',
+      'Projects show evidence. Essays explain the reasoning behind decisions and clarify how engineering and production share the same working method.',
     items: [
       {
         title: 'Engineering notes',
@@ -30,7 +30,7 @@ export const blogPageContent = {
   published: {
     heading: 'Published notes',
     intro:
-      'Finished writing that sets the tone for the section and clarifies the kind of thinking that will live here.',
+      'Essays covering engineering decisions, production craft, and the areas where both disciplines converge. Each clarifies the thinking behind the work shown on the case study pages.',
   },
   drafts: {
     heading: 'In progress',

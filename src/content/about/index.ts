@@ -7,7 +7,7 @@ export const aboutPageContent = {
     {
       heading: 'Who I Am',
       paragraphs: [
-        'My work sits at the intersection of implementation and authorship. On one project I may be modeling data, structuring routes, and making architecture decisions. On another, I may be planning coverage, directing a sequence, and shaping rhythm in the edit.',
+        'My work combines software engineering and visual production. On one project I may be modeling data, structuring routes, and making architecture decisions. On another, I may be planning coverage, directing a sequence, and shaping rhythm in the edit.',
         'What connects those environments is responsibility. I care about taking ideas from vague to concrete, making key decisions explicit, and shipping work that remains understandable to collaborators after the first handoff.',
       ],
     },
@@ -22,7 +22,7 @@ export const aboutPageContent = {
   ],
   principles: {
     heading: 'How I Think About the Work',
-    intro: 'Across both sides, my process follows a repeatable decision model.',
+    intro: 'Across engineering and production, my process follows a repeatable decision model.',
     items: [
       {
         title: 'Start from audience and outcome',
@@ -47,18 +47,16 @@ export const aboutPageContent = {
     ],
   },
   split: {
-    heading: 'Why the Site Is Split Into Side 1 and Side 2',
+    heading: 'Why the Site Is Split Into Engineering and Production',
     intro:
-      'The split is intentional. Each side lets you evaluate a different kind of evidence from the same practice.',
+      'The split is intentional. Each section lets you evaluate a different kind of evidence from the same practice.',
     sides: [
       {
-        label: 'Side 1',
         title: 'Engineering',
         description:
           'Architecture rationale, implementation choices, and maintainability decisions under real product constraints.',
       },
       {
-        label: 'Side 2',
         title: 'Production',
         description:
           'Story intent, visual strategy, and editorial control from capture through final cut.',
