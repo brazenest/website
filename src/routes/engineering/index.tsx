@@ -72,7 +72,7 @@ export default component$(() => {
           <Container width="content">
             <section id="engineering-cta" aria-labelledby="engineering-cta-title" class="flex flex-col gap-4 md:gap-5">
               <h2 id="engineering-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                Next
+                Next Steps
               </h2>
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
