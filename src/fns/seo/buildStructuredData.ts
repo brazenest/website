@@ -1,10 +1,10 @@
 import type {
-	PersonStructuredData,
-	WebSiteStructuredData,
-	ProjectStructuredDataInput,
-	ArticleStructuredDataInput,
-	CreativeWorkStructuredData,
-	ArticleStructuredData,
+  PersonStructuredData,
+  WebSiteStructuredData,
+  ProjectStructuredDataInput,
+  ArticleStructuredDataInput,
+  CreativeWorkStructuredData,
+  ArticleStructuredData,
 } from '~/types/seo'
 import { siteConfig } from '~/config/site'
 
@@ -12,10 +12,10 @@ import { siteConfig } from '~/config/site'
  * Ensure an image URL is absolute.
  */
 function ensureAbsoluteUrl(url: string): string {
-	if (!url.startsWith('http://') && !url.startsWith('https://')) {
-		return `${siteConfig.siteUrl}${url.startsWith('/') ? '' : '/'}${url}`
-	}
-	return url
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    return `${siteConfig.siteUrl}${url.startsWith('/') ? '' : '/'}${url}`
+  }
+  return url
 }
 
 /**
@@ -24,24 +24,24 @@ function ensureAbsoluteUrl(url: string): string {
  * @returns Complete Person schema object
  */
 export function buildPersonStructuredData(): PersonStructuredData {
-	return {
-		'@context': 'https://schema.org',
-		'@type': 'Person',
-		name: siteConfig.personFullName || siteConfig.siteName,
-		url: siteConfig.siteUrl,
-		...(siteConfig.personDescription && {
-			description: siteConfig.personDescription,
-		}),
-		...(siteConfig.personJobTitle && {
-			jobTitle: siteConfig.personJobTitle,
-		}),
-		...(siteConfig.personImage && {
-			image: ensureAbsoluteUrl(siteConfig.personImage),
-		}),
-		...(siteConfig.personSameAs && siteConfig.personSameAs.length > 0 && {
-			sameAs: siteConfig.personSameAs,
-		}),
-	}
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: siteConfig.personFullName || siteConfig.siteName,
+    url: siteConfig.siteUrl,
+    ...(siteConfig.personDescription && {
+      description: siteConfig.personDescription,
+    }),
+    ...(siteConfig.personJobTitle && {
+      jobTitle: siteConfig.personJobTitle,
+    }),
+    ...(siteConfig.personImage && {
+      image: ensureAbsoluteUrl(siteConfig.personImage),
+    }),
+    ...(siteConfig.personSameAs && siteConfig.personSameAs.length > 0 && {
+      sameAs: siteConfig.personSameAs,
+    }),
+  }
 }
 
 /**
@@ -50,18 +50,18 @@ export function buildPersonStructuredData(): PersonStructuredData {
  * @returns Complete WebSite schema object
  */
 export function buildWebSiteStructuredData(): WebSiteStructuredData {
-	return {
-		'@context': 'https://schema.org',
-		'@type': 'WebSite',
-		name: siteConfig.siteName,
-		url: siteConfig.siteUrl,
-		...(siteConfig.defaultDescription && {
-			description: siteConfig.defaultDescription,
-		}),
-		...(siteConfig.defaultOGImage && {
-			image: ensureAbsoluteUrl(siteConfig.defaultOGImage.url),
-		}),
-	}
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: siteConfig.siteName,
+    url: siteConfig.siteUrl,
+    ...(siteConfig.defaultDescription && {
+      description: siteConfig.defaultDescription,
+    }),
+    ...(siteConfig.defaultOGImage && {
+      image: ensureAbsoluteUrl(siteConfig.defaultOGImage.url),
+    }),
+  }
 }
 
 /**
@@ -71,37 +71,37 @@ export function buildWebSiteStructuredData(): WebSiteStructuredData {
  * @returns Complete CreativeWork schema object
  */
 export function buildProjectStructuredData(input: ProjectStructuredDataInput): CreativeWorkStructuredData {
-	const author = {
-		'@type': 'Person',
-		name: input.authorName || siteConfig.personFullName || siteConfig.siteName,
-	}
+  const author = {
+    '@type': 'Person',
+    name: input.authorName || siteConfig.personFullName || siteConfig.siteName,
+  }
 
-	return {
-		'@context': 'https://schema.org',
-		'@type': 'CreativeWork',
-		name: input.title,
-		description: input.description,
-		url: ensureAbsoluteUrl(input.url),
-		...(input.image && {
-			image: ensureAbsoluteUrl(input.image),
-		}),
-		...(input.datePublished && {
-			datePublished: input.datePublished,
-		}),
-		...(input.dateModified && {
-			dateModified: input.dateModified,
-		}),
-		...(input.keywords && input.keywords.length > 0 && {
-			keywords: input.keywords.join(', '),
-		}),
-		...(input.section && {
-			articleSection: input.section,
-		}),
-		...(input.excerpt && {
-			about: input.excerpt,
-		}),
-		author,
-	}
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: input.title,
+    description: input.description,
+    url: ensureAbsoluteUrl(input.url),
+    ...(input.image && {
+      image: ensureAbsoluteUrl(input.image),
+    }),
+    ...(input.datePublished && {
+      datePublished: input.datePublished,
+    }),
+    ...(input.dateModified && {
+      dateModified: input.dateModified,
+    }),
+    ...(input.keywords && input.keywords.length > 0 && {
+      keywords: input.keywords.join(', '),
+    }),
+    ...(input.section && {
+      articleSection: input.section,
+    }),
+    ...(input.excerpt && {
+      about: input.excerpt,
+    }),
+    author,
+  }
 }
 
 /**
@@ -111,30 +111,30 @@ export function buildProjectStructuredData(input: ProjectStructuredDataInput): C
  * @returns Complete Article schema object
  */
 export function buildArticleStructuredData(input: ArticleStructuredDataInput): ArticleStructuredData {
-	const author = {
-		'@type': 'Person',
-		name: input.authorName || siteConfig.personFullName || siteConfig.siteName,
-	}
+  const author = {
+    '@type': 'Person',
+    name: input.authorName || siteConfig.personFullName || siteConfig.siteName,
+  }
 
-	return {
-		'@context': 'https://schema.org',
-		'@type': 'Article',
-		headline: input.title,
-		description: input.description,
-		url: ensureAbsoluteUrl(input.url),
-		...(input.image && {
-			image: ensureAbsoluteUrl(input.image),
-		}),
-		datePublished: input.datePublished,
-		...(input.dateModified && {
-			dateModified: input.dateModified,
-		}),
-		...(input.keywords && input.keywords.length > 0 && {
-			keywords: input.keywords.join(', '),
-		}),
-		...(input.articleBody && {
-			articleBody: input.articleBody,
-		}),
-		author,
-	}
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: input.title,
+    description: input.description,
+    url: ensureAbsoluteUrl(input.url),
+    ...(input.image && {
+      image: ensureAbsoluteUrl(input.image),
+    }),
+    datePublished: input.datePublished,
+    ...(input.dateModified && {
+      dateModified: input.dateModified,
+    }),
+    ...(input.keywords && input.keywords.length > 0 && {
+      keywords: input.keywords.join(', '),
+    }),
+    ...(input.articleBody && {
+      articleBody: input.articleBody,
+    }),
+    author,
+  }
 }
