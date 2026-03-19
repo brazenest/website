@@ -4,11 +4,13 @@ import type { EngineeringProject } from '~/types/content'
 
 export const ProjectGrid = component$(({ projects }: ProjectGridProps) => {
   return (
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:gap-8">
+    <ul class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:gap-8">
       {projects.map((project) => (
-        <ProjectCard key={project.slug} {...project} />
+        <li key={project.slug}>
+          <ProjectCard {...project} />
+        </li>
       ))}
-    </div>
+    </ul>
   )
 })
 

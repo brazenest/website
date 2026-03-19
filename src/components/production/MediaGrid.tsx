@@ -4,11 +4,13 @@ import type { ProductionProject } from '~/types/content'
 
 export const MediaGrid = component$(({ projects }: MediaGridProps) => {
   return (
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:gap-8">
+    <ul class="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 xl:gap-8">
       {projects.map((project) => (
-        <MediaCard key={project.slug} {...project} />
+        <li key={project.slug}>
+          <MediaCard {...project} />
+        </li>
       ))}
-    </div>
+    </ul>
   )
 })
 

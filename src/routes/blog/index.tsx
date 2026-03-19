@@ -100,12 +100,12 @@ export default component$(() => {
                 </p>
               </div>
 
-              <div class="flex flex-col gap-6 md:gap-8">
+              <ul class="flex flex-col gap-6 md:gap-8">
                 {publishedBlogPosts.map((post) => (
-                  <article
-                    key={post.slug}
-                    class="grid gap-4 border-t border-[var(--border)] pt-6 first:border-t-0 first:pt-0 md:grid-cols-[minmax(11rem,13rem)_minmax(0,1fr)] md:gap-8"
-                  >
+                  <li key={post.slug}>
+                    <article
+                      class="grid gap-4 border-t border-[var(--border)] pt-6 first:border-t-0 first:pt-0 md:grid-cols-[minmax(11rem,13rem)_minmax(0,1fr)] md:gap-8"
+                    >
                     <div class="flex flex-col gap-2">
                       <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                         {getBlogSideLabel(post.side)}
@@ -130,8 +130,9 @@ export default component$(() => {
                       </div>
                     </div>
                   </article>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </section>
           </Container>
         </Section>
@@ -152,12 +153,12 @@ export default component$(() => {
                 </p>
               </div>
 
-              <div class="grid gap-4 md:grid-cols-2">
+              <ul class="grid gap-4 md:grid-cols-2">
                 {draftBlogPosts.map((post) => (
-                  <article
-                    key={post.slug}
-                    class="flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
-                  >
+                  <li key={post.slug}>
+                    <article
+                      class="flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                    >
                     <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                       <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
                         Draft
@@ -179,8 +180,9 @@ export default component$(() => {
                       {post.summary}
                     </p>
                   </article>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </section>
           </Container>
         </Section>

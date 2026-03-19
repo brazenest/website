@@ -121,21 +121,22 @@ export default component$(() => {
                 </p>
               </div>
 
-              <div class="grid gap-4 md:grid-cols-2">
+              <ul class="grid gap-4 md:grid-cols-2">
                 {contactPageContent.inquiryTypes.items.map((item) => (
-                  <article
-                    key={item.title}
-                    class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
-                  >
-                    <h3 class="text-lg font-semibold tracking-tight md:text-xl">
-                      {item.title}
-                    </h3>
-                    <p class="text-base leading-7 text-[var(--muted)]">
-                      {item.description}
-                    </p>
-                  </article>
+                  <li key={item.title}>
+                    <article
+                      class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                    >
+                      <h3 class="text-lg font-semibold tracking-tight md:text-xl">
+                        {item.title}
+                      </h3>
+                      <p class="text-base leading-7 text-[var(--muted)]">
+                        {item.description}
+                      </p>
+                    </article>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </section>
           </Container>
         </Section>
@@ -155,22 +156,23 @@ export default component$(() => {
                   {contactPageContent.includeItems.intro}
                 </p>
 
-                <div class="flex flex-col gap-4">
+                <ul class="flex flex-col gap-4">
                   {contactPageContent.includeItems.items.map((item) => (
-                    <article
-                      key={item.title}
-                      class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
-                    >
-                      <h3 class="text-lg font-semibold tracking-tight md:text-xl">
-                        {item.title}
-                      </h3>
+                    <li key={item.title}>
+                      <article
+                        class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                      >
+                        <h3 class="text-lg font-semibold tracking-tight md:text-xl">
+                          {item.title}
+                        </h3>
 
-                      <p class="text-base leading-7 text-[var(--muted)]">
-                        {item.description}
-                      </p>
-                    </article>
+                        <p class="text-base leading-7 text-[var(--muted)]">
+                          {item.description}
+                        </p>
+                      </article>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </section>
 
               <section class="flex flex-col gap-5 md:gap-6" aria-labelledby="contact-next">
@@ -185,9 +187,9 @@ export default component$(() => {
                   {contactPageContent.nextSteps.intro}
                 </p>
 
-                <div class="flex flex-col gap-4">
+                <ol class="flex flex-col gap-4">
                   {contactPageContent.nextSteps.items.map((item, index) => (
-                    <article
+                    <li
                       key={item.title}
                       class="grid gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5 md:grid-cols-[2.5rem_minmax(0,1fr)] md:items-start"
                     >
@@ -204,9 +206,9 @@ export default component$(() => {
                           {item.description}
                         </p>
                       </div>
-                    </article>
+                    </li>
                   ))}
-                </div>
+                </ol>
 
                 <p class="max-w-[60ch] text-sm leading-6 text-[var(--muted)] md:text-base">
                   {contactPageContent.nextSteps.note}

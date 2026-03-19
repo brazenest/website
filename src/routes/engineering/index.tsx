@@ -57,14 +57,14 @@ export default component$(() => {
                 </p>
               </div>
 
-              <div class="flex flex-col gap-5 md:gap-6">
+              <ul class="flex flex-col gap-5 md:gap-6">
                 {systemThinkingItems.map((item) => (
-                  <div key={item.title} class="flex flex-col gap-2">
+                  <li key={item.title} class="flex flex-col gap-2">
                     <h3 class="text-lg font-medium tracking-tight md:text-xl">{item.title}</h3>
                     <p class="text-base leading-7 text-[var(--muted)]">{item.description}</p>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </section>
           </Container>
         </Section>
