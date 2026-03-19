@@ -9,29 +9,16 @@ import { SideSelector } from '~/components/side/SideSelector'
 import { aboutPreviewContent } from '~/content/identity/about-preview'
 import { heroContent } from '~/content/identity/hero'
 import { sideLinkCards } from '~/content/identity/side-links'
-import { personStructuredData } from '~/fns/seo'
 import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
 import { seoPresets } from '~/config/seo'
 
-export const head: DocumentHead = (() => {
-	const metadata = buildMetadata({
+export const head: DocumentHead = metadataToDocumentHead(
+	buildMetadata({
 		...seoPresets.home,
 		pathname: '/',
 	})
-	const documentHead = metadataToDocumentHead(metadata)
-	return {
-		...documentHead,
-		scripts: [
-			{
-				props: {
-					type: 'application/ld+json',
-				},
-				script: JSON.stringify(personStructuredData),
-			},
-		],
-	}
-})()
+)
 
 export default component$(() => {
 	return (

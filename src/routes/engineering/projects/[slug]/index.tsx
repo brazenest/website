@@ -7,22 +7,21 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { engineeringProjects } from '~/content/engineering/projects'
-import { buildTitle } from '~/fns/seo'
+import { buildMetadata } from '~/fns/seo/buildMetadata'
+import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
 import { buildProjectStructuredData } from '~/fns/seo/buildStructuredData'
 
 export const head: DocumentHead = ({ params }) => {
   const project = engineeringProjects.find((item) => item.slug === params.slug)
 
   if (!project) {
-    return {
-      title: buildTitle('Engineering Project'),
-      meta: [
-        {
-          name: 'description',
-          content: 'Engineering project detail by Alden Gillespy.',
-        },
-      ],
-    }
+    return metadataToDocumentHead(
+      buildMetadata({
+        title: 'Engineering Project',
+        description: 'Engineering project detail by Alden Gillespy.',
+        pathname: `/engineering/projects/${params.slug}`,
+      })
+    )
   }
 
   // Build CreativeWork schema for this engineering project
@@ -34,20 +33,26 @@ export const head: DocumentHead = ({ params }) => {
     section: 'Engineering',
   })
 
+  const metadata = buildMetadata({
+    title: project.seo?.title ?? project.title,
+    description: project.seo?.description ?? project.description,
+    pathname: `/engineering/projects/${params.slug}`,
+    ogImage: project.image,
+  })
+
+  const documentHead = metadataToDocumentHead(metadata)
   return {
-    title: buildTitle(project.seo?.title ?? project.title),
-    meta: [
-      {
-        name: 'description',
-        content: project.seo?.description ?? project.description,
-      },
-    ],
+    ...documentHead,
     scripts: [
       {
         props: {
           type: 'application/ld+json',
         },
         script: JSON.stringify(projectSchema),
+      },
+    ],
+  }
+}
       },
     ],
   }
