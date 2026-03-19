@@ -106,30 +106,30 @@ export default component$(() => {
                     <article
                       class="grid gap-4 border-t border-[var(--border)] pt-6 first:border-t-0 first:pt-0 md:grid-cols-[minmax(11rem,13rem)_minmax(0,1fr)] md:gap-8"
                     >
-                    <div class="flex flex-col gap-2">
-                      <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                        {getBlogSideLabel(post.side)}
-                      </p>
+                      <div class="flex flex-col gap-2">
+                        <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                          {getBlogSideLabel(post.side)}
+                        </p>
 
-                      <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
-                        {formatBlogDate(post.date)}
-                      </p>
-                    </div>
-
-                    <div class="flex flex-col gap-3">
-                      <h3 class="text-xl font-semibold tracking-tight md:text-2xl">
-                        {post.title}
-                      </h3>
-
-                      <p class="max-w-[68ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                        {post.summary}
-                      </p>
-
-                      <div>
-                        <TextLink href={`/blog/${post.slug}`} label="Read note" />
+                        <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
+                          {formatBlogDate(post.date)}
+                        </p>
                       </div>
-                    </div>
-                  </article>
+
+                      <div class="flex flex-col gap-3">
+                        <h3 class="text-xl font-semibold tracking-tight md:text-2xl">
+                          {post.title}
+                        </h3>
+
+                        <p class="max-w-[68ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                          {post.summary}
+                        </p>
+
+                        <div>
+                          <TextLink href={`/blog/${post.slug}`} label="Read note" />
+                        </div>
+                      </div>
+                    </article>
                   </li>
                 ))}
               </ul>
@@ -159,27 +159,27 @@ export default component$(() => {
                     <article
                       class="flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
                     >
-                    <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                      <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
-                        Draft
-                      </span>
-                      <span>{getBlogSideLabel(post.side)}</span>
-                    </div>
+                      <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                        <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
+                          Draft
+                        </span>
+                        <span>{getBlogSideLabel(post.side)}</span>
+                      </div>
 
-                    <div class="flex flex-col gap-1">
-                      <h3 class="text-lg font-semibold tracking-tight md:text-xl">
-                        {post.title}
-                      </h3>
+                      <div class="flex flex-col gap-1">
+                        <h3 class="text-lg font-semibold tracking-tight md:text-xl">
+                          {post.title}
+                        </h3>
 
-                      <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
-                        {formatBlogDate(post.date)}
+                        <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
+                          {formatBlogDate(post.date)}
+                        </p>
+                      </div>
+
+                      <p class="text-base leading-7 text-[var(--muted)]">
+                        {post.summary}
                       </p>
-                    </div>
-
-                    <p class="text-base leading-7 text-[var(--muted)]">
-                      {post.summary}
-                    </p>
-                  </article>
+                    </article>
                   </li>
                 ))}
               </ul>
