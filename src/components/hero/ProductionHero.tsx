@@ -5,14 +5,14 @@ import { Section } from '~/components/ui/Section'
 import type { ProductionHeroContent } from '~/types/content'
 
 export const ProductionHero = component$(
-  ({ headline, description, primaryCtaLabel, primaryCtaHref }: ProductionHeroProps) => {
+  ({ headline, byline, description, primaryCtaLabel, primaryCtaHref }: ProductionHeroProps) => {
     return (
       <Section spacing="default">
         <Container>
           <div class="flex flex-col gap-5 md:gap-8">
             <div class="flex max-w-[72ch] flex-col gap-3 md:gap-5">
               <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                Production
+                {byline || 'Production'}
               </p>
 
               <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:max-w-[15ch] md:text-6xl">

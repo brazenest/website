@@ -22,6 +22,7 @@ export type EngineeringProject = {
 
 export type EngineeringHeroContent = {
   headline: string
+  byline?: string
   description: string
   primaryCtaLabel: string
   primaryCtaHref: string
@@ -60,6 +61,7 @@ export type ProductionProject = {
 
 export type ProductionHeroContent = {
   headline: string
+  byline?: string
   description: string
   primaryCtaLabel: string
   primaryCtaHref: string

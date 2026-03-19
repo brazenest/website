@@ -7,6 +7,7 @@ import type { EngineeringHeroContent } from '~/types/content'
 export const EngineeringHero = component$(
   ({
     headline,
+    byline,
     description,
     primaryCtaLabel,
     primaryCtaHref,
@@ -19,7 +20,7 @@ export const EngineeringHero = component$(
           <div class="flex flex-col gap-4 md:gap-7">
             <div class="flex max-w-[68ch] flex-col gap-3 md:gap-4">
               <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                Engineering
+                {byline || 'Engineering'}
               </p>
 
               <h1 class="max-w-[15ch] text-4xl font-semibold leading-tight tracking-tight md:max-w-[12ch] md:text-6xl">

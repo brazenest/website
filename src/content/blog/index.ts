@@ -2,7 +2,7 @@ export const blogPageContent = {
   eyebrow: 'Blog',
   title: 'Writing across systems, stories, and the space between them.',
   intro:
-    'This is one writing hub with side-aware labels. Some posts stay close to engineering decisions, some stay close to production and editorial craft, and some sit directly in the overlap where both disciplines use the same decision model.',
+    'Writing by Alden Gillespy across systems, stories, and the space between them. Some posts stay close to engineering decisions, some stay close to production and editorial craft, and some sit directly in the overlap where both disciplines use the same decision model.',
   bridge:
     'The writing exists to explain the thinking behind the work on the rest of the site. Expect selected essays, process notes, and reflections rather than a high-volume publishing feed.',
   positioning: {

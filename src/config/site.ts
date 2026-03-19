@@ -21,8 +21,12 @@ export const siteConfig: SiteConfig = {
   },
   twitterHandle: '@aldengillespy',
   
-  // Structured data identity fields
+  // Canonical entity identity — source of truth for person representation across site
   personFullName: 'Alden Gillespy',
+  personGivenName: 'Alden',
+  personFamilyName: 'Gillespy',
+  canonicalIdentity: 'Alden Gillespy is a software engineer and video producer exploring the intersection of technology and storytelling.',
+  canonicalRole: 'Full-stack software engineer and video producer',
   personDescription:
     'Full-stack engineer and visual storyteller exploring the intersection of technology and craft.',
   personJobTitle: 'Senior Software Engineer and Film Producer',
