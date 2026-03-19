@@ -27,21 +27,49 @@ export default component$(() => {
   );
 });
 
+/**
+ * DocumentRouterHead renders route-resolved metadata into the document head.
+ *
+ * Metadata flow:
+ * 1. Each route exports a `head` constant via metadataToDocumentHead()
+ * 2. metadataToDocumentHead() converts SEOMetadata to Qwik's DocumentHead format
+ * 3. Qwik City collects all head exports and makes them available via useDocumentHead()
+ * 4. This component reads the collected head and renders all meta tags, links, styles, and scripts
+ *
+ * The rendered metadata includes:
+ * - Title and meta description
+ * - Canonical URL
+ * - Open Graph tags (og:title, og:description, og:type, og:url, og:image, etc.)
+ * - Twitter Card tags (twitter:card, twitter:title, twitter:description, twitter:image)
+ * - Article metadata (for article-type pages)
+ *
+ * See: src/fns/seo/metadataToDocumentHead.ts for the conversion logic
+ * See: src/types/seo.ts for SEOMetadata type definition
+ */
 export const DocumentRouterHead = component$(() => {
   const head = useDocumentHead();
 
   return (
     <>
-      <title>{head.title || "Personal Site v3"}</title>
+      {/* Title from route metadata (includes template formatting) */}
+      <title>{head.title || 'Personal Site v3'}</title>
+
+      {/* Meta tags: description, canonical, OG, Twitter, article metadata */}
       {head.meta.map((meta) => (
         <meta key={meta.key} {...meta} />
       ))}
+
+      {/* Canonical and other link tags */}
       {head.links.map((link) => (
         <link key={link.key} {...link} />
       ))}
+
+      {/* Embedded styles */}
       {head.styles.map((style) => (
         <style key={style.key} {...style.props} dangerouslySetInnerHTML={style.style} />
       ))}
+
+      {/* Structured data and other scripts */}
       {head.scripts.map((script) => (
         <script key={script.key} {...script.props} dangerouslySetInnerHTML={script.script} />
       ))}
