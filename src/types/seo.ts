@@ -56,3 +56,27 @@ export type SiteConfig = {
   defaultOGImage: SEOImage
   twitterHandle?: string
 }
+/**
+ * Unique page identifier for route-aware SEO presets.
+ * Maps known pages to their canonical metadata.
+ */
+export type SEOPageKey =
+	| 'home'
+	| 'about'
+	| 'resume'
+	| 'contact'
+	| 'blog'
+	| 'engineering'
+	| 'production'
+
+/**
+ * Preset metadata for a specific page.
+ * Omits `pathname` which is provided per-route when building metadata.
+ */
+export type SEOPreset = Omit<SEOInput, 'pathname'>
+
+/**
+ * Typed mapping from page identifiers to their metadata presets.
+ * Central source of truth for all route-level SEO text and imagery.
+ */
+export type SEOPresetMap = Record<SEOPageKey, SEOPreset>
