@@ -5,6 +5,8 @@ import "./global.css";
 
 import fontInterStyles from "@fontsource-variable/inter?inline";
 import fontSpaceGroteskStyles from "@fontsource-variable/space-grotesk?inline";
+import { buildPersonStructuredData, buildWebSiteStructuredData } from "~/fns/seo/buildStructuredData";
+import { StructuredData } from "~/components/seo/StructuredData";
 
 export default component$(() => {
 
@@ -73,6 +75,12 @@ export const DocumentRouterHead = component$(() => {
       {head.scripts.map((script) => (
         <script key={script.key} {...script.props} dangerouslySetInnerHTML={script.script} />
       ))}
+
+      {/* Global structured data: Person and WebSite schemas */}
+      {/* These are emitted site-wide for SEO and schema.org indexing */}
+      <StructuredData
+        data={[buildPersonStructuredData(), buildWebSiteStructuredData()]}
+      />
     </>
   );
 });
