@@ -129,3 +129,72 @@ export type WebSiteStructuredData = StructuredDataObject & {
 	description?: string
 	image?: string
 }
+
+/**
+ * Input for building a CreativeWork (project) schema.
+ * Flexible enough for portfolio items, case studies, and project showcases.
+ */
+export type ProjectStructuredDataInput = {
+	title: string
+	description: string
+	url: string
+	image?: string
+	datePublished?: string
+	dateModified?: string
+	keywords?: string[]
+	section?: string
+	excerpt?: string
+	authorName?: string
+}
+
+/**
+ * Input for building an Article schema.
+ * Covers blog posts, essays, and longform content.
+ */
+export type ArticleStructuredDataInput = {
+	title: string
+	description: string
+	url: string
+	image?: string
+	datePublished: string
+	dateModified?: string
+	keywords?: string[]
+	excerpt?: string
+	authorName?: string
+	articleBody?: string
+}
+
+/**
+ * JSON-LD CreativeWork schema for portfolio/project pages.
+ */
+export type CreativeWorkStructuredData = StructuredDataObject & {
+	'@context': 'https://schema.org'
+	'@type': 'CreativeWork'
+	name: string
+	description: string
+	url: string
+	image?: string
+	datePublished?: string
+	dateModified?: string
+	keywords?: string
+	articleSection?: string
+	about?: string
+	author?: StructuredDataObject
+}
+
+/**
+ * JSON-LD Article schema for blog posts and longform content.
+ */
+export type ArticleStructuredData = StructuredDataObject & {
+	'@context': 'https://schema.org'
+	'@type': 'Article'
+	headline: string
+	description: string
+	url: string
+	image?: string
+	datePublished: string
+	dateModified?: string
+	keywords?: string
+	articleBody?: string
+	author?: StructuredDataObject
+}

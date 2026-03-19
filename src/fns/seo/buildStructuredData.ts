@@ -1,4 +1,11 @@
-import type { PersonStructuredData, WebSiteStructuredData } from '~/types/seo'
+import type {
+	PersonStructuredData,
+	WebSiteStructuredData,
+	ProjectStructuredDataInput,
+	ArticleStructuredDataInput,
+	CreativeWorkStructuredData,
+	ArticleStructuredData,
+} from '~/types/seo'
 import { siteConfig } from '~/config/site'
 
 /**
@@ -54,5 +61,80 @@ export function buildWebSiteStructuredData(): WebSiteStructuredData {
 		...(siteConfig.defaultOGImage && {
 			image: ensureAbsoluteUrl(siteConfig.defaultOGImage.url),
 		}),
+	}
+}
+
+/**
+ * Build a valid JSON-LD CreativeWork schema for a project/portfolio page.
+ *
+ * @param input Project-level metadata
+ * @returns Complete CreativeWork schema object
+ */
+export function buildProjectStructuredData(input: ProjectStructuredDataInput): CreativeWorkStructuredData {
+	const author = {
+		'@type': 'Person',
+		name: input.authorName || siteConfig.personFullName || siteConfig.siteName,
+	}
+
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'CreativeWork',
+		name: input.title,
+		description: input.description,
+		url: ensureAbsoluteUrl(input.url),
+		...(input.image && {
+			image: ensureAbsoluteUrl(input.image),
+		}),
+		...(input.datePublished && {
+			datePublished: input.datePublished,
+		}),
+		...(input.dateModified && {
+			dateModified: input.dateModified,
+		}),
+		...(input.keywords && input.keywords.length > 0 && {
+			keywords: input.keywords.join(', '),
+		}),
+		...(input.section && {
+			articleSection: input.section,
+		}),
+		...(input.excerpt && {
+			about: input.excerpt,
+		}),
+		author,
+	}
+}
+
+/**
+ * Build a valid JSON-LD Article schema for a blog post or longform content.
+ *
+ * @param input Article-level metadata
+ * @returns Complete Article schema object
+ */
+export function buildArticleStructuredData(input: ArticleStructuredDataInput): ArticleStructuredData {
+	const author = {
+		'@type': 'Person',
+		name: input.authorName || siteConfig.personFullName || siteConfig.siteName,
+	}
+
+	return {
+		'@context': 'https://schema.org',
+		'@type': 'Article',
+		headline: input.title,
+		description: input.description,
+		url: ensureAbsoluteUrl(input.url),
+		...(input.image && {
+			image: ensureAbsoluteUrl(input.image),
+		}),
+		datePublished: input.datePublished,
+		...(input.dateModified && {
+			dateModified: input.dateModified,
+		}),
+		...(input.keywords && input.keywords.length > 0 && {
+			keywords: input.keywords.join(', '),
+		}),
+		...(input.articleBody && {
+			articleBody: input.articleBody,
+		}),
+		author,
 	}
 }
