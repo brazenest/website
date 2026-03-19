@@ -27,7 +27,7 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="wide">
             <div class="flex flex-col gap-12 md:gap-16">
-              <header class="grid gap-8 border-b border-[var(--border)] pb-10 md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] md:items-start md:gap-10 md:pb-12">
+              <div class="grid gap-8 border-b border-[var(--border)] pb-10 md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] md:items-start md:gap-10 md:pb-12">
                 <div class="flex flex-col gap-3 md:gap-4">
                   <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                     {resumePageContent.header.eyebrow}

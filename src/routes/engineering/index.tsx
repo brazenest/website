@@ -31,9 +31,9 @@ export default component$(() => {
 
         <Section spacing="default">
           <Container>
-            <div id="selected-work" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
+            <section id="selected-work" aria-labelledby="selected-work-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Engineering Case Studies</h2>
+                <h2 id="selected-work-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Engineering Case Studies</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
                   Start with compact case studies. Each case study surfaces the operating challenge,
                   the engineering role I held, and the architectural judgment that made the system
@@ -42,15 +42,15 @@ export default component$(() => {
               </div>
 
               <ProjectGrid projects={engineeringProjects} />
-            </div>
+            </section>
           </Container>
         </Section>
 
         <Section spacing="compact">
           <Container width="content">
-            <div id="system-thinking" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
+            <section id="system-thinking" aria-labelledby="system-thinking-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">How I Make System Decisions</h2>
+                <h2 id="system-thinking-title" class="text-2xl font-semibold tracking-tight md:text-3xl">How I Make System Decisions</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
                   The projects show the outcomes; these principles explain the decision model behind
                   them.
@@ -65,13 +65,13 @@ export default component$(() => {
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           </Container>
         </Section>
         <Section spacing="compact">
           <Container width="content">
-            <div id="engineering-cta" class="flex flex-col gap-4 md:gap-5">
-              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+            <section id="engineering-cta" aria-labelledby="engineering-cta-title" class="flex flex-col gap-4 md:gap-5">
+              <p id="engineering-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 Next
               </p>
 
@@ -88,7 +88,7 @@ export default component$(() => {
                   class="w-full sm:w-auto"
                 />
               </div>
-            </div>
+            </section>
           </Container>
         </Section>
       </main>

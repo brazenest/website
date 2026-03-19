@@ -27,7 +27,7 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="content">
             <div class="flex flex-col gap-10 md:gap-12">
-              <header class="flex flex-col gap-3 md:gap-4">
+              <div class="flex flex-col gap-3 md:gap-4">
                 <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                   {aboutPageContent.eyebrow}
                 </p>
@@ -39,7 +39,7 @@ export default component$(() => {
                 <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                   {aboutPageContent.intro}
                 </p>
-              </header>
+              </div>
 
               <div class="flex flex-col gap-10 md:gap-12">
                 {aboutPageContent.narrativeSections.map((section) => (

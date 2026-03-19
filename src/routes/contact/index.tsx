@@ -27,7 +27,7 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="wide">
             <div class="grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] xl:gap-12">
-              <header class="flex flex-col gap-4 md:gap-5">
+              <div class="flex flex-col gap-4 md:gap-5">
                 <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                   {contactPageContent.eyebrow}
                 </p>
@@ -43,7 +43,7 @@ export default component$(() => {
                 <p class="max-w-[68ch] text-base leading-7 text-[var(--fg)] md:text-lg">
                   {contactPageContent.bridge}
                 </p>
-              </header>
+              </div>
 
               <aside class="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface-subtle)] p-5 md:p-6">
                 <div class="flex flex-col gap-2">

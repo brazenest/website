@@ -35,9 +35,9 @@ export default component$(() => {
 
         <Section spacing="default">
           <Container>
-            <div id="selected-work" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
+            <section id="selected-work" aria-labelledby="selected-work-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Production Case Studies</h2>
+                <h2 id="selected-work-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Production Case Studies</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
                   Start with compact case studies. Each case study shows the production context,
                   the role I held, and the framing, coverage, pacing, and editorial decisions
@@ -46,15 +46,15 @@ export default component$(() => {
               </div>
 
               <MediaGrid projects={productionProjects} />
-            </div>
+            </section>
           </Container>
         </Section>
 
         <Section spacing="compact">
           <Container width="content">
-            <div class="flex flex-col gap-6 md:gap-8">
+            <section id="production-story" aria-labelledby="production-story-title" class="flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">How I Build the Story</h2>
+                <h2 id="production-story-title" class="text-2xl font-semibold tracking-tight md:text-3xl">How I Build the Story</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
                   After the finished work, here is the repeatable method behind it: define visual
                   intent, capture adaptable coverage, and cut for rhythm, clarity, and mood.
@@ -73,14 +73,14 @@ export default component$(() => {
                   </div>
                 ))}
               </div>
-            </div>
+            </section>
           </Container>
         </Section>
 
         <Section spacing="compact">
           <Container width="content">
-            <div id="production-cta" class="flex flex-col gap-4 md:gap-5">
-              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+            <section id="production-cta" aria-labelledby="production-cta-title" class="flex flex-col gap-4 md:gap-5">
+              <p id="production-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 Next
               </p>
 
@@ -97,7 +97,7 @@ export default component$(() => {
                   class="w-full sm:w-auto"
                 />
               </div>
-            </div>
+            </section>
           </Container>
         </Section>
       </main>
