@@ -14,10 +14,6 @@ export function metadataToDocumentHead(metadata: SEOMetadata): DocumentHead {
       name: 'description',
       content: metadata.description,
     },
-    {
-      name: 'canonical',
-      content: metadata.canonical,
-    },
     // Open Graph
     {
       property: 'og:title',
@@ -107,5 +103,11 @@ export function metadataToDocumentHead(metadata: SEOMetadata): DocumentHead {
   return {
     title: metadata.title,
     meta: cleanedMeta as any[],
+    links: [
+      {
+        rel: 'canonical',
+        href: metadata.canonical,
+      },
+    ],
   }
 }

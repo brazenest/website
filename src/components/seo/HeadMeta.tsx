@@ -21,7 +21,6 @@ export const HeadMeta = component$<{ metadata: SEOMetadata }>(
         <meta name="description" content={metadata.description} />
 
         {/* Canonical URL */}
-        <meta name="canonical" content={metadata.canonical} />
         <link rel="canonical" href={metadata.canonical} />
 
         {/* Open Graph - required core tags */}
