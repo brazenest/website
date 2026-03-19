@@ -24,6 +24,9 @@ export type SEOInput = {
   modifiedTime?: string
   twitterCard?: 'summary' | 'summary_large_image' | 'app' | 'player'
   canonical?: string
+  includeSitemap?: boolean
+  changefreq?: 'never' | 'yearly' | 'monthly' | 'weekly' | 'daily' | 'hourly' | 'always'
+  priority?: number
 }
 
 /**
@@ -79,6 +82,16 @@ export type SEOPageKey =
  * Omits `pathname` which is provided per-route when building metadata.
  */
 export type SEOPreset = Omit<SEOInput, 'pathname'>
+
+/**
+ * Sitemap entry for XML serialization.
+ * Derived from SEO presets for crawl discovery.
+ */
+export type SitemapEntry = {
+  loc: string
+  changefreq?: 'never' | 'yearly' | 'monthly' | 'weekly' | 'daily' | 'hourly' | 'always'
+  priority?: number
+}
 
 /**
  * Typed mapping from page identifiers to their metadata presets.
