@@ -17,7 +17,7 @@ export const Section = component$(({ spacing = 'default', surface }: SectionProp
   const style: Record<string, string> = { paddingBlock: SPACING_TOKEN[spacing] }
   if (surface) style.background = SURFACE_TOKEN[surface]
   return (
-    <section style={style}>
+    <section style={style} data-scroll-reveal>
       <Slot />
     </section>
   )

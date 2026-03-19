@@ -685,9 +685,36 @@ a {
   will-change: opacity, transform;
 }
 
+[data-scroll-reveal] {
+  transition: opacity var(--motion-duration-slow) var(--motion-easing-ease-out),
+    transform var(--motion-duration-slow) var(--motion-easing-ease-out);
+}
+
+[data-scroll-reveal][data-reveal-state='hidden'] {
+  opacity: 0;
+  transform: translateY(0.5rem);
+  will-change: opacity, transform;
+}
+
+[data-scroll-reveal][data-reveal-state='visible'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .route-transition {
     animation: none;
+    will-change: auto;
+  }
+
+  [data-scroll-reveal] {
+    transition: none;
+  }
+
+  [data-scroll-reveal][data-reveal-state='hidden'],
+  [data-scroll-reveal][data-reveal-state='visible'] {
+    opacity: 1;
+    transform: none;
     will-change: auto;
   }
 }

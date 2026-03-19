@@ -75,6 +75,7 @@ export default component$(() => {
               <section
                 class="grid gap-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
                 aria-labelledby="resume-summary"
+                data-scroll-reveal
               >
                 <h2 id="resume-summary" class="text-2xl font-semibold tracking-tight md:text-3xl">
                   Summary
@@ -88,6 +89,7 @@ export default component$(() => {
               <section
                 class="grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
                 aria-labelledby="resume-experience"
+                data-scroll-reveal
               >
                 <div class="flex flex-col gap-2">
                   <h2

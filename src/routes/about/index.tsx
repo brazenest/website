@@ -45,7 +45,7 @@ export default component$(() => {
 
               <div class="flex flex-col gap-10 md:gap-12">
                 {aboutPageContent.narrativeSections.map((section) => (
-                  <section key={section.heading} class="flex flex-col gap-4 md:gap-5">
+                  <section key={section.heading} class="flex flex-col gap-4 md:gap-5" data-scroll-reveal>
                     <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                       {section.heading}
                     </h2>
@@ -63,7 +63,7 @@ export default component$(() => {
                   </section>
                 ))}
 
-                <section class="flex flex-col gap-5 md:gap-6">
+                <section class="flex flex-col gap-5 md:gap-6" data-scroll-reveal>
                   <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                     {aboutPageContent.principles.heading}
                   </h2>
@@ -86,7 +86,7 @@ export default component$(() => {
                   </div>
                 </section>
 
-                <section class="flex flex-col gap-5 md:gap-6">
+                <section class="flex flex-col gap-5 md:gap-6" data-scroll-reveal>
                   <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                     {aboutPageContent.split.heading}
                   </h2>
@@ -119,7 +119,7 @@ export default component$(() => {
                   </p>
                 </section>
 
-                <section id="about-next" class="flex flex-col gap-4 md:gap-5">
+                <section id="about-next" class="flex flex-col gap-4 md:gap-5" data-scroll-reveal>
                   <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                     {aboutPageContent.cta.eyebrow}
                   </p>
