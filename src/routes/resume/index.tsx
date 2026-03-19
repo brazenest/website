@@ -276,6 +276,20 @@ export default component$(() => {
             </div>
           </Container>
         </Section>
+
+        <Section spacing="compact">
+          <Container width="content">
+            <section id="resume-cta" aria-labelledby="resume-cta-title" class="flex flex-col gap-4 md:gap-5">
+              <h2 id="resume-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                Next Steps
+              </h2>
+
+              <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                For a deeper look at the work, browse the <a href="/engineering#selected-work" class="underline hover:no-underline">engineering case studies</a> and <a href="/production#selected-work" class="underline hover:no-underline">production projects</a>. To discuss a specific role or project, <a href="/contact" class="underline hover:no-underline">start a conversation</a>.
+              </p>
+            </section>
+          </Container>
+        </Section>
       </main>
 
       <Footer />

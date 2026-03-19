@@ -59,7 +59,7 @@ export default component$(() => {
                   </h2>
 
                   <p class="text-base leading-7 text-[var(--muted)]">
-                    {blogPageContent.positioning.intro}
+                    {blogPageContent.positioning.intro} <a href="/about" class="underline hover:no-underline">Learn more about the unified practice</a>.
                   </p>
                 </div>
 

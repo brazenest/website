@@ -57,7 +57,7 @@ export default component$(() => {
                 <h2 id="production-story-title" class="text-2xl font-semibold tracking-tight md:text-3xl">How I Build the Story</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
                   After the finished work, here is the repeatable method behind it: define visual
-                  intent, capture adaptable coverage, and cut for rhythm, clarity, and mood.
+                  intent, capture adaptable coverage, and cut for rhythm, clarity, and mood. <a href="/about" class="underline hover:no-underline">See how this connects to system thinking</a>.
                 </p>
               </div>
 
@@ -86,7 +86,7 @@ export default component$(() => {
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 To see this approach end-to-end, the full case study covers framing decisions,
-                coverage strategy, and editorial choices from concept to final cut.
+                coverage strategy, and editorial choices from concept to final cut. Alternatively, explore the <a href="/engineering" class="underline hover:no-underline">engineering side</a> of the practice, then <a href="/contact" class="underline hover:no-underline">discuss a project or role</a>.
               </p>
 
               <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">

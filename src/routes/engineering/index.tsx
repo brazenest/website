@@ -53,7 +53,7 @@ export default component$(() => {
                 <h2 id="system-thinking-title" class="text-2xl font-semibold tracking-tight md:text-3xl">How I Make System Decisions</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
                   The projects show the outcomes; these principles explain the decision model behind
-                  them.
+                  them. <a href="/about" class="underline hover:no-underline">Learn how this approach connects to the production side</a>.
                 </p>
               </div>
 
@@ -77,7 +77,7 @@ export default component$(() => {
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 To go deeper, open a case study for architecture rationale, tradeoffs, and
-                implementation detail.
+                implementation detail. Or explore the <a href="/production" class="underline hover:no-underline">production side</a> of the practice, then <a href="/contact" class="underline hover:no-underline">discuss a project or role</a>.
               </p>
 
               <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
