@@ -33,7 +33,7 @@ export default component$(() => {
 
         <Section spacing="default">
           <Container>
-            <div id="selected-work" class="flex flex-col gap-6 md:gap-8">
+            <div id="selected-work" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Engineering Case Studies</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
@@ -50,7 +50,7 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <div id="system-thinking" class="flex flex-col gap-6 md:gap-8">
+            <div id="system-thinking" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">How I Make System Decisions</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">

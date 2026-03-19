@@ -41,7 +41,7 @@ export default component$(() => {
                   {blogPageContent.eyebrow}
                 </p>
 
-                <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
+                <h1 class="max-w-[18ch] text-4xl font-semibold leading-tight tracking-tight md:max-w-[20ch] md:text-5xl">
                   {blogPageContent.title}
                 </h1>
 
