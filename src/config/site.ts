@@ -6,18 +6,29 @@ import type { SiteConfig } from '~/types/seo'
  */
 export const siteConfig: SiteConfig = {
   siteName: 'Alden Gillespy',
-  siteUrl: 'https://aldengillespy.com', // Placeholder production domain
+  siteUrl: 'https://aldengillespy.com', // Production domain
   defaultTitle:
     'Alden Gillespy — Full-Stack Engineer & Film Producer',
   titleTemplate: (title: string) => `${title} — Alden Gillespy`,
   defaultDescription:
     'Full-stack engineer and film producer exploring the intersection of technology and storytelling.',
   defaultOGImage: {
-    url: '/assets/og-image.jpg', // Relative path will be made absolute in buildMetadata
+    url: '/assets/og-image.jpg',
     width: 1200,
     height: 630,
     alt: 'Alden Gillespy',
     type: 'image/jpeg',
   },
-  twitterHandle: '@aldengillespy', // Remove @ if not needed for meta tags
+  twitterHandle: '@aldengillespy',
+  
+  // Structured data identity fields
+  personFullName: 'Alden Gillespy',
+  personDescription:
+    'Full-stack engineer and visual storyteller exploring the intersection of technology and craft.',
+  personJobTitle: 'Senior Software Engineer and Film Producer',
+  personImage: '/assets/og-image.jpg',
+  personSameAs: [
+    'https://www.linkedin.com/in/alden-gillespy/',
+    'https://github.com/brazenest',
+  ],
 }

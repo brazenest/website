@@ -54,8 +54,12 @@ export type SiteConfig = {
   titleTemplate: (title: string) => string
   defaultDescription: string
   defaultOGImage: SEOImage
-  twitterHandle?: string
-}
+  twitterHandle?: string	// Structured data identity fields
+	personFullName?: string
+	personDescription?: string
+	personJobTitle?: string
+	personImage?: string
+	personSameAs?: string[]}
 /**
  * Unique page identifier for route-aware SEO presets.
  * Maps known pages to their canonical metadata.
@@ -80,3 +84,48 @@ export type SEOPreset = Omit<SEOInput, 'pathname'>
  * Central source of truth for all route-level SEO text and imagery.
  */
 export type SEOPresetMap = Record<SEOPageKey, SEOPreset>
+
+/**
+ * Generic structured data value for JSON-LD.
+ * Can be a string, number, boolean, or object (including arrays and nested structures).
+ */
+export type StructuredDataValue =
+	| string
+	| number
+	| boolean
+	| null
+	| StructuredDataObject
+	| StructuredDataValue[]
+
+/**
+ * Structured data object compatible with JSON-LD format.
+ */
+export type StructuredDataObject = {
+	[key: string]: StructuredDataValue
+}
+
+/**
+ * JSON-LD Person schema fields for the site author/creator.
+ */
+export type PersonStructuredData = StructuredDataObject & {
+	'@context': 'https://schema.org'
+	'@type': 'Person'
+	name: string
+	url: string
+	description?: string
+	jobTitle?: string
+	image?: string
+	sameAs?: string[]
+}
+
+/**
+ * JSON-LD WebSite schema for the site itself.
+ */
+export type WebSiteStructuredData = StructuredDataObject & {
+	'@context': 'https://schema.org'
+	'@type': 'WebSite'
+	name: string
+	url: string
+	description?: string
+	image?: string
+}
