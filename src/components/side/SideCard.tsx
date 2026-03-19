@@ -30,11 +30,7 @@ export const SideCard = component$(
           </Text>
 
           <div class="pt-3 md:pt-2">
-            <LinkText
-              label={ctaLabel}
-              showArrow
-              class="group-hover:text-[var(--link-color-hover)] group-hover:[text-decoration-line:var(--link-decoration-hover)]"
-            />
+            <LinkText label={ctaLabel} showArrow />
           </div>
         </div>
       </Card>

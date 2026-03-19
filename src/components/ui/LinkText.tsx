@@ -22,7 +22,10 @@ export const LinkText = component$(({ href, label, showArrow = false, disabled =
     <>
       <span>{label}</span>
       {showArrow ? (
-        <span aria-hidden="true" class="transition-transform duration-150 group-hover:translate-x-0.5">
+        <span
+          aria-hidden="true"
+          class="transition-transform duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] motion-reduce:transform-none group-hover:translate-x-0.5"
+        >
           →
         </span>
       ) : null}
