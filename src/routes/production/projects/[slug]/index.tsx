@@ -53,10 +53,6 @@ export const head: DocumentHead = ({ params }) => {
     ],
   }
 }
-      },
-    ],
-  }
-}
 
 export default component$(() => {
   const location = useLocation()
