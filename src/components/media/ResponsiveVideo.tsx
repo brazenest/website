@@ -48,7 +48,7 @@ export const ResponsiveVideo = component$(
         controls
         class={`h-full w-full object-cover ${className}`}
       >
-        <track kind="captions" srcLang="en" label="English" />
+        <track kind="captions" srclang="en" label="English" />
         Your browser does not support the video tag. Please use the poster image or upgrade your browser.
       </video>
     )

@@ -50,6 +50,7 @@ export const bellagioFountainFilmProject: ProductionProject = {
         'The finished piece demonstrates practical production control under live constraints: adaptive coverage, clear visual hierarchy, and edit decisions that make a familiar location feel authored rather than incidental.',
     },
   ],
+  image: '/media/production/bellagio-fountain-still-01.jpg',
   seo: {
     title: 'Bellagio Fountain Film',
     description:

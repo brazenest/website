@@ -39,6 +39,7 @@ export const andacityBookingSystemProject: EngineeringProject = {
         'The outcome was a booking foundation that made search behavior predictable under growth. New integrations and feature work no longer required rewriting search logic, and the team could ship with greater confidence because architectural defaults constrained edge-case failure modes.',
     },
   ],
+  image: '/media/engineering/andacity-booking-system.jpg',
   seo: {
     title: 'Andacity Booking System',
     description:

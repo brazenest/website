@@ -39,6 +39,7 @@ export const studioContentOpsPlatformProject: EngineeringProject = {
         'The platform turned campaign delivery into an operational capability rather than a sequence of custom builds. Teams could launch faster with fewer regressions, and engineering effort shifted from repetitive assembly work to improving shared system capabilities.',
     },
   ],
+  image: '/media/engineering/studio-content-ops-platform.jpg',
   seo: {
     title: 'Studio Content Ops Platform',
     description:

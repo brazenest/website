@@ -18,6 +18,7 @@ export type EngineeringProject = {
   techStack: string[]
   sections: EngineeringSection[]
   seo?: SEO
+  image?: string
 }
 
 export type EngineeringHeroContent = {
@@ -63,6 +64,7 @@ export type ProductionProject = {
   media: MediaItem[]
   sections: ProductionSection[]
   seo?: SEO
+  image?: string
 }
 
 export type ProductionHeroContent = {

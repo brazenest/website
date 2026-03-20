@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
+import type { DocumentHead, DocumentHeadProps } from '@builder.io/qwik-city'
 import { useLocation } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
@@ -11,7 +11,7 @@ import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
 import { buildProjectStructuredData } from '~/fns/seo/buildStructuredData'
 
-export const head: DocumentHead = ({ params }) => {
+export const head = ({ params }: DocumentHeadProps) => {
   const project = engineeringProjects.find((item) => item.slug === params.slug)
 
   if (!project) {
@@ -37,7 +37,7 @@ export const head: DocumentHead = ({ params }) => {
     title: project.seo?.title ?? project.title,
     description: project.seo?.description ?? project.description,
     pathname: `/engineering/projects/${params.slug}`,
-    ogImage: project.image,
+    image: project.image,
   })
 
   const documentHead = metadataToDocumentHead(metadata)

@@ -39,6 +39,7 @@ export const fulfillmentReliabilityConsoleProject: EngineeringProject = {
         'The console reduced diagnosis time and made incident handling repeatable across teams. More importantly, it shifted reliability from reactive heroics to an explicit engineering capability supported by durable system controls.',
     },
   ],
+  image: '/media/engineering/fulfillment-reliability-console.jpg',
   seo: {
     title: 'Fulfillment Reliability Console',
     description:

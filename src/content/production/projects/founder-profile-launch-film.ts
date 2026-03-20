@@ -51,6 +51,7 @@ export const founderProfileLaunchFilmProject: ProductionProject = {
         'The final film gave the launch team a primary narrative asset that aligned strategy, messaging, and visual execution. It demonstrated my ability to turn ambiguous product context into a clear story under tight production constraints.',
     },
   ],
+  image: '/media/production/founder-profile-launch-film.jpg',
   seo: {
     title: 'Founder Profile Launch Film',
     description:

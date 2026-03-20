@@ -51,6 +51,7 @@ export const nightMarketSocialCampaignProject: ProductionProject = {
         'The final package demonstrated operational production thinking, not just shot-making: one coordinated capture and edit system produced multiple outputs with clear creative continuity and lower revision overhead for launch teams.',
     },
   ],
+  image: '/media/production/night-market-social-campaign.jpg',
   seo: {
     title: 'Night Market Social Campaign',
     description:

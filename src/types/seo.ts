@@ -57,8 +57,12 @@ export type SiteConfig = {
   titleTemplate: (title: string) => string
   defaultDescription: string
   defaultOGImage: SEOImage
-  twitterHandle?: string	// Structured data identity fields
+  twitterHandle?: string
+  personGivenName?: string
+  personFamilyName?: string	// Structured data identity fields
   personFullName?: string
+  canonicalIdentity?: string
+  canonicalRole?: string
   personDescription?: string
   personJobTitle?: string
   personImage?: string
