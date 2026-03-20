@@ -7,11 +7,12 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { TextLink } from '~/components/ui/TextLink'
-import { formatBlogDate, getBlogSideLabel } from '~/content/blog/posts'
 import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { buildArticleStructuredData } from '~/fns/seo/buildStructuredData'
 import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
 import { getBlogPostBySlug } from '~/lib/blog/getBlogPostBySlug'
+import { getMarkdownParagraphs } from '~/lib/blog/markdown'
+import { formatBlogDate, getBlogSideLabel } from '~/lib/blog/presentation'
 
 function toHeadValue(metadata: ReturnType<typeof buildMetadata>) {
   const documentHead = metadataToDocumentHead(metadata) as {
@@ -119,10 +120,7 @@ export default component$(() => {
     )
   }
 
-  const bodyParagraphs = post.value.bodyMarkdown
-    .split(/\n{2,}/)
-    .map((paragraph) => paragraph.trim())
-    .filter(Boolean)
+  const bodyParagraphs = getMarkdownParagraphs(post.value.bodyMarkdown)
 
   return (
     <PageShell theme="neutral">
