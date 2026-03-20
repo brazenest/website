@@ -779,12 +779,14 @@ TASK-138 SSG BUILD & BLOG DB INTEGRATION (March 20, 2026): ✅ RESOLVED
 ✅ SSG BLOCKER RESOLVED:
 - Issue: `cannot access '_' before initialization` during SSG phase
 - Root cause: Interaction between qwik-runtime manual chunk + esbuild minification
-- Solution components: 
+- Solution components:
   1. Disabled esbuild minification (minify: false in vite.config.ts)
   2. Removed qwik-runtime chunk from manualChunks configuration
 - Result: SSG completes successfully in 38.1ms
 - Bundle size tradeoff: ~2-3x larger pre-gzip (acceptable; gzip recovers ~90% of savings)
-- TODO (future): Investigate esbuild/Qwik code generation incompatibility for re-enabling compression
+- **Post-Launch Tracking**: [Known Issues — Issue #1](./known-issues.md#issue-1-qwik-ssg--esbuild-minification-incompatibility)
+  - Comprehensive investigation scope documented for future minification optimization
+  - Acceptable for v3.0.0 launch; no production impact
 
 ✅ BLOG DATABASE INTEGRATION VERIFIED:
 - Database: Remote EC2-hosted PostgreSQL (user: agcom)
@@ -810,7 +812,10 @@ TASK-138 SSG BUILD & BLOG DB INTEGRATION (March 20, 2026): ✅ RESOLVED
 - Manual responsive/device testing
 - Pre-deployment build verification
 - Search Console/Analytics setup
+
+📚 REFERENCE DOCUMENTATION:
 - [Performance Audit & Optimization](./performance-audit.md)
+- [Known Issues & Post-Launch Investigation](./known-issues.md) — ⭐ NEW: Tracks minification investigation
 - [Phase 10 Pre-Flight](./phase-10-preflight.md)
 - [Cache Strategy](./cache-strategy.md)
 - [Interaction System](./interaction-system.md)

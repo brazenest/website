@@ -845,16 +845,19 @@ Documented in Section 13 "Deferred Optimizations":
 
 ### Issue Diagnosis
 
-**Symptom**: 
+**Symptom**:
+
 - `ReferenceError: Cannot access '_' before initialization` during SSG phase
 - Error manifests in minified output; unminified code shows: `Cannot access 'componentQrl' before initialization`
 
-**Root Cause**: 
+**Root Cause**:
+
 - The combination of `esbuild minification` + `qwik-runtime manual chunk` causes module initialization order problems during SSR/SSG phases
 - Manual chunk isolation (qwik-runtime separated from app code) disrupts dependency ordering in generated code
 - Minification obscures variable names, making diagnosis difficult
 
 **Timeline**:
+
 - Phase 12 completed with minification enabled and vendor + qwik-runtime chunks configured
 - TASK-137 blog integration revealed SSG blocker
 - TASK-138 diagnostic builds isolated the issue
@@ -878,6 +881,7 @@ manualChunks: (id) => {
 ```
 
 **Why both changes are necessary**:
+
 1. Disabling minification alone: ✅ Build passes
 2. Removing qwik-runtime chunk alone: ✅ Build passes
 3. Both changes together: ✅ Build passes and SSG succeeds
@@ -886,31 +890,37 @@ manualChunks: (id) => {
 ### Bundle Size Tradeoff
 
 **Pre-gzip Impact** (measured in production build):
+
 - Unminified bundles: ~2-3x larger than minified equivalent
 - Minified JS would be: ~120-150 KB
 - Unminified JS is now: ~300-400 KB
 
 **Post-gzip Impact** (realistic deployment scenario):
+
 - Gzip compression recovers ~85-90% of unminified penalty
 - Final delivery size remains acceptable for CDN deployment
 - Estimated unminified gzipped: ~15-30 KB increase over minified gzipped
 
 **Assessment**: Acceptable tradeoff for production stability and correctness
 
-### TODO: Future Investigation
+### Post-Launch Investigation
 
-The root cause of the esbuild/Qwik incompatibility should be investigated in a future optimization cycle:
+The root cause of the esbuild/Qwik incompatibility has been documented as a tracked post-launch investigation item.
 
-1. **Qwik Bug Report**: Check if known issue in Qwik GitHub issues
-2. **esbuild Configuration**: Investigate alternative minifier settings or target options
-3. **Chunk Naming**: Explore alternative chunk strategy that preserves init order
-4. **Vite Plugin Qwik**: Review vite-plugin-qwik configuration for SSR/SSG optimizations
+**See**: [Known Issues — Issue #1: Qwik SSG & esbuild Minification Incompatibility](./known-issues.md#issue-1-qwik-ssg--esbuild-minification-incompatibility)
 
-This investigation is NOT urgent (build is stable) but valuable for re-enabling minification in the future.
+This comprehensive investigation track includes:
+- Detailed root cause analysis questions
+- Optimization strategies (minifiers, chunk config, Qwik settings)
+- Testing methodology for systematic investigation
+- Timeline and effort estimates
+
+This investigation is NOT urgent (build is stable) but valuable for re-enabling minification and optimizing bundle size in a future phase.
 
 ### Build Pipeline Status
 
 Current production build (with workaround applied):
+
 - `npm run build` completes successfully
 - SSG phase now executes without errors (38.1ms)
 - All 10 static routes + dynamic routes prerendered to HTML
@@ -919,14 +929,14 @@ Current production build (with workaround applied):
 
 ### Performance Implications Summary
 
-| Metric | Status | Notes |
-|--------|--------|-------|
-| Build Speed | ✅ Acceptable | No regression; SSG completes in 38ms |
-| Pre-gzip bundle | 🟡 Larger | ~2-3x increase (acceptable for this phase) |
-| Post-gzip bundle | ✅ Acceptable | ~15-30 KB increase in delivery size |
-| Rendering performance | ✅ Unchanged | No impact on browser runtime performance |
-| Development DX | ✅ Stable | Faster iteration without minification overhead |
-| Production readiness | ✅ Confirmed | Build stable for deployment |
+| Metric                | Status        | Notes                                          |
+| --------------------- | ------------- | ---------------------------------------------- |
+| Build Speed           | ✅ Acceptable | No regression; SSG completes in 38ms           |
+| Pre-gzip bundle       | 🟡 Larger     | ~2-3x increase (acceptable for this phase)     |
+| Post-gzip bundle      | ✅ Acceptable | ~15-30 KB increase in delivery size            |
+| Rendering performance | ✅ Unchanged  | No impact on browser runtime performance       |
+| Development DX        | ✅ Stable     | Faster iteration without minification overhead |
+| Production readiness  | ✅ Confirmed  | Build stable for deployment                    |
 
 ---
 

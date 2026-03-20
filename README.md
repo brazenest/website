@@ -43,6 +43,7 @@ DATABASE_URL=postgresql://user:password@host:port/database  # Optional; falls ba
 ### Running Locally
 
 **Development mode** (with live reload):
+
 ```bash
 pnpm install
 pnpm run dev
@@ -51,11 +52,13 @@ pnpm run dev
 Then visit [http://localhost:5173/](http://localhost:5173/)
 
 **Production build** (static prerendering + SSG):
+
 ```bash
 pnpm run build
 ```
 
 This executes:
+
 1. `build.types` — TypeScript type checking
 2. `build.client` — Vite client bundle
 3. `lint` — ESLint validation
@@ -63,6 +66,7 @@ This executes:
 5. SSG Phase — Prerender all routes to static HTML
 
 **Serving production build**:
+
 ```bash
 pnpm run serve
 ```
@@ -96,6 +100,7 @@ For local development without a database, the system can fall back to static con
 This app has a minimal [Fastify server](https://fastify.dev/) implementation. The production server serves prerendered static HTML and handles dynamic requests (if any).
 
 The build pipeline produces:
+
 - Static HTML files (one per route)
 - Versioned JS/CSS chunks with content hashing (immutable caching)
 - Optimized async Qwik component bundles
