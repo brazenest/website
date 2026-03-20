@@ -76,6 +76,14 @@ export function metadataToDocumentHead(metadata: SEOMetadata): DocumentHead {
       name: 'twitter:image',
       content: metadata.image.url,
     },
+    ...(metadata.image.alt
+      ? [
+        {
+          name: 'twitter:image:alt',
+          content: metadata.image.alt,
+        },
+      ]
+      : []),
     // Article-specific
     ...(metadata.type === 'article' && metadata.publishedTime
       ? [

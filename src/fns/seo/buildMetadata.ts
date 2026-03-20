@@ -23,6 +23,14 @@ function buildAbsoluteUrl(pathname: string): string {
   return `${siteConfig.siteUrl}${cleanPathname}`.replace(/\/$/, '') || siteConfig.siteUrl
 }
 
+function ensureAbsoluteUrl(urlOrPath: string): string {
+  if (urlOrPath.startsWith('http://') || urlOrPath.startsWith('https://')) {
+    return urlOrPath
+  }
+
+  return buildAbsoluteUrl(urlOrPath)
+}
+
 /**
  * Ensure image URLs are absolute.
  */
@@ -70,7 +78,7 @@ export function buildMetadata(input: SEOInput): SEOMetadata {
   const twitterCard = input.twitterCard ?? 'summary_large_image'
 
   // Determine canonical URL
-  const canonical = input.canonical ?? url
+  const canonical = input.canonical ? ensureAbsoluteUrl(input.canonical) : url
 
   // Collect and normalize images
   const imagesList: SEOImage[] = []

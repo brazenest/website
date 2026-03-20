@@ -1,4 +1,8 @@
-import type { StructuredDataPresetMap } from '~/types/seo'
+import type {
+  ArticleStructuredDataInput,
+  BlogArticleStructuredDataFields,
+  StructuredDataPresetMap,
+} from '~/types/seo'
 
 /**
  * Route-level structured data presets for pages that should emit JSON-LD.
@@ -24,11 +28,10 @@ export const structuredDataPresets: StructuredDataPresetMap = {
 
   'blog-article': {
     kind: 'article',
-    title: '[Article Title]',
-    description: '[Article summary/excerpt]',
-    datePublished: '[ISO date string]',
-    keywords: ['engineering', 'production', 'craft'],
-    excerpt: '[Brief excerpt for open graph]',
+    title: 'Blog Post',
+    description: 'Writing by Alden Gillespy across engineering and production practice.',
+    keywords: ['engineering', 'production', 'bridge'],
+    excerpt: 'Writing by Alden Gillespy across engineering and production practice.',
   },
 
   engineering: {
@@ -64,4 +67,21 @@ export const structuredDataPresets: StructuredDataPresetMap = {
     keywords: ['filmmaking', 'visual', 'craft'],
     excerpt: '[Key production insight or creative decision]',
   },
+}
+
+export function buildBlogArticleStructuredDataInput(
+  post: BlogArticleStructuredDataFields,
+  imageUrl?: string
+): ArticleStructuredDataInput {
+  return {
+    title: post.title,
+    description: post.summary,
+    url: `/blog/${post.slug}`,
+    image: imageUrl ?? undefined,
+    datePublished: post.publishedAt ?? post.createdAt,
+    dateModified: post.updatedAt ?? undefined,
+    keywords: post.side ? [post.side] : structuredDataPresets['blog-article'].keywords,
+    excerpt: post.summary,
+    articleBody: post.bodyMarkdown,
+  }
 }

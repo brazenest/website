@@ -29,6 +29,22 @@ export type SEOInput = {
   priority?: number
 }
 
+export type BlogArticleSEOFields = {
+  slug: string
+  title: string
+  summary: string
+  publishedAt: string | null
+  updatedAt: string | null
+  coverImageUrl: string | null
+  coverImageAlt: string | null
+}
+
+export type BlogArticleStructuredDataFields = BlogArticleSEOFields & {
+  createdAt: string
+  bodyMarkdown: string
+  side: string
+}
+
 /**
  * Complete, normalized SEO metadata for a page.
  * All fields are guaranteed to be present with sensible defaults.

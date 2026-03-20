@@ -1,4 +1,4 @@
-import type { SEOPresetMap, SEOPageKey } from '~/types/seo'
+import type { BlogArticleSEOFields, SEOInput, SEOPresetMap, SEOPageKey } from '~/types/seo'
 
 /**
  * Route pathname mapping for canonical pages.
@@ -91,4 +91,27 @@ export const seoPresets: SEOPresetMap = {
 		changefreq: 'monthly',
 		priority: 0.9,
 	},
+}
+
+export const blogArticleSeoFallback = {
+	title: 'Blog Post',
+	description: 'Writing by Alden Gillespy across engineering and production practice.',
+	type: 'article',
+} as const satisfies Omit<SEOInput, 'pathname'>
+
+export function buildBlogArticleSEOInput(post: BlogArticleSEOFields): SEOInput {
+	return {
+		...blogArticleSeoFallback,
+		title: post.title,
+		description: post.summary,
+		pathname: `/blog/${post.slug}`,
+		image: post.coverImageUrl
+			? {
+				url: post.coverImageUrl,
+				...(post.coverImageAlt ? { alt: post.coverImageAlt } : {}),
+			}
+			: undefined,
+		publishedTime: post.publishedAt ?? undefined,
+		modifiedTime: post.updatedAt ?? undefined,
+	}
 }

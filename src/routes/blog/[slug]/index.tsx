@@ -7,6 +7,8 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { TextLink } from '~/components/ui/TextLink'
+import { buildBlogArticleSEOInput, blogArticleSeoFallback } from '~/config/seo'
+import { buildBlogArticleStructuredDataInput } from '~/config/structured-data'
 import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { buildArticleStructuredData } from '~/fns/seo/buildStructuredData'
 import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
@@ -38,38 +40,17 @@ export const head = (({ resolveValue, params }: DocumentHeadProps) => {
   if (!post) {
     return toHeadValue(
       buildMetadata({
-        title: 'Blog Post',
-        description: 'Writing by Alden Gillespy across engineering and production practice.',
+        ...blogArticleSeoFallback,
         pathname: `/blog/${params.slug}`,
       })
     )
   }
 
-  const metadata = buildMetadata({
-    title: post.title,
-    description: post.summary,
-    pathname: `/blog/${params.slug}`,
-    type: 'article',
-    image: post.coverImageUrl
-      ? {
-        url: post.coverImageUrl,
-        ...(post.coverImageAlt ? { alt: post.coverImageAlt } : {}),
-      }
-      : undefined,
-    publishedTime: post.publishedAt ?? undefined,
-    modifiedTime: post.updatedAt ?? undefined,
-  })
+  const metadata = buildMetadata(buildBlogArticleSEOInput(post))
 
-  const articleSchema = buildArticleStructuredData({
-    title: post.title,
-    description: post.summary,
-    url: `/blog/${params.slug}`,
-    image: post.coverImageUrl ?? undefined,
-    datePublished: post.publishedAt ?? post.createdAt,
-    dateModified: post.updatedAt ?? undefined,
-    keywords: post.side ? [post.side] : undefined,
-    articleBody: post.bodyMarkdown,
-  })
+  const articleSchema = buildArticleStructuredData(
+    buildBlogArticleStructuredDataInput(post, metadata.image.url)
+  )
 
   const documentHead = toHeadValue(metadata)
 
