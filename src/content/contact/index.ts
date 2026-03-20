@@ -4,7 +4,7 @@ export const contactPageContent = {
   intro:
     'I'm Alden Gillespy.I take on software engineering engagements, production assignments, and professional collaborations where clarity, execution, and ownership matter.',
   bridge:
-  'If the work sits somewhere between engineering and production rather than neatly inside one category, that is usually useful context, not a problem.',
+    'If the work sits somewhere between engineering and production rather than neatly inside one category, that is usually useful context, not a problem.',
   contactPanel: {
     eyebrow: 'Best first step',
     heading: 'Email with project or role context.',
