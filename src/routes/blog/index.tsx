@@ -9,16 +9,9 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { blogPageContent } from '~/content/blog'
-import { buildMetadata } from '~/fns/seo/buildMetadata'
-import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
-import { seoPresets } from '~/config/seo'
+import { staticHeads } from '~/fns/seo/staticHeads'
 
-export const head: DocumentHead = metadataToDocumentHead(
-  buildMetadata({
-    ...seoPresets.blog,
-    pathname: '/blog',
-  })
-)
+export const head: DocumentHead = staticHeads.blog
 
 export default component$(() => {
   return (

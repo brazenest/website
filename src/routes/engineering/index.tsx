@@ -11,16 +11,9 @@ import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { engineeringHeroContent } from '~/content/engineering/hero'
 import { engineeringProjects } from '~/content/engineering/projects'
-import { buildMetadata } from '~/fns/seo/buildMetadata'
-import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
-import { seoPresets } from '~/config/seo'
+import { staticHeads } from '~/fns/seo/staticHeads'
 
-export const head: DocumentHead = metadataToDocumentHead(
-  buildMetadata({
-    ...seoPresets.engineering,
-    pathname: '/engineering',
-  })
-)
+export const head: DocumentHead = staticHeads.engineering
 
 export default component$(() => {
   return (

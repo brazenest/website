@@ -9,16 +9,9 @@ import { SideSelector } from '~/components/side/SideSelector'
 import { aboutPreviewContent } from '~/content/identity/about-preview'
 import { heroContent } from '~/content/identity/hero'
 import { sideLinkCards } from '~/content/identity/side-links'
-import { buildMetadata } from '~/fns/seo/buildMetadata'
-import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
-import { seoPresets } from '~/config/seo'
+import { staticHeads } from '~/fns/seo/staticHeads'
 
-export const head: DocumentHead = metadataToDocumentHead(
-	buildMetadata({
-		...seoPresets.home,
-		pathname: '/',
-	})
-)
+export const head: DocumentHead = staticHeads.home
 
 export default component$(() => {
 	return (

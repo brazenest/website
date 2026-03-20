@@ -7,16 +7,9 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { contactPageContent } from '~/content/contact'
-import { buildMetadata } from '~/fns/seo/buildMetadata'
-import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
-import { seoPresets } from '~/config/seo'
+import { staticHeads } from '~/fns/seo/staticHeads'
 
-export const head: DocumentHead = metadataToDocumentHead(
-  buildMetadata({
-    ...seoPresets.contact,
-    pathname: '/contact',
-  })
-)
+export const head: DocumentHead = staticHeads.contact
 
 export default component$(() => {
   return (

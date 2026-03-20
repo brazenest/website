@@ -7,16 +7,9 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { aboutPageContent } from '~/content/about'
-import { buildMetadata } from '~/fns/seo/buildMetadata'
-import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
-import { seoPresets } from '~/config/seo'
+import { staticHeads } from '~/fns/seo/staticHeads'
 
-export const head: DocumentHead = metadataToDocumentHead(
-  buildMetadata({
-    ...seoPresets.about,
-    pathname: '/about',
-  })
-)
+export const head: DocumentHead = staticHeads.about
 
 export default component$(() => {
   return (
