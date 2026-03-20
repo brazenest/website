@@ -5,6 +5,7 @@ export const PageShell = component$(({ theme }: PageShellProps) => {
   useVisibleTask$(() => {
     const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-scroll-reveal]'))
 
+    // Only set up observer if there are actually scroll-reveal sections on this page
     if (sections.length === 0) {
       return
     }
