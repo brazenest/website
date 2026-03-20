@@ -68,7 +68,7 @@ export default component$(() => {
                     ))}
                   </ul>
                 </div>
-              </header>
+              </div>
 
               <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 {resumePageContent.intro}
