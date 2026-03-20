@@ -1,19 +1,14 @@
 import { component$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
 import { ButtonLink } from '~/components/ui/ButtonLink'
+import { DraftBlogList } from '~/components/blog/DraftBlogList'
+import { PublishedBlogList } from '~/components/blog/PublishedBlogList'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
 import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
-import { TextLink } from '~/components/ui/TextLink'
 import { blogPageContent } from '~/content/blog'
-import {
-  draftBlogPosts,
-  formatBlogDate,
-  getBlogSideLabel,
-  publishedBlogPosts,
-} from '~/content/blog/posts'
 import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
 import { seoPresets } from '~/config/seo'
@@ -84,108 +79,9 @@ export default component$(() => {
           </Container>
         </Section>
 
-        <Section spacing="compact">
-          <Container width="wide">
-            <section
-              class="grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
-              aria-labelledby="blog-published"
-            >
-              <div class="flex flex-col gap-2">
-                <h2 id="blog-published" class="text-2xl font-semibold tracking-tight md:text-3xl">
-                  {blogPageContent.published.heading}
-                </h2>
-
-                <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-                  {blogPageContent.published.intro}
-                </p>
-              </div>
-
-              <ul class="flex flex-col gap-6 md:gap-8">
-                {publishedBlogPosts.map((post) => (
-                  <li key={post.slug}>
-                    <article
-                      class="grid gap-4 border-t border-[var(--border)] pt-6 first:border-t-0 first:pt-0 md:grid-cols-[minmax(11rem,13rem)_minmax(0,1fr)] md:gap-8"
-                    >
-                      <div class="flex flex-col gap-2">
-                        <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                          {getBlogSideLabel(post.side)}
-                        </p>
-
-                        <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
-                          {formatBlogDate(post.date)}
-                        </p>
-                      </div>
-
-                      <div class="flex flex-col gap-3">
-                        <h3 class="text-xl font-semibold tracking-tight md:text-2xl">
-                          {post.title}
-                        </h3>
-
-                        <p class="max-w-[68ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                          {post.summary}
-                        </p>
-
-                        <div>
-                          <TextLink href={`/blog/${post.slug}`} label={`Read: ${post.title}`} />
-                        </div>
-                      </div>
-                    </article>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </Container>
-        </Section>
-
-        <Section spacing="compact" surface="subtle">
-          <Container width="wide">
-            <section
-              class="grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
-              aria-labelledby="blog-drafts"
-            >
-              <div class="flex flex-col gap-2">
-                <h2 id="blog-drafts" class="text-2xl font-semibold tracking-tight md:text-3xl">
-                  {blogPageContent.drafts.heading}
-                </h2>
-
-                <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-                  {blogPageContent.drafts.intro}
-                </p>
-              </div>
-
-              <ul class="grid gap-4 md:grid-cols-2">
-                {draftBlogPosts.map((post) => (
-                  <li key={post.slug}>
-                    <article
-                      class="flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
-                    >
-                      <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                        <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
-                          Draft
-                        </span>
-                        <span>{getBlogSideLabel(post.side)}</span>
-                      </div>
-
-                      <div class="flex flex-col gap-1">
-                        <h3 class="text-lg font-semibold tracking-tight md:text-xl">
-                          {post.title}
-                        </h3>
-
-                        <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
-                          {formatBlogDate(post.date)}
-                        </p>
-                      </div>
-
-                      <p class="text-base leading-7 text-[var(--muted)]">
-                        {post.summary}
-                      </p>
-                    </article>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          </Container>
-        </Section>
+        {/* Below-the-fold content sections */}
+        <PublishedBlogList />
+        <DraftBlogList />
 
         <Section spacing="compact">
           <Container width="content">
