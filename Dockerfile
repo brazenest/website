@@ -15,14 +15,14 @@ FROM base as deps
 
 COPY package.json .
 
-#RUN yarn install --production=false
+RUN yarn install --production=false
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.yarn to speed up subsequent builds.
-RUN --mount=type=bind,source=package.json,target=package.json \
-   --mount=type=bind,source=yarn.lock,target=yarn.lock \
-   --mount=type=cache,target=/root/.yarn \
-   yarn install --frozen-lockfile --production=false
+# RUN --mount=type=bind,source=package.json,target=package.json \
+#    --mount=type=bind,source=yarn.lock,target=yarn.lock \
+#    --mount=type=cache,target=/root/.yarn \
+#    yarn install --frozen-lockfile --production=false
 
 ################################################################################
 # Create a stage for building the application.
