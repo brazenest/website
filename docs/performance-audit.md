@@ -81,13 +81,13 @@
 
 ### Additional Optimizations
 
-| TASK     | Work Item                                      | Status      | Commits                   | Impact                                                                 |
-| -------- | ---------------------------------------------- | ----------- | ------------------------- | ---------------------------------------------------------------------- |
-| TASK-118 | Mobile nav hydration boundary tightening       | ✅ Complete | 3bfa505                   | MobileMenu island only rendered on mobile (<768px); desktop skips cost |
-| TASK-119 | Static prerendering infrastructure & route enum | ✅ Complete | 926d51d                   | Route enumeration system enabling full static output (9 + dynamic)     |
-| TASK-120 | Poster-first media rendering strategy          | ✅ Complete | 6c9ac15                   | Replaced video placeholders with poster images + play affordance       |
-| TASK-121 | Conservative video loading discipline          | ✅ Complete | 84363a8                   | ResponsiveVideo component with preload="metadata", no autoplay        |
-| TASK-122 | Build configuration tightening & optimization  | ✅ Complete | 0722943                   | Asset organization (fonts/, styles/, assets/), vendor chunk isolation |
+| TASK     | Work Item                                       | Status      | Commits | Impact                                                                 |
+| -------- | ----------------------------------------------- | ----------- | ------- | ---------------------------------------------------------------------- |
+| TASK-118 | Mobile nav hydration boundary tightening        | ✅ Complete | 3bfa505 | MobileMenu island only rendered on mobile (<768px); desktop skips cost |
+| TASK-119 | Static prerendering infrastructure & route enum | ✅ Complete | 926d51d | Route enumeration system enabling full static output (9 + dynamic)     |
+| TASK-120 | Poster-first media rendering strategy           | ✅ Complete | 6c9ac15 | Replaced video placeholders with poster images + play affordance       |
+| TASK-121 | Conservative video loading discipline           | ✅ Complete | 84363a8 | ResponsiveVideo component with preload="metadata", no autoplay         |
+| TASK-122 | Build configuration tightening & optimization   | ✅ Complete | 0722943 | Asset organization (fonts/, styles/, assets/), vendor chunk isolation  |
 
 ### Verified: No Regressions in Second Pass
 
@@ -640,6 +640,7 @@ The first optimization pass (TASK-107 to TASK-115) focused on immediate, high-im
 ### Deployed Optimizations ✅
 
 **First Pass (TASK-107 through TASK-115)**:
+
 - Font optimization removed 20 KB
 - Layout cleanup optimized critical path
 - Media loading strategy (lazy + eager)
@@ -649,6 +650,7 @@ The first optimization pass (TASK-107 to TASK-115) focused on immediate, high-im
 - Cache strategy with hashed assets
 
 **Second Pass (TASK-118 through TASK-122)**:
+
 - Mobile nav hydration boundary tightening — MobileMenu only on mobile
 - Static prerendering infrastructure — Route enumeration for all routes
 - Poster-first media rendering — Play button affordance replacing placeholders
@@ -657,31 +659,33 @@ The first optimization pass (TASK-107 to TASK-115) focused on immediate, high-im
 
 ### Phase 12 Optimization Inventory — Final Status
 
-| Category           | Optimization                 | Status | Impact                                    | TASK |
-| ------------------ | ---------------------------- | ------ | ----------------------------------------- | ---- |
-| **Fonts**          | Removed unused Space Grotesk | ✅     | ~20 KB savings                            | 108  |
-| **Layout**         | Critical path cleanup        | ✅     | ~3-5% HTML reduction                      | 109  |
-| **Media**          | Lazy + eager loading         | ✅     | Deferred below-fold images                | 111  |
-| **Components**     | Lazy boundaries (blog)       | ✅     | ~44% blog route reduction                 | 112  |
-| **Routes**         | Pre-computed metadata        | ✅     | ~14 function calls eliminated             | 113  |
-| **UI Primitives**  | Consolidated label utilities | ✅     | 22 occurrences → 1 class                  | 114  |
-| **Cache Strategy** | Hashed assets + config       | ✅     | Immutable caching, chunk isolation        | 115  |
-| **Hydration**      | Mobile viewport detection    | ✅     | Desktop skips MobileMenu hydration        | 118  |
-| **Prerendering**   | Route enumeration system     | ✅     | 9 static + 4+ dynamic routes listed       | 119  |
-| **Media Strategy** | Poster-first with play icon  | ✅     | Better UX, reduced initial payload        | 120  |
-| **Video Loading**  | Conservative with metadata   | ✅     | Video frames only on user interaction     | 121  |
-| **Build Config**   | Asset organization + chunks  | ✅     | Optimized for CDN caching                 | 122  |
+| Category           | Optimization                 | Status | Impact                                | TASK |
+| ------------------ | ---------------------------- | ------ | ------------------------------------- | ---- |
+| **Fonts**          | Removed unused Space Grotesk | ✅     | ~20 KB savings                        | 108  |
+| **Layout**         | Critical path cleanup        | ✅     | ~3-5% HTML reduction                  | 109  |
+| **Media**          | Lazy + eager loading         | ✅     | Deferred below-fold images            | 111  |
+| **Components**     | Lazy boundaries (blog)       | ✅     | ~44% blog route reduction             | 112  |
+| **Routes**         | Pre-computed metadata        | ✅     | ~14 function calls eliminated         | 113  |
+| **UI Primitives**  | Consolidated label utilities | ✅     | 22 occurrences → 1 class              | 114  |
+| **Cache Strategy** | Hashed assets + config       | ✅     | Immutable caching, chunk isolation    | 115  |
+| **Hydration**      | Mobile viewport detection    | ✅     | Desktop skips MobileMenu hydration    | 118  |
+| **Prerendering**   | Route enumeration system     | ✅     | 9 static + 4+ dynamic routes listed   | 119  |
+| **Media Strategy** | Poster-first with play icon  | ✅     | Better UX, reduced initial payload    | 120  |
+| **Video Loading**  | Conservative with metadata   | ✅     | Video frames only on user interaction | 121  |
+| **Build Config**   | Asset organization + chunks  | ✅     | Optimized for CDN caching             | 122  |
 
 ### Deferred Optimizations (Post-Phase-12)
 
 These items had their exploration documented in earlier phases but execution deferred to later phases based on ROI and timeline:
 
 **Future Tier 1** (if roadmap allows):
+
 - **Tree-shake unused Tailwind utilities** — 10-20 KB CSS savings potential
 - **Responsive srcsets & WebP variants** — 20-40 KB image savings on mobile
 - **Route-specific CSS splitting** — 5-15 KB potential CSS savings
 
 **Future Tier 2** (infrastructure expansion):
+
 - **Static pre-rendering** — Removes SSR latency; requires adapter
 - **Differential loading** — 10-20% JS savings for modern browsers
 - **Service Worker prefetching** — Variable impact; scope expansion
@@ -753,11 +757,11 @@ These items had their exploration documented in earlier phases but execution def
 
 **Completed Work Across All Tasks**:
 
-| Phase      | Tasks       | Count | Status     | Key Outcomes                                    |
-| ---------- | ----------- | ----- | ---------- | ----------------------------------------------- |
-| First Pass | TASK-107-115 | 9    | ✅ Complete | Foundation: fonts, layout, media, boundaries   |
-| Second Pass| TASK-118-122 | 5    | ✅ Complete | Runtime discipline: hydration, video, caching  |
-| **Total**  | -           | 14   | ✅ Complete | Full Phase 12 optimization pass executed       |
+| Phase       | Tasks        | Count | Status      | Key Outcomes                                  |
+| ----------- | ------------ | ----- | ----------- | --------------------------------------------- |
+| First Pass  | TASK-107-115 | 9     | ✅ Complete | Foundation: fonts, layout, media, boundaries  |
+| Second Pass | TASK-118-122 | 5     | ✅ Complete | Runtime discipline: hydration, video, caching |
+| **Total**   | -            | 14    | ✅ Complete | Full Phase 12 optimization pass executed      |
 
 ### Measurable Performance Impact
 
