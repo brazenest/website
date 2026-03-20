@@ -12,7 +12,7 @@ export const EngineeringCTASection = component$(() => {
     <Section spacing="compact">
       <Container width="content">
         <section id="engineering-cta" aria-labelledby="engineering-cta-title" class="flex flex-col gap-4 md:gap-5">
-          <h2 id="engineering-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+          <h2 id="engineering-cta-title" class="ui-meta-label">
             Next Steps
           </h2>
 

@@ -11,7 +11,7 @@ export const AboutPreview = component$(
         <Container width="content">
           <div class="flex flex-col gap-4 md:gap-5">
             {eyebrow ? (
-              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <p class="ui-meta-label">
                 {eyebrow}
               </p>
             ) : null}

@@ -11,7 +11,7 @@ export const ProductionHero = component$(
         <Container>
           <div class="flex flex-col gap-5 md:gap-8">
             <div class="flex max-w-[72ch] flex-col gap-3 md:gap-5">
-              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <p class="ui-meta-label">
                 {byline || 'Production'}
               </p>
 

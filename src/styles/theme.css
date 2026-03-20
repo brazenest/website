@@ -614,6 +614,14 @@ a {
   color: var(--meta-strong-fg);
 }
 
+.ui-meta-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
 /* Shared card structure for linked and non-linked surfaces. */
 .ui-card {
   display: flex;

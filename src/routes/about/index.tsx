@@ -21,7 +21,7 @@ export default component$(() => {
           <Container width="content">
             <div class="flex flex-col gap-10 md:gap-12">
               <div class="flex flex-col gap-3 md:gap-4">
-                <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                <p class="ui-meta-label">
                   {aboutPageContent.eyebrow}
                 </p>
 
@@ -108,7 +108,7 @@ export default component$(() => {
                 </section>
 
                 <section id="about-next" class="flex flex-col gap-4 md:gap-5" data-scroll-reveal>
-                  <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                  <p class="ui-meta-label">
                     {aboutPageContent.cta.eyebrow}
                   </p>
 

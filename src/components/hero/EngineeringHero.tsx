@@ -19,7 +19,7 @@ export const EngineeringHero = component$(
         <Container>
           <div class="flex flex-col gap-4 md:gap-7">
             <div class="flex max-w-[68ch] flex-col gap-3 md:gap-4">
-              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <p class="ui-meta-label">
                 {byline || 'Engineering'}
               </p>
 

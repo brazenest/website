@@ -17,7 +17,7 @@ export const ProductionCTASection = component$(({ caseStudyHref }: ProductionCTA
     <Section spacing="compact">
       <Container width="content">
         <section id="production-cta" aria-labelledby="production-cta-title" class="flex flex-col gap-4 md:gap-5">
-          <h2 id="production-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+          <h2 id="production-cta-title" class="ui-meta-label">
             Next Steps
           </h2>
 

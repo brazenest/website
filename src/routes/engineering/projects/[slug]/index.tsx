@@ -69,7 +69,7 @@ export default component$(() => {
           <Section spacing="spacious">
             <Container width="content">
               <div class="flex flex-col gap-4">
-                <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                <p class="ui-meta-label">
                   Engineering
                 </p>
                 <h1 class="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
@@ -96,7 +96,7 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="content">
             <div class="flex flex-col gap-4 md:gap-5">
-              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <p class="ui-meta-label">
                 Engineering Case Study
               </p>
 

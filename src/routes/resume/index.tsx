@@ -22,7 +22,7 @@ export default component$(() => {
             <div class="flex flex-col gap-12 md:gap-16">
               <div class="grid gap-8 border-b border-[var(--border)] pb-10 md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] md:items-start md:gap-10 md:pb-12">
                 <div class="flex flex-col gap-3 md:gap-4">
-                  <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                  <p class="ui-meta-label">
                     {resumePageContent.header.eyebrow}
                   </p>
 
@@ -38,7 +38,7 @@ export default component$(() => {
                 </div>
 
                 <div class="flex flex-col gap-3 md:gap-4">
-                  <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                  <p class="ui-meta-label">
                     Contact
                   </p>
 
@@ -273,7 +273,7 @@ export default component$(() => {
         <Section spacing="compact">
           <Container width="content">
             <section id="resume-cta" aria-labelledby="resume-cta-title" class="flex flex-col gap-4 md:gap-5">
-              <h2 id="resume-cta-title" class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <h2 id="resume-cta-title" class="ui-meta-label">
                 Next Steps
               </h2>
 

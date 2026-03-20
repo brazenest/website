@@ -21,7 +21,7 @@ export default component$(() => {
           <Container width="wide">
             <div class="grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] xl:gap-12">
               <div class="flex flex-col gap-4 md:gap-5">
-                <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                <p class="ui-meta-label">
                   {contactPageContent.eyebrow}
                 </p>
 
@@ -40,7 +40,7 @@ export default component$(() => {
 
               <aside class="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface-subtle)] p-5 md:p-6">
                 <div class="flex flex-col gap-2">
-                  <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                  <p class="ui-meta-label">
                     {contactPageContent.contactPanel.eyebrow}
                   </p>
 
@@ -217,7 +217,7 @@ export default component$(() => {
               id="contact-cta"
               class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8"
             >
-              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <p class="ui-meta-label">
                 {contactPageContent.cta.eyebrow}
               </p>
 

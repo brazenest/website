@@ -72,7 +72,7 @@ export default component$(() => {
           <Section spacing="spacious">
             <Container width="content">
               <div class="flex flex-col gap-4 md:gap-5">
-                <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                <p class="ui-meta-label">
                   Blog
                 </p>
                 <h1 class="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
@@ -150,7 +150,7 @@ export default component$(() => {
         <Section spacing="compact" surface="subtle">
           <Container width="content">
             <section class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8">
-              <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+              <p class="ui-meta-label">
                 Next
               </p>
 

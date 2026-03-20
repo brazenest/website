@@ -9,7 +9,7 @@ export const HomeHero = component$(({ name, headline, description }: HomeHeroPro
       <Container>
         <div class="flex flex-col gap-6 md:gap-10">
           <div class="flex max-w-[70ch] flex-col gap-3 md:gap-6">
-            <p class="text-sm font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+            <p class="ui-meta-label">
               {name}
             </p>
 
