@@ -13,7 +13,7 @@ export const head: DocumentHead = staticHeads.about
 
 export default component$(() => {
   return (
-    <PageShell theme="neutral">
+    <PageShell theme="neutral" enableScrollReveal>
       <Header />
 
       <main id="main-content" class="flex-1 scroll-mt-24">

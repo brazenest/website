@@ -10,24 +10,26 @@
 
 ### Completed Optimizations
 
-| TASK    | Work Item                                      | Status    | Commits                                         | Impact                                                                 |
-| ------- | ---------------------------------------------- | --------- | ----------------------------------------------- | ---------------------------------------------------------------------- |
-| TASK-107 | Performance audit baseline                    | ✅ Complete | 2740da3, 3c7aef3                               | Established optimization targets and priorities                         |
-| TASK-108 | Font optimization (removed Space Grotesk)     | ✅ Complete | c2c4a98                                         | Eliminated 1 unused global font; ~20KB bundle savings                   |
-| TASK-109 | Root/layout cleanup (reduced imports)          | ✅ Complete | 514db58                                         | Optimized import structure, reduced above-fold overhead               |
-| TASK-110 | Above-the-fold payload reduction               | ✅ Complete | 15f3944, d6798d9, edaa73b                       | 4 internal fixes + payload optimization (~5% HTML reduction)          |
-| TASK-111 | Media loading optimization (lazy + eager)      | ✅ Complete | 8adb086                                         | Added lazy="lazy" to grid images, eager to hero images                |
-| TASK-112 | Lazy component boundaries (blog extraction)    | ✅ Complete | 687c8f9                                         | PublishedBlogList, DraftBlogList deferred (~44% blog route reduction) |
-| TASK-113 | Static route metadata pre-computation          | ✅ Complete | b76e5ca                                         | Pre-computed staticHeads for 7 routes (~14 function calls eliminated) |
-| TASK-114 | UI primitives cleanup (metadata label)         | ✅ Complete | 7901376, 664e304                                | Consolidated .ui-meta-label (22 occurrences), ButtonLink cleanup     |
-| TASK-115 | Asset delivery & cache configuration           | ✅ Complete | 9687691                                         | Documented cache strategy, optimized vite config for hashed assets    |
+| TASK     | Work Item                                   | Status      | Commits                   | Impact                                                                |
+| -------- | ------------------------------------------- | ----------- | ------------------------- | --------------------------------------------------------------------- |
+| TASK-107 | Performance audit baseline                  | ✅ Complete | 2740da3, 3c7aef3          | Established optimization targets and priorities                       |
+| TASK-108 | Font optimization (removed Space Grotesk)   | ✅ Complete | c2c4a98                   | Eliminated 1 unused global font; ~20KB bundle savings                 |
+| TASK-109 | Root/layout cleanup (reduced imports)       | ✅ Complete | 514db58                   | Optimized import structure, reduced above-fold overhead               |
+| TASK-110 | Above-the-fold payload reduction            | ✅ Complete | 15f3944, d6798d9, edaa73b | 4 internal fixes + payload optimization (~5% HTML reduction)          |
+| TASK-111 | Media loading optimization (lazy + eager)   | ✅ Complete | 8adb086                   | Added lazy="lazy" to grid images, eager to hero images                |
+| TASK-112 | Lazy component boundaries (blog extraction) | ✅ Complete | 687c8f9                   | PublishedBlogList, DraftBlogList deferred (~44% blog route reduction) |
+| TASK-113 | Static route metadata pre-computation       | ✅ Complete | b76e5ca                   | Pre-computed staticHeads for 7 routes (~14 function calls eliminated) |
+| TASK-114 | UI primitives cleanup (metadata label)      | ✅ Complete | 7901376, 664e304          | Consolidated .ui-meta-label (22 occurrences), ButtonLink cleanup      |
+| TASK-115 | Asset delivery & cache configuration        | ✅ Complete | 9687691                   | Documented cache strategy, optimized vite config for hashed assets    |
 
 ### Actual Results vs Original Audit Plan
 
-**Original Plan (from Section 13)**: 
+**Original Plan (from Section 13)**:
+
 1. Add image lazy loading → 2. Font-display strategy → 3. Responsive srcsets/WebP → 4. Audit unused styles → 5. Route-specific CSS → 6. Lazy MobileMenu → 7. Pre-rendering
 
 **Actual Execution** (reordered based on dependency and impact):
+
 1. ✅ Font optimization (removed unused font entirely vs just font-display strategy)
 2. ✅ Layout cleanup (removed redundant imports from critical path)
 3. ✅ Above-the-fold payload (bug fixes + component refactoring)
@@ -40,37 +42,40 @@
 ### Verified: No Regressions
 
 **Font Rendering**: ✅
+
 - Space Grotesk import removed from root.tsx
 - Inter Variable font still loading correctly
 - No broken font fallbacks detected
 - CSS variable references to Space Grotesk still present (acceptable fallback)
 
 **Route Structure**: ✅
+
 - All 9 routes still accessible
 - Metadata preserved and accessible via staticHeads
 - Dynamic routes (blog/[slug], projects/[slug]) working correctly
 - SEO artifacts (robots.txt, sitemap.xml) intact
 
 **Media Behavior**: ✅
+
 - Images display correctly with lazy="lazy" on grid items
 - Hero images use eager loading (priority preserved)
 - Video placeholders still render (awaiting actual video implementation)
 - No broken image references
 
 **Semantic Markup & SEO**: ✅
+
 - Structured data still being generated
 - Metadata tags present in document head
 - OG images and social cards configured
 - robots.txt and sitemap.xml routes functioning
 
 **Build & TypeScript**: ✅ (Note: Pre-existing type errors not related to optimization)
+
 - TypeScript compilation completes (with pre-existing issues in project config)
 - Build time: ~3 seconds for `npm run build.client`
 - No new regressions introduced by optimizations
 
 ---
-
-
 
 ## Executive Summary
 
@@ -149,7 +154,7 @@ This document establishes the performance optimization baseline for the implemen
   alt={heroMedia.alt ?? project.title}
   width={1600}
   height={900}
-  class="h-full w-full object-cover"
+  class="object-cover w-full h-full"
 />
 ```
 
@@ -560,6 +565,7 @@ The first optimization pass (TASK-107 to TASK-115) focused on immediate, high-im
 ### Current Performance State
 
 **Measurable Improvements**:
+
 - ~20-25 KB removed from global font payload
 - ~5-10% reduction in blog route HTML (lazy boundaries)
 - ~3-5% reduction in route metadata runtime overhead (static heads)
@@ -575,18 +581,21 @@ The first optimization pass (TASK-107 to TASK-115) focused on immediate, high-im
 ### Tier 1: High-Priority, Moderate Effort (Next targets)
 
 **TASK-117 — Tree-shake unused Tailwind utilities**
+
 - **Impact**: 10-20 KB gzip savings (most direct CSS reduction)
 - **Effort**: 45 min – 1 hour
 - **Rationale**: CSS output likely includes utilities for disabled variants, unused colors, etc.
 - **Approach**: Audit Tailwind coverage, configure purge more aggressively
 
 **TASK-118 — Implement responsive srcsets and modern image formats**
+
 - **Impact**: 20-40 KB savings on mobile (image payload reduction)
 - **Effort**: 2-3 hours
 - **Rationale**: Current images are fixed 1600×1000 on all viewports; no WebP/AVIF variants
 - **Approach**: Add srcset breakpoints, generate WebP alternatives, update MediaCard and route images
 
 **TASK-119 — Lazy-load MobileMenu island (mobile-only boundary)**
+
 - **Impact**: 5-10 KB JS savings on desktop (hydration skipped)
 - **Effort**: 1.5 hours
 - **Rationale**: Component loads on all routes but only active on mobile
@@ -595,18 +604,21 @@ The first optimization pass (TASK-107 to TASK-115) focused on immediate, high-im
 ### Tier 2: Medium-Priority, Lower Effort (2nd wave)
 
 **TASK-120 — Route-specific CSS splitting**
+
 - **Impact**: 5-15 KB potential CSS savings (if Tailwind supports per-route output)
 - **Effort**: 1-2 hours
 - **Rationale**: Production/engineering theme CSS sent to all routes
 - **Note**: May not be possible with Tailwind v4 JIT model (worth testing)
 
 **TASK-121 — Implement video element stubs + poster images**
+
 - **Impact**: 0 KB perf benefit (UX improvement)
 - **Effort**: 1-2 hours
 - **Rationale**: Foundation for video functionality; better UX than placeholder text
 - **Approach**: Add `<video>` elements with poster images; defer actual video loading
 
 **TASK-122 — Defer PageShell scroll reveal (conditional initialization)**
+
 - **Impact**: ~2 KB + conditional IntersectionObserver setup
 - **Effort**: 30 min
 - **Rationale**: IntersectionObserver runs on routes without scroll-reveal elements
@@ -615,16 +627,19 @@ The first optimization pass (TASK-107 to TASK-115) focused on immediate, high-im
 ### Tier 3: Infrastructure & Future (If timeline allows)
 
 **TASK-123 — Enable static pre-rendering**
+
 - **Impact**: Removes SSR latency (~100ms per request); enables static CDN distribution
 - **Effort**: 2-4 hours
 - **Approach**: Configure Qwik pre-render for all enumerable routes
 
 **TASK-124 — Differential loading (ES2020+ for modern browsers)**
+
 - **Impact**: 10-20% JS size reduction for modern browsers
 - **Effort**: 2-4 hours
 - **Approach**: Dual-build output (modern + legacy); browser detection
 
 **TASK-125+ — Service Worker, route prefetching, advanced optimizations**
+
 - **Impact**: Highly variable (50-500ms depending on user patterns)
 - **Effort**: 4+ hours for full feature
 - **Note**: Deferred; scope creep risk
@@ -647,19 +662,20 @@ The first optimization pass (TASK-107 to TASK-115) focused on immediate, high-im
 
 ### Completed Optimizations ✅
 
-| Optimization           | Status | TASK | Verified              | Notes                                              |
-| ---------------------- | ------ | ---- | --------------------- | -------------------------------------------------- |
-| Font optimization      | ✅     | 108  | No references to font | Space Grotesk import removed; Inter only           |
-| Layout cleanup         | ✅     | 109  | Import verified       | Reduced above-fold payload on static routes        |
-| Media lazy loading     | ✅     | 111  | loading="lazy"        | Applied to grid images; eager on heroes            |
-| Lazy boundaries        | ✅     | 112  | Files exist           | PublishedBlogList + DraftBlogList extracted        |
-| Static route heads     | ✅     | 113  | Verified in routes    | Pre-computed staticHeads for 7 static routes       |
-| UI cleanup             | ✅     | 114  | Class verified        | .ui-meta-label consolidation (22 occurrences)    |
-| Cache strategy         | ✅     | 115  | Config present        | Hashed assets + vite.config optimizations         |
+| Optimization       | Status | TASK | Verified              | Notes                                         |
+| ------------------ | ------ | ---- | --------------------- | --------------------------------------------- |
+| Font optimization  | ✅     | 108  | No references to font | Space Grotesk import removed; Inter only      |
+| Layout cleanup     | ✅     | 109  | Import verified       | Reduced above-fold payload on static routes   |
+| Media lazy loading | ✅     | 111  | loading="lazy"        | Applied to grid images; eager on heroes       |
+| Lazy boundaries    | ✅     | 112  | Files exist           | PublishedBlogList + DraftBlogList extracted   |
+| Static route heads | ✅     | 113  | Verified in routes    | Pre-computed staticHeads for 7 static routes  |
+| UI cleanup         | ✅     | 114  | Class verified        | .ui-meta-label consolidation (22 occurrences) |
+| Cache strategy     | ✅     | 115  | Config present        | Hashed assets + vite.config optimizations     |
 
 ### High-Confidence Next Steps
 
 **TASK-117** & **TASK-118** should be prioritized:
+
 1. **TASK-117** (CSS tree-shake): Easily measurable, 10-20 KB savings, quick payoff
 2. **TASK-118** (Responsive images): Highest savings potential 20-40 KB, clear ROI
 
@@ -681,6 +697,7 @@ These two tasks alone could recover another 30-60 KB of payload.
 ### Performance Audit Accuracy
 
 Initial audit (Section 1-11) remains accurate; current state reflects:
+
 - Portions of "Quick Wins" completed (image lazy loading, font optimization)
 - Lazy boundaries implemented (Section 9 patterns confirmed)
 - Static route optimization applied (eliminated runtime work)

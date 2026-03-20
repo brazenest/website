@@ -43,11 +43,13 @@ dist/
 **Pattern**: `/assets/ButtonLink-BQA_7gD9.js`, `/assets/style-CMRgKVKj.css`
 
 **Recommended Headers**:
+
 ```
 Cache-Control: public, immutable, max-age=31536000
 ```
 
 **Rationale**:
+
 - Content hash in filename = guaranteed immutable
 - Browser cache for 1 year (or longer)
 - No revalidation needed
@@ -58,12 +60,14 @@ Cache-Control: public, immutable, max-age=31536000
 **Pattern**: `/index.html`, `/about/`, `/blog/`, etc.
 
 **Recommended Headers**:
+
 ```
 Cache-Control: no-cache, must-revalidate
 ETag: [generated from content]
 ```
 
 **Rationale**:
+
 - Points to new hashed assets on update
 - Browser must check server for fresh version
 - Prevents serving stale HTML with references to old assets
@@ -74,12 +78,14 @@ ETag: [generated from content]
 **Files**: `q-manifest.json`, `qwikloader-*.js`
 
 **Recommended Headers**:
+
 ```
 Cache-Control: no-cache, must-revalidate
 ETag: [generated from content]
 ```
 
 **Rationale**:
+
 - Maps routes to asset chunks
 - Small files (worth checking for updates)
 - Prevents being stuck with old asset references
@@ -123,15 +129,19 @@ Configure your HTTP headers in middleware:
 ```javascript
 // Example: Express
 app.use((req, res, next) => {
-  if (req.path.startsWith('/assets/')) {
+  if (req.path.startsWith("/assets/")) {
     // Hashed assets: cache forever
-    res.header('Cache-Control', 'public, immutable, max-age=31536000');
-  } else if (req.path.endsWith('.html') || req.path === '/' || req.path.match(/\/\w+\/?$/)) {
+    res.header("Cache-Control", "public, immutable, max-age=31536000");
+  } else if (
+    req.path.endsWith(".html") ||
+    req.path === "/" ||
+    req.path.match(/\/\w+\/?$/)
+  ) {
     // HTML routes: always revalidate
-    res.header('Cache-Control', 'no-cache, must-revalidate');
+    res.header("Cache-Control", "no-cache, must-revalidate");
   } else {
     // Manifest, bootstrap: always revalidate
-    res.header('Cache-Control', 'no-cache, must-revalidate');
+    res.header("Cache-Control", "no-cache, must-revalidate");
   }
   next();
 });
@@ -161,10 +171,11 @@ manualChunks: (id) => {
   if (id.includes("@builder.io/qwik") || id.includes("@builder.io/qwik-city")) {
     return "qwik-framework";
   }
-}
+};
 ```
 
 **Benefits**:
+
 - Framework updates don't invalidate user code hashes
 - User code updates don't require re-downloading framework
 - Finer cache invalidation granularity
@@ -192,6 +203,7 @@ Check `npm run build` output for:
 3. **Chunk count**: Ensure granular splitting (20+ chunks is typical)
 
 Example output:
+
 ```
 dist/ButtonLink-BQA_7gD9.js              2.1 kB │ gzip: 0.8 kB
 dist/cn-C_y86Ny1.js                     26.7 kB │ gzip: 8.4 kB
@@ -246,6 +258,7 @@ curl -I https://example.com/about/
 ### Prerequisites
 
 These would require:
+
 - Deployment platform support
 - Updated server configuration
 - Browser runtime support verification

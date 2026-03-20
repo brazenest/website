@@ -1,11 +1,17 @@
 import { Slot, component$, useVisibleTask$ } from '@builder.io/qwik'
 import type { ThemeName } from '~/types/ui'
 
-export const PageShell = component$(({ theme }: PageShellProps) => {
+export const PageShell = component$(({ theme, enableScrollReveal = false }: PageShellProps) => {
   useVisibleTask$(() => {
+    // Scroll-reveal observer: gated behind explicit opt-in
+    // Only routes that use [data-scroll-reveal] elements should enable this
+    if (!enableScrollReveal) {
+      return
+    }
+
     const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-scroll-reveal]'))
 
-    // Only set up observer if there are actually scroll-reveal sections on this page
+    // Safety check: double-verify reveal elements exist
     if (sections.length === 0) {
       return
     }
@@ -60,4 +66,10 @@ export const PageShell = component$(({ theme }: PageShellProps) => {
 
 type PageShellProps = {
   theme: ThemeName
+  /**
+   * Enable scroll-reveal observer for [data-scroll-reveal] elements.
+   * Only set to true on routes that actually use data-scroll-reveal.
+   * @default false
+   */
+  enableScrollReveal?: boolean
 }
