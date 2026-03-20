@@ -4,21 +4,35 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 /* ============================================================================
-   ASSET DELIVERY & CACHE STRATEGY
+   STATIC PRE-RENDERING & ASSET DELIVERY STRATEGY
    
-   This configuration optimizes static asset delivery with content-addressed
-   (hashed) filenames and cache-friendly headers for production use.
+   BUILD OUTPUT: Complete static HTML for all routes + versioned assets
+   
+   PRERENDERED ROUTES:
+   - Static: /, /about, /resume, /blog, /engineering, /production, /contact
+   - Blog: /blog/[slug] for all published posts (enumerated from content)
+   - Engineering: /engineering/projects/[slug] for all projects
+   - Production: /production/projects/[slug] for all projects
+   - Special: /robots.txt, /sitemap.xml
+   
+   Each route is rendered to a static .html file in dist/ at build time.
+   Route enumeration via src/lib/prerender-routes.ts
+   
+   ASSET DELIVERY & CACHING:
    
    KEY PRINCIPLES:
    1. Hashed assets (e.g., q-B_LB6VGz.js) are immutable → cache forever
-   2. HTML/route entry points (from Qwik SSR) → no-cache (check server each time)
-   3. Chunk boundaries optimized for granular invalidation
-   4. Source maps included for production debugging (removed from final deliverable)
+   2. HTML files (from Qwik SSR prerendering) → revalidate on each request
+   3. Chunk boundaries optimized for granular cache invalidation
    
-   DEPLOYMENT NOTES:
-   - Server should set Cache-Control: max-age=31536000 (1 year) for /build and /assets
-   - Server should set Cache-Control: no-cache for *.html and entry points
-   - Not environment-specific; works with any static hosting or SSR adapter
+   DEPLOYMENT:
+   - Deploy /dist to any static file host or CDN
+   - No Node.js runtime required
+   - Optimal static hosting performance
+   
+   CACHE HEADERS (Set by deployment host):
+   - /build/** and /assets/** → Cache-Control: max-age=31536000 (1 year)
+   - *.html files → Cache-Control: no-cache (always revalidate)
    ============================================================================ */
 
 export default defineConfig(() => ({
