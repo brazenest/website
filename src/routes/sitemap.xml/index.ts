@@ -42,9 +42,8 @@ export const onGet: RequestHandler = async (requestEvent) => {
 ${urlElements}
 </urlset>`
 
-  // Set content type header and return XML
   requestEvent.headers.set('Content-Type', 'application/xml; charset=utf-8')
-  throw requestEvent.json(200, xml)
+  throw requestEvent.text(200, xml)
 }
 
 /**

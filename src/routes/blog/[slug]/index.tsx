@@ -30,8 +30,14 @@ function toHeadValue(metadata: ReturnType<typeof buildMetadata>) {
   }
 }
 
-export const useBlogPost = routeLoader$(async ({ params }) => {
-  return getBlogPostBySlug(params.slug)
+export const useBlogPost = routeLoader$(async ({ params, status }) => {
+  const post = await getBlogPostBySlug(params.slug)
+
+  if (!post) {
+    status(404)
+  }
+
+  return post
 })
 
 export const head = (({ resolveValue, params }: DocumentHeadProps) => {

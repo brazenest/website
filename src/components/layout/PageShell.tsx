@@ -2,6 +2,7 @@ import { Slot, component$, useVisibleTask$ } from '@builder.io/qwik'
 import type { ThemeName } from '~/types/ui'
 
 export const PageShell = component$(({ theme, enableScrollReveal = false }: PageShellProps) => {
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     // Scroll-reveal observer: gated behind explicit opt-in
     // Only routes that use [data-scroll-reveal] elements should enable this

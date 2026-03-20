@@ -45,7 +45,7 @@ INSERT INTO blog_posts (
   'Modern production requires thinking in delivery formats before rolling camera. A single shoot can fuel social clips, promotional materials, case study footage, and archival—if you plan the coverage from the beginning.',
   'The most common mistake in production is treating the shoot as a singular output moment. You plan for one deliverable, roll whatever footage feels right in the moment, and then discover you have no usable material for the other formats that emerged during post-production.
 
-Real production planning means specifying formats first, then designing coverage around those constraints. If you need 16:9 hero clips, 9:16 social cuts, tight detail shots, and establishing sequences, you need a shot list that guarantees all of it. You need to know which frames will be close-ups, which will be wide, and how they'll intercut.
+Real production planning means specifying formats first, then designing coverage around those constraints. If you need 16:9 hero clips, 9:16 social cuts, tight detail shots, and establishing sequences, you need a shot list that guarantees all of it. You need to know which frames will be close-ups, which will be wide, and how they''ll intercut.
 
 This post details the planning framework used for the production work shown on this site: how to structure a shot list for multiple outputs, how to protect against format drift during capture, and how to organize footage in post so that any deliverable feels intentional rather than compromised.',
   'production',
@@ -69,7 +69,7 @@ INSERT INTO blog_posts (
 ) VALUES (
   'revision-as-method',
   'Revision as a First-Class Design Concern',
-  'Systems that treat revision as an afterthought become brittle. Whether you're designing a content schema, a visual language, or a feature rollout, building revision capability into the foundation determines how far you can scale.',
+  'Systems that treat revision as an afterthought become brittle. Whether you''re designing a content schema, a visual language, or a feature rollout, building revision capability into the foundation determines how far you can scale.',
   'Most design conversations focus on the happy path: the first publication, the launch moment, the initial release. But the real operating costs arrive during revision. What happens when you need to change a published post? Adjust a design system? Roll back a deployment?
 
 Systems designed without revision in mind accumulate technical debt at an alarming rate. A schema that works for initial posts becomes a nightmare when you need to alter published data without losing history. A design system that works for the launch becomes a maze of one-off overrides once you need to change the rules.

@@ -1,4 +1,4 @@
-import { Pool, type QueryResultRow } from 'pg'
+import { Pool, type PoolConfig, type QueryResultRow } from 'pg'
 
 type QueryValue = string | number | boolean | Date | null
 
@@ -20,13 +20,41 @@ function getDatabaseUrl() {
   return databaseUrl
 }
 
+function getSslMode(databaseUrl: string) {
+  const envSslMode = process.env.PGSSLMODE?.trim().toLowerCase()
+
+  if (envSslMode) {
+    return envSslMode
+  }
+
+  try {
+    return new URL(databaseUrl).searchParams.get('sslmode')?.trim().toLowerCase()
+  } catch {
+    return undefined
+  }
+}
+
+function getPoolConfig(): PoolConfig {
+  const databaseUrl = getDatabaseUrl()
+  const sslMode = getSslMode(databaseUrl)
+
+  return {
+    connectionString: databaseUrl,
+    ...((sslMode === 'require' || sslMode === 'verify-ca' || sslMode === 'verify-full')
+      ? {
+        ssl: {
+          rejectUnauthorized: process.env.PGSSLREJECTUNAUTHORIZED !== 'false',
+        },
+      }
+      : {}),
+  }
+}
+
 function getPool() {
   assertServerSide()
 
   if (!pool) {
-    pool = new Pool({
-      connectionString: getDatabaseUrl(),
-    })
+    pool = new Pool(getPoolConfig())
   }
 
   return pool
