@@ -6,16 +6,18 @@
     "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
   },
   "scripts": {
-    "dev": "vite --mode ssr",
-    "start": "vite --mode ssr",
     "build": "qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
+    "build.server": "qwik check-client src dist && vite build -c adapters/fastify/vite.config.ts",
     "build.types": "tsc --noEmit",
-    "preview": "qwik build preview && vite preview",
-    "lint": "eslint \"src/**/*.ts*\"",
+    "dev": "vite --mode ssr",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "preview": "qwik build preview && vite preview",
+    "serve": "node server/entry.fastify",
+    "start": "vite --mode ssr",
     "qwik": "qwik"
   },
   "devDependencies": {
@@ -25,6 +27,7 @@
     "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "20.19.0",
     "autoprefixer": "^10.4.27",
+    "dotenv": "^16.3.2",
     "eslint": "9.32.0",
     "eslint-plugin-qwik": "^1.19.2",
     "globals": "16.4.0",
@@ -37,8 +40,12 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "dependencies": {
+    "@fastify/compress": "^6.2.1",
+    "@fastify/static": "^6.10.1",
     "@fontsource-variable/inter": "^5.2.8",
     "clsx": "^2.1.1",
+    "fastify": "^5.7.3",
+    "fastify-plugin": "^4.5.0",
     "tailwind-merge": "^3.5.0"
   }
 }
