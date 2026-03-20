@@ -129,6 +129,16 @@ export default component$(() => {
               <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 {post.value.summary}
               </p>
+
+              {post.value.coverImageUrl && (
+                <img
+                  src={post.value.coverImageUrl}
+                  alt={post.value.coverImageAlt || post.value.title}
+                  class="w-full rounded-[var(--radius-lg)] border border-[var(--border)] object-cover"
+                  width={896}
+                  height={448}
+                />
+              )}
             </div>
           </Container>
         </Section>

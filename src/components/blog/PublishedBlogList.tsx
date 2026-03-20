@@ -44,6 +44,16 @@ export const PublishedBlogList = component$(({ posts }: PublishedBlogListProps) 
                   </div>
 
                   <div class="flex flex-col gap-3">
+                    {post.coverImageUrl && (
+                      <img
+                        src={post.coverImageUrl}
+                        alt={post.coverImageAlt || post.title}
+                        class="w-full rounded-[var(--radius-lg)] border border-[var(--border)] object-cover"
+                        width={672}
+                        height={336}
+                      />
+                    )}
+
                     <h3 class="text-xl font-semibold tracking-tight md:text-2xl">
                       {post.title}
                     </h3>
