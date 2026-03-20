@@ -590,10 +590,12 @@ This document serves as the canonical source of truth for all remaining verifica
 ### Blocking Items: 2 / 7 Categories Complete
 
 **CRITICAL BLOCKERS** 🚨 (must be resolved before launch):
+
 1. ❌ **Missing OG Image** (`/assets/og-image.jpg`) — Required for social sharing preview
 2. ❌ **Missing Project Images** (6 files in `/media/engineering/` and `/media/production/`) — Required for project card rendering
 
 **Category Status**:
+
 1. Route Inventory & Completeness: 🟡 **In Progress** (routes verified, assets pending)
 2. Metadata & SEO Verification: 🟡 **In Progress** (config verified, og:image missing)
 3. Performance Verification: ⏳ (pending pre-deployment build test)
@@ -605,6 +607,7 @@ This document serves as the canonical source of truth for all remaining verifica
 ### Asset Inventory
 
 **Missing (BLOCKER)**:
+
 - [ ] `/assets/og-image.jpg` (1200x630px minimum, JPEG recommended)
 - [ ] `/media/engineering/andacity-booking-system.jpg`
 - [ ] `/media/engineering/fulfillment-reliability-console.jpg`
@@ -644,7 +647,7 @@ TASK-125 AUDIT FINDINGS (March 20, 2026):
    - 1x OG image for social sharing (og-image.jpg)
    - 3x Engineering project card images
    - 3x Production project card images
-   
+
    These are referenced in content but files don't exist in /public/
 
 📋 NEXT AUDIT STEPS (after assets added):
