@@ -1,6 +1,7 @@
 import type { SitemapEntry, SEOPageKey } from '~/types/seo'
 import { siteConfig } from '~/config/site'
 import { seoPresets, routePathnames } from '~/config/seo'
+import { getPublishedBlogSlugs } from '~/lib/blog/getPublishedBlogSlugs'
 
 /**
  * Build absolute URL from pathname.
@@ -26,7 +27,7 @@ function buildAbsoluteUrl(pathname: string): string {
  *
  * @returns Array of sitemap entries ready for XML serialization
  */
-export function getSitemapEntries(): SitemapEntry[] {
+export async function getSitemapEntries(): Promise<SitemapEntry[]> {
   const entries: SitemapEntry[] = []
 
   // Iterate through all SEO preset keys
@@ -52,6 +53,16 @@ export function getSitemapEntries(): SitemapEntry[] {
     }
 
     entries.push(entry)
+  }
+
+  const blogSlugs = await getPublishedBlogSlugs()
+
+  for (const slug of blogSlugs) {
+    entries.push({
+      loc: buildAbsoluteUrl(`/blog/${slug}`),
+      changefreq: 'monthly',
+      priority: 0.7,
+    })
   }
 
   return entries

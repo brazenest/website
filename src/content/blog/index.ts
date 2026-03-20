@@ -36,5 +36,23 @@ export const blogPageContent = {
     heading: 'In progress',
     intro:
       'A small queue of next pieces. These are not published yet, but they establish the editorial direction and show the shape of future writing.',
+    items: [
+      {
+        title: 'Designing for Revision in Schema-Driven Systems',
+        slug: 'designing-for-revision-in-schema-driven-systems',
+        date: '2026-03-18',
+        side: 'engineering',
+        summary:
+          'Schema-driven platforms are often designed around the publishing moment, but the real operating pressure arrives later, during revision. Getting the revision model right from the start determines whether the system stays composable as requirements grow.',
+      },
+      {
+        title: 'One Shoot, Many Deliverables Without Losing Intent',
+        slug: 'one-shoot-many-deliverables-without-losing-intent',
+        date: '2026-03-05',
+        side: 'production',
+        summary:
+          'Designing coverage around multiple format deliverables creates a specific authorship problem: the temptation to shoot for maximum flexibility usually produces footage that reframes safely but says nothing with conviction. The right frame for multi-format work is story-first coverage, with reframing built in second.',
+      },
+    ],
   },
 } as const

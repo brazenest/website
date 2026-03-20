@@ -180,11 +180,13 @@ export const publishedBlogPosts = blogPosts.filter((post) => post.published)
 export const draftBlogPosts = blogPosts.filter((post) => !post.published)
 
 export const formatBlogDate = (date: string) => {
+  const parsedDate = date.includes('T') ? new Date(date) : new Date(`${date}T00:00:00`)
+
   return new Intl.DateTimeFormat('en-US', {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
-  }).format(new Date(`${date}T00:00:00`))
+  }).format(parsedDate)
 }
 
 export const getBlogSideLabel = (side: BlogPostSide) => {

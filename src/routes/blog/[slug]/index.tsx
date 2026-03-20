@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
-import { useLocation } from '@builder.io/qwik-city'
+import { routeLoader$, type DocumentHead, type DocumentHeadProps } from '@builder.io/qwik-city'
 import { ButtonLink } from '~/components/ui/ButtonLink'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
@@ -8,46 +7,73 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { TextLink } from '~/components/ui/TextLink'
-import {
-  formatBlogDate,
-  getBlogSideLabel,
-  getPublishedBlogPostBySlug,
-} from '~/content/blog/posts'
-import { buildTitle } from '~/fns/seo'
+import { formatBlogDate, getBlogSideLabel } from '~/content/blog/posts'
+import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { buildArticleStructuredData } from '~/fns/seo/buildStructuredData'
+import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
+import { getBlogPostBySlug } from '~/lib/blog/getBlogPostBySlug'
 
-export const head: DocumentHead = ({ params }) => {
-  const post = getPublishedBlogPostBySlug(params.slug)
-
-  if (!post) {
-    return {
-      title: buildTitle('Blog Post'),
-      meta: [
-        {
-          name: 'description',
-          content: 'Writing by Alden Gillespy across engineering and production practice.',
-        },
-      ],
-    }
+function toHeadValue(metadata: ReturnType<typeof buildMetadata>) {
+  const documentHead = metadataToDocumentHead(metadata) as {
+    title?: string
+    meta?: any[]
+    links?: any[]
   }
 
-  // Build Article schema for this blog post
+  return {
+    title: documentHead.title,
+    meta: documentHead.meta,
+    links: documentHead.links,
+  }
+}
+
+export const useBlogPost = routeLoader$(async ({ params }) => {
+  return getBlogPostBySlug(params.slug)
+})
+
+export const head = (({ resolveValue, params }: DocumentHeadProps) => {
+  const post = resolveValue(useBlogPost)
+
+  if (!post) {
+    return toHeadValue(
+      buildMetadata({
+        title: 'Blog Post',
+        description: 'Writing by Alden Gillespy across engineering and production practice.',
+        pathname: `/blog/${params.slug}`,
+      })
+    )
+  }
+
+  const metadata = buildMetadata({
+    title: post.title,
+    description: post.summary,
+    pathname: `/blog/${params.slug}`,
+    type: 'article',
+    image: post.coverImageUrl
+      ? {
+        url: post.coverImageUrl,
+        ...(post.coverImageAlt ? { alt: post.coverImageAlt } : {}),
+      }
+      : undefined,
+    publishedTime: post.publishedAt ?? undefined,
+    modifiedTime: post.updatedAt ?? undefined,
+  })
+
   const articleSchema = buildArticleStructuredData({
     title: post.title,
     description: post.summary,
     url: `/blog/${params.slug}`,
-    datePublished: post.date,
+    image: post.coverImageUrl ?? undefined,
+    datePublished: post.publishedAt ?? post.createdAt,
+    dateModified: post.updatedAt ?? undefined,
     keywords: post.side ? [post.side] : undefined,
+    articleBody: post.bodyMarkdown,
   })
 
+  const documentHead = toHeadValue(metadata)
+
   return {
-    title: buildTitle(post.title),
-    meta: [
-      {
-        name: 'description',
-        content: post.summary,
-      },
-    ],
+    ...documentHead,
     scripts: [
       {
         props: {
@@ -57,13 +83,12 @@ export const head: DocumentHead = ({ params }) => {
       },
     ],
   }
-}
+}) satisfies DocumentHead
 
 export default component$(() => {
-  const location = useLocation()
-  const post = getPublishedBlogPostBySlug(location.params.slug)
+  const post = useBlogPost()
 
-  if (!post) {
+  if (!post.value) {
     return (
       <PageShell theme="neutral">
         <Header />
@@ -94,6 +119,11 @@ export default component$(() => {
     )
   }
 
+  const bodyParagraphs = post.value.bodyMarkdown
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean)
+
   return (
     <PageShell theme="neutral">
       <Header />
@@ -108,44 +138,33 @@ export default component$(() => {
 
               <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                 <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
-                  {getBlogSideLabel(post.side)}
+                  {getBlogSideLabel(post.value.side)}
                 </span>
-                <span>{formatBlogDate(post.date)}</span>
+                <span>{formatBlogDate(post.value.publishedAt ?? post.value.createdAt)}</span>
               </div>
 
               <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-                {post.title}
+                {post.value.title}
               </h1>
 
               <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {post.summary}
+                {post.value.summary}
               </p>
             </div>
           </Container>
         </Section>
 
-        {post.sections.map((section, index) => (
-          <Section key={section.title} spacing={index === 0 ? 'compact' : 'default'}>
-            <Container width="content">
-              <div class="flex flex-col gap-4 md:gap-5">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                  {section.title}
-                </h2>
-
-                <div class="flex flex-col gap-4 md:gap-5">
-                  {section.paragraphs.map((paragraph) => (
-                    <p
-                      key={paragraph}
-                      class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg"
-                    >
-                      {paragraph}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </Container>
-          </Section>
-        ))}
+        <Section spacing="compact">
+          <Container width="content">
+            <article class="flex flex-col gap-4 md:gap-5">
+              {bodyParagraphs.map((paragraph) => (
+                <p key={paragraph} class="max-w-[65ch] whitespace-pre-wrap text-base leading-7 text-[var(--muted)] md:text-lg">
+                  {paragraph}
+                </p>
+              ))}
+            </article>
+          </Container>
+        </Section>
 
         <Section spacing="compact" surface="subtle">
           <Container width="content">

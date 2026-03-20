@@ -113,7 +113,7 @@ export type BlogPostSide = 'engineering' | 'production' | 'bridge'
 export type BlogPostStatus = 'draft' | 'published'
 
 export type BlogPostRecord = {
-  id: number
+  id: string
   slug: string
   title: string
   summary: string

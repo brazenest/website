@@ -17,7 +17,7 @@ import { getSitemapEntries } from '~/fns/seo/getSitemapEntries'
  */
 export const onGet: RequestHandler = async (requestEvent) => {
   // Get all sitemap entries from centralized config
-  const entries = getSitemapEntries()
+  const entries = await getSitemapEntries()
 
   // Build XML sitemap strings
   const urlElements = entries

@@ -3,13 +3,13 @@ import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { TextLink } from '~/components/ui/TextLink'
 import { blogPageContent } from '~/content/blog'
-import { formatBlogDate, getBlogSideLabel, publishedBlogPosts } from '~/content/blog/posts'
+import { formatBlogDate, getBlogSideLabel, type PublishedBlogListItem } from '~/lib/blog/presentation'
 
 /**
  * Below-the-fold section: Published blog posts list
  * Deferred load on /blog route
  */
-export const PublishedBlogList = component$(() => {
+export const PublishedBlogList = component$(({ posts }: PublishedBlogListProps) => {
   return (
     <Section spacing="compact">
       <Container width="wide">
@@ -28,7 +28,7 @@ export const PublishedBlogList = component$(() => {
           </div>
 
           <ul class="flex flex-col gap-6 md:gap-8">
-            {publishedBlogPosts.map((post) => (
+            {posts.map((post) => (
               <li key={post.slug}>
                 <article
                   class="grid gap-4 border-t border-[var(--border)] pt-6 first:border-t-0 first:pt-0 md:grid-cols-[minmax(11rem,13rem)_minmax(0,1fr)] md:gap-8"
@@ -39,7 +39,7 @@ export const PublishedBlogList = component$(() => {
                     </p>
 
                     <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
-                      {formatBlogDate(post.date)}
+                      {formatBlogDate(post.publishedDate)}
                     </p>
                   </div>
 
@@ -65,3 +65,7 @@ export const PublishedBlogList = component$(() => {
     </Section>
   )
 })
+
+type PublishedBlogListProps = {
+  posts: PublishedBlogListItem[]
+}

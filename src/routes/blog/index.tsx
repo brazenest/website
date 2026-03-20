@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
+import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city'
 import { ButtonLink } from '~/components/ui/ButtonLink'
 import { DraftBlogList } from '~/components/blog/DraftBlogList'
 import { PublishedBlogList } from '~/components/blog/PublishedBlogList'
@@ -9,11 +9,21 @@ import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { blogPageContent } from '~/content/blog'
+import { getPublishedBlogPosts } from '~/lib/blog/getPublishedBlogPosts'
+import { toPublishedBlogListItem } from '~/lib/blog/presentation'
 import { staticHeads } from '~/fns/seo/staticHeads'
 
 export const head: DocumentHead = staticHeads.blog
 
+export const usePublishedBlogPosts = routeLoader$(async () => {
+  const posts = await getPublishedBlogPosts()
+
+  return posts.map(toPublishedBlogListItem)
+})
+
 export default component$(() => {
+  const publishedBlogPosts = usePublishedBlogPosts()
+
   return (
     <PageShell theme="neutral">
       <Header />
@@ -73,7 +83,7 @@ export default component$(() => {
         </Section>
 
         {/* Below-the-fold content sections */}
-        <PublishedBlogList />
+        <PublishedBlogList posts={publishedBlogPosts.value} />
         <DraftBlogList />
 
         <Section spacing="compact">

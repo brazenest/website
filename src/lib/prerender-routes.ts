@@ -14,32 +14,32 @@
  * - Ensures all content is discoverable and prerendered
  */
 
-import { publishedBlogPosts } from "~/content/blog/posts";
-import { engineeringProjects } from "~/content/engineering/projects";
-import { productionProjects } from "~/content/production/projects";
+import { getPublishedBlogSlugs } from '~/lib/blog/getPublishedBlogSlugs'
+import { engineeringProjects } from '~/content/engineering/projects'
+import { productionProjects } from '~/content/production/projects'
 
 /**
  * Static routes that should always be prerendered
  * These are non-parameterized routes with fixed paths
  */
 export const STATIC_ROUTES = [
-  "/",
-  "/about",
-  "/resume",
-  "/blog",
-  "/engineering",
-  "/production",
-  "/contact",
-  "/robots.txt",
-  "/sitemap.xml",
-] as const;
+  '/',
+  '/about',
+  '/resume',
+  '/blog',
+  '/engineering',
+  '/production',
+  '/contact',
+  '/robots.txt',
+  '/sitemap.xml',
+] as const
 
 /**
  * Enumerate all blog post routes
  * Only published posts are prerendered (unpublished drafts are not exposed)
  */
-export const getBlogRoutes = () =>
-  publishedBlogPosts.map((post) => `/blog/${post.slug}` as const);
+export const getBlogRoutes = async () =>
+  (await getPublishedBlogSlugs()).map((slug) => `/blog/${slug}` as const)
 
 /**
  * Enumerate all engineering project routes
@@ -47,7 +47,7 @@ export const getBlogRoutes = () =>
 export const getEngineeringProjectRoutes = () =>
   engineeringProjects.map(
     (project) => `/engineering/projects/${project.slug}` as const
-  );
+  )
 
 /**
  * Enumerate all production project routes
@@ -55,31 +55,33 @@ export const getEngineeringProjectRoutes = () =>
 export const getProductionProjectRoutes = () =>
   productionProjects.map(
     (project) => `/production/projects/${project.slug}` as const
-  );
+  )
 
 /**
  * Get all prerenderable routes (static + dynamic)
  * Useful for listing all routes that should be generated at build time
  */
-export const getAllPrerenderedRoutes = () => {
-  const staticRoutes = [...STATIC_ROUTES];
-  const blogRoutes = getBlogRoutes();
-  const engineeringRoutes = getEngineeringProjectRoutes();
-  const productionRoutes = getProductionProjectRoutes();
+export const getAllPrerenderedRoutes = async () => {
+  const staticRoutes = [...STATIC_ROUTES]
+  const blogRoutes = await getBlogRoutes()
+  const engineeringRoutes = getEngineeringProjectRoutes()
+  const productionRoutes = getProductionProjectRoutes()
 
-  return [...staticRoutes, ...blogRoutes, ...engineeringRoutes, ...productionRoutes];
-};
+  return [...staticRoutes, ...blogRoutes, ...engineeringRoutes, ...productionRoutes]
+}
 
 /**
  * Build summary for logging/debugging
  */
-export const getPrerenderSummary = () => {
-  const all = getAllPrerenderedRoutes();
+export const getPrerenderSummary = async () => {
+  const all = await getAllPrerenderedRoutes()
+  const blogRoutes = await getBlogRoutes()
+
   return {
     static: STATIC_ROUTES.length,
-    blog: getBlogRoutes().length,
+    blog: blogRoutes.length,
     engineering: getEngineeringProjectRoutes().length,
     production: getProductionProjectRoutes().length,
     total: all.length,
-  };
-};
+  }
+}

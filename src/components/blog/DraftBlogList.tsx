@@ -2,7 +2,7 @@ import { component$ } from '@builder.io/qwik'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { blogPageContent } from '~/content/blog'
-import { formatBlogDate, getBlogSideLabel, draftBlogPosts } from '~/content/blog/posts'
+import { formatBlogDate, getBlogSideLabel } from '~/lib/blog/presentation'
 
 /**
  * Below-the-fold section: Draft blog posts list
@@ -27,7 +27,7 @@ export const DraftBlogList = component$(() => {
           </div>
 
           <ul class="grid gap-4 md:grid-cols-2">
-            {draftBlogPosts.map((post) => (
+            {blogPageContent.drafts.items.map((post) => (
               <li key={post.slug}>
                 <article
                   class="flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
