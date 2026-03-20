@@ -39,38 +39,73 @@ export default defineConfig(() => ({
   plugins: [qwikCity({ trailingSlash: false }), qwikVite(), tsconfigPaths()],
   
   build: {
+    /* Build output configuration for optimal static asset caching */
+    outDir: 'dist',
+    
     /* Output build metadata for analysis and cache validation */
     reportCompressedSize: true,
     sourcemap: false, // Exclude source maps from build output (can be enabled for debugging)
     
+    /* Minification: Use esbuild for smaller output and faster builds
+       - esbuild is Vite's default, optimized for modern JS
+       - Keeps output lean for faster CDN transfer and browser parsing
+       - Consider: --minify-identifiers and --minify-whitespace are already true by default
+    */
+    minify: 'esbuild',
+    
+    /* Target modern browsers: ES2020 with dynamic import support
+       - Avoids polyfills and transpilation overhead
+       - Acceptable for 2024+ deployments (>95% browser support)
+       - Falls back to bundled polyfills if specifically needed
+    */
+    target: 'ES2020',
+    
     rollupOptions: {
       output: {
         /* Consistent naming for hashed assets enables aggressive long-term caching
-           - [hash] replaces with content hash (e.g., q-B_LB6VGz)
-           - Qwik framework files go to /build with q- prefix
-           - Used-land assets go to /assets with consistent hashing
+           - [hash] replaces with content hash for cache busting
+           - Hashed names guarantee new hash = new content (immutable)
+           - Old hashes remain cached indefinitely
         */
         chunkFileNames: "[name]-[hash].js",
         entryFileNames: "[name]-[hash].js",
         assetFileNames: ({ name }) => {
-          /* Separate CSS from other assets for clarity and targeted optimization */
+          /* Separate asset types for clarity and targeted cache control */
           if (name && /\.css$/i.test(name)) {
-            return "[name]-[hash][extname]";
+            return "styles/[name]-[hash][extname]";
           }
-          return "[name]-[hash][extname]";
+          if (name && /\.(woff2?|ttf|otf)$/i.test(name)) {
+            return "fonts/[name]-[hash][extname]";
+          }
+          return "assets/[name]-[hash][extname]";
         },
         
-        /* Chunk splitting strategy:
-           - Keep vendor dependencies and Qwik framework chunks separate
+        /* Chunk splitting strategy for stable, infinitely-cacheable assets
+           
+           RATIONALE:
            - Smaller chunks = finer-grained cache invalidation
-           - Isolate framework updates from user code
+           - Stable chunks = constant hash when content doesn't change
+           - Framework isolation = Qwik updates don't invalidate app code
+           - Vendor isolation = Dependency changes don't invalidate internal code
+           
+           This enables aggressive long-term caching: old chunks stay cached
+           even when site updates, reducing bandwidth for returning visitors.
         */
         manualChunks: (id) => {
-          /* Isolate @builder.io modules for stable caching: 
-             Qwik updates won't invalidate user code */
+          /* Qwik framework: highest stability, rarely updated
+             Separate chunk allows aggressive caching of framework code */
           if (id.includes("@builder.io/qwik") || id.includes("@builder.io/qwik-city")) {
-            return "qwik-framework";
+            return "qwik-runtime";
           }
+          
+          /* Vendor dependencies: mid stability, infrequent updates
+             Separate chunk protects against app code churn */
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
+          
+          /* Application code: highest churn, updates frequently
+             Treated as default chunk, not isolated beyond vendor split */
         },
       },
     },

@@ -1,4 +1,3 @@
-import type { JSXChildren } from '@builder.io/qwik'
 import { component$ } from '@builder.io/qwik'
 import { ButtonLink } from '~/components/ui/ButtonLink'
 import { Container } from '~/components/ui/Container'

@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik'
-import type { DocumentHead, DocumentHeadProps } from '@builder.io/qwik-city'
+import type { DocumentHeadProps } from '@builder.io/qwik-city'
 import { useLocation } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'

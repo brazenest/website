@@ -26,8 +26,6 @@ export interface ResponsiveVideoProps {
   src: string
   /** Poster image URL (shown before/while video loads) */
   poster?: string
-  /** Alt text for accessibility */
-  alt: string
   /** CSS class for additional styling */
   class?: string
   /** Width in pixels (defaults to 1600) */
@@ -37,7 +35,7 @@ export interface ResponsiveVideoProps {
 }
 
 export const ResponsiveVideo = component$(
-  ({ src, poster, alt, class: className = '', width = 1600, height = 900 }: ResponsiveVideoProps) => {
+  ({ src, poster, class: className = '', width = 1600, height = 900 }: ResponsiveVideoProps) => {
     return (
       <video
         src={src}

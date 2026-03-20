@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik'
-import type { DocumentHead, DocumentHeadProps } from '@builder.io/qwik-city'
+import type { DocumentHeadProps } from '@builder.io/qwik-city'
 import { useLocation } from '@builder.io/qwik-city'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
@@ -118,7 +118,6 @@ export default component$(() => {
                     <ResponsiveVideo
                       src={heroMedia.src}
                       poster={heroMedia.poster}
-                      alt={heroMedia.alt ?? `${project.title} video`}
                       width={1600}
                       height={900}
                     />
