@@ -159,8 +159,30 @@ export type BlogPostAuthoringRecord = {
   side: BlogPostSide
   status: BlogPostStatus
   publishedAt: string | null
+  updatedAt: string | null
   coverImageUrl: string | null
   coverImageAlt: string | null
+}
+
+export type BlogPostAdminRecord = BlogPostRecord
+
+export type BlogPostAuthoringValues = {
+  title: string
+  slug: string
+  summary: string
+  bodyMarkdown: string
+  side: BlogPostSide
+  status: BlogPostStatus
+  publishedAt: string | null
+  updatedAt: string | null
+  coverImageUrl: string | null
+  coverImageAlt: string | null
+}
+
+export type CreateBlogPostInput = BlogPostAuthoringValues
+
+export type UpdateBlogPostInput = BlogPostAuthoringValues & {
+  id: string
 }
 
 export type StaticBlogPostSection = {

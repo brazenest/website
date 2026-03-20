@@ -32,6 +32,7 @@ export type BlogPostAuthoringRow = Pick<
   | 'side'
   | 'status'
   | 'published_at'
+  | 'updated_at'
   | 'cover_image_url'
   | 'cover_image_alt'
 >
@@ -60,6 +61,7 @@ export const BLOG_POST_AUTHORING_COLUMNS = `
   side,
   status,
   published_at,
+  updated_at,
   cover_image_url,
   cover_image_alt
 `
@@ -103,7 +105,12 @@ export function mapBlogPostAuthoringRow(row: BlogPostAuthoringRow): BlogPostAuth
     side: row.side,
     status: row.status,
     publishedAt: toIsoString(row.published_at),
+    updatedAt: toIsoString(row.updated_at),
     coverImageUrl: row.cover_image_url,
     coverImageAlt: row.cover_image_alt,
   }
+}
+
+export function mapBlogPostRows(rows: BlogPostRow[]): BlogPostRecord[] {
+  return rows.map(mapBlogPostRow)
 }

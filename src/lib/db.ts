@@ -1,6 +1,6 @@
 import { Pool, type PoolConfig, type QueryResultRow } from 'pg'
 
-type QueryValue = string | number | boolean | Date | null
+export type QueryValue = string | number | boolean | Date | null
 
 let pool: Pool | undefined
 
