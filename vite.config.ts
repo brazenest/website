@@ -84,28 +84,24 @@ export default defineConfig(() => ({
           return "assets/[name]-[hash][extname]";
         },
         
-        /* Chunk splitting: Keep vendor separation, disable qwik-runtime chunk
+        /* Chunk splitting: DISABLED
            
-           RATIONALE:
-           - Vendor chunk still provides cache benefits for node_modules
-           - Removing qwik-runtime chunk fixes SSR/SSG initialization order issue
-           - Qwik code is now bundled with application code
+           VERIFIED FINDING (TASK-140):
+           - Even vendor-only chunking causes circular dependency: entry.ssr -> vendor -> entry.ssr
+           - This circular dependency manifests as TDZ error: "Cannot access 'componentQrl' before initialization"
+           - Diagnostic: removed ALL manual chunks → build passes ✓
+           - Result: SSG properly executes without module initialization errors
            
-           ISSUE RESOLVED:
-           - Manual qwik-runtime chunk was causing "Cannot access componentQrl before initialization"
-           - This manifested as TDZ (Temporal Dead Zone) errors during SSG
-           - Bundling Qwik with app code resolves the dependency order
+           PRODUCTION CONFIGURATION:
+           - No manual chunking for SSR/SSG stability
+           - All code bundled into single module
+           - Gzip compression provides caching benefits on hashed assets
+           - Cache-busting via content hash still effective
+           
+           NOTE: This contradicts the vendor-chunk assumption in d3b7a31
+           TASK-140 validation confirmed no manual chunks is the only working path
         */
-        manualChunks: (id) => {
-          /* Vendor dependencies: mid stability, infrequent updates
-             Separate chunk protects against app code churn */
-          if (id.includes("node_modules")) {
-            return "vendor";
-          }
-          
-          /* Application code + Qwik: High churn, bundled together
-             This ensures proper initialization order during SSR/SSG */
-        },
+        /* manualChunks disabled entirely for SSR/SSG compatibility */
       },
     },
   },

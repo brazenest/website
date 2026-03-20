@@ -20,22 +20,26 @@ This document captures production-verified issues and compatibility problems tha
 **Status**: Known Issue with Workaround Applied  
 **Severity**: Medium (impacts production build size, not functionality)  
 **Discovered**: TASK-138 (March 20, 2026)  
-**Workaround**: Minification disabled in vite.config.ts  
+**Workaround**: Minification disabled + NO manual chunks in vite.config.ts  
+**Last Updated**: TASK-140 (March 20, 2026) — Corrected from d3b7a31 incomplete fix  
 **Launch Status**: ✅ Acceptable for v3.0.0 (workaround applied and verified)  
 **Post-Launch Priority**: 🔴 HIGH — Investigate for bundle size optimization
 
 ### Issue Description
 
-During Qwik City static site generation (SSG), the production build fails when both of the following conditions are true:
+During Qwik City static site generation (SSG), the production build fails when **ANY manual chunking is enabled**, even vendor-only chunks, combined with **minification settings**:
 
-1. **esbuild minification is enabled** (`minify: 'esbuild'` in vite.config.ts)
-2. **qwik-runtime is split into a separate chunk** (manual chunk configuration)
+**Root Cause**: Manual chunk configuration (including vendor-only) creates circular dependency in SSR bundle:  
+- `entry.ssr` → `vendor` → `entry.ssr` (circular reference)
+- This circular dependency manifests as module initialization errors (TDZ) during SSG phase
 
 **Error Symptoms**:
-- Minified output: `ReferenceError: Cannot access '_' before initialization`
-- Unminified output: `ReferenceError: Cannot access 'componentQrl' before initialization`
-- Error location: During SSG phase after SSR bundle generation
+- With minification + vendor chunk: `ReferenceError: Cannot access '_' before initialization`
+- Without minification + vendor chunk: `ReferenceError: Cannot access 'componentQrl' before initialization`
+- Error location: During SSG phase when loading SSR bundle for route generation
 - Manifestation: Temporal Dead Zone (TDZ) error in Qwik-generated code
+
+**Important**: The fix is NOT just removing qwik-runtime chunk; ALL manual chunks must be disabled.
 
 ### Impact Analysis
 
@@ -43,41 +47,50 @@ During Qwik City static site generation (SSG), the production build fails when b
 |--------|--------|-------|
 | **Functionality** | ✅ No impact | Code runs identically in development and production |
 | **Development** | ✅ No impact | Dev server unaffected; dev build works correctly |
-| **Production SSG** | ❌ Failure | Cannot generate static HTML when both conditions met |
+| **Production Build** | ✅ Success | Build completes when all manual chunks disabled |
+| **SSG Phase** | ✅ Success | Routes generate without module initialization errors |
 | **Bundle Size** | 🟡 Degraded | ~2-3x larger pre-gzip output (acceptable tradeoff) |
 | **Deployment** | ✅ Acceptable | Gzip recovery: ~85-90% (final delivery ~15-30 KB larger) |
-| **User Experience** | ✅ No impact | Static HTML serves identically; no runtime differences |
+| **User Experience** | ✅ No impact | No runtime differences; SSR serves identical output |
 
-### Current Workaround (Applied in TASK-138, Commit d3b7a31)
+### Current Workaround (Applied in TASK-140, Corrected)
 
 **Configuration Changes**:
 
 ```javascript
-// vite.config.ts
+// vite.config.ts — CORRECTED after TASK-140 validation
 
 build: {
   // Minification: DISABLED
-  // - Reason: Incompatible with Qwik SSG + qwik-runtime chunk
-  // - Impact: Bundle size ~2-3x larger pre-gzip; ~15-30 KB post-gzip
-  // - Status: Acceptable for v3.0.0 launch
+  // - Reason: Triggers TDZ errors during SSG phase
+  // - Required for compatibility with Qwik SSG pipeline
+  // - Bundle size impact: ~2-3x larger pre-gzip; ~15-30 KB post-gzip
+  // - Status: Verified acceptable for v3.0.0 launch
   minify: false,
 
   rollupOptions: {
     output: {
-      manualChunks: (id) => {
-        // Vendor chunk: Still isolated (stable dependency optimization)
-        if (id.includes("node_modules")) {
-          return "vendor";
-        }
-        // Application code + Qwik: BUNDLED TOGETHER
-        // - Was: Separated into qwik-runtime chunk
-        // - Now: Ensures proper initialization order during SSR/SSG
-        // - Result: TDZ error eliminated
-      },
+      // Manual Chunks: DISABLED ENTIRELY
+      // - Previous attempt (d3b7a31): Vendor-only chunk configuration
+      // - Issue: Even vendor chunk creates circular dependency in SSR
+      // - Result: TDZ errors persist with vendor chunking
+      // 
+      // TASK-140 Corrected: Removed ALL manual chunking
+      // - No vendor chunk
+      // - No qwik-runtime chunk
+      // - All code bundled into single module
+      // - Result: SSG succeeds consistently
+      //
+      // manualChunks disabled - no chunk splitting
     },
   },
 }
 ```
+
+**Why configuration works**:
+1. Disabling minification alone: ❌ Still fails if ANY manual chunks exist
+2. Disabling vendor chunk alone: ✅ Workaround works when COMBINED with minify: false
+3. Disabling all manual chunks + minify: false: ✅✅ Correct and verified solution
 
 **Why Both Changes Are Necessary**:
 
