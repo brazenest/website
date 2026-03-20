@@ -1,8 +1,8 @@
-name: Deploy to Production
+name: Deploy to Development
 
 on:
   push:
-    branches: [ main ]
+    branches: [ dev ]
 
   workflow_dispatch:
 
@@ -10,7 +10,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    environment: production
+    environment: development
 
     steps:
  
