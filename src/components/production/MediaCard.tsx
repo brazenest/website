@@ -47,6 +47,7 @@ export const MediaCard = component$(
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-5 w-5 text-[var(--bg)]"
+                      aria-hidden="true"
                     >
                       <path
                         d="M5 3.5L5 16.5L16 10L5 3.5Z"
