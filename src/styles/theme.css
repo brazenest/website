@@ -116,6 +116,9 @@
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
 
+  /* Font display strategy for perceived performance */
+  --font-display-swap: swap;
+
   /* Semantic heading scale */
   --heading-1-size: var(--text-4xl);
   --heading-2-size: var(--text-3xl);
