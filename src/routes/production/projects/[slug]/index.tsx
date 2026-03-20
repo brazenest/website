@@ -106,6 +106,7 @@ export default component$(() => {
                       alt={heroMedia.alt ?? project.title}
                       width={1600}
                       height={900}
+                      loading="eager"
                       class="h-full w-full object-cover"
                     />
                   ) : (

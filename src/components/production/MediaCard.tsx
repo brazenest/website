@@ -19,6 +19,7 @@ export const MediaCard = component$(
                 alt={primaryMedia.alt ?? title}
                 width={1600}
                 height={1000}
+                loading="lazy"
                 class="h-full w-full object-cover"
               />
             ) : (
