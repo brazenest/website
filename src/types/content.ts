@@ -110,19 +110,36 @@ export type AboutContent = {
 
 export type BlogPostSide = 'engineering' | 'production' | 'bridge'
 
-export type BlogPostSection = {
+export type BlogPostStatus = 'draft' | 'published'
+
+export type BlogPostRecord = {
+  id: number
+  slug: string
+  title: string
+  summary: string
+  bodyMarkdown: string
+  side: BlogPostSide
+  status: BlogPostStatus
+  publishedAt: string | null
+  updatedAt: string | null
+  coverImageUrl: string | null
+  coverImageAlt: string | null
+  createdAt: string
+}
+
+export type StaticBlogPostSection = {
   title: string
   paragraphs: string[]
 }
 
-export type BlogPost = {
+export type StaticBlogPost = {
   title: string
   slug: string
   date: string
   summary: string
   side: BlogPostSide
   published: boolean
-  sections: BlogPostSection[]
+  sections: StaticBlogPostSection[]
 }
 
 export type ResumeEntry = {

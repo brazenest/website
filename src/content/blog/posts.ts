@@ -1,4 +1,4 @@
-import type { BlogPost, BlogPostSide } from '~/types/content'
+import type { BlogPostSide, StaticBlogPost } from '~/types/content'
 
 const BLOG_SIDE_LABEL: Record<BlogPostSide, string> = {
   engineering: 'Side 1 · Engineering',
@@ -6,11 +6,11 @@ const BLOG_SIDE_LABEL: Record<BlogPostSide, string> = {
   bridge: 'Bridge · Cross-disciplinary',
 }
 
-const compareByNewest = (left: BlogPost, right: BlogPost) => {
+const compareByNewest = (left: StaticBlogPost, right: StaticBlogPost) => {
   return new Date(right.date).getTime() - new Date(left.date).getTime()
 }
 
-const rawBlogPosts: BlogPost[] = [
+const rawBlogPosts: StaticBlogPost[] = [
   {
     title: 'Designing for Revision in Schema-Driven Systems',
     slug: 'designing-for-revision-in-schema-driven-systems',
@@ -173,7 +173,7 @@ const rawBlogPosts: BlogPost[] = [
   },
 ]
 
-export const blogPosts: BlogPost[] = [...rawBlogPosts].sort(compareByNewest)
+export const blogPosts: StaticBlogPost[] = [...rawBlogPosts].sort(compareByNewest)
 
 export const publishedBlogPosts = blogPosts.filter((post) => post.published)
 
