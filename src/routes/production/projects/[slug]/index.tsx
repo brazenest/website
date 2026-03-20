@@ -110,8 +110,35 @@ export default component$(() => {
                       class="h-full w-full object-cover"
                     />
                   ) : (
-                    <div class="flex h-full items-center justify-center px-4 text-sm text-[var(--muted)]">
-                      Video preview
+                    // Hero video: render poster with play button
+                    <div class="relative h-full w-full">
+                      {heroMedia.poster ? (
+                        <img
+                          src={heroMedia.poster}
+                          alt={heroMedia.alt ?? `${project.title} video preview`}
+                          width={1600}
+                          height={900}
+                          loading="eager"
+                          class="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div class="h-full w-full bg-gradient-to-br from-[var(--surface-subtle)] to-[var(--surface)]" />
+                      )}
+                      {/* Play button indicator */}
+                      <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="rounded-full bg-[var(--fg)]/80 p-4 backdrop-blur-sm transition-all duration-200">
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-6 w-6 text-[var(--bg)]"
+                          >
+                            <path d="M5 3.5L5 20.5L19 12L5 3.5Z" fill="currentColor" />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   )
                 ) : (
@@ -166,8 +193,34 @@ export default component$(() => {
                             class="h-full w-full object-cover"
                           />
                         ) : (
-                          <div class="flex min-h-48 items-center justify-center px-4 py-10 text-sm text-[var(--muted)]">
-                            Video preview
+                          // Section video: render poster with play button
+                          <div class="relative min-h-48 w-full">
+                            {item.poster ? (
+                              <img
+                                src={item.poster}
+                                alt={item.alt ?? `${section.title} video preview`}
+                                width={1600}
+                                height={900}
+                                class="h-full w-full object-cover"
+                              />
+                            ) : (
+                              <div class="h-full w-full bg-gradient-to-br from-[var(--surface-subtle)] to-[var(--surface)]" />
+                            )}
+                            {/* Play button indicator */}
+                            <div class="absolute inset-0 flex items-center justify-center">
+                              <div class="rounded-full bg-[var(--fg)]/80 p-3 backdrop-blur-sm transition-all duration-200">
+                                <svg
+                                  width="20"
+                                  height="20"
+                                  viewBox="0 0 20 20"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="h-5 w-5 text-[var(--bg)]"
+                                >
+                                  <path d="M5 3.5L5 16.5L16 10L5 3.5Z" fill="currentColor" />
+                                </svg>
+                              </div>
+                            </div>
                           </div>
                         )}
                       </div>

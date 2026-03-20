@@ -11,6 +11,7 @@ export const founderProfileLaunchFilmProject: ProductionProject = {
       type: 'video',
       src: '/media/production/founder-profile-launch-film.mp4',
       alt: 'Founder profile launch film preview frame',
+      poster: '/media/production/founder-profile-launch-film.jpg',
     },
   ],
   sections: [

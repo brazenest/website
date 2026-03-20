@@ -11,6 +11,7 @@ export const nightMarketSocialCampaignProject: ProductionProject = {
       type: 'video',
       src: '/media/production/night-market-social-campaign.mp4',
       alt: 'Night market social campaign video preview frame',
+      poster: '/media/production/night-market-social-campaign.jpg',
     },
   ],
   sections: [

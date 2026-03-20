@@ -39,6 +39,12 @@ export type MediaItem = {
   type: 'image' | 'video'
   src: string
   alt?: string
+  /**
+   * Poster image for video media
+   * Used as a lightweight preview before/instead of loading the full video
+   * Enables poster-first strategy for better perceived performance
+   */
+  poster?: string
 }
 
 export type ProductionSection = {

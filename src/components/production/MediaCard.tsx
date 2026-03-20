@@ -23,8 +23,38 @@ export const MediaCard = component$(
                 class="h-full w-full object-cover"
               />
             ) : (
-              <div class="flex h-full items-center justify-center px-4">
-                <Text variant="small">Video preview</Text>
+              // Video media: render poster image with play button affordance
+              <div class="relative h-full w-full">
+                {primaryMedia.poster ? (
+                  <img
+                    src={primaryMedia.poster}
+                    alt={primaryMedia.alt ?? `${title} video preview`}
+                    width={1600}
+                    height={1000}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div class="h-full w-full bg-gradient-to-br from-[var(--surface-subtle)] to-[var(--surface)]" />
+                )}
+                {/* Play button indicator */}
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="rounded-full bg-[var(--fg)]/80 p-3 backdrop-blur-sm transition-all duration-200">
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5 text-[var(--bg)]"
+                    >
+                      <path
+                        d="M5 3.5L5 16.5L16 10L5 3.5Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </div>
               </div>
             )
           ) : (
