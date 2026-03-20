@@ -6,6 +6,7 @@ import { PageShell } from '~/components/layout/PageShell'
 import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
+import { ResponsiveVideo } from '~/components/media/ResponsiveVideo'
 import { productionProjects } from '~/content/production/projects'
 import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
@@ -110,36 +111,17 @@ export default component$(() => {
                       class="h-full w-full object-cover"
                     />
                   ) : (
-                    // Hero video: render poster with play button
-                    <div class="relative h-full w-full">
-                      {heroMedia.poster ? (
-                        <img
-                          src={heroMedia.poster}
-                          alt={heroMedia.alt ?? `${project.title} video preview`}
-                          width={1600}
-                          height={900}
-                          loading="eager"
-                          class="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div class="h-full w-full bg-gradient-to-br from-[var(--surface-subtle)] to-[var(--surface)]" />
-                      )}
-                      {/* Play button indicator */}
-                      <div class="absolute inset-0 flex items-center justify-center">
-                        <div class="rounded-full bg-[var(--fg)]/80 p-4 backdrop-blur-sm transition-all duration-200">
-                          <svg
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-6 w-6 text-[var(--bg)]"
-                          >
-                            <path d="M5 3.5L5 20.5L19 12L5 3.5Z" fill="currentColor" />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
+                    // Hero video: conservative loading with poster fallback
+                    // preload="metadata": Load only metadata, not video frames
+                    // controls: Show player controls for user interaction
+                    // No autoplay: User must explicitly choose to play
+                    <ResponsiveVideo
+                      src={heroMedia.src}
+                      poster={heroMedia.poster}
+                      alt={heroMedia.alt ?? `${project.title} video`}
+                      width={1600}
+                      height={900}
+                    />
                   )
                 ) : (
                   <div class="flex h-full items-center justify-center px-4 text-sm text-[var(--muted)]">
