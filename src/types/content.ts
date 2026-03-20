@@ -127,6 +127,42 @@ export type BlogPostRecord = {
   createdAt: string
 }
 
+export const MINIMAL_ADMIN_BLOG_ROUTES = [
+  '/admin',
+  '/admin/blog',
+  '/admin/blog/new',
+  '/admin/blog/[id]',
+] as const
+
+export type MinimalAdminBlogRoute = (typeof MINIMAL_ADMIN_BLOG_ROUTES)[number]
+
+export const BLOG_POST_AUTHORING_FIELDS = [
+  'title',
+  'slug',
+  'summary',
+  'body_markdown',
+  'side',
+  'status',
+  'published_at',
+  'cover_image_url',
+  'cover_image_alt',
+] as const
+
+export type BlogPostAuthoringField = (typeof BLOG_POST_AUTHORING_FIELDS)[number]
+
+export type BlogPostAuthoringRecord = {
+  id: string
+  title: string
+  slug: string
+  summary: string
+  bodyMarkdown: string
+  side: BlogPostSide
+  status: BlogPostStatus
+  publishedAt: string | null
+  coverImageUrl: string | null
+  coverImageAlt: string | null
+}
+
 export type StaticBlogPostSection = {
   title: string
   paragraphs: string[]

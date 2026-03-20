@@ -15,6 +15,29 @@ Your website uses a **centralized SEO configuration strategy** combined with:
 
 All page-level metadata originates from `src/config/seo.ts` (seoPresets), ensuring single source of truth.
 
+## Planned Private Admin Routes (v3.0.0 Minimal Scope)
+
+These routes are intentionally excluded from the public route inventory, sitemap, and navigation. They define the launch-only authoring surface for database-backed blog management.
+
+| Route              | Purpose                   | Data Target     | Notes                                                        |
+| ------------------ | ------------------------- | --------------- | ------------------------------------------------------------ |
+| `/admin`           | Private admin entry point | N/A             | Server-side auth gate required before rendering child routes |
+| `/admin/blog`      | Minimal post index        | `blog_posts`    | Lists posts and exposes create/edit navigation only          |
+| `/admin/blog/new`  | Create post form          | `blog_posts`    | Minimal authoring contract only                              |
+| `/admin/blog/[id]` | Edit existing post        | `blog_posts.id` | Supports post edits and draft/publish toggle only            |
+
+**Scope Constraint**
+
+- Included in v3.0.0: create post, edit post, draft/publish toggle
+- Excluded in v3.0.0: revisions, autosave, rich media library, delete/archive, taxonomy management, preview pipeline, and non-blog CMS features
+
+**Access Posture**
+
+- All `/admin` routes stay server-side and non-public by default
+- No header/footer links, no sitemap entries, and no public discovery path
+- Apply `noindex, nofollow` metadata to the full admin route group
+- Use Fastify HTTP Basic Auth at the server layer for the full `/admin` prefix
+
 ---
 
 ## Static Routes (Pre-Computed Metadata)

@@ -38,7 +38,14 @@ NODE_ENV=production
 
 # Database configuration (for blog functionality)
 DATABASE_URL=postgresql://user:password@host:port/database  # Optional; falls back to static data
+
+# Private admin access (server-side HTTP Basic Auth)
+ADMIN_BASIC_AUTH_USERNAME=admin
+ADMIN_BASIC_AUTH_PASSWORD=change-me
 ```
+
+The admin credentials are server-only values for the `/admin` route group. Do not expose them as
+client-side environment variables or commit production secrets.
 
 ### Running Locally
 

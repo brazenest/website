@@ -13,6 +13,11 @@ import Fastify from "fastify";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import FastifyQwik from "./plugins/fastify-qwik";
+import {
+  buildAdminBasicAuthChallenge,
+  isAdminRoutePath,
+  validateAdminBasicAuthHeader,
+} from "./lib/auth/adminBasicAuth";
 
 declare global {
   type QwikCityPlatform = PlatformNode;
@@ -32,6 +37,44 @@ const start = async () => {
   // https://fastify.dev/docs/latest/Guides/Getting-Started/
   const fastify = Fastify({
     logger: true,
+  });
+
+  fastify.addHook("onRequest", async (request, reply) => {
+    const requestUrl = request.raw.url ?? request.url;
+    const pathname = new URL(requestUrl, "http://internal.local").pathname;
+
+    if (!isAdminRoutePath(pathname)) {
+      return;
+    }
+
+    const validation = validateAdminBasicAuthHeader(
+      request.headers.authorization,
+      process.env,
+    );
+
+    if (validation.ok) {
+      return;
+    }
+
+    if (validation.reason === "missing-config") {
+      request.log.error(
+        {
+          pathname,
+        },
+        "Admin basic auth credentials are not configured",
+      );
+
+      reply.code(503).type("text/plain; charset=utf-8").send("Admin access is unavailable.");
+      return reply;
+    }
+
+    reply
+      .header("WWW-Authenticate", buildAdminBasicAuthChallenge())
+      .code(401)
+      .type("text/plain; charset=utf-8")
+      .send("Authentication required.");
+
+    return reply;
   });
 
   // Enable compression for faster asset delivery
