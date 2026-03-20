@@ -1,19 +1,19 @@
 # Personal Site v3
 
-Foundation-only Qwik app for the v3 personal site.
+Full-featured Qwik + Fastify production site for alden.dev.
 
-Current scope:
+### Implementation Complete
 
-- Qwik + Qwik City runtime
-- TypeScript and Vite configuration
-- Minimal placeholder route at `/`
-
-Deferred for later tasks:
-
-- Tailwind v4 wiring
-- shared layout primitives
-- homepage implementation
-- PostgreSQL and Drizzle setup
+- ✅ Qwik 1.19.2 + Qwik City with SSR/SSG
+- ✅ TypeScript 5.4.5 + Vite 7.3.1 multi-stage build
+- ✅ Tailwind CSS 4.2.1 with v4 engine
+- ✅ Full routing: home, about, engineering, production, blog, contact, resume
+- ✅ Dynamic routes for blog posts and project details
+- ✅ Structured data (Person, WebSite, Article, CreativeWork schemas)
+- ✅ Accessibility verified (skip links, landmarks, ARIA labels, motion preferences)
+- ✅ Responsive design and mobile navigation
+- ✅ Environment-based configuration with ORIGIN, PORT, HOST
+- ✅ Production Docker build with multi-stage optimization
 
 ## Fastify Server
 

@@ -1,5 +1,5 @@
 ARG NODE_ENV="production"
-ARG NODE_VERSION="25"
+ARG NODE_VERSION="20"
 ARG APP_ORIGIN="http://localhost"
 
 ################################################################################
@@ -13,9 +13,9 @@ WORKDIR /usr/src/app
 # Create a stage for installing production dependencies.
 FROM base as deps
 
-COPY package.json .
+COPY package.json pnpm-lock.yaml .
 
-RUN yarn install --production=false
+RUN npm install -g pnpm && pnpm install --frozen-lockfile --prod=false
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.yarn to speed up subsequent builds.
@@ -32,8 +32,8 @@ FROM deps as build
 COPY . .
 
 # Run the build scripts.
-RUN yarn run build
-RUN yarn run build.server
+RUN pnpm run build
+RUN pnpm run build.server
 
 ################################################################################
 # Create a new stage to run the application with minimal runtime dependencies
@@ -52,16 +52,16 @@ ENV ORIGIN ${APP_ORIGIN}
 USER node
 
 # Copy package.json so that package manager commands can be used.
-COPY package.json .
+COPY package.json pnpm-lock.yaml .
 
 # Copy the production dependencies from the deps stage and also
 # the built application from the build stage into the image.
-COPY --from=deps /usr/src/app/node_modules ./node_modules
+RUN npm install -g pnpm
+RUN pnpm install --frozen-lockfile --prod=true
 COPY --from=build /usr/src/app/dist ./dist
-COPY --from=build /usr/src/app/server ./server
 
 # Expose the port that the application listens on.
 EXPOSE 3000
 
 # Run the application.
-CMD ["yarn", "serve"]
+CMD ["pnpm", "run", "serve"]
