@@ -11,6 +11,7 @@
 This document establishes the performance optimization baseline for the implemented v3 personal site. It identifies the current asset strategy, shared runtime costs, route rendering patterns, and prioritized optimization targets for Phase 12.
 
 **Current Implementation State**:
+
 - 9 core routes (1 dynamic index, 2 post-type routes with 1 dynamic subpage each, 4 leaf pages)
 - 2 global variable fonts loaded on every page
 - Extensive CSS custom property theming layer
@@ -24,33 +25,36 @@ This document establishes the performance optimization baseline for the implemen
 
 ### Implemented Routes
 
-| Route | Type | Heavy Content | Rendering Pattern | Island-bearing | Key Components |
-|-------|------|---------------|-------------------|-----------------|---|
-| `/` | Landing | Low | Static + Side Selector | Yes (MobileMenu) | HomeHero, AboutPreview, SideSelector |
-| `/about` | Content | Medium | Static with scroll reveal | Yes | Narrative sections with data-scroll-reveal |
-| `/resume` | Content | Low | Static table/list | Yes | Resume list with structured data |
-| `/blog` | List | Medium | Static list + aside card | Yes | BlogPost list, positioning sidebar |
-| `/blog/[slug]` | Detail | Medium | Dynamic content | Yes | Article schema, full post render |
-| `/engineering` | Showcase | Medium | Static grid + hero + process | Yes | ProjectGrid (4 projects), EngineeringHero |
-| `/engineering/projects/[slug]` | Detail | Medium-High | Dynamic detail page | Yes | Full project layout, sections |
-| `/production` | Showcase | High | Static grid + hero + process | Yes | MediaGrid (3 projects), ProductionHero |
-| `/production/projects/[slug]` | Detail | High | Dynamic detail page + media | Yes | Project sections, image/video fallbacks |
-| `/contact` | Interactive | Low | Form (placeholder) | Yes | Contact form shell |
+| Route                          | Type        | Heavy Content | Rendering Pattern            | Island-bearing   | Key Components                             |
+| ------------------------------ | ----------- | ------------- | ---------------------------- | ---------------- | ------------------------------------------ |
+| `/`                            | Landing     | Low           | Static + Side Selector       | Yes (MobileMenu) | HomeHero, AboutPreview, SideSelector       |
+| `/about`                       | Content     | Medium        | Static with scroll reveal    | Yes              | Narrative sections with data-scroll-reveal |
+| `/resume`                      | Content     | Low           | Static table/list            | Yes              | Resume list with structured data           |
+| `/blog`                        | List        | Medium        | Static list + aside card     | Yes              | BlogPost list, positioning sidebar         |
+| `/blog/[slug]`                 | Detail      | Medium        | Dynamic content              | Yes              | Article schema, full post render           |
+| `/engineering`                 | Showcase    | Medium        | Static grid + hero + process | Yes              | ProjectGrid (4 projects), EngineeringHero  |
+| `/engineering/projects/[slug]` | Detail      | Medium-High   | Dynamic detail page          | Yes              | Full project layout, sections              |
+| `/production`                  | Showcase    | High          | Static grid + hero + process | Yes              | MediaGrid (3 projects), ProductionHero     |
+| `/production/projects/[slug]`  | Detail      | High          | Dynamic detail page + media  | Yes              | Project sections, image/video fallbacks    |
+| `/contact`                     | Interactive | Low           | Form (placeholder)           | Yes              | Contact form shell                         |
 
 ### Route-Level Characteristics
 
 **Static Routes** (fully renderable at build-time):
+
 - `/` — Can be pre-rendered or SSR'd
 - `/about` — No dynamic dependencies
 - `/resume` — No dynamic dependencies
 - `/blog` — List is static (content imported from TypeScript)
 
 **Semi-Dynamic Routes** (data-driven but predictable):
+
 - `/blog/[slug]` — Slug-based lookup from imported `BlogPost[]` array
 - `/engineering/projects/[slug]` — Slug-based lookup from imported project array
 - `/production/projects/[slug]` — Slug-based lookup from imported project array
 
 **Observations**:
+
 - No database queries; all content is imported as static TypeScript modules
 - Dynamic routes use parameter-based lookup from static arrays
 - Enables full static generation if route params are enumerable
@@ -63,6 +67,7 @@ This document establishes the performance optimization baseline for the implemen
 ### Asset Locations
 
 **Public Assets** (`/public/media/`, `/public/assets/`):
+
 - `/assets/og-image.jpg` — Global OG image (1200×630, JPEG, used as fallback)
 - `/media/production/bellagio-fountain-still-01.jpg` — Production project 1
 - `/media/production/founder-profile-launch-film.mp4` — Production project 2 (video)
@@ -71,6 +76,7 @@ This document establishes the performance optimization baseline for the implemen
 ### Current Rendering Approach
 
 **Images**:
+
 ```tsx
 <img
   src={heroMedia.src}
@@ -82,6 +88,7 @@ This document establishes the performance optimization baseline for the implemen
 ```
 
 **Issues**:
+
 - ❌ No `loading="lazy"` attribute
 - ❌ No responsive sizes (fixed 1600×900)
 - ❌ No WebP/AVIF variants (.jpg only)
@@ -91,6 +98,7 @@ This document establishes the performance optimization baseline for the implemen
 
 **Videos**:
 Currently rendered as placeholder text:
+
 ```tsx
 <div class="flex h-full items-center justify-center px-4 text-sm text-[var(--muted)]">
   Video preview
@@ -122,6 +130,7 @@ Currently rendered as placeholder text:
 ### Current Font Setup
 
 **Global Font Load** (in `src/root.tsx`):
+
 ```tsx
 import fontInterStyles from "@fontsource-variable/inter?inline";
 import fontSpaceGroteskStyles from "@fontsource-variable/space-grotesk?inline";
@@ -132,10 +141,12 @@ useStyles$(fontSpaceGroteskStyles);
 ```
 
 **Fonts Loaded**:
+
 1. **Inter Variable** — 5.2.8 (primary typeface: body, UI)
 2. **Space Grotesk Variable** — 5.2.10 (display typeface: headings)
 
 **Current Behavior**:
+
 - ✓ Imported as inline styles (no separate HTTP requests)
 - ✓ Variable fonts (single file covers all weights)
 - ✓ Applied globally via `useStyles$` in root
@@ -145,10 +156,12 @@ useStyles$(fontSpaceGroteskStyles);
 ### Global CSS Font Declaration
 
 In `src/styles/theme.css`:
+
 ```css
 --font-sans: "Inter Variable", system-ui, sans-serif;
 --font-display: "Inter Variable", system-ui, sans-serif;
 ```
+
 (Note: Both use Inter; Space Grotesk imported but not actively declared)
 
 ### Font Weight Coverage
@@ -171,15 +184,16 @@ In `src/styles/theme.css`:
 
 ### CSS File Structure
 
-| File | Size (Est.) | Role |
-|------|------------|------|
-| `src/global.css` | <1 KB | Entry point; imports theme.css |
-| `src/styles/theme.css` | ~4-5 KB | Custom properties, Tailwind setup, semantic tokens |
-| Tailwind Output | ~30-50 KB (minified) | Utility classes for used styles |
+| File                   | Size (Est.)          | Role                                               |
+| ---------------------- | -------------------- | -------------------------------------------------- |
+| `src/global.css`       | <1 KB                | Entry point; imports theme.css                     |
+| `src/styles/theme.css` | ~4-5 KB              | Custom properties, Tailwind setup, semantic tokens |
+| Tailwind Output        | ~30-50 KB (minified) | Utility classes for used styles                    |
 
 ### Theme CSS Content
 
 **Custom Property Definitions** (~150+ CSS variables):
+
 - Color palette (neutral, engineering accent, production accent)
 - Typography scale (8 sizes, leading, tracking)
 - Spacing scale (8 spacing values)
@@ -189,6 +203,7 @@ In `src/styles/theme.css`:
 - Font families, heading scales
 
 **Tailwind Integration**:
+
 ```css
 @import "tailwindcss";
 
@@ -226,12 +241,13 @@ export const PageShell = component$(({ theme }: PageShellProps) => {
     const observer = new IntersectionObserver(...);
     // ... observe all [data-scroll-reveal] elements
   });
-  
+
   return <Slot />;
 });
 ```
 
 **Runtime Cost**:
+
 - Executes on every page load
 - Creates IntersectionObserver for all sections with `data-scroll-reveal`
 - Checks `prefers-reduced-motion` media query
@@ -242,6 +258,7 @@ export const PageShell = component$(({ theme }: PageShellProps) => {
 ### Header Component
 
 **Structure**:
+
 - Sticky navigation with blur backdrop
 - Responsive design (hidden nav on mobile, MobileMenu visible)
 - Skip-to-content link (accessibility)
@@ -256,9 +273,13 @@ export const PageShell = component$(({ theme }: PageShellProps) => {
 ```tsx
 export const MobileMenu = component$(() => {
   const isOpen = useSignal(false);
-  
+
   return (
-    <button onClick$={() => { isOpen.value = !isOpen.value }}>
+    <button
+      onClick$={() => {
+        isOpen.value = !isOpen.value;
+      }}
+    >
       // Mobile menu UI
     </button>
   );
@@ -266,6 +287,7 @@ export const MobileMenu = component$(() => {
 ```
 
 **Characteristics**:
+
 - ✓ Qwik island component (preserves hydration)
 - ✓ Minimal state (single boolean)
 - ❌ Loaded on every route
@@ -280,12 +302,12 @@ export const MobileMenu = component$(() => {
 
 ### Shared Cost Summary
 
-| Component | Cost | On Every Route | Resolvable |
-|-----------|------|---|---|
-| PageShell / scroll reveal | Medium (IntersectionObserver setup) | Yes | Move into route-specific or gate behind flag |
-| Header / Navigation | Low (static HTML) | Yes | Critical render path (acceptable) |
-| MobileMenu island | Medium (hydration overhead) | Yes | Gate behind mobile-only boundary |
-| Footer | Low (static HTML) | Yes | Critical render path (acceptable) |
+| Component                 | Cost                                | On Every Route | Resolvable                                   |
+| ------------------------- | ----------------------------------- | -------------- | -------------------------------------------- |
+| PageShell / scroll reveal | Medium (IntersectionObserver setup) | Yes            | Move into route-specific or gate behind flag |
+| Header / Navigation       | Low (static HTML)                   | Yes            | Critical render path (acceptable)            |
+| MobileMenu island         | Medium (hydration overhead)         | Yes            | Gate behind mobile-only boundary             |
+| Footer                    | Low (static HTML)                   | Yes            | Critical render path (acceptable)            |
 
 ---
 
@@ -293,15 +315,16 @@ export const MobileMenu = component$(() => {
 
 ### Identified Islands
 
-| Component | Location | Type | State | Hydration Trigger |
-|-----------|----------|------|-------|---|
-| MobileMenu | Header (all routes) | Input control | isOpen: boolean | useSignal during route navigation |
-| PageShell scroll reveal | Root PageShell (all routes) | Scroll observer | None visible | useVisibleTask$ (executes on hydration) |
-| SideSelector | Home page | Multi-select control | checked state per card | useSignal per card |
+| Component               | Location                    | Type                 | State                  | Hydration Trigger                       |
+| ----------------------- | --------------------------- | -------------------- | ---------------------- | --------------------------------------- |
+| MobileMenu              | Header (all routes)         | Input control        | isOpen: boolean        | useSignal during route navigation       |
+| PageShell scroll reveal | Root PageShell (all routes) | Scroll observer      | None visible           | useVisibleTask$ (executes on hydration) |
+| SideSelector            | Home page                   | Multi-select control | checked state per card | useSignal per card                      |
 
 ### Island Analysis
 
 **MobileMenu Hydration Cost**:
+
 - Loaded on every route
 - Only active on mobile
 - Single `useSignal` state
@@ -310,11 +333,13 @@ export const MobileMenu = component$(() => {
 **Opportunity**: Move island definition into a mobile breakpoint or lazy-boundary
 
 **SideSelector Island** (home-only):
+
 - Active on landing page
 - Multiple cards with independent state
 - Likely using `useSignal` per item
 
 **Scroll Reveal** (all routes):
+
 - Executes on every route
 - No state management (just observer setup)
 - Performant IntersectionObserver pattern
@@ -327,12 +352,14 @@ export const MobileMenu = component$(() => {
 ### High-Payload Routes
 
 **Production Project Detail** (`/production/projects/[slug]`):
+
 - Hero media (image or video preview)
 - Project title, contextual info
 - Multiple section narratives
 - Section media items (image or video preview)
 
 **Current Rendering**:
+
 - Static component (no lazy loading)
 - All sections rendered above-the-fold
 - Media displayed as placeholder text (no actual video elements)
@@ -347,12 +374,12 @@ export const MobileMenu = component$(() => {
 
 ### SEO & Meta Assets
 
-| Dependency | Type | Usage | Status |
-|----------|------|-------|-----|
-| og-image.jpg | Image (1200×630) | Default OG image in config | Global, always referenced |
-| Robots.txt | Route `/robots.txt/index.ts` | SEO artifact | Static generation |
-| Sitemap.xml | Route `/sitemap.xml/index.ts` | SEO artifact | Static generation |
-| Structured Data | Inline JSON-LD | Person, WebSite, Article schemas | Generated in head |
+| Dependency      | Type                          | Usage                            | Status                    |
+| --------------- | ----------------------------- | -------------------------------- | ------------------------- |
+| og-image.jpg    | Image (1200×630)              | Default OG image in config       | Global, always referenced |
+| Robots.txt      | Route `/robots.txt/index.ts`  | SEO artifact                     | Static generation         |
+| Sitemap.xml     | Route `/sitemap.xml/index.ts` | SEO artifact                     | Static generation         |
+| Structured Data | Inline JSON-LD                | Person, WebSite, Article schemas | Generated in head         |
 
 ### Font Dependencies
 
@@ -378,6 +405,7 @@ export const MobileMenu = component$(() => {
 ### Current Pattern
 
 **Entry Points**:
+
 - `src/entry.ssr.tsx` — SSR renderer
 - `src/entry.dev.tsx` — Dev mode
 - `src/entry.preview.tsx` — Preview mode
@@ -394,6 +422,7 @@ import { engineeringProjects } from "~/content/engineering/projects";
 ### Qwik-Specific Optimization
 
 **Potential Boundaries**:
+
 - MobileMenu could be lazy on desktop
 - Below-fold project details could use Qwik's lazy-loading
 - Heavy route hero sections could defer until interaction
@@ -429,16 +458,19 @@ import { engineeringProjects } from "~/content/engineering/projects";
 ### Build-Time Optimization Opportunity
 
 **Current Content Model**:
+
 - All content is imported as static TypeScript modules
 - No database queries in routes
 - Dynamic routes use parameter-based lookup
 
-**Implication**: 
+**Implication**:
+
 - All routes are statically pre-renderable at build time
 - No per-request generation overhead in production
 - Qwik can pre-render entire site as static HTML
 
 **Recommended Strategy for Phase 12**:
+
 - Verify `vite.config.ts` and Qwik build config support pre-rendering
 - Consider explicit pre-render list for all enumerable routes
 - Measure SSR → SSG performance delta
@@ -510,12 +542,13 @@ import { engineeringProjects } from "~/content/engineering/projects";
    - Files: vite.config.ts, qwik.config.ts
 
 10. **Implement poster images & actual video elements**
-   - Replace video preview placeholders with `<video>` elements
-   - Add poster images for video preview
-   - Implement adaptive bitrate or progressive download
-   - Effort: 2-3 hours
-   - Impact: Enable actual video playback; better UX
-   - Files: MediaCard.tsx, production project detail, MediaItem type
+
+- Replace video preview placeholders with `<video>` elements
+- Add poster images for video preview
+- Implement adaptive bitrate or progressive download
+- Effort: 2-3 hours
+- Impact: Enable actual video playback; better UX
+- Files: MediaCard.tsx, production project detail, MediaItem type
 
 ### Defer (Out of Phase 12 scope)
 
@@ -549,7 +582,7 @@ Based on this audit, Phase 12 should focus on (in priority order):
 ✅ Route/media/font loading patterns documented  
 ✅ Prioritized quick-win, medium-effort, and defer-able items defined  
 ✅ Concrete optimization tasks derived from audit  
-✅ Site ready for targeted Phase 12 optimization tasks  
+✅ Site ready for targeted Phase 12 optimization tasks
 
 ---
 
