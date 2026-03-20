@@ -1,8 +1,51 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, useSignal, useTask$ } from '@builder.io/qwik'
 import { Container } from '~/components/ui/Container'
 import { MobileMenu } from '~/components/nav/MobileMenu'
 
+/**
+ * Header component with responsive navigation
+ *
+ * Hydration boundary: MobileMenu is conditionally rendered only on mobile viewports
+ * to prevent unnecessary interactivity overhead on desktop. This ensures desktop
+ * users don't pay the bundle cost for mobile-only interaction logic.
+ *
+ * SSR strategy:
+ * - Server renders without MobileMenu (no viewport info available)
+ * - Client useTask$ detects viewport and hydrates MobileMenu if needed
+ * - This allows Qwik to code-split MobileMenu away from desktop users
+ */
 export const Header = component$(() => {
+  // Track whether viewport is mobile (< md breakpoint)
+  // undefined: server-side or not yet detected
+  // true: mobile viewport detected, render MobileMenu
+  // false: desktop viewport, skip MobileMenu hydration
+  const isMobileViewport = useSignal<boolean | undefined>(undefined)
+
+  useTask$(() => {
+    // Only run on client (window is available)
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    // Detect if viewport is below md breakpoint (768px in Tailwind)
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+
+    const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      isMobileViewport.value = e.matches
+    }
+
+    // Set initial state
+    isMobileViewport.value = mediaQuery.matches
+
+    // Listen for changes (handles responsive resizing)
+    mediaQuery.addEventListener('change', handleChange)
+
+    // Cleanup
+    return () => {
+      mediaQuery.removeEventListener('change', handleChange)
+    }
+  })
+
   return (
     <header class="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-sm">
       <a
@@ -54,7 +97,16 @@ export const Header = component$(() => {
             </a>
           </nav>
 
-          <MobileMenu />
+          {/* 
+            Conditional render: MobileMenu only hydrated on mobile viewports
+            - Server (SSR): isMobileViewport is undefined, nothing renders
+            - Client (mobile): useTask$ detects viewport, renders MobileMenu
+            - Client (desktop): useTask$ detects viewport, skips MobileMenu
+            
+            This pattern isolates mobile-only hydration cost to mobile users only.
+            Desktop users never pay the bundle cost for MobileMenu interaction logic.
+          */}
+          {isMobileViewport.value && <MobileMenu />}
         </div>
       </Container>
     </header>
