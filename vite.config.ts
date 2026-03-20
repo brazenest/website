@@ -46,12 +46,16 @@ export default defineConfig(() => ({
     reportCompressedSize: true,
     sourcemap: false, // Exclude source maps from build output (can be enabled for debugging)
     
-    /* Minification: Use esbuild for smaller output and faster builds
-       - esbuild is Vite's default, optimized for modern JS
-       - Keeps output lean for faster CDN transfer and browser parsing
-       - Consider: --minify-identifiers and --minify-whitespace are already true by default
+    /* Minification disabled: Workaround for Qwik SSG initialization error
+       - Issue: esbuild minification causes TDZ error with vendored chunks
+       - Symptom: "Cannot access '_' before initialization" during SSG
+       - Workaround: Disable minification for now
+       - Bundle size impact: ~2-3x larger (acceptable for CDN + gzip)
+       - TODO: Investigate root cause of esbuild/Qwik incompatibility
+       
+       Related: Qwik issue tracking or vite-plugin-qwik configuration
     */
-    minify: 'esbuild',
+    minify: false,
     
     /* Target modern browsers: ES2020 with dynamic import support
        - Avoids polyfills and transpilation overhead
@@ -80,32 +84,27 @@ export default defineConfig(() => ({
           return "assets/[name]-[hash][extname]";
         },
         
-        /* Chunk splitting strategy for stable, infinitely-cacheable assets
+        /* Chunk splitting: Keep vendor separation, disable qwik-runtime chunk
            
            RATIONALE:
-           - Smaller chunks = finer-grained cache invalidation
-           - Stable chunks = constant hash when content doesn't change
-           - Framework isolation = Qwik updates don't invalidate app code
-           - Vendor isolation = Dependency changes don't invalidate internal code
+           - Vendor chunk still provides cache benefits for node_modules
+           - Removing qwik-runtime chunk fixes SSR/SSG initialization order issue
+           - Qwik code is now bundled with application code
            
-           This enables aggressive long-term caching: old chunks stay cached
-           even when site updates, reducing bandwidth for returning visitors.
+           ISSUE RESOLVED:
+           - Manual qwik-runtime chunk was causing "Cannot access componentQrl before initialization"
+           - This manifested as TDZ (Temporal Dead Zone) errors during SSG
+           - Bundling Qwik with app code resolves the dependency order
         */
         manualChunks: (id) => {
-          /* Qwik framework: highest stability, rarely updated
-             Separate chunk allows aggressive caching of framework code */
-          if (id.includes("@builder.io/qwik") || id.includes("@builder.io/qwik-city")) {
-            return "qwik-runtime";
-          }
-          
           /* Vendor dependencies: mid stability, infrequent updates
              Separate chunk protects against app code churn */
           if (id.includes("node_modules")) {
             return "vendor";
           }
           
-          /* Application code: highest churn, updates frequently
-             Treated as default chunk, not isolated beyond vendor split */
+          /* Application code + Qwik: High churn, bundled together
+             This ensures proper initialization order during SSR/SSG */
         },
       },
     },
