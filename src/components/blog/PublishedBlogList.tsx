@@ -2,7 +2,8 @@ import { component$ } from '@builder.io/qwik'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { TextLink } from '~/components/ui/TextLink'
-import { blogPageContent, formatBlogDate, getBlogSideLabel, publishedBlogPosts } from '~/content/blog/posts'
+import { blogPageContent } from '~/content/blog'
+import { formatBlogDate, getBlogSideLabel, publishedBlogPosts } from '~/content/blog/posts'
 
 /**
  * Below-the-fold section: Published blog posts list

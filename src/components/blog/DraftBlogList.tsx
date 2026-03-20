@@ -1,7 +1,8 @@
 import { component$ } from '@builder.io/qwik'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
-import { blogPageContent, formatBlogDate, getBlogSideLabel, draftBlogPosts } from '~/content/blog/posts'
+import { blogPageContent } from '~/content/blog'
+import { formatBlogDate, getBlogSideLabel, draftBlogPosts } from '~/content/blog/posts'
 
 /**
  * Below-the-fold section: Draft blog posts list
