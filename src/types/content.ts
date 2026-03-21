@@ -185,6 +185,31 @@ export type UpdateBlogPostInput = BlogPostAuthoringValues & {
   id: string
 }
 
+export type BlogPostFormFieldName =
+  | 'title'
+  | 'slug'
+  | 'summary'
+  | 'bodyMarkdown'
+  | 'side'
+  | 'status'
+  | 'publishedAt'
+  | 'coverImageUrl'
+  | 'coverImageAlt'
+
+export type BlogPostFormValues = {
+  title: string
+  slug: string
+  summary: string
+  bodyMarkdown: string
+  side: BlogPostSide
+  status: BlogPostStatus
+  publishedAt: string
+  coverImageUrl: string
+  coverImageAlt: string
+}
+
+export type BlogPostFormFieldErrorMap = Partial<Record<BlogPostFormFieldName, string>>
+
 export type StaticBlogPostSection = {
   title: string
   paragraphs: string[]
