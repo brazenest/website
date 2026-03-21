@@ -8,10 +8,10 @@ import type { SideLinkCardContent } from '~/types/content'
 
 export const SideCard = component$(
   ({ title, description, href, ctaLabel, themeHint }: SideCardProps) => {
-    const accentBorderClass =
+    const accentRailClass =
       themeHint === 'engineering'
-        ? 'border-l-[3px] border-l-[var(--color-engineering-500)]'
-        : 'border-l-[3px] border-l-[var(--color-production-500)]'
+        ? 'ui-side-card--engineering before:bg-[var(--color-engineering-500)]'
+        : 'ui-side-card--production before:bg-[var(--color-production-500)]'
 
     return (
       <Card
@@ -19,8 +19,8 @@ export const SideCard = component$(
         interactive
         padding="spacious"
         class={cn(
-          accentBorderClass,
-          'touch-manipulation focus-visible:border-[var(--link-color)]',
+          accentRailClass,
+          "ui-side-card relative overflow-hidden touch-manipulation before:pointer-events-none before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:content-[''] focus-visible:border-[var(--link-color)]",
         )}
       >
         <div class="flex flex-1 flex-col" style={{ gap: 'var(--card-content-gap)' }}>

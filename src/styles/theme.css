@@ -686,6 +686,25 @@ a {
   transition-duration: 0s;
 }
 
+.ui-card--interactive.ui-side-card {
+  transition: background-color var(--motion-duration-standard) var(--motion-easing-standard),
+    transform var(--motion-duration-standard) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-standard) var(--motion-easing-standard),
+    border-color var(--motion-duration-standard) var(--motion-easing-standard);
+}
+
+@media (hover: hover) {
+  .ui-card--interactive.ui-side-card.ui-side-card--engineering:hover {
+    background: color-mix(in srgb, var(--color-engineering-500) 4%, var(--card-surface));
+    border-color: color-mix(in srgb, var(--color-engineering-500) 24%, var(--card-border));
+  }
+
+  .ui-card--interactive.ui-side-card.ui-side-card--production:hover {
+    background: color-mix(in srgb, var(--color-production-500) 5%, var(--card-surface));
+    border-color: color-mix(in srgb, var(--color-production-500) 28%, var(--card-border));
+  }
+}
+
 /* Reduced motion: disable card transforms while keeping visual feedback via shadow/border */
 @media (prefers-reduced-motion: reduce) {
   .ui-card--interactive {
