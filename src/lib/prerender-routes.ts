@@ -14,7 +14,7 @@
  * - Ensures all content is discoverable and prerendered
  */
 
-import { getPublishedBlogSlugs } from '~/lib/blog/getPublishedBlogSlugs'
+import { getPublishedBlogRouteEntries } from '~/lib/blog/getPublishedBlogRouteEntries'
 import { engineeringProjects } from '~/content/engineering/projects'
 import { productionProjects } from '~/content/production/projects'
 
@@ -39,7 +39,7 @@ export const STATIC_ROUTES = [
  * Only published posts are prerendered (unpublished drafts are not exposed)
  */
 export const getBlogRoutes = async () =>
-  (await getPublishedBlogSlugs()).map((slug) => `/blog/${slug}` as const)
+  (await getPublishedBlogRouteEntries()).map((entry) => `/blog/${entry.slug}` as const)
 
 /**
  * Enumerate all engineering project routes

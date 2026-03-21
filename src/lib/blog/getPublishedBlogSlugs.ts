@@ -1,20 +1,7 @@
-import { query } from '~/lib/db'
-
-type PublishedBlogSlugRow = {
-  slug: string
-}
+import { getPublishedBlogRouteEntries } from './getPublishedBlogRouteEntries'
 
 export async function getPublishedBlogSlugs(): Promise<string[]> {
-  const { rows } = await query<PublishedBlogSlugRow>(
-    `
-      SELECT slug
-      FROM blog_posts
-      WHERE status = $1
-        AND published_at IS NOT NULL
-      ORDER BY published_at DESC
-    `,
-    ['published']
-  )
+  const entries = await getPublishedBlogRouteEntries()
 
-  return rows.map((row) => row.slug)
+  return entries.map((entry) => entry.slug)
 }

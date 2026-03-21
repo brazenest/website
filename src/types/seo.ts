@@ -109,6 +109,7 @@ export type SEOPreset = Omit<SEOInput, 'pathname'>
  */
 export type SitemapEntry = {
   loc: string
+  lastmod?: string
   changefreq?: 'never' | 'yearly' | 'monthly' | 'weekly' | 'daily' | 'hourly' | 'always'
   priority?: number
 }
