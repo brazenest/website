@@ -1,4 +1,4 @@
-# Personal Site v3
+# Personal Site v3.0.0
 
 Full-featured Qwik + Fastify production site for alden.dev.
 

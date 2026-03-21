@@ -54,7 +54,7 @@ export const DocumentRouterHead = component$(() => {
   return (
     <>
       {/* Title from route metadata (includes template formatting) */}
-      <title>{head.title || 'Personal Site v3'}</title>
+      <title>{head.title || 'Personal Site v3.0.0'}</title>
 
       {/* Meta tags: description, canonical, OG, Twitter, article metadata */}
       {head.meta.map((meta) => (
