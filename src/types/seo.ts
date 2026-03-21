@@ -163,6 +163,8 @@ export type WebSiteStructuredData = StructuredDataObject & {
   url: string
   description?: string
   image?: string
+  version?: string
+  dateModified?: string
 }
 
 /**

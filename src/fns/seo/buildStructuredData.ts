@@ -6,7 +6,7 @@ import type {
   CreativeWorkStructuredData,
   ArticleStructuredData,
 } from '~/types/seo'
-import { siteConfig } from '~/config/site'
+import { releaseInfo, releaseLabel, siteConfig } from '~/config/site'
 
 /**
  * Ensure an image URL is absolute.
@@ -61,6 +61,8 @@ export function buildWebSiteStructuredData(): WebSiteStructuredData {
     ...(siteConfig.defaultOGImage && {
       image: ensureAbsoluteUrl(siteConfig.defaultOGImage.url),
     }),
+    version: releaseLabel,
+    dateModified: releaseInfo.releasedOn,
   }
 }
 

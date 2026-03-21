@@ -5,6 +5,7 @@ import "./global.css";
 import fontInterStyles from "@fontsource-variable/inter?inline";
 import { buildPersonStructuredData, buildWebSiteStructuredData } from "~/fns/seo/buildStructuredData";
 import { StructuredData } from "~/components/seo/StructuredData";
+import { releaseInfo, releaseLabel } from "~/config/site";
 
 export default component$(() => {
 
@@ -15,6 +16,8 @@ export default component$(() => {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="release-version" content={releaseLabel} />
+        <meta name="release-date" content={releaseInfo.releasedOn} />
         <DocumentRouterHead />
       </head>
       <body>
