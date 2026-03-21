@@ -42,10 +42,27 @@ DATABASE_URL=postgresql://user:password@host:port/database  # Optional; falls ba
 # Private admin access (server-side HTTP Basic Auth)
 ADMIN_BASIC_AUTH_USERNAME=admin
 ADMIN_BASIC_AUTH_PASSWORD=change-me
+
+# Contact form delivery (Amazon SES)
+AWS_REGION=us-east-1
+CONTACT_FORM_FROM_EMAIL=no-reply@example.com
+CONTACT_FORM_TO_EMAIL=you@example.com
+CONTACT_FORM_SUBJECT_PREFIX=Alden Gillespy Website
 ```
 
 The admin credentials are server-only values for the `/admin` route group. Do not expose them as
 client-side environment variables or commit production secrets.
+
+The contact form sends through Amazon SES on the server.
+
+- `AWS_REGION`: SES region for the verified sender identity.
+- `CONTACT_FORM_FROM_EMAIL`: verified SES sender address or domain-backed mailbox used as the `From` address.
+- `CONTACT_FORM_TO_EMAIL`: mailbox where inquiries should be delivered.
+- `CONTACT_FORM_SUBJECT_PREFIX`: optional prefix for inbound subject lines.
+
+AWS credentials are normally supplied by your deployment platform, IAM role, container task role,
+or local AWS profile rather than hard-coded in `.env`. For local manual testing, you can also set
+`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and optionally `AWS_SESSION_TOKEN`.
 
 ### Running Locally
 

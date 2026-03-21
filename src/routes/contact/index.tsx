@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
+import { ContactInquiryModal, Footer } from '~/components/footer/Footer'
 import { ButtonLink } from '~/components/ui/ButtonLink'
-import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
 import { Header } from '~/components/nav/Header'
 import { Container } from '~/components/ui/Container'
@@ -54,12 +54,7 @@ export default component$(() => {
                 </div>
 
                 <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2 xl:flex-col xl:items-stretch">
-                  <ButtonLink
-                    href="mailto:ag@aldengillespy.com?subject=Project%20Inquiry"
-                    label="Email Project Details"
-                    variant="primary"
-                    class="w-full"
-                  />
+                  <ContactInquiryModal triggerLabel="Open Contact Form" triggerClass="w-full" />
                   <ButtonLink
                     href="/resume"
                     label="View Resume"
@@ -78,14 +73,22 @@ export default component$(() => {
                         {method.label}
                       </p>
 
-                      <a
-                        href={method.href}
-                        target={method.href.startsWith('http') ? '_blank' : undefined}
-                        rel={method.href.startsWith('http') ? 'noreferrer' : undefined}
-                        class="rounded-[var(--radius-lg)] text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--state-hover-accent)] active:text-[var(--state-active-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)] md:text-base"
-                      >
-                        {method.value}
-                      </a>
+                      {'href' in method ? (
+                        <a
+                          href={method.href}
+                          target={method.href.startsWith('http') ? '_blank' : undefined}
+                          rel={method.href.startsWith('http') ? 'noreferrer' : undefined}
+                          class="rounded-[var(--radius-lg)] text-left text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--state-hover-accent)] active:text-[var(--state-active-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)] md:text-base"
+                        >
+                          {method.value}
+                        </a>
+                      ) : (
+                        <ContactInquiryModal
+                          triggerLabel={method.value}
+                          triggerVariant="ghost"
+                          triggerClass="rounded-[var(--radius-lg)] text-left text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--state-hover-accent)] active:text-[var(--state-active-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)] md:text-base"
+                        />
+                      )}
 
                       <p class="text-sm leading-6 text-[var(--muted)]">
                         {method.description}
@@ -231,13 +234,22 @@ export default component$(() => {
 
               <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
                 {contactPageContent.cta.buttons.map((button) => (
-                  <ButtonLink
-                    key={`${button.href}-${button.label}`}
-                    href={button.href}
-                    label={button.label}
-                    variant={button.variant}
-                    class="w-full sm:w-auto"
-                  />
+                  'href' in button ? (
+                    <ButtonLink
+                      key={`${button.href}-${button.label}`}
+                      href={button.href}
+                      label={button.label}
+                      variant={button.variant}
+                      class="w-full sm:w-auto"
+                    />
+                  ) : (
+                    <ContactInquiryModal
+                      key={`${button.action}-${button.label}`}
+                      triggerLabel={button.label}
+                      triggerVariant={button.variant}
+                      triggerClass="w-full sm:w-auto"
+                    />
+                  )
                 ))}
               </div>
 

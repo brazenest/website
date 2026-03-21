@@ -9,8 +9,8 @@ export const resumePageContent = {
         href: 'https://aldengillespy.com',
       },
       {
-        label: 'ag@aldengillespy.com',
-        href: 'mailto:ag@aldengillespy.com',
+        label: 'Contact form',
+        href: '/contact',
       },
       {
         label: '(813) 437-7425',

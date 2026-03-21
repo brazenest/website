@@ -7,14 +7,14 @@ export const contactPageContent = {
     'If the work sits somewhere between engineering and production rather than neatly inside one category, that is usually useful context, not a problem.',
   contactPanel: {
     eyebrow: 'Best first step',
-    heading: 'Email with project or role context.',
+    heading: 'Start with the contact form.',
     description:
-      'Email is the best opening move for project inquiries, collaboration ideas, and role discussions. A short note is enough if it explains the work, the timeline, and why the fit makes sense.',
+      'Use the form for project inquiries, collaboration ideas, and role discussions. A short note is enough if it explains the work, the timeline, and why the fit makes sense.',
     methods: [
       {
-        label: 'Email',
-        value: 'ag@aldengillespy.com',
-        href: 'mailto:ag@aldengillespy.com?subject=Project%20Inquiry',
+        label: 'Contact form',
+        value: 'Open project inquiry form',
+        action: 'open-contact-form',
         description: 'Best for project briefs, collaboration notes, and role conversations.',
       },
       {
@@ -122,8 +122,8 @@ export const contactPageContent = {
       'A short brief with the project, goal, timeline, and the help you need is enough to start a real conversation.',
     buttons: [
       {
-        label: 'Email Project Details',
-        href: 'mailto:ag@aldengillespy.com?subject=Project%20Inquiry',
+        label: 'Open Contact Form',
+        action: 'open-contact-form',
         variant: 'primary',
       },
       {

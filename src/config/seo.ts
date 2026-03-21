@@ -58,7 +58,7 @@ export const seoPresets: SEOPresetMap = {
 	contact: {
 		title: 'Contact — Work With Alden Gillespy',
 		description:
-			'Inquire about engineering work, production projects, or focused collaborations. Start with email for project briefs and role discussions.',
+			'Inquire about engineering work, production projects, or focused collaborations. Start with the contact form for project briefs and role discussions.',
 		type: 'website',
 		includeSitemap: true,
 		changefreq: 'yearly',
