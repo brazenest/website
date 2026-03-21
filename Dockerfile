@@ -1,7 +1,6 @@
 ARG NODE_ENV="production"
 ARG NODE_VERSION="20"
-ARG APP_ORIGIN="http://localhost"
-
+ARG APP_ORIGIN="http://localhost"ARG DATABASE_URL
 ################################################################################
 # Use node image for base image for all stages.
 FROM node:${NODE_VERSION}-alpine as base
@@ -30,6 +29,10 @@ FROM deps as build
 
 # Copy the rest of the source files into the image.
 COPY . .
+
+# Pass DATABASE_URL as environment variable for build-time blog route prerendering
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
 
 # Run the build scripts.
 RUN pnpm run build
