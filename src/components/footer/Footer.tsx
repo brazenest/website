@@ -40,9 +40,15 @@ export const useSubmitContactInquiry = globalAction$(async (_, requestEvent) => 
   } catch (error) {
     requestEvent.sharedMap.set('contact-form-error', error)
 
+    console.error('Contact inquiry send failed', error)
+
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+
     return {
       success: false,
-      formError: 'The inquiry could not be sent right now. Try again in a minute.',
+      formError: import.meta.env.DEV
+        ? `Contact send failed: ${errorMessage}`
+        : 'The inquiry could not be sent right now. Try again in a minute.',
       fieldErrors: {},
       values: parsed.values,
     } satisfies ContactFormFailure
