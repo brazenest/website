@@ -1,9 +1,10 @@
 import { Slot, component$ } from '@builder.io/qwik'
+import { ButtonLink } from '~/components/ui/ButtonLink'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import type { HeroContent } from '~/types/content'
 
-export const HomeHero = component$(({ name, headline, description }: HomeHeroProps) => {
+export const HomeHero = component$(({ name, headline, description, ctas }: HomeHeroProps) => {
   return (
     <Section spacing="default">
       <Container>
@@ -20,6 +21,20 @@ export const HomeHero = component$(({ name, headline, description }: HomeHeroPro
             <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
               {description}
             </p>
+
+            {ctas?.length ? (
+              <div class="ui-cta-group flex-col items-stretch gap-3 pt-2 sm:flex-row sm:items-start sm:gap-2">
+                {ctas.map((cta) => (
+                  <ButtonLink
+                    key={`${cta.href}-${cta.label}`}
+                    href={cta.href}
+                    label={cta.label}
+                    variant={cta.variant || 'secondary'}
+                    class="w-full sm:w-auto"
+                  />
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <Slot />

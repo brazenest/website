@@ -1,3 +1,5 @@
+import type { ButtonVariant } from '~/types/ui'
+
 export type SEO = {
   title: string
   description: string
@@ -80,10 +82,17 @@ export type ProcessItem = {
   description: string
 }
 
+export type ContentCta = {
+  label: string
+  href: string
+  variant?: ButtonVariant
+}
+
 export type HeroContent = {
   name: string
   headline: string
   description: string
+  ctas?: ContentCta[]
 }
 
 export type SideLinkCardContent = {
@@ -97,9 +106,14 @@ export type SideLinkCardContent = {
 export type AboutPreviewContent = {
   eyebrow?: string
   heading: string
-  description: string
-  href: string
-  ctaLabel: string
+  paragraphs: string[]
+  links: ContentCta[]
+}
+
+export type EntryOrientationContent = {
+  eyebrow?: string
+  heading: string
+  paragraphs: string[]
 }
 
 export type AboutContent = {

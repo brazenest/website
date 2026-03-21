@@ -5,7 +5,7 @@ import { Section } from '~/components/ui/Section'
 import type { AboutPreviewContent } from '~/types/content'
 
 export const AboutPreview = component$(
-  ({ eyebrow, heading, description, href, ctaLabel }: AboutPreviewProps) => {
+  ({ eyebrow, heading, paragraphs, links }: AboutPreviewProps) => {
     return (
       <Section spacing="default">
         <Container width="content">
@@ -20,12 +20,24 @@ export const AboutPreview = component$(
               {heading}
             </h2>
 
-            <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-              {description}
-            </p>
+            <div class="flex flex-col gap-4 md:gap-5">
+              {paragraphs.map((paragraph) => (
+                <p key={paragraph} class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
 
-            <div class="ui-cta-group">
-              <ButtonLink href={href} label={ctaLabel} variant="secondary" />
+            <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+              {links.map((link) => (
+                <ButtonLink
+                  key={`${link.href}-${link.label}`}
+                  href={link.href}
+                  label={link.label}
+                  variant={link.variant || 'secondary'}
+                  class="w-full sm:w-auto"
+                />
+              ))}
             </div>
           </div>
         </Container>
