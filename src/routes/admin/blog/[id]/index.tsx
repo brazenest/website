@@ -43,7 +43,7 @@ export const useUpdateBlogPost = routeAction$(async (_, requestEvent) => {
     } satisfies BlogPostFormFailure
   }
 
-  const formData = await requestEvent.parseBody() as FormData
+  const formData = await requestEvent.parseBody()
   const parsed = parseBlogPostFormInput(formData, {
     existingPublishedAt: existingPost.publishedAt,
   })

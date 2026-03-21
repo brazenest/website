@@ -26,7 +26,7 @@ export const head: DocumentHead = {
 }
 
 export const useCreateBlogPost = routeAction$(async (_, requestEvent) => {
-  const formData = await requestEvent.parseBody() as FormData
+  const formData = await requestEvent.parseBody()
   const parsed = parseBlogPostFormInput(formData)
 
   if ('success' in parsed) {

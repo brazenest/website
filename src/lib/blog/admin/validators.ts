@@ -10,6 +10,8 @@ type ValidatorOptions = {
   existingPublishedAt?: string | null
 }
 
+export type BlogPostFormInput = FormData | Record<string, unknown>
+
 export type BlogPostValidationFailure = {
   success: false
   fieldErrors: BlogPostFormFieldErrorMap
@@ -27,8 +29,26 @@ export type BlogPostValidationResult = BlogPostValidationFailure | BlogPostValid
 const BLOG_POST_SIDE_OPTIONS: BlogPostSide[] = ['engineering', 'production', 'bridge']
 const BLOG_POST_STATUS_OPTIONS: BlogPostStatus[] = ['draft', 'published']
 
-function normalizeFormValue(value: FormDataEntryValue | null): string {
+function normalizeFormValue(value: FormDataEntryValue | string | string[] | null | undefined): string {
+  if (Array.isArray(value)) {
+    return normalizeFormValue(value[0])
+  }
+
   return typeof value === 'string' ? value.trim() : ''
+}
+
+function getInputValue(input: BlogPostFormInput, key: string): FormDataEntryValue | string | string[] | null | undefined {
+  if (input instanceof FormData) {
+    return input.get(key)
+  }
+
+  const value = input[key]
+
+  if (typeof value === 'string' || value == null || Array.isArray(value)) {
+    return value
+  }
+
+  return null
 }
 
 function normalizeSingleLine(value: string): string {
@@ -71,18 +91,18 @@ function isValidCoverImageUrl(value: string): boolean {
 }
 
 export function validateAndNormalizeBlogPostForm(
-  formData: FormData,
+  formData: BlogPostFormInput,
   options: ValidatorOptions = {},
 ): BlogPostValidationResult {
-  const rawStatus = normalizeFormValue(formData.get('status'))
-  const rawSide = normalizeFormValue(formData.get('side'))
-  const title = normalizeSingleLine(normalizeFormValue(formData.get('title')))
-  const slug = normalizeSlug(normalizeFormValue(formData.get('slug')))
-  const summary = normalizeSingleLine(normalizeFormValue(formData.get('summary')))
-  const bodyMarkdown = normalizeFormValue(formData.get('bodyMarkdown'))
-  const publishedAtInput = normalizeFormValue(formData.get('publishedAt'))
-  const coverImageUrl = normalizeFormValue(formData.get('coverImageUrl'))
-  const coverImageAlt = normalizeSingleLine(normalizeFormValue(formData.get('coverImageAlt')))
+  const rawStatus = normalizeFormValue(getInputValue(formData, 'status'))
+  const rawSide = normalizeFormValue(getInputValue(formData, 'side'))
+  const title = normalizeSingleLine(normalizeFormValue(getInputValue(formData, 'title')))
+  const slug = normalizeSlug(normalizeFormValue(getInputValue(formData, 'slug')))
+  const summary = normalizeSingleLine(normalizeFormValue(getInputValue(formData, 'summary')))
+  const bodyMarkdown = normalizeFormValue(getInputValue(formData, 'bodyMarkdown'))
+  const publishedAtInput = normalizeFormValue(getInputValue(formData, 'publishedAt'))
+  const coverImageUrl = normalizeFormValue(getInputValue(formData, 'coverImageUrl'))
+  const coverImageAlt = normalizeSingleLine(normalizeFormValue(getInputValue(formData, 'coverImageAlt')))
 
   const values: BlogPostFormValues = {
     title,

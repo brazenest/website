@@ -6,7 +6,7 @@ import type {
   BlogPostStatus,
   BlogPostAuthoringValues,
 } from '~/types/content'
-import { validateAndNormalizeBlogPostForm } from './validators'
+import { validateAndNormalizeBlogPostForm, type BlogPostFormInput } from './validators'
 
 export type BlogPostFormFieldErrors = BlogPostFormFieldErrorMap
 
@@ -55,16 +55,19 @@ export function getBlogPostFormValuesFromRecord(post: BlogPostAdminRecord): Blog
 }
 
 export function parseBlogPostFormInput(
-  formData: FormData,
+  formData: unknown,
   options: {
     existingPublishedAt?: string | null
   } = {},
 ): BlogPostFormFailure | { values: BlogPostFormValues; input: BlogPostAuthoringValues } {
-  const result = validateAndNormalizeBlogPostForm(formData, options)
+  const result = validateAndNormalizeBlogPostForm(formData as BlogPostFormInput, options)
 
   if (!result.success) {
     return result
   }
 
-  return result
+  return {
+    values: result.values,
+    input: result.input,
+  }
 }
