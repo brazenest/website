@@ -94,30 +94,45 @@ export default component$(() => {
 
       <main id="main-content" class="flex-1">
         <Section spacing="spacious">
-          <Container width="content">
-            <div class="flex flex-col gap-4 md:gap-5">
-              <p class="ui-meta-label">
-                Engineering Case Study
-              </p>
+          <Container>
+            <div class="flex flex-col gap-6 md:gap-8">
+              {project.image ? (
+                <div class="aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)]">
+                  <img
+                    src={project.image}
+                    alt={`${project.title} case study key art`}
+                    width={1600}
+                    height={900}
+                    loading="eager"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              ) : null}
 
-              <h1 class="max-w-[14ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-                {project.title}
-              </h1>
+              <div class="flex flex-col gap-4 md:gap-5">
+                <p class="ui-meta-label">
+                  Engineering Case Study
+                </p>
 
-              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {project.description}
-              </p>
+                <h1 class="max-w-[14ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
+                  {project.title}
+                </h1>
 
-              <ul class="flex flex-wrap gap-2 pt-2">
-                {project.techStack.map((tech) => (
-                  <li
-                    key={tech}
-                    class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1 text-xs font-medium text-[var(--muted)] md:text-sm"
-                  >
-                    {tech}
-                  </li>
-                ))}
-              </ul>
+                <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                  {project.description}
+                </p>
+
+                <ul class="flex flex-wrap gap-2 pt-2">
+                  {project.techStack.map((tech) => (
+                    <li
+                      key={tech}
+                      class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1 text-xs font-medium text-[var(--muted)] md:text-sm"
+                    >
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </Container>
         </Section>
@@ -131,6 +146,13 @@ export default component$(() => {
                   <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                     {section.content}
                   </p>
+                ) : null}
+                {section.paragraphs?.length ? (
+                  <div class="flex max-w-[65ch] flex-col gap-4 text-base leading-7 text-[var(--muted)] md:text-lg">
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
                 ) : null}
                 {section.items?.length ? (
                   <ul class="max-w-[62ch] flex flex-col gap-2 text-base leading-7 text-[var(--muted)] md:text-lg">

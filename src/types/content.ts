@@ -8,6 +8,7 @@ export type SEO = {
 export type EngineeringSection = {
   title: string
   content?: string
+  paragraphs?: string[]
   items?: string[]
 }
 

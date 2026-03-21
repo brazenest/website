@@ -20,18 +20,32 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="content">
             <div class="flex flex-col gap-10 md:gap-12">
-              <div class="flex flex-col gap-3 md:gap-4">
-                <p class="ui-meta-label">
-                  {aboutPageContent.eyebrow}
-                </p>
+              <div class="grid gap-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+                <div class="flex flex-col gap-3 md:gap-4">
+                  <p class="ui-meta-label">
+                    {aboutPageContent.eyebrow}
+                  </p>
 
-                <h1 class="text-4xl font-semibold tracking-tight leading-tight md:text-5xl">
-                  {aboutPageContent.title}
-                </h1>
+                  <h1 class="text-4xl font-semibold tracking-tight leading-tight md:text-5xl">
+                    {aboutPageContent.title}
+                  </h1>
 
-                <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  {aboutPageContent.intro}
-                </p>
+                  <p class="max-w-[56ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                    {aboutPageContent.intro}
+                  </p>
+                </div>
+
+                <figure class="mx-auto w-full max-w-[18rem] overflow-hidden rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] shadow-[0_24px_60px_rgba(15,23,42,0.08)] lg:mx-0" data-scroll-reveal>
+                  <img
+                    src={aboutPageContent.portrait.src}
+                    alt={aboutPageContent.portrait.alt}
+                    width={720}
+                    height={900}
+                    loading="eager"
+                    class="aspect-[4/5] w-full object-cover"
+                    style={{ objectPosition: '52% 34%' }}
+                  />
+                </figure>
               </div>
 
               <div class="flex flex-col gap-10 md:gap-12">

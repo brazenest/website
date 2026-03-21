@@ -1,7 +1,7 @@
 import type { EngineeringProject } from '~/types/content'
 import { andacityBookingSystemProject } from './andacity-booking-system'
-import { fulfillmentReliabilityConsoleProject } from './fulfillment-reliability-console'
-import { studioContentOpsPlatformProject } from './studio-content-ops-platform'
+import { ancestryDnaKitActivationProject } from './ancestry-dna-kit-activation'
+import { timeshareSearchRentalsProject } from './timeshare-search-rentals'
 
 export const engineeringProjects: EngineeringProject[] = [
   {
@@ -13,19 +13,19 @@ export const engineeringProjects: EngineeringProject[] = [
       'Canonical contracts and entity normalization reduced edge-case drift and made new integrations safer to ship.',
   },
   {
-    ...studioContentOpsPlatformProject,
+    ...timeshareSearchRentalsProject,
     description:
-      'Campaign launches depended on one-off builds, so I implemented schema-driven content blocks and a governed publish pipeline that turned delivery into a repeatable platform workflow.',
-    cardDescriptor: 'Lead platform engineer · Content modeling and publishing workflow',
+      'Dense listing inventory and inconsistent card hierarchy made search harder to trust, so I reworked the listing system around clearer comparison, stronger information lanes, and stable booking interactions.',
+    cardDescriptor: 'Frontend systems engineer · Search ergonomics and comparison UX',
     cardHighlight:
-      'Versioned schemas and release gates cut launch regressions while giving content teams more autonomy.',
+      'Stable listing structure turned variable inventory into a more predictable, decision-friendly search experience.',
   },
   {
-    ...fulfillmentReliabilityConsoleProject,
+    ...ancestryDnaKitActivationProject,
     description:
-      'Incident response was spread across logs, scripts, and tribal knowledge, so I built a reliability console that unified event context and recovery controls in one operational surface.',
-    cardDescriptor: 'Lead systems engineer · Reliability tooling and incident response UX',
+      'A high-trust activation flow for a sensitive consumer product, rebuilt around explicit state, calm validation patterns, and reusable UI behavior at very large scale.',
+    cardDescriptor: 'Frontend systems engineer · High-trust flow design and state clarity',
     cardHighlight:
-      'Event correlation and guarded replay tooling reduced diagnosis time and prevented high-cost recovery mistakes.',
+      'Clear state transitions and predictable validation reduced uncertainty in a sensitive multi-step experience.',
   },
 ]

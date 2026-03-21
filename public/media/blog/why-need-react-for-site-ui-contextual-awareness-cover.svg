@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+  <title id="title">React and Context</title>
+  <desc id="desc">Abstract engineering cover with connected interface nodes for a React contextual-awareness essay.</desc>
+  <defs>
+    <linearGradient id="grad-why-need-react-for-site-ui-contextual-awareness" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#grad-why-need-react-for-site-ui-contextual-awareness)"/>
+  <circle cx="130" cy="110" r="170" fill="#38bdf8" opacity="0.08"/>
+  <circle cx="1050" cy="490" r="210" fill="#22c55e" opacity="0.08"/>
+  <rect x="84" y="80" width="236" height="42" rx="21" fill="#0b1220" opacity="0.88"/>
+  <text x="202" y="107" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#e2e8f0" opacity="0.88">Engineering Essay</text>
+  
+      <g opacity="0.92">
+        <circle cx="320" cy="210" r="44" fill="none" stroke="#38bdf8" stroke-width="8" opacity="0.7"/>
+        <circle cx="520" cy="160" r="34" fill="none" stroke="#22c55e" stroke-width="8" opacity="0.75"/>
+        <circle cx="600" cy="300" r="54" fill="none" stroke="#38bdf8" stroke-width="8" opacity="0.65"/>
+        <circle cx="820" cy="200" r="40" fill="none" stroke="#22c55e" stroke-width="8" opacity="0.72"/>
+        <circle cx="820" cy="360" r="52" fill="none" stroke="#38bdf8" stroke-width="8" opacity="0.58"/>
+        <path d="M362 198L488 171" stroke="#38bdf8" stroke-width="7" stroke-linecap="round" opacity="0.55"/>
+        <path d="M548 188L574 255" stroke="#22c55e" stroke-width="7" stroke-linecap="round" opacity="0.6"/>
+        <path d="M651 286L781 220" stroke="#38bdf8" stroke-width="7" stroke-linecap="round" opacity="0.55"/>
+        <path d="M642 330L772 348" stroke="#22c55e" stroke-width="7" stroke-linecap="round" opacity="0.5"/>
+      </g>
+    
+  <g>
+    <text x="88" y="472" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" fill="#e2e8f0">React and Context</text>
+    <text x="88" y="522" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#e2e8f0" opacity="0.84">Context-aware UI as product architecture</text>
+  </g>
+</svg>

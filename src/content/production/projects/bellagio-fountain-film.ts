@@ -8,9 +8,10 @@ export const bellagioFountainFilmProject: ProductionProject = {
     'A night exterior short built around a live fountain performance, using disciplined framing and editorial pacing to turn an unpredictable public spectacle into a coherent visual sequence.',
   media: [
     {
-      type: 'image',
-      src: '/media/production/bellagio-fountain-still-01.jpg',
-      alt: 'Wide cinematic still of the Bellagio fountains at night',
+      type: 'video',
+      src: 'https://www.youtube.com/watch?v=7v3GNwprM8Q',
+      alt: 'Bellagio Fountain Film embedded from YouTube',
+      poster: '/media/production/bellagio-fountain-film.svg',
     },
   ],
   sections: [
@@ -55,7 +56,7 @@ export const bellagioFountainFilmProject: ProductionProject = {
         'The strongest learning was that documentary-style shooting does not mean passive observation. Aggressive framing choices, clear shot function, and disciplined interaction with the environment create authored work even when the subject is unpredictable. A second take would invest more time in color work during grade to support mood differentiation between sequence sections.',
     },
   ],
-  image: '/media/production/bellagio-fountain-still-01.jpg',
+  image: '/media/production/bellagio-fountain-film.svg',
   seo: {
     title: 'Bellagio Fountain Film',
     description:

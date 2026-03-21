@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+  <title id="title">Toys “R” Us and Leverage</title>
+  <desc id="desc">Abstract cross-disciplinary cover with stacked retail blocks and downward leverage lines for the Toys R Us analysis.</desc>
+  <defs>
+    <linearGradient id="grad-millenials-toys-r-us-death-by-bad-leveraged-buyout" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#142032" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#grad-millenials-toys-r-us-death-by-bad-leveraged-buyout)"/>
+  <circle cx="130" cy="110" r="170" fill="#22d3ee" opacity="0.08"/>
+  <circle cx="1050" cy="490" r="210" fill="#a78bfa" opacity="0.08"/>
+  <rect x="84" y="80" width="236" height="42" rx="21" fill="#102033" opacity="0.88"/>
+  <text x="202" y="107" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#ecfeff" opacity="0.88">Bridge Essay</text>
+  
+      <g opacity="0.9">
+        <rect x="230" y="250" width="120" height="110" rx="16" fill="#22d3ee" opacity="0.18"/>
+        <rect x="365" y="210" width="120" height="150" rx="16" fill="#a78bfa" opacity="0.16"/>
+        <rect x="500" y="170" width="120" height="190" rx="16" fill="#22d3ee" opacity="0.14"/>
+        <rect x="635" y="235" width="120" height="125" rx="16" fill="#a78bfa" opacity="0.18"/>
+        <path d="M805 145C760 205 742 250 734 300" stroke="#a78bfa" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.65"/>
+        <path d="M760 285L734 330L700 292" stroke="#a78bfa" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+        <line x1="220" y1="378" x2="780" y2="378" stroke="#22d3ee" stroke-width="6" opacity="0.35"/>
+      </g>
+    
+  <g>
+    <text x="88" y="472" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" fill="#ecfeff">Toys “R” Us and Leverage</text>
+    <text x="88" y="522" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#ecfeff" opacity="0.84">Retail collapse through financial structure</text>
+  </g>
+</svg>

@@ -3,6 +3,12 @@ export const aboutPageContent = {
   title: 'One Practice Across Systems and Stories',
   intro:
     'I am Alden Gillespy. I build software systems and produce visual stories. The tools change between code and camera, but the method stays the same: define intent, work inside constraints, and execute with discipline.',
+  portrait: {
+    src: '/media/about/alden-portrait.jpg',
+    alt: 'Portrait of Alden Gillespy',
+    eyebrow: 'Alden Gillespy',
+    caption: 'Software engineer and video producer.',
+  },
   narrativeSections: [
     {
       heading: 'Who I Am',

@@ -34,8 +34,59 @@ export interface ResponsiveVideoProps {
   height?: number
 }
 
+function toYouTubeEmbedUrl(src: string) {
+  try {
+    const url = new URL(src)
+    const host = url.hostname.replace(/^www\./, '')
+
+    if (host === 'youtube.com' || host === 'm.youtube.com') {
+      if (url.pathname === '/watch') {
+        const videoId = url.searchParams.get('v')
+
+        if (videoId) {
+          return `https://www.youtube-nocookie.com/embed/${videoId}`
+        }
+      }
+
+      if (url.pathname.startsWith('/embed/')) {
+        return src
+      }
+    }
+
+    if (host === 'youtu.be') {
+      const videoId = url.pathname.replace(/^\//, '')
+
+      if (videoId) {
+        return `https://www.youtube-nocookie.com/embed/${videoId}`
+      }
+    }
+  } catch {
+    return null
+  }
+
+  return null
+}
+
 export const ResponsiveVideo = component$(
   ({ src, poster, class: className = '', width = 1600, height = 900 }: ResponsiveVideoProps) => {
+    const youTubeEmbedUrl = toYouTubeEmbedUrl(src)
+
+    if (youTubeEmbedUrl) {
+      return (
+        <iframe
+          src={youTubeEmbedUrl}
+          title="Embedded video player"
+          width={width}
+          height={height}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullscreen
+          referrerPolicy="strict-origin-when-cross-origin"
+          class={`h-full w-full border-0 ${className}`}
+        />
+      )
+    }
+
     return (
       <video
         src={src}

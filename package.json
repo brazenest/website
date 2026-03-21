@@ -14,6 +14,7 @@
     "dev": "vite --mode ssr",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
+    "generate:case-study-images": "node scripts/generate-case-study-images.mjs",
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview",
     "serve": "node dist/entry.fastify-*.js",

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+  <title id="title">Why TDD?</title>
+  <desc id="desc">Abstract engineering cover with checklist marks and bug-trace lines for a test-driven development essay.</desc>
+  <defs>
+    <linearGradient id="grad-why-tdd-it-takes-the-guesswork-out-of-debugging" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#grad-why-tdd-it-takes-the-guesswork-out-of-debugging)"/>
+  <circle cx="130" cy="110" r="170" fill="#38bdf8" opacity="0.08"/>
+  <circle cx="1050" cy="490" r="210" fill="#22c55e" opacity="0.08"/>
+  <rect x="84" y="80" width="236" height="42" rx="21" fill="#0b1220" opacity="0.88"/>
+  <text x="202" y="107" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#e2e8f0" opacity="0.88">Engineering Essay</text>
+  
+      <g opacity="0.9">
+        <rect x="210" y="138" width="420" height="280" rx="26" fill="none" stroke="#38bdf8" stroke-width="5" opacity="0.42"/>
+        <path d="M272 205l26 26 48-58" stroke="#22c55e" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M272 283l26 26 48-58" stroke="#22c55e" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+        <path d="M272 361l26 26 48-58" stroke="#22c55e" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
+        <line x1="390" y1="205" x2="558" y2="205" stroke="#38bdf8" stroke-width="6" opacity="0.7"/>
+        <line x1="390" y1="283" x2="528" y2="283" stroke="#38bdf8" stroke-width="6" opacity="0.58"/>
+        <line x1="390" y1="361" x2="500" y2="361" stroke="#38bdf8" stroke-width="6" opacity="0.45"/>
+        <path d="M770 180C700 220 708 302 776 332C838 360 892 328 908 274C922 224 886 180 826 182" stroke="#22c55e" stroke-width="8" fill="none" stroke-linecap="round" opacity="0.45"/>
+      </g>
+    
+  <g>
+    <text x="88" y="472" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" fill="#e2e8f0">Why TDD?</text>
+    <text x="88" y="522" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#e2e8f0" opacity="0.84">Removing debugging guesswork with tests</text>
+  </g>
+</svg>
