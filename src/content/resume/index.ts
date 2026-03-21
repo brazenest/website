@@ -13,8 +13,8 @@ export const resumePageContent = {
         href: '/contact',
       },
       {
-        label: '(813) 437-7425',
-        href: 'tel:+18134377425',
+        label: '(702) 670-2251',
+        href: 'tel:+17026702251',
       },
       {
         label: 'Salt Lake City, UT',
@@ -96,27 +96,19 @@ export const resumePageContent = {
     },
     {
       discipline: 'Engineering',
-      title: 'Fulfillment Reliability Console',
-      role: 'Lead systems engineer',
+      title: 'Ancestry DNA Kit Activation',
+      role: 'Senior software engineer',
       description:
-        'Designed a reliability console that unified queue telemetry, event context, and guarded replay controls, reducing diagnosis time and making recovery workflows safer under pressure.',
-      href: '/engineering/projects/fulfillment-reliability-console',
+        'Led the redesign of a sensitive, high-trust activation flow around clearer state, calmer validation behavior, and more dependable completion at scale.',
+      href: '/engineering/projects/ancestry-dna-kit-activation',
     },
     {
       discipline: 'Production',
-      title: 'Founder Profile Launch Film',
-      role: 'Creative development, direction, capture, and edit',
+      title: 'Bellagio Fountain Film',
+      role: 'Direction, capture, and edit',
       description:
-        'Translated product strategy into an interview-led launch film that balanced message precision with authentic on-camera voice and gave the launch team a clear narrative asset.',
-      href: '/production/projects/founder-profile-launch-film',
-    },
-    {
-      discipline: 'Production',
-      title: 'Night Market Social Campaign',
-      role: 'Creative development, production, and editorial lead',
-      description:
-        'Planned one production window to support multiple social deliverables, using format-aware coverage and pacing to keep the campaign cohesive across channels.',
-      href: '/production/projects/night-market-social-campaign',
+        'Shaped unpredictable live-performance footage into a coherent cinematic sequence through disciplined framing, adaptive coverage, and editorial pacing.',
+      href: '/production/projects/bellagio-fountain-film',
     },
   ],
   skills: [

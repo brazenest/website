@@ -16,11 +16,11 @@ export default component$(() => {
     <PageShell theme="neutral" enableScrollReveal>
       <Header />
 
-      <main id="main-content" class="flex-1 scroll-mt-24">
+      <main id="main-content" class="resume-page flex-1 scroll-mt-24">
         <Section spacing="spacious">
           <Container width="wide">
             <div class="flex flex-col gap-12 md:gap-16">
-              <div class="grid gap-8 border-b border-[var(--border)] pb-10 md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] md:items-start md:gap-10 md:pb-12">
+              <div class="resume-print-header grid gap-8 border-b border-[var(--border)] pb-10 md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] md:items-start md:gap-10 md:pb-12">
                 <div class="flex flex-col gap-3 md:gap-4">
                   <p class="ui-meta-label">
                     {resumePageContent.header.eyebrow}
@@ -37,7 +37,7 @@ export default component$(() => {
                   </div>
                 </div>
 
-                <div class="flex flex-col gap-3 md:gap-4">
+                <div class="resume-contact flex flex-col gap-3 md:gap-4">
                   <p class="ui-meta-label">
                     Contact
                   </p>
@@ -63,12 +63,12 @@ export default component$(() => {
                 </div>
               </div>
 
-              <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+              <p class="resume-print-intro max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                 {resumePageContent.intro}
               </p>
 
               <section
-                class="grid gap-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+                class="resume-print-section resume-print-summary grid gap-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
                 aria-labelledby="resume-summary"
                 data-scroll-reveal
               >
@@ -82,7 +82,7 @@ export default component$(() => {
               </section>
 
               <section
-                class="grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+                class="resume-print-section resume-print-experience grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
                 aria-labelledby="resume-experience"
                 data-scroll-reveal
               >
@@ -142,7 +142,7 @@ export default component$(() => {
         <Section spacing="compact" surface="subtle">
           <Container width="wide">
             <section
-              class="grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+              class="resume-print-section resume-print-projects grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
               aria-labelledby="resume-selected-projects"
             >
               <div class="flex flex-col gap-2">
@@ -159,11 +159,11 @@ export default component$(() => {
                 </p>
               </div>
 
-              <div class="grid gap-4 md:grid-cols-2">
+              <div class="resume-print-project-list grid gap-4 md:grid-cols-2">
                 {resumePageContent.selectedProjects.map((project) => (
                   <article
                     key={`${project.discipline}-${project.title}`}
-                    class="flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                    class="resume-print-card flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
                   >
                     <div class="flex flex-col gap-2">
                       <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
@@ -197,8 +197,8 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="wide">
-            <div class="grid gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:gap-12">
-              <section class="flex flex-col gap-5 md:gap-6" aria-labelledby="resume-skills">
+            <div class="resume-print-skills-grid grid gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:gap-12">
+              <section class="resume-print-section flex flex-col gap-5 md:gap-6" aria-labelledby="resume-skills">
                 <h2
                   id="resume-skills"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -210,7 +210,7 @@ export default component$(() => {
                   {resumePageContent.skills.map((group) => (
                     <article
                       key={group.title}
-                      class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                      class="resume-print-card flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
                     >
                       <h3 class="text-lg font-semibold tracking-tight md:text-xl">
                         {group.title}
@@ -231,7 +231,7 @@ export default component$(() => {
                 </div>
               </section>
 
-              <section class="flex flex-col gap-6 md:gap-8" aria-labelledby="resume-education">
+              <section class="resume-print-section flex flex-col gap-6 md:gap-8" aria-labelledby="resume-education">
                 <h2
                   id="resume-education"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -243,7 +243,7 @@ export default component$(() => {
                   {resumePageContent.education.map((entry) => (
                     <article
                       key={`${entry.credential}-${entry.institution}`}
-                      class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                      class="resume-print-card flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
                     >
                       <div class="flex flex-col gap-1">
                         <h3 class="text-lg font-semibold tracking-tight md:text-xl">

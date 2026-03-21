@@ -9,3 +9,156 @@ body {
 main {
   padding: 2rem;
 }
+
+@page {
+  margin: 0.5in;
+}
+
+@media print {
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+    line-height: 1.35;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    margin: 0;
+  }
+
+  header,
+  footer,
+  #resume-cta {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  a,
+  a:visited {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  .resume-page {
+    font-size: 10.5pt;
+  }
+
+  .resume-page .ui-meta-label {
+    color: #475569 !important;
+  }
+
+  .resume-page [data-scroll-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .resume-page section,
+  .resume-page article,
+  .resume-page li,
+  .resume-page .resume-print-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .resume-page .resume-print-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(12rem, 1fr) !important;
+    gap: 0.25in !important;
+    padding-bottom: 0.18in !important;
+    border-bottom: 1px solid #cbd5e1 !important;
+  }
+
+  .resume-page .resume-contact ul {
+    gap: 0.04in !important;
+  }
+
+  .resume-page .resume-contact a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 9pt;
+    color: #475569;
+  }
+
+  .resume-page .resume-print-intro,
+  .resume-page #resume-summary+p,
+  .resume-page section p,
+  .resume-page li {
+    color: #111827 !important;
+  }
+
+  .resume-page .resume-print-section,
+  .resume-page .resume-print-summary,
+  .resume-page .resume-print-projects,
+  .resume-page .resume-print-skills-grid {
+    gap: 0.16in !important;
+  }
+
+  .resume-page .resume-print-projects>div:first-child,
+  .resume-page .resume-print-skills-grid>section>h2,
+  .resume-page .resume-print-skills-grid>section>div:first-child {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  .resume-page .resume-print-projects>div:last-child,
+  .resume-page .resume-print-skills-grid>section>div:last-child {
+    break-before: avoid-page;
+    page-break-before: avoid;
+  }
+
+  .resume-page .resume-print-summary,
+  .resume-page .resume-print-projects {
+    grid-template-columns: 1fr !important;
+  }
+
+  .resume-page .resume-print-experience>div:last-child {
+    gap: 0.2in !important;
+    break-before: avoid-page;
+    page-break-before: avoid;
+  }
+
+  .resume-page .resume-print-experience {
+    display: block !important;
+    gap: 0.08in !important;
+  }
+
+  .resume-page .resume-print-experience>div:first-child {
+    margin-bottom: 0.08in !important;
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+
+  .resume-page .resume-print-experience article {
+    grid-template-columns: minmax(10.5rem, 12rem) minmax(0, 1fr) !important;
+    gap: 0.18in !important;
+    padding-top: 0.18in !important;
+    border-top-color: #cbd5e1 !important;
+  }
+
+  .resume-page .resume-print-experience article:first-child {
+    break-before: avoid-page;
+    page-break-before: avoid;
+  }
+
+  .resume-page .resume-print-project-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.16in !important;
+  }
+
+  .resume-page .resume-print-card {
+    background: transparent !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: none !important;
+    padding: 0.14in !important;
+  }
+
+  .resume-page .resume-print-skills-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+  }
+}
