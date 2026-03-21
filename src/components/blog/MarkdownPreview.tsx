@@ -1,7 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { ArticleProse } from '~/components/content/ArticleProse'
-import { marked } from 'marked'
 import { cn } from '~/fns/cn'
+import { getNormalizedMarkdownTokens, renderMarkdownTokenHtml } from '~/lib/blog/markdown'
 
 export const MarkdownPreview = component$(
   ({ markdown, class: className, currentLine = 1 }: MarkdownPreviewProps) => {
@@ -13,7 +13,7 @@ export const MarkdownPreview = component$(
 
     try {
       // Parse markdown with line tracking
-      const tokens = marked.lexer(markdown)
+      const tokens = getNormalizedMarkdownTokens(markdown)
 
       for (const token of tokens) {
         // Calculate line span for this token
@@ -26,7 +26,7 @@ export const MarkdownPreview = component$(
         const lineClass = isActive ? ' [&]:bg-[var(--surface)] [&]:ring-1 [&]:ring-[#3b82f6]/50' : ''
 
         // Render the token
-        const tokenHtml = marked.parser([token])
+        const tokenHtml = renderMarkdownTokenHtml(token)
         processedHtml += `<div data-line-start="${tokenStart}" data-line-end="${tokenEnd}" class="markdown-block${lineClass}">${tokenHtml}</div>`
 
         currentLineNum = tokenEnd + 1

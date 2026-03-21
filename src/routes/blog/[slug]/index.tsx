@@ -115,46 +115,48 @@ export default component$(() => {
       <Header />
 
       <main id="main-content" class="flex-1">
-        <Section spacing="spacious">
-          <Container width="content">
-            <div class="flex flex-col gap-4 md:gap-5">
-              <div>
-                <TextLink href="/blog" label="Back to blog" />
-              </div>
+        <article>
+          <Section spacing="spacious">
+            <Container width="content">
+              <header class="flex flex-col gap-4 md:gap-5">
+                <div>
+                  <TextLink href="/blog" label="Back to blog" />
+                </div>
 
-              <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
-                  {getBlogSideLabel(post.value.side)}
-                </span>
-                <span>{formatBlogDate(post.value.publishedAt ?? post.value.createdAt)}</span>
-              </div>
+                <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                  <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
+                    {getBlogSideLabel(post.value.side)}
+                  </span>
+                  <span>{formatBlogDate(post.value.publishedAt ?? post.value.createdAt)}</span>
+                </div>
 
-              <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-                {post.value.title}
-              </h1>
+                <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
+                  {post.value.title}
+                </h1>
 
-              <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {post.value.summary}
-              </p>
+                <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                  {post.value.summary}
+                </p>
 
-              {post.value.coverImageUrl && (
-                <img
-                  src={post.value.coverImageUrl}
-                  alt={post.value.coverImageAlt || post.value.title}
-                  class="w-full rounded-[var(--radius-lg)] border border-[var(--border)] object-cover"
-                  width={896}
-                  height={448}
-                />
-              )}
-            </div>
-          </Container>
-        </Section>
+                {post.value.coverImageUrl && (
+                  <img
+                    src={post.value.coverImageUrl}
+                    alt={post.value.coverImageAlt || post.value.title}
+                    class="w-full rounded-[var(--radius-lg)] border border-[var(--border)] object-cover"
+                    width={896}
+                    height={448}
+                  />
+                )}
+              </header>
+            </Container>
+          </Section>
 
-        <Section spacing="compact">
-          <Container width="content">
-            <ArticleProse tag="article" html={bodyHtml} />
-          </Container>
-        </Section>
+          <Section spacing="compact">
+            <Container width="content">
+              <ArticleProse html={bodyHtml} />
+            </Container>
+          </Section>
+        </article>
 
         <Section spacing="compact" surface="subtle">
           <Container width="content">
