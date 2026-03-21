@@ -48,9 +48,6 @@ ENV NODE_ENV ${NODE_ENV}
 # IMPORTANT: Set your actual domain for CSRF protection
 ENV ORIGIN ${APP_ORIGIN}
 
-# Run the application as a non-root user.
-USER node
-
 # Copy package.json so that package manager commands can be used.
 COPY package.json pnpm-lock.yaml .
 
@@ -59,6 +56,9 @@ COPY package.json pnpm-lock.yaml .
 RUN npm install -g pnpm
 RUN pnpm install --frozen-lockfile --prod=true
 COPY --from=build /usr/src/app/dist ./dist
+
+# Run the application as a non-root user.
+USER node
 
 # Expose the port that the application listens on.
 EXPOSE 3000
