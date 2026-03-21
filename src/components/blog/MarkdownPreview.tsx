@@ -1,4 +1,5 @@
-import { component$, useTask$ } from '@builder.io/qwik'
+import { component$ } from '@builder.io/qwik'
+import { ArticleProse } from '~/components/content/ArticleProse'
 import { marked } from 'marked'
 import { cn } from '~/fns/cn'
 
@@ -44,21 +45,10 @@ export const MarkdownPreview = component$(
           className
         )}
       >
-        <div
-          dangerouslySetInnerHTML={html}
-          class={cn(
-            'space-y-3 overflow-auto',
-            '[&_.markdown-block]:transition-colors [&_.markdown-block]:duration-150',
-            '[&_h1]:text-lg [&_h1]:font-semibold [&_h1]:mb-2 [&_h1]:mt-4 [&_h1]:first:mt-0',
-            '[&_h2]:text-base [&_h2]:font-semibold [&_h2]:mb-2 [&_h2]:mt-3 [&_h2]:first:mt-0',
-            '[&_h3]:text-sm [&_h3]:font-semibold [&_h3]:mb-2 [&_h3]:mt-3',
-            '[&_p]:m-0 [&_p]:mb-3 [&_p]:last:mb-0',
-            '[&_ul]:mb-3 [&_ul]:ml-4 [&_ul]:list-disc',
-            '[&_li]:mb-1',
-            '[&_code]:rounded [&_code]:bg-[var(--surface)] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em]',
-            '[&_a]:text-blue-600 [&_a]:underline [&_a]:hover:text-blue-700',
-            '[&_blockquote]:border-l-2 [&_blockquote]:border-[var(--border)] [&_blockquote]:pl-3 [&_blockquote]:text-[var(--muted)]'
-          )}
+        <ArticleProse
+          html={html}
+          variant="compact"
+          class="overflow-auto [&_.markdown-block]:rounded-[var(--radius-md)] [&_.markdown-block]:transition-colors [&_.markdown-block]:duration-150"
         />
       </div>
     )
