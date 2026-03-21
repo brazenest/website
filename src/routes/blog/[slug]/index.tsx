@@ -13,7 +13,7 @@ import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { buildArticleStructuredData } from '~/fns/seo/buildStructuredData'
 import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
 import { getBlogPostBySlug } from '~/lib/blog/getBlogPostBySlug'
-import { getMarkdownParagraphs } from '~/lib/blog/markdown'
+import { renderMarkdownHtml } from '~/lib/blog/markdown'
 import { formatBlogDate, getBlogSideLabel } from '~/lib/blog/presentation'
 
 function toHeadValue(metadata: ReturnType<typeof buildMetadata>) {
@@ -107,7 +107,7 @@ export default component$(() => {
     )
   }
 
-  const bodyParagraphs = getMarkdownParagraphs(post.value.bodyMarkdown)
+  const bodyHtml = renderMarkdownHtml(post.value.bodyMarkdown)
 
   return (
     <PageShell theme="neutral">
@@ -151,12 +151,22 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <article class="flex flex-col gap-4 md:gap-5">
-              {bodyParagraphs.map((paragraph) => (
-                <p key={paragraph} class="max-w-[65ch] whitespace-pre-wrap text-base leading-7 text-[var(--muted)] md:text-lg">
-                  {paragraph}
-                </p>
-              ))}
+            <article
+              class="blog-post-body max-w-none text-base leading-7 text-[var(--muted)] md:text-lg
+                [&_h1]:mt-8 [&_h1]:text-3xl [&_h1]:font-semibold [&_h1]:leading-tight [&_h1]:tracking-tight
+                [&_h2]:mt-7 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:leading-tight [&_h2]:tracking-tight
+                [&_h3]:mt-6 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:leading-tight
+                [&_p]:mb-4 [&_p]:max-w-[65ch] [&_p]:whitespace-pre-wrap
+                [&_ul]:mb-5 [&_ul]:ml-6 [&_ul]:max-w-[65ch] [&_ul]:list-disc
+                [&_ol]:mb-5 [&_ol]:ml-6 [&_ol]:max-w-[65ch] [&_ol]:list-decimal
+                [&_li]:mb-2
+                [&_blockquote]:my-5 [&_blockquote]:border-l-2 [&_blockquote]:border-[var(--border)] [&_blockquote]:pl-4 [&_blockquote]:italic
+                [&_a]:underline [&_a]:decoration-[var(--border-strong)] [&_a]:underline-offset-4
+                [&_code]:rounded [&_code]:bg-[var(--surface-subtle)] [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.9em]
+                [&_pre]:my-5 [&_pre]:overflow-x-auto [&_pre]:rounded-[var(--radius-lg)] [&_pre]:border [&_pre]:border-[var(--border)] [&_pre]:bg-[var(--surface-subtle)] [&_pre]:p-4
+                [&_pre_code]:bg-transparent [&_pre_code]:p-0"
+              dangerouslySetInnerHTML={bodyHtml}
+            >
             </article>
           </Container>
         </Section>
