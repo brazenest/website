@@ -1,6 +1,7 @@
 ARG NODE_ENV="production"
-ARG NODE_VERSION="20"
-ARG APP_ORIGIN="http://localhost"ARG DATABASE_URL
+ARG NODE_VERSION="22"
+ARG APP_ORIGIN="http://localhost"
+ARG DATABASE_URL
 ################################################################################
 # Use node image for base image for all stages.
 FROM node:${NODE_VERSION}-alpine as base
