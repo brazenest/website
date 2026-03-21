@@ -242,6 +242,7 @@
   --article-prose-font-size: var(--text-lg);
   --article-prose-leading: var(--leading-relaxed);
   --article-flow-space: var(--space-6);
+  --article-heading-1-space-bottom: var(--space-8);
   --article-heading-2-space-top: var(--space-20);
   --article-heading-2-space-bottom: var(--space-6);
   --article-heading-3-space-top: var(--space-12);
@@ -249,6 +250,8 @@
   --article-heading-4-space-top: var(--space-8);
   --article-heading-4-space-bottom: var(--space-3);
   --article-block-space: var(--space-8);
+  --article-lead-size: clamp(1.2rem, 1.4vw + 1rem, 1.5rem);
+  --article-lead-leading: 1.58;
   --article-scroll-margin-top: calc(var(--section-pad-y-compact) + var(--space-8));
 
   /* Motion tokens for interactions and animations */
