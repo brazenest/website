@@ -68,12 +68,24 @@ export const DocumentRouterHead = component$(() => {
 
       {/* Embedded styles */}
       {head.styles.map((style) => (
-        <style key={style.key} {...style.props} dangerouslySetInnerHTML={style.style} />
+        <style key={style.key} media={style.props?.media} dangerouslySetInnerHTML={style.style} />
       ))}
 
       {/* Structured data and other scripts */}
       {head.scripts.map((script) => (
-        <script key={script.key} {...script.props} dangerouslySetInnerHTML={script.script} />
+        <script
+          key={script.key}
+          id={script.props?.id}
+          type={script.props?.type}
+          src={script.props?.src}
+          nonce={script.props?.nonce}
+          async={script.props?.async}
+          defer={script.props?.defer}
+          integrity={script.props?.integrity}
+          crossOrigin={script.props?.crossOrigin}
+          referrerPolicy={script.props?.referrerPolicy}
+          dangerouslySetInnerHTML={script.script}
+        />
       ))}
 
       {/* Global structured data: Person and WebSite schemas */}

@@ -5,8 +5,6 @@ import { getNormalizedMarkdownTokens, renderMarkdownTokenHtml } from '~/lib/blog
 
 export const MarkdownPreview = component$(
   ({ markdown, class: className, currentLine = 1 }: MarkdownPreviewProps) => {
-    // Split markdown into lines and track line numbers for each block
-    const lines = markdown.split('\n')
     let currentLineNum = 1
     let html = ''
     let processedHtml = ''

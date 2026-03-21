@@ -1,4 +1,4 @@
-import { $, Slot, component$, useSignal, useTask$, useVisibleTask$ } from '@builder.io/qwik'
+import { $, Slot, component$, useSignal, useTask$ } from '@builder.io/qwik'
 import { Form, globalAction$ } from '@builder.io/qwik-city'
 import { Container } from '~/components/ui/Container'
 import { releaseDateLabel, releaseLabel } from '~/config/site'
@@ -83,10 +83,10 @@ export const ContactInquiryModal = component$(
       }
     })
 
-    useVisibleTask$(({ track, cleanup }) => {
+    useTask$(({ track, cleanup }) => {
       const modalOpen = track(() => isOpen.value)
 
-      if (!modalOpen) {
+      if (!modalOpen || typeof document === 'undefined' || typeof window === 'undefined') {
         return
       }
 
