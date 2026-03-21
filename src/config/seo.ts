@@ -29,27 +29,27 @@ export const routePathnames: Record<SEOPageKey, string> = {
  */
 export const seoPresets: SEOPresetMap = {
 	home: {
-		title: 'Alden Gillespy — Software Engineer & Video Producer',
+		title: 'Alden Gillespy — Senior Software Engineer and Production Storyteller',
 		description:
-			"Explore Alden Gillespy's work spanning software architecture, maintainable systems, and visual storytelling.",
+			"Explore Alden Gillespy's work across software architecture, maintainable systems, and production storytelling.",
 		type: 'website',
 		includeSitemap: true,
 		changefreq: 'weekly',
 		priority: 1.0,
 	},
 	about: {
-		title: 'About Alden Gillespy — Software Engineer & Video Producer',
+		title: 'About Alden Gillespy — Senior Software Engineer and Production Storyteller',
 		description:
-			'Learn about my philosophy on thoughtful digital craftsmanship, the intersection of design and engineering, and how I build experiences that last.',
+			'Learn about my approach to software engineering, production storytelling, and the operating principles that connect both practices.',
 		type: 'website',
 		includeSitemap: true,
 		changefreq: 'monthly',
 		priority: 0.8,
 	},
 	resume: {
-		title: 'Resume — Alden Gillespy | Software Engineer & Video Producer',
+		title: 'Resume — Alden Gillespy | Senior Software Engineer and Production Storyteller',
 		description:
-			'Senior Software Engineer and Production Storyteller. Full technical background, experience across startups and agencies, and core competencies in systems design.',
+			'Senior Software Engineer and Production Storyteller. Full technical background across startups and agencies, with experience in systems design, implementation, and cross-disciplinary delivery.',
 		type: 'website',
 		includeSitemap: true,
 		changefreq: 'monthly',
