@@ -63,7 +63,7 @@ export const BlogPostAdminForm = component$(
               class={getFieldClass()}
             >
               {BLOG_POST_SIDE_OPTIONS.map((side) => (
-                <option key={side} value={side}>{side}</option>
+                <option key={side} value={side} selected={values.side === side}>{side}</option>
               ))}
             </select>
           </FieldLabel>
@@ -75,7 +75,7 @@ export const BlogPostAdminForm = component$(
               class={getFieldClass()}
             >
               {BLOG_POST_STATUS_OPTIONS.map((status) => (
-                <option key={status} value={status}>{status}</option>
+                <option key={status} value={status} selected={values.status === status}>{status}</option>
               ))}
             </select>
           </FieldLabel>
