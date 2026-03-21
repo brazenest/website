@@ -1,0 +1,807 @@
+/* Canonical theme scaffold for the v3 architecture. */
+
+@import "tailwindcss";
+
+@theme {
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  --color-engineering-500: #2563eb;
+  --color-production-500: #f59e0b;
+
+  /* Radius primitive scale */
+  --radius-xs: 0.125rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-pill: 9999px;
+
+  /* Shadow/elevation primitive scale */
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 16px 40px rgb(0 0 0 / 0.12);
+
+  /* Typography scale — font-size */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* Typography scale — line-height */
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  /* Typography scale — letter-spacing */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+}
+
+:root {
+  /* Canonical semantic surface tokens shared by all site themes. */
+  --bg: var(--color-neutral-0);
+  --fg: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
+  --surface: var(--color-neutral-0);
+  --surface-2: var(--color-neutral-50);
+  --accent: var(--color-neutral-700);
+  --focus: var(--accent);
+  /* Semantic accent-role system */
+  --accent-fg: var(--color-neutral-0);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--surface-base));
+  --accent-soft-fg: var(--accent);
+  --accent-border: var(--border-interactive);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
+  --accent-active: color-mix(in srgb, var(--accent) 75%, black);
+  --accent-focus-ring: var(--accent);
+  --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
+  --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
+  --separator-color: var(--border-subtle);
+  --border: var(--border-default);
+  /* Semantic surface-layer hierarchy */
+  --surface-base: var(--bg);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-interactive: var(--color-neutral-0);
+  --surface-interactive-hover: var(--color-neutral-50);
+  --surface-inset: var(--color-neutral-100);
+  /* Radius semantic aliases */
+  --radius-card: 1rem;
+  --radius-button: 0.375rem;
+  --radius-input: 0.375rem;
+  /* backward compat — keeps existing rounded-[var(--radius-lg)] at card radius */
+  --radius-lg: var(--radius-card);
+
+  /* Shadow/elevation scale */
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.05);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 16px 40px rgb(0 0 0 / 0.12);
+
+  /* Shadow semantic aliases */
+  --shadow-surface: var(--shadow-md);
+  --shadow-interactive: var(--shadow-lg);
+
+  /* Font families */
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Inter Variable", system-ui, sans-serif;
+  --font-heading: var(--font-display);
+  --font-body: var(--font-sans);
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo,
+    monospace;
+
+  /* Font display strategy for perceived performance */
+  --font-display-swap: swap;
+
+  /* Semantic heading scale */
+  --heading-1-size: var(--text-4xl);
+  --heading-2-size: var(--text-3xl);
+  --heading-3-size: var(--text-2xl);
+  --heading-4-size: var(--text-xl);
+  --heading-5-size: var(--text-lg);
+  --heading-6-size: var(--text-base);
+  --heading-1-leading: var(--leading-tight);
+  --heading-2-leading: var(--leading-tight);
+  --heading-3-leading: var(--leading-snug);
+  --heading-4-leading: var(--leading-snug);
+  --heading-5-leading: var(--leading-normal);
+  --heading-6-leading: var(--leading-normal);
+  --heading-1-tracking: var(--tracking-tight);
+  --heading-2-tracking: var(--tracking-tight);
+  --heading-3-tracking: var(--tracking-tight);
+  --heading-4-tracking: var(--tracking-normal);
+  --heading-5-tracking: var(--tracking-normal);
+  --heading-6-tracking: var(--tracking-normal);
+
+  /* Semantic body text scale */
+  --body-size: var(--text-base);
+  --body-leading: var(--leading-normal);
+  --body-tracking: var(--tracking-normal);
+  --muted-size: var(--text-base);
+  --muted-leading: var(--leading-normal);
+  --muted-tracking: var(--tracking-normal);
+  --small-size: var(--text-sm);
+  --small-leading: var(--leading-normal);
+  --small-tracking: var(--tracking-normal);
+  --text-strong: var(--fg);
+  --text-body: var(--fg);
+  --text-muted: var(--muted);
+
+  /* Semantic interactive text */
+  --link-color: var(--accent);
+  --link-color-hover: var(--state-hover-accent);
+  --link-color-visited: var(--accent);
+  --link-decoration: underline;
+  --link-decoration-hover: underline;
+  --interactive-text-weight: 500;
+  --focus-ring-color: var(--state-focus-ring);
+
+  /* Semantic interaction states */
+  --state-hover-surface: var(--surface-interactive-hover);
+  --state-hover-border: var(--border-interactive);
+  --state-hover-accent: var(--accent-hover);
+  --state-active-surface: var(--surface-inset);
+  --state-active-border: var(--border-interactive-hover);
+  --state-focus-ring: var(--accent-focus-ring);
+  --state-focus-ring-offset: 2px;
+  --state-disabled-opacity: 0.45;
+
+  /* Semantic CTA/button system */
+  --button-height-sm: 2.25rem;
+  --button-height-md: 2.75rem;
+  --button-pad-x: var(--space-4);
+  --button-gap: var(--space-2);
+  --button-font-size: var(--small-size);
+  --button-font-weight: 600;
+  --button-radius: var(--radius-button);
+  --button-border: var(--accent-border);
+  --button-bg-primary: var(--accent);
+  --button-fg-primary: var(--accent-fg);
+  --button-bg-secondary: var(--surface-interactive);
+  --button-fg-secondary: var(--text-strong);
+  --button-bg-ghost: transparent;
+  --button-fg-ghost: var(--text-strong);
+  --button-focus-ring: var(--state-focus-ring);
+
+  /* Semantic tag and metadata system */
+  --tag-height: 1.75rem;
+  --tag-pad-x: var(--space-2);
+  --tag-gap: var(--space-2);
+  --tag-radius: var(--radius-pill);
+  --tag-border: var(--border-subtle);
+  --tag-bg: var(--surface-subtle);
+  --tag-fg: var(--meta-fg);
+  --tag-font-size: var(--small-size);
+  --tag-font-weight: 500;
+  --meta-gap: var(--stack-gap-xs);
+  --meta-fg: var(--text-muted);
+  --meta-strong-fg: var(--text-strong);
+
+  /* Semantic card system */
+  --card-surface: var(--surface-elevated);
+  --card-border: var(--border-default);
+  --card-radius: var(--radius-card);
+  --card-shadow: var(--shadow-xs);
+  --card-shadow-hover: var(--shadow-md);
+  --card-pad: var(--space-6);
+  --card-pad-spacious: var(--space-6);
+  --card-content-gap: var(--stack-gap-md);
+  --card-title-body-gap: var(--stack-gap-sm);
+  --card-meta-gap: var(--stack-gap-xs);
+  --card-cta-gap: var(--stack-gap-sm);
+
+  /* Semantic layout spacing aliases — mobile-first base values */
+  --section-pad-y: var(--space-16);
+  --section-pad-y-compact: var(--space-12);
+  --section-pad-y-spacious: 5rem;
+  --container-pad-x: var(--space-4);
+  --stack-gap-xs: var(--space-1);
+  --stack-gap-sm: var(--space-2);
+  --stack-gap-md: var(--space-4);
+  --stack-gap-lg: var(--space-8);
+  --stack-gap-xl: var(--space-12);
+
+  /* Container max-width tokens */
+  --max-w-content: 70ch;
+  --max-w-wide: 80rem;
+  --max-w-full: 100%;
+
+  /* Article prose tokens */
+  --article-prose-measure: 68ch;
+  --article-prose-font-size: var(--text-lg);
+  --article-prose-leading: var(--leading-relaxed);
+  --article-flow-space: var(--space-6);
+  --article-heading-1-space-bottom: var(--space-8);
+  --article-heading-2-space-top: var(--space-20);
+  --article-heading-2-space-bottom: var(--space-6);
+  --article-heading-3-space-top: var(--space-12);
+  --article-heading-3-space-bottom: var(--space-4);
+  --article-heading-4-space-top: var(--space-8);
+  --article-heading-4-space-bottom: var(--space-3);
+  --article-block-space: var(--space-8);
+  --article-lead-size: clamp(1.2rem, 1.4vw + 1rem, 1.5rem);
+  --article-lead-leading: 1.58;
+  --article-scroll-margin-top: calc(var(--section-pad-y-compact) + var(--space-8));
+
+  /* Motion tokens for interactions and animations */
+  --motion-duration-micro: 75ms;
+  --motion-duration-quick: 150ms;
+  --motion-duration-standard: 200ms;
+  --motion-duration-transition: 300ms;
+  --motion-duration-slow: 400ms;
+  --motion-easing-quick: cubic-bezier(0.3, 0.3, 0.3, 1);
+  --motion-easing-standard: cubic-bezier(0.2, 0.3, 0.3, 1);
+  --motion-easing-smooth: cubic-bezier(0.1, 0.1, 0.3, 1);
+  --motion-easing-ease-out: ease-out;
+  --motion-easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Backwards-compatible aliases. */
+  --surface-2: var(--surface-subtle);
+  --radius-lg: var(--radius-card);
+}
+
+[data-theme='neutral'] {
+  --bg: var(--color-neutral-0);
+  --fg: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
+  --surface: var(--color-neutral-0);
+  --surface-2: var(--color-neutral-50);
+  --accent: var(--color-neutral-700);
+  --focus: var(--color-neutral-700);
+  --accent-fg: var(--color-neutral-0);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--surface-base));
+  --accent-soft-fg: var(--accent);
+  --accent-border: var(--border-interactive);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
+  --accent-active: color-mix(in srgb, var(--accent) 75%, black);
+  --accent-focus-ring: var(--accent);
+  --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
+  --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
+  --separator-color: var(--border-subtle);
+  --border: var(--border-default);
+  --surface-base: var(--bg);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-interactive: var(--color-neutral-0);
+  --surface-interactive-hover: var(--color-neutral-50);
+  --surface-inset: var(--color-neutral-100);
+  --link-color: var(--accent);
+  --link-color-hover: var(--state-hover-accent);
+  --link-color-visited: var(--accent);
+  --focus-ring-color: var(--state-focus-ring);
+  --state-hover-surface: var(--surface-interactive-hover);
+  --state-hover-border: var(--border-interactive);
+  --state-hover-accent: var(--accent-hover);
+  --state-active-surface: var(--surface-inset);
+  --state-active-border: var(--border-interactive-hover);
+  --state-focus-ring: var(--accent-focus-ring);
+  --state-focus-ring-offset: 2px;
+  --state-disabled-opacity: 0.45;
+  --button-bg-primary: var(--accent);
+  --button-fg-primary: var(--accent-fg);
+  --button-bg-secondary: var(--surface-interactive);
+  --button-fg-secondary: var(--text-strong);
+  --button-bg-ghost: transparent;
+  --button-fg-ghost: var(--text-strong);
+  --button-focus-ring: var(--state-focus-ring);
+  --tag-border: var(--border-subtle);
+  --tag-bg: var(--surface-subtle);
+  --tag-fg: var(--meta-fg);
+  --meta-fg: var(--text-muted);
+  --meta-strong-fg: var(--text-strong);
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Inter Variable", system-ui, sans-serif;
+}
+
+[data-theme='engineering'] {
+  --bg: var(--color-neutral-0);
+  --fg: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
+  --surface: var(--color-neutral-0);
+  --surface-2: var(--color-neutral-50);
+  --accent: var(--color-engineering-500);
+  --focus: var(--color-engineering-500);
+  --accent-fg: var(--color-neutral-0);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--surface-base));
+  --accent-soft-fg: var(--accent);
+  --accent-border: var(--border-interactive);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
+  --accent-active: color-mix(in srgb, var(--accent) 75%, black);
+  --accent-focus-ring: var(--accent);
+  --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
+  --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
+  --separator-color: var(--border-subtle);
+  --border: var(--border-default);
+  --surface-base: var(--bg);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-interactive: var(--color-neutral-0);
+  --surface-interactive-hover: var(--color-neutral-50);
+  --surface-inset: var(--color-neutral-100);
+  --link-color: var(--accent);
+  --link-color-hover: var(--state-hover-accent);
+  --link-color-visited: var(--accent);
+  --focus-ring-color: var(--state-focus-ring);
+  --state-hover-surface: var(--surface-interactive-hover);
+  --state-hover-border: var(--border-interactive);
+  --state-hover-accent: var(--accent-hover);
+  --state-active-surface: var(--surface-inset);
+  --state-active-border: var(--border-interactive-hover);
+  --state-focus-ring: var(--accent-focus-ring);
+  --state-focus-ring-offset: 2px;
+  --state-disabled-opacity: 0.45;
+  --button-bg-primary: var(--accent);
+  --button-fg-primary: var(--accent-fg);
+  --button-bg-secondary: var(--surface-interactive);
+  --button-fg-secondary: var(--text-strong);
+  --button-bg-ghost: transparent;
+  --button-fg-ghost: var(--text-strong);
+  --button-focus-ring: var(--state-focus-ring);
+  --tag-border: var(--border-subtle);
+  --tag-bg: var(--surface-subtle);
+  --tag-fg: var(--meta-fg);
+  --meta-fg: var(--text-muted);
+  --meta-strong-fg: var(--text-strong);
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-display: "Inter Variable", system-ui, sans-serif;
+}
+
+[data-theme='production'] {
+  --bg: var(--color-neutral-0);
+  --fg: var(--color-neutral-900);
+  --muted: var(--color-neutral-600);
+  --border-subtle: var(--color-neutral-100);
+  --border-default: var(--color-neutral-200);
+  --border-strong: var(--color-neutral-300);
+  --surface: var(--color-neutral-0);
+  --surface-2: var(--color-neutral-50);
+  --accent: var(--color-production-500);
+  --focus: var(--color-production-500);
+  --accent-fg: var(--color-neutral-0);
+  --accent-soft: color-mix(in srgb, var(--accent) 8%, var(--surface-base));
+  --accent-soft-fg: var(--accent);
+  --accent-border: var(--border-interactive);
+  --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
+  --accent-active: color-mix(in srgb, var(--accent) 75%, black);
+  --accent-focus-ring: var(--accent);
+  --border-interactive: color-mix(in srgb, var(--accent) 20%, var(--border-default));
+  --border-interactive-hover: color-mix(in srgb, var(--accent) 38%, var(--border-default));
+  --separator-color: var(--border-subtle);
+  --border: var(--border-default);
+  --surface-base: var(--bg);
+  --surface-subtle: var(--color-neutral-50);
+  --surface-elevated: var(--color-neutral-0);
+  --surface-interactive: var(--color-neutral-0);
+  --surface-interactive-hover: var(--color-neutral-50);
+  --surface-inset: var(--color-neutral-100);
+  --link-color: var(--accent);
+  --link-color-hover: var(--state-hover-accent);
+  --link-color-visited: var(--accent);
+  --focus-ring-color: var(--state-focus-ring);
+  --state-hover-surface: var(--surface-interactive-hover);
+  --state-hover-border: var(--border-interactive);
+  --state-hover-accent: var(--accent-hover);
+  --state-active-surface: var(--surface-inset);
+  --state-active-border: var(--border-interactive-hover);
+  --state-focus-ring: var(--accent-focus-ring);
+  --state-focus-ring-offset: 2px;
+  --state-disabled-opacity: 0.45;
+  --button-bg-primary: var(--accent);
+  --button-fg-primary: var(--accent-fg);
+  --button-bg-secondary: var(--surface-interactive);
+  --button-fg-secondary: var(--text-strong);
+  --button-bg-ghost: transparent;
+  --button-fg-ghost: var(--text-strong);
+  --button-focus-ring: var(--state-focus-ring);
+  --tag-border: var(--border-subtle);
+  --tag-bg: var(--surface-subtle);
+  --tag-fg: var(--meta-fg);
+  --meta-fg: var(--text-muted);
+  --meta-strong-fg: var(--text-strong);
+  --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
+  --font-display: "Space Grotesk Variable", system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+/* Responsive layout token overrides (≥ 768px). */
+@media (min-width: 768px) {
+  :root {
+    --section-pad-y: 6rem;
+    --section-pad-y-compact: var(--space-16);
+    --section-pad-y-spacious: 7rem;
+    --container-pad-x: var(--space-8);
+    --card-pad: 1.75rem;
+    --card-pad-spacious: var(--space-8);
+  }
+}
+
+/* Apply theme font to all themed sections so children inherit correctly. */
+[data-theme] {
+  font-family: var(--font-body);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text-body);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Shared CTA group rhythm for section/card/hero action rows. */
+.ui-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--button-gap);
+}
+
+/* Shared button-link treatment for primary, secondary, and ghost actions. */
+.ui-button-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--button-gap);
+  min-height: var(--button-height-md);
+  padding-inline: var(--button-pad-x);
+  border: 1px solid var(--button-border);
+  border-radius: var(--button-radius);
+  font-size: var(--button-font-size);
+  font-weight: var(--button-font-weight);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--motion-duration-quick) var(--motion-easing-quick),
+    color var(--motion-duration-quick) var(--motion-easing-quick),
+    border-color var(--motion-duration-quick) var(--motion-easing-quick),
+    transform var(--motion-duration-quick) var(--motion-easing-quick);
+}
+
+/* Reduced motion: disable button transforms while keeping color feedback */
+@media (prefers-reduced-motion: reduce) {
+  .ui-button-link {
+    transition: background-color var(--motion-duration-quick) var(--motion-easing-quick),
+      color var(--motion-duration-quick) var(--motion-easing-quick),
+      border-color var(--motion-duration-quick) var(--motion-easing-quick);
+  }
+}
+
+.ui-button-link--sm {
+  min-height: var(--button-height-sm);
+}
+
+.ui-button-link--primary {
+  background: var(--button-bg-primary);
+  color: var(--button-fg-primary);
+  border-color: var(--button-bg-primary);
+}
+
+/* Primary CTA hover: restrained color shift (desktop only) */
+@media (hover: hover) {
+  .ui-button-link--primary:hover {
+    background: color-mix(in srgb, var(--accent) 88%, black);
+    border-color: color-mix(in srgb, var(--accent) 88%, black);
+  }
+}
+
+.ui-button-link--secondary {
+  background: var(--button-bg-secondary);
+  color: var(--button-fg-secondary);
+  border-color: var(--button-border);
+}
+
+/* Secondary CTA hover: color shift (desktop only) */
+@media (hover: hover) {
+  .ui-button-link--secondary:hover {
+    background: var(--state-hover-surface);
+    border-color: var(--state-hover-border);
+  }
+}
+
+.ui-button-link--ghost {
+  background: var(--button-bg-ghost);
+  color: var(--button-fg-ghost);
+  border-color: transparent;
+}
+
+/* Ghost CTA hover: color shift (desktop only) */
+@media (hover: hover) {
+  .ui-button-link--ghost:hover {
+    background: var(--state-hover-surface);
+    border-color: var(--state-hover-border);
+  }
+}
+
+/* CTA press/active state: immediate, restrained scale-down feedback */
+.ui-button-link--primary:active {
+  background: color-mix(in srgb, var(--accent) 75%, black);
+  border-color: color-mix(in srgb, var(--accent) 75%, black);
+  transform: scale(0.97);
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-easing-ease-out);
+}
+
+.ui-button-link--secondary:active,
+.ui-button-link--ghost:active {
+  background: var(--state-active-surface);
+  border-color: var(--state-active-border);
+  transform: scale(0.97);
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-easing-ease-out);
+}
+
+/* Reduced motion: disable button press transforms */
+@media (prefers-reduced-motion: reduce) {
+
+  .ui-button-link--primary:active,
+  .ui-button-link--secondary:active,
+  .ui-button-link--ghost:active {
+    transform: none;
+  }
+}
+
+/* CTA focus state: clear focus ring for keyboard navigation */
+.ui-button-link:focus-visible {
+  outline: 2px solid var(--state-focus-ring);
+  outline-offset: var(--state-focus-ring-offset);
+  transition-duration: 0s;
+}
+
+.ui-button-link[aria-disabled='true'] {
+  opacity: var(--state-disabled-opacity);
+  pointer-events: none;
+}
+
+.ui-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--tag-gap);
+}
+
+.ui-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tag-height);
+  padding-inline: var(--tag-pad-x);
+  border: 1px solid var(--tag-border);
+  border-radius: var(--tag-radius);
+  background: var(--tag-bg);
+  color: var(--tag-fg);
+  font-size: var(--tag-font-size);
+  font-weight: var(--tag-font-weight);
+  line-height: 1;
+}
+
+.ui-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--meta-gap);
+  color: var(--meta-fg);
+}
+
+.ui-meta-strong {
+  color: var(--meta-strong-fg);
+}
+
+.ui-meta-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+/* Shared card structure for linked and non-linked surfaces. */
+.ui-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--card-border);
+  border-radius: var(--card-radius);
+  background: var(--card-surface);
+  box-shadow: var(--card-shadow);
+}
+
+.ui-card--interactive {
+  cursor: pointer;
+  transition: transform var(--motion-duration-standard) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-standard) var(--motion-easing-standard),
+    border-color var(--motion-duration-standard) var(--motion-easing-standard);
+}
+
+/* Card press/active state: immediate, snappy feedback */
+.ui-card--interactive:active {
+  transform: scale(0.99);
+  transition-duration: var(--motion-duration-micro);
+  transition-timing-function: var(--motion-easing-ease-out);
+}
+
+/* Card hover state (desktop only): minimal scale with restrained shadow expansion */
+@media (hover: hover) {
+  .ui-card--interactive:hover {
+    transform: scale(1.01);
+    box-shadow: var(--card-shadow-hover);
+  }
+}
+
+/* Card focus state: clear focus ring for keyboard navigation */
+.ui-card--interactive:focus-visible {
+  border-color: var(--border-interactive-hover);
+  border-radius: var(--card-radius);
+  outline: 2px solid var(--state-focus-ring);
+  outline-offset: var(--state-focus-ring-offset);
+  transition-duration: 0s;
+}
+
+.ui-card--interactive.ui-side-card {
+  transition: background-color var(--motion-duration-standard) var(--motion-easing-standard),
+    transform var(--motion-duration-standard) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-standard) var(--motion-easing-standard),
+    border-color var(--motion-duration-standard) var(--motion-easing-standard);
+}
+
+@media (hover: hover) {
+  .ui-card--interactive.ui-side-card.ui-side-card--engineering:hover {
+    background: color-mix(in srgb, var(--color-engineering-500) 4%, var(--card-surface));
+    border-color: color-mix(in srgb, var(--color-engineering-500) 24%, var(--card-border));
+  }
+
+  .ui-card--interactive.ui-side-card.ui-side-card--production:hover {
+    background: color-mix(in srgb, var(--color-production-500) 5%, var(--card-surface));
+    border-color: color-mix(in srgb, var(--color-production-500) 28%, var(--card-border));
+  }
+}
+
+/* Reduced motion: disable card transforms while keeping visual feedback via shadow/border */
+@media (prefers-reduced-motion: reduce) {
+  .ui-card--interactive {
+    transition: box-shadow var(--motion-duration-standard) var(--motion-easing-standard),
+      border-color var(--motion-duration-standard) var(--motion-easing-standard);
+  }
+
+  .ui-card--interactive:hover {
+    transform: none;
+  }
+
+  .ui-card--interactive:active {
+    transform: none;
+    transition-duration: var(--motion-duration-micro);
+  }
+}
+
+/* Shared interactive text treatment for inline links and text-based CTAs. */
+:where(.ui-link, .ui-text a) {
+  color: var(--link-color);
+  font-weight: var(--interactive-text-weight);
+  text-decoration-line: var(--link-decoration);
+  text-underline-offset: 0.2em;
+  transition: color var(--motion-duration-quick) var(--motion-easing-quick),
+    text-decoration-color var(--motion-duration-quick) var(--motion-easing-quick);
+}
+
+:where(.ui-link, .ui-text a):visited {
+  color: var(--link-color-visited);
+}
+
+:where(.ui-link, .ui-text a):hover {
+  color: var(--state-hover-accent);
+  text-decoration-line: var(--link-decoration-hover);
+}
+
+:where(.ui-link, .ui-text a):active {
+  color: var(--state-active-border);
+}
+
+:where(.ui-link, .ui-text a)[aria-disabled='true'] {
+  opacity: var(--state-disabled-opacity);
+  pointer-events: none;
+}
+
+:where(.ui-link, .ui-text a):focus-visible {
+  border-radius: var(--radius-sm);
+  outline: 2px solid var(--state-focus-ring);
+  outline-offset: var(--state-focus-ring-offset);
+}
+
+/* Route transition polish: lightweight page-entry settle on navigation. */
+@keyframes route-fade-in {
+  from {
+    opacity: 0.92;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.route-transition {
+  animation: route-fade-in var(--motion-duration-transition) var(--motion-easing-smooth) both;
+  will-change: opacity;
+}
+
+[data-scroll-reveal] {
+  transition: opacity var(--motion-duration-slow) var(--motion-easing-ease-out),
+    transform var(--motion-duration-slow) var(--motion-easing-ease-out);
+}
+
+[data-scroll-reveal][data-reveal-state='hidden'] {
+  opacity: 0;
+  transform: translateY(0.5rem);
+  will-change: opacity, transform;
+}
+
+[data-scroll-reveal][data-reveal-state='visible'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-transition {
+    animation: none;
+    will-change: auto;
+  }
+
+  [data-scroll-reveal] {
+    transition: none;
+  }
+
+  [data-scroll-reveal][data-reveal-state='hidden'],
+  [data-scroll-reveal][data-reveal-state='visible'] {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+}

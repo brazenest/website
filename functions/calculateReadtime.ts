@@ -1,1 +1,0 @@
-export const calculateReadtime = (text: string): number => Math.max(1, Math.ceil(text.split(' ').length / 200))
