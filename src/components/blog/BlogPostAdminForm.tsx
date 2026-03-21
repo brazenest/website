@@ -1,5 +1,6 @@
-import { component$ } from '@builder.io/qwik'
+import { Slot, component$, useSignal, $ } from '@builder.io/qwik'
 import { cn } from '~/fns/cn'
+import { MarkdownPreview } from './MarkdownPreview'
 import {
   BLOG_POST_SIDE_OPTIONS,
   BLOG_POST_STATUS_OPTIONS,
@@ -15,6 +16,9 @@ export const BlogPostAdminForm = component$(
     cancelHref,
     helperText,
   }: BlogPostAdminFormProps) => {
+    const showPreview = useSignal(false)
+    const currentLine = useSignal(1)
+
     return (
       <div class="flex flex-col gap-6">
         {helperText && (
@@ -89,13 +93,36 @@ export const BlogPostAdminForm = component$(
           </FieldLabel>
 
           <FieldLabel label="Body Markdown" error={fieldErrors.bodyMarkdown} class="md:col-span-2">
-            <textarea
-              name="bodyMarkdown"
-              rows={16}
-              class={cn(getFieldClass(), 'font-mono text-sm leading-6')}
-            >
-              {values.bodyMarkdown}
-            </textarea>
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-medium text-[var(--muted)]">
+                {showPreview.value ? 'Preview' : 'Edit'}
+              </span>
+              <button
+                type="button"
+                onClick$={() => (showPreview.value = !showPreview.value)}
+                class="rounded-md border border-[var(--border)] bg-[var(--surface-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--fg)] transition-colors hover:bg-[var(--surface)] active:bg-[var(--surface)]"
+              >
+                {showPreview.value ? 'Edit' : 'Preview'}
+              </button>
+            </div>
+            {showPreview.value ? (
+              <MarkdownPreview markdown={values.bodyMarkdown} currentLine={currentLine.value} />
+            ) : (
+              <textarea
+                name="bodyMarkdown"
+                rows={16}
+                onInput$={$((event: Event) => {
+                  const textarea = event.target as HTMLTextAreaElement
+                  const text = textarea.value
+                  const selectionStart = textarea.selectionStart
+                  const lineNum = text.substring(0, selectionStart).split('\n').length
+                  currentLine.value = lineNum
+                })}
+                class={cn(getFieldClass(), 'font-mono text-sm leading-6')}
+              >
+                {values.bodyMarkdown}
+              </textarea>
+            )}
           </FieldLabel>
 
           <FieldLabel label="Cover image URL" error={fieldErrors.coverImageUrl}>
@@ -141,11 +168,11 @@ const getFieldClass = () => {
   return 'rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)] px-4 py-3 text-base'
 }
 
-const FieldLabel = component$(({ label, error, class: className, children }: FieldLabelProps) => {
+const FieldLabel = component$(({ label, error, class: className }: FieldLabelProps) => {
   return (
     <label class={cn('flex flex-col gap-2 text-sm font-medium text-[var(--fg)]', className)}>
       <span>{label}</span>
-      {children}
+      <Slot />
       {error && <span class="text-sm text-[var(--muted)]">{error}</span>}
     </label>
   )
@@ -163,5 +190,4 @@ type FieldLabelProps = {
   label: string
   error?: string
   class?: string
-  children?: any
 }
