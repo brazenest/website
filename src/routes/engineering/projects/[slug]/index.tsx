@@ -127,9 +127,21 @@ export default component$(() => {
             <Container width="content">
               <div class="flex flex-col gap-3 md:gap-4">
                 <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">{section.title}</h2>
-                <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  {section.content}
-                </p>
+                {section.content ? (
+                  <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                    {section.content}
+                  </p>
+                ) : null}
+                {section.items?.length ? (
+                  <ul class="max-w-[62ch] flex flex-col gap-2 text-base leading-7 text-[var(--muted)] md:text-lg">
+                    {section.items.map((item) => (
+                      <li key={item} class="flex gap-3">
+                        <span class="flex-shrink-0 text-[var(--fg)]">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
             </Container>
           </Section>

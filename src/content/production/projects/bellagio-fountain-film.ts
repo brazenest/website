@@ -17,37 +17,42 @@ export const bellagioFountainFilmProject: ProductionProject = {
     {
       title: 'Overview',
       content:
-        'This piece was designed as a compact observational film. Instead of treating the fountains as a montage backdrop, the goal was to shape a clear visual arc with intent: establish place, build rhythm, and land a controlled finish.',
+        'This piece was designed as a compact observational film. It is a night exterior short focused on extracting narrative clarity from a live spectacle. What makes it notable: the work demonstrates that visual control comes from framing and sequencing choices, not from controlling the environment.',
     },
     {
       title: 'Context',
       content:
-        'The location is visually rich but operationally difficult: dense crowds, shifting light levels, and no control over the choreography timing. The challenge was not access to spectacle; it was extracting narrative clarity from a constantly changing live environment.',
+        'The location is visually rich but operationally difficult: dense crowds, shifting light levels, and no control over the choreography timing. The audience and performance were constants I could not change. The challenge was not access to spectacle; it was extracting narrative clarity from a constantly changing live environment.',
     },
     {
-      title: 'Role and Scope',
+      title: 'Problem',
       content:
-        'I handled end-to-end production: concept framing, shot planning, on-location camera operation, and final edit. The work centered on directing attention through composition and sequencing rather than relying on heavy post effects.',
+        'In documentary-style work on live events, the core tension is between capturing what happens and shaping what viewers perceive. Without disciplined coverage strategy, the piece becomes a sequence of lucky moments rather than an authored sequence. The specific constraint: one location, one performance per night, limited reshoots.',
     },
     {
-      title: 'Production Challenge',
+      title: 'Approach',
       content:
-        'Because the performance cadence was unpredictable, coverage had to be adaptable. I needed enough variation to shape progression in the edit while keeping orientation stable so viewers never lost spatial context.',
+        'I built coverage in deliberate layers: wide anchors for geography, medium shots for motion phrasing, and detail captures for texture and reflection. This created editorial flexibility while preserving continuity across timing changes and audience movement. The framing strategy prioritized composition and depth over following action, which gave the edit control.',
     },
     {
-      title: 'Framing and Coverage Decisions',
-      content:
-        'I built coverage in deliberate layers: wide anchors for geography, medium shots for motion phrasing, and detail captures for texture and reflection. This created editorial flexibility while preserving continuity across timing changes and audience movement in frame.',
+      title: 'Execution',
+      items: [
+        'Shot planning organized by visual function (establishing, motion transition, emotional detail) rather than chronological performance order',
+        'Coverage built with adaptive timing so editorial pacing could match either fountain beat or narrative arc',
+        'Framing locked down enough to be stable, loose enough to accommodate unpredictable audience movement',
+        'Editorial rhythm timed to preserve flow between fountain beats, with restrained color and contrast',
+        'Detailed shot notes that translated in-camera framing decisions into editorial intent for the edit',
+      ],
     },
     {
-      title: 'Editorial Judgment',
+      title: 'Outcome',
       content:
-        'In post, I cut for temporal rhythm rather than speed. Shot transitions were timed to preserve flow between fountain beats, with restrained color and contrast adjustments that supported mood without overpowering the natural light behavior of the scene.',
+        'The finished piece demonstrates practical production control under live constraints: the sequence feels authored despite the unpredictability of the environment. Viewers perceive shape and progression even though they are watching a live event. The work is usable as a reference for how to approach location-based visual storytelling where control is perceptual, not environmental.',
     },
     {
-      title: 'Why It Mattered',
+      title: 'Reflection',
       content:
-        'The finished piece demonstrates practical production control under live constraints: adaptive coverage, clear visual hierarchy, and edit decisions that make a familiar location feel authored rather than incidental.',
+        'The strongest learning was that documentary-style shooting does not mean passive observation. Aggressive framing choices, clear shot function, and disciplined interaction with the environment create authored work even when the subject is unpredictable. A second take would invest more time in color work during grade to support mood differentiation between sequence sections.',
     },
   ],
   image: '/media/production/bellagio-fountain-still-01.jpg',

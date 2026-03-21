@@ -7,7 +7,8 @@ export type SEO = {
 
 export type EngineeringSection = {
   title: string
-  content: string
+  content?: string
+  items?: string[]
 }
 
 export type EngineeringProject = {
@@ -53,6 +54,7 @@ export type MediaItem = {
 export type ProductionSection = {
   title: string
   content?: string
+  items?: string[]
   media?: MediaItem[]
 }
 

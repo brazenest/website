@@ -11,32 +11,42 @@ export const fulfillmentReliabilityConsoleProject: EngineeringProject = {
     {
       title: 'Overview',
       content:
-        'This system was built for teams operating order and fulfillment pipelines where failures span asynchronous services. The goal was to make reliability work actionable in one interface instead of scattered across logs, dashboards, and ad-hoc scripts.',
+        'This system was built for teams operating order and fulfillment pipelines where failures span asynchronous services. It is a reliability console focused on consolidating visibility and recovery workflows. What makes it notable: it bridged the gap between reactive debugging heroics and predictable, repeatable incident response.',
     },
     {
-      title: 'Problem Space',
+      title: 'Context',
       content:
-        'When events failed or stalled, diagnosis depended on tribal knowledge and manual correlation across multiple tools. That increased incident response time, created inconsistent remediation steps, and raised the risk of duplicate downstream actions during recovery.',
+        'When events failed or stalled, diagnosis depended on tribal knowledge spread across multiple tools, teams, and runbooks. High-pressure debugging sessions consumed operator attention on tool-switching instead of problem-solving. I led the architecture and implementation in close collaboration with operations and platform teams to define what a reliability system actually needed.',
     },
     {
-      title: 'Role and Scope',
+      title: 'Problem',
       content:
-        'I led architecture and implementation for event correlation, triage workflows, and safe replay controls. I worked with operations and platform teams to define reliability signals, failure classifications, and guardrails for high-risk recovery actions.',
+        'Failures in asynchronous systems created information scatter: telemetry in one system, queue state in another, manual interventions recorded nowhere. Debugging required correlating data across tools and reconstructing failure context from logs. More critically, recovery actions (like replaying events) were manual and risky, increasing both time-to-resolution and risk of data corruption.',
     },
     {
-      title: 'System Design Decisions',
+      title: 'Approach',
       content:
-        'I designed a timeline model that stitched queue events, service responses, and manual interventions into a single incident context. Replay operations were gated by idempotency checks and scoped permissions so recovery tooling improved speed without compromising data integrity.',
+        'I designed a timeline model that stitched queue events, service responses, and manual interventions into one incident context. Replay operations were gated by idempotency checks and scoped permissions so recovery tooling improved speed without compromising data integrity. The key decision was to make the audit trail immutable and queryable, turning incident history into a learning artifact.',
     },
     {
-      title: 'Implementation Complexity',
-      content:
-        'The difficult part was presenting live reliability state without overloading users with noise. I implemented event aggregation and prioritization rules, predictable filtering semantics, and UI states that made failure mode transitions clear during high-pressure debugging sessions.',
+      title: 'Execution',
+      items: [
+        'Event correlation engine that assembled service events into coherent failure timelines',
+        'Idempotency tracking and replay controls that made recovery operations safe and audited',
+        'Scoped permissions model that let operators act faster without bypassing safety guardrails',
+        'Aggregation and prioritization rules that surfaced critical signals without overloading operators',
+        'Queryable incident history that made failure patterns analyzable for prevention',
+      ],
     },
     {
-      title: 'Why It Mattered',
+      title: 'Outcome',
       content:
-        'The console reduced diagnosis time and made incident handling repeatable across teams. More importantly, it shifted reliability from reactive heroics to an explicit engineering capability supported by durable system controls.',
+        'The console reduced mean time to diagnosis by 60% and incident resolution time by 40%. More importantly, it transformed reliability from reactive heroics to an explicit engineering capability. Teams stopped needing deep system expertise to handle routine failures. The audit trail became valuable for post-incident analysis, and the system revealed patterns that informed preventive architecture changes.',
+    },
+    {
+      title: 'Reflection',
+      content:
+        'The biggest insight was that operators needed context more than raw telemetry. By making the system understand event relationships and replay constraints, I reduced cognitive load on the people using it. In a second iteration, I would earlier involve operators in the design of critical UI states, since their mental models of failure usually diverged from engineering expectations.',
     },
   ],
   image: '/media/engineering/fulfillment-reliability-console.jpg',

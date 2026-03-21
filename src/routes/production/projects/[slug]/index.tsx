@@ -158,6 +158,17 @@ export default component$(() => {
                   </p>
                 ) : null}
 
+                {section.items?.length ? (
+                  <ul class="max-w-[65ch] flex flex-col gap-2 text-base leading-7 text-[var(--muted)] md:text-lg">
+                    {section.items.map((item) => (
+                      <li key={item} class="flex gap-3">
+                        <span class="flex-shrink-0 text-[var(--fg)]">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+
                 {section.media?.length ? (
                   <div class="grid grid-cols-1 gap-4 pt-2">
                     {section.media.map((item, index) => (

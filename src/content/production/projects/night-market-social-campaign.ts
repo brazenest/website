@@ -18,37 +18,42 @@ export const nightMarketSocialCampaignProject: ProductionProject = {
     {
       title: 'Overview',
       content:
-        'This project delivered a coordinated set of short-form pieces for campaign rollout across multiple platforms. The objective was to maintain one coherent mood while tailoring structure and tempo to each format.',
+        'This project delivered a coordinated set of short-form pieces for campaign rollout across multiple platforms. It is a multi-format social package focused on maintaining one coherent mood while tailoring structure and tempo to each delivery format. What makes it notable: one production and editorial system produced multiple outputs with clear creative continuity.',
     },
     {
       title: 'Context',
       content:
-        'The campaign had limited shoot time, fast turnaround expectations, and competing requirements from brand, social, and paid teams. The work needed to produce consistent identity while supporting multiple runtime and aspect-ratio targets.',
+        'The campaign had limited shoot time, fast turnaround expectations, and competing requirements from brand, social, and paid teams. The work needed to produce consistent visual identity while supporting multiple runtime and aspect-ratio targets (square, vertical, horizontal).',
     },
     {
-      title: 'Role and Scope',
+      title: 'Problem',
       content:
-        'I handled creative development, shot planning, on-location production, and the full editorial pass for all deliverables. My role centered on building a production and post workflow that scaled across formats without diluting intent.',
+        'Multi-format campaign packages often result in either lowest-common-denominator framing (safe for all formats but visually boring) or disconnected cuts (coherent per format but lacking campaign identity). The tension: building strong visual language that survives radical reframing without looking like a crop.'
     },
     {
-      title: 'Production Challenge',
+      title: 'Approach',
       content:
-        'The key challenge was coverage planning for edit flexibility. Every setup had to work in vertical, square, and horizontal compositions while still preserving subject focus, directional movement, and continuity from shot to shot.',
+        'I designed coverage planning as the control surface. Every setup had to work in vertical, square, and horizontal compositions while still preserving subject focus, directional movement, and continuity. Shot sets were organized as modular units with predictable start and end motion.',
     },
     {
-      title: 'Coverage and Format Strategy',
-      content:
-        'I designed each sequence with safe framing zones and transition options so critical action survived reframing. Shot sets were organized as modular units with predictable start and end motion, enabling fast restructuring in the timeline without visual collisions.',
+      title: 'Execution',
+      items: [
+        'Safe framing zones and transition options planned so critical action survived reframing across all formats',
+        'Coverage organized as modular units with predictable start and end motion for timeline restructuring',
+        'Tonal treatment consistent across all cuts but pacing tuned per channel (tight for short windows, longer for story-forward)',
+        'Edit structures built to allow fast recomposition without visual collisions or awkward framing through recuts',
+        'Contrast envelope and music dynamics controlled per delivery version to maintain mood across pacing changes',
+      ],
     },
     {
-      title: 'Editorial and Mood Control',
+      title: 'Outcome',
       content:
-        'Edits were tuned per channel objective: tighter cadence for short attention windows, longer rhythm for story-forward cuts. I used consistent tonal treatment, contrast envelope, and music dynamics to keep the campaign recognizable while allowing pacing to vary.',
+        'The final package demonstrated operational production thinking: one coordinated capture and edit system produced multiple outputs with clear creative continuity and lower revision overhead. Launch teams could use the same asset library across channels without requesting recuts or resignaling content.',
     },
     {
-      title: 'Why It Mattered',
+      title: 'Reflection',
       content:
-        'The final package demonstrated operational production thinking, not just shot-making: one coordinated capture and edit system produced multiple outputs with clear creative continuity and lower revision overhead for launch teams.',
+        'The biggest realization was that format-aware production planning is not about compromise—it is about designing coverage for multiple valid interpretations rather than trying to make one framing work everywhere. This approach shifted the constraint from "fit this frame" to "use framing as a design element in each version."',
     },
   ],
   image: '/media/production/night-market-social-campaign.jpg',
