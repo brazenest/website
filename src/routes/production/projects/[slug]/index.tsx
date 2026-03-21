@@ -18,7 +18,7 @@ export const head = ({ params }: DocumentHeadProps) => {
   if (!project) {
     return metadataToDocumentHead(
       buildMetadata({
-        title: 'Production Project',
+        title: 'Video Production Project | Alden Gillespy',
         description: 'Production project detail by Alden Gillespy.',
         pathname: `/production/projects/${params.slug}`,
       })
@@ -35,7 +35,7 @@ export const head = ({ params }: DocumentHeadProps) => {
   })
 
   const metadata = buildMetadata({
-    title: project.seo?.title ?? project.title,
+    title: `${project.title} — Video Production Case Study | Alden Gillespy`,
     description: project.seo?.description ?? project.description,
     pathname: `/production/projects/${params.slug}`,
     image: project.image,

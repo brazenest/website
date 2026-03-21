@@ -2,6 +2,18 @@ import type { SEOInput, SEOImage, SEOMetadata } from '~/types/seo'
 import { siteConfig } from '~/config/site'
 
 /**
+ * Check if a title is already a complete SEO title that shouldn't be templated.
+ * Complete titles contain brand name or formatting markers (|, —) with content.
+ */
+function isCompleteTitle(title: string): boolean {
+  return (
+    title.includes('Alden Gillespy') ||
+    title.includes(' | ') ||
+    title.includes(' — ')
+  )
+}
+
+/**
  * Normalize a string or SEOImage into a full SEOImage object.
  */
 function normalizeImage(image: SEOImage | string): SEOImage {
@@ -64,8 +76,12 @@ export function buildMetadata(input: SEOInput): SEOMetadata {
   const url = buildAbsoluteUrl(input.pathname)
 
   // Determine title
+  // Check if title is already a complete SEO title (contains brand indicators)
+  // If so, use as-is; otherwise apply the template
   const title = input.title
-    ? siteConfig.titleTemplate(input.title)
+    ? isCompleteTitle(input.title)
+      ? input.title
+      : siteConfig.titleTemplate(input.title)
     : siteConfig.defaultTitle
 
   // Determine description
