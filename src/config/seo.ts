@@ -9,6 +9,7 @@ export const routePathnames: Record<SEOPageKey, string> = {
 	about: '/about',
 	resume: '/resume',
 	contact: '/contact',
+	packages: '/packages',
 	blog: '/blog',
 	engineering: '/engineering',
 	production: '/production',
@@ -90,6 +91,15 @@ export const seoPresets: SEOPresetMap = {
 		includeSitemap: true,
 		changefreq: 'monthly',
 		priority: 0.9,
+	},
+	packages: {
+		title: 'Website Packages for Professionals',
+		description:
+			'Productized website solutions designed for self-marketed professionals. Foundation, Growth, and Authority tiers combining performance, visual craft, and conversion.',
+		type: 'website',
+		includeSitemap: true,
+		changefreq: 'monthly',
+		priority: 0.8,
 	},
 }
 

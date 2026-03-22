@@ -93,6 +93,7 @@ export type SEOPageKey =
   | 'about'
   | 'resume'
   | 'contact'
+  | 'packages'
   | 'blog'
   | 'engineering'
   | 'production'

@@ -149,3 +149,22 @@ export type ResumeEntry = {
   end?: string
   description: string[]
 }
+
+export type Package = {
+  id: string
+  title: string
+  slug: string
+  description: string
+  forWho: string
+  includes: string[]
+  outcome: string
+  ctaLabel: string
+  ctaHref: string
+  highlight?: boolean
+}
+
+export type PackageHeroContent = {
+  headline: string
+  byline?: string
+  description: string
+}

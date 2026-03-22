@@ -45,6 +45,13 @@ export const staticHeads = {
     })
   ),
 
+  packages: metadataToDocumentHead(
+    buildMetadata({
+      ...seoPresets.packages,
+      pathname: '/packages',
+    })
+  ),
+
   engineering: metadataToDocumentHead(
     buildMetadata({
       ...seoPresets.engineering,
