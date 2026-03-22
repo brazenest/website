@@ -18,7 +18,7 @@ export const head = ({ params }: DocumentHeadProps) => {
   if (!project) {
     return metadataToDocumentHead(
       buildMetadata({
-        title: 'Production Project',
+        title: 'Video Production Project | Alden Gillespy',
         description: 'Production project detail by Alden Gillespy.',
         pathname: `/production/projects/${params.slug}`,
       })
@@ -35,7 +35,7 @@ export const head = ({ params }: DocumentHeadProps) => {
   })
 
   const metadata = buildMetadata({
-    title: project.seo?.title ?? project.title,
+    title: `${project.title} — Video Production Case Study | Alden Gillespy`,
     description: project.seo?.description ?? project.description,
     pathname: `/production/projects/${params.slug}`,
     image: project.image,
@@ -156,6 +156,17 @@ export default component$(() => {
                   <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                     {section.content}
                   </p>
+                ) : null}
+
+                {section.items?.length ? (
+                  <ul class="max-w-[65ch] flex flex-col gap-2 text-base leading-7 text-[var(--muted)] md:text-lg">
+                    {section.items.map((item) => (
+                      <li key={item} class="flex gap-3">
+                        <span class="flex-shrink-0 text-[var(--fg)]">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 ) : null}
 
                 {section.media?.length ? (
