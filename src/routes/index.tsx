@@ -22,8 +22,8 @@ export default component$(() => {
 				<HomeHero {...heroContent}>
 					<div class="flex flex-col gap-4 md:gap-5">
 						<p class="max-w-[62ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-							Choose the side you want to evaluate first, then use shared context to connect
-							both perspectives.
+							Explore how engineering and production come together to build complete,
+							professional-grade platforms.
 						</p>
 
 						<SideSelector items={sideLinkCards} />

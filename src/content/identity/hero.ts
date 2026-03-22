@@ -2,7 +2,7 @@ import type { HeroContent } from '~/types/content'
 
 export const heroContent: HeroContent = {
   name: 'Alden Gillespy',
-  headline: 'Software Systems & Visual Storytelling',
+  headline: 'High-Performance Websites for Self-Marketed Professionals',
   description:
-    'I build software systems and produce visual stories using the same working method: define intent, work inside constraints, and execute with discipline. Explore both practices below.',
+    'I build the platforms ambitious professionals use to amplify their work. Engineering excellence and visual storytelling combine to create websites that perform for search, convert visitors into clients, and deliver lasting professional credibility.',
 }
