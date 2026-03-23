@@ -3,12 +3,14 @@ import type { DocumentHead } from '@builder.io/qwik-city'
 import { AboutPreview } from '~/components/hero/AboutPreview'
 import { HomeHero } from '~/components/hero/HomeHero'
 import { HomeCTASection } from '~/components/home/HomeCTASection'
+import { ProofStrip } from '~/components/home/ProofStrip'
 import { PageShell } from '~/components/layout/PageShell'
 import { Footer } from '~/components/footer/Footer'
 import { Header } from '~/components/nav/Header'
 import { SideSelector } from '~/components/side/SideSelector'
 import { aboutPreviewContent } from '~/content/identity/about-preview'
 import { heroContent } from '~/content/identity/hero'
+import { homeProofStrip } from '~/content/identity/proof-strip'
 import { sideLinkCards } from '~/content/identity/side-links'
 import { staticHeads } from '~/fns/seo/staticHeads'
 
@@ -30,6 +32,8 @@ export default component$(() => {
 						<SideSelector items={sideLinkCards} />
 					</div>
 				</HomeHero>
+
+				<ProofStrip items={homeProofStrip} />
 
 				<AboutPreview {...aboutPreviewContent} />
 

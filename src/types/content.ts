@@ -94,6 +94,12 @@ export type SideLinkCardContent = {
   themeHint: 'engineering' | 'production'
 }
 
+export type ProofItem = {
+  title: string
+  statement: string
+  href: string
+}
+
 export type AboutPreviewContent = {
   eyebrow?: string
   heading: string
