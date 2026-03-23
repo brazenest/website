@@ -36,7 +36,7 @@ export const andacityBookingSystemProject: EngineeringProject = {
     {
       title: 'Why It Mattered',
       content:
-        'The outcome was a booking foundation that made search behavior predictable under growth. New integrations and feature work no longer required rewriting search logic, and the team could ship with greater confidence because architectural defaults constrained edge-case failure modes.',
+        'The canonical query layer became the architectural foundation for sustainable growth. Every subsequent feature—new filters, supplier integrations, platform expansion—could build on the same normalized contracts without legacy logic accumulating. The team could ship confidently because architectural constraints reduced edge-case failure modes and made search behavior predictable under scaling. By coupling architectural discipline with explicit role contracts, the system remained maintainable despite growing complexity, which allowed product work to move faster without accumulating technical debt.',
     },
   ],
   image: '/media/engineering/andacity-booking-system.jpg',

@@ -36,7 +36,7 @@ export const fulfillmentReliabilityConsoleProject: EngineeringProject = {
     {
       title: 'Why It Mattered',
       content:
-        'The console reduced diagnosis time and made incident handling repeatable across teams. More importantly, it shifted reliability from reactive heroics to an explicit engineering capability supported by durable system controls.',
+        'The console shifted the organization from reactive incident heroics to systematic reliability operations. By making failure context and recovery tooling explicit and operable without engineering, it enabled the operations team to handle failures independently while still providing audit trails and safeguards for high-risk recovery actions. More structurally, the system demonstrated how to build observability and control into user interfaces so that operational work became repeatable and teachable rather than dependent on individual expertise. The reliability insights embedded in the console architecture became assets for future system design decisions.',
     },
   ],
   image: '/media/engineering/fulfillment-reliability-console.jpg',

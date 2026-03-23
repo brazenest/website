@@ -7,25 +7,25 @@ export const engineeringProjects: EngineeringProject[] = [
   {
     ...andacityBookingSystemProject,
     description:
-      'Search inputs arrived from users and suppliers in inconsistent formats, so I designed a canonical query layer and normalized data model that kept booking behavior stable as the product expanded.',
+      'Search inputs arrived from users and suppliers in inconsistent formats, creating unpredictable search behavior. I designed a canonical query layer and normalized entity model that kept booking behavior stable as the product expanded and suppliers grew.',
     cardDescriptor: 'Lead full-stack engineer · Search architecture and data modeling',
     cardHighlight:
-      'Canonical contracts and entity normalization reduced edge-case drift and made new integrations safer to ship.',
+      'Canonical contracts eliminated edge-case branching logic. New integrations shipped without rewriting search semantics. Architecture-level decisions made feature work faster and safer.',
   },
   {
     ...studioContentOpsPlatformProject,
     description:
-      'Campaign launches depended on one-off builds, so I implemented schema-driven content blocks and a governed publish pipeline that turned delivery into a repeatable platform workflow.',
+      'Campaign launches were bespoke builds with inconsistent schemas and manual QA handoffs. I implemented schema-driven content blocks and governed publish workflows that transformed delivery from project-based into platform-based operations.',
     cardDescriptor: 'Lead platform engineer · Content modeling and publishing workflow',
     cardHighlight:
-      'Versioned schemas and release gates cut launch regressions while giving content teams more autonomy.',
+      'Versioned schemas and release gates prevented regressions by design. Campaign teams shipped faster with fewer approval steps. Platform reduced engineering overhead of each new launch.',
   },
   {
     ...fulfillmentReliabilityConsoleProject,
     description:
-      'Incident response was spread across logs, scripts, and tribal knowledge, so I built a reliability console that unified event context and recovery controls in one operational surface.',
+      'Incident diagnosis scattered across logs, scripts, and tribal knowledge. I built a reliability console that unified failure context and recovery controls so operations and engineering could move from reactive incident heroics to systematic troubleshooting.',
     cardDescriptor: 'Lead systems engineer · Reliability tooling and incident response UX',
     cardHighlight:
-      'Event correlation and guarded replay tooling reduced diagnosis time and prevented high-cost recovery mistakes.',
+      'Event correlation and guarded replay tooling made diagnosis systematic and safe. Operations team gained visibility without requiring engineering on every incident. Infrastructure reliability became measurable.',
   },
 ]

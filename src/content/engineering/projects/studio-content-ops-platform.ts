@@ -36,7 +36,7 @@ export const studioContentOpsPlatformProject: EngineeringProject = {
     {
       title: 'Why It Mattered',
       content:
-        'The platform turned campaign delivery into an operational capability rather than a sequence of custom builds. Teams could launch faster with fewer regressions, and engineering effort shifted from repetitive assembly work to improving shared system capabilities.',
+        'The platform fundamentally shifted campaign delivery from custom engineering to operational execution. Teams could launch without engineering involvement, reducing approval cycles and allowing campaigns to ship on schedule. More importantly, the versioned schema and release workflow architecture built safety into the system rather than relying on manual QA gates. Engineering effort moved from repetitive assembly work toward improving core platform capabilities, which compounded as the number of campaigns increased. By treating content modeling and release management as first-class engineering problems, the platform became a scalable asset rather than a repeating bottleneck.',
     },
   ],
   image: '/media/engineering/studio-content-ops-platform.jpg',

@@ -134,6 +134,35 @@ export default component$(() => {
             </Container>
           </Section>
         ))}
+
+        <Section spacing="compact">
+          <Container width="content">
+            <section class="flex flex-col gap-3 md:gap-4 rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] p-6 md:p-8">
+              <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
+                Build systems like this
+              </h2>
+              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)]">
+                This case study demonstrates architectural discipline, strategic decision-making under complexity, and long-term thinking about maintainability. If you're looking to build systems that scale with your business, let's talk about your challenges.
+              </p>
+              <div class="flex flex-col gap-2 pt-2">
+                <a
+                  href="/packages"
+                  class="inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
+                >
+                  View service packages
+                  <span aria-hidden="true">→</span>
+                </a>
+                <a
+                  href="/contact"
+                  class="inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
+                >
+                  Email about your project
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </section>
+          </Container>
+        </Section>
       </main>
 
       <Footer />

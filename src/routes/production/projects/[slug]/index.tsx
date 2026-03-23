@@ -224,6 +224,35 @@ export default component$(() => {
             </Container>
           </Section>
         ))}
+
+        <Section spacing="compact">
+          <Container width="content">
+            <section class="flex flex-col gap-3 md:gap-4 rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] p-6 md:p-8">
+              <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
+                Work on projects like this
+              </h2>
+              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)]">
+                This work demonstrates strategic planning, editorial discipline, and the craft of translating intention into compelling visual narrative. If you're looking to produce work at this level, let's discuss your project.
+              </p>
+              <div class="flex flex-col gap-2 pt-2">
+                <a
+                  href="/packages"
+                  class="inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
+                >
+                  View service packages
+                  <span aria-hidden="true">→</span>
+                </a>
+                <a
+                  href="/contact"
+                  class="inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
+                >
+                  Email about your project
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </section>
+          </Container>
+        </Section>
       </main>
 
       <Footer />
