@@ -73,6 +73,10 @@ export const DocumentRouterHead = component$(() => {
         <script key={script.key} {...script.props} dangerouslySetInnerHTML={script.script} />
       ))}
 
+      {/* Plausible Analytics - Privacy-focused analytics */}
+      {/* Configure PLAUSIBLE_DOMAIN in environment variables */}
+      <script defer data-domain="aldengillespy.com" src="https://plausible.io/js/script.js" />
+
       {/* Global structured data: Person and WebSite schemas */}
       {/* These are emitted site-wide for SEO and schema.org indexing */}
       <StructuredData

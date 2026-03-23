@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
 import { PackageGrid } from '~/components/packages/PackageGrid'
 import { Footer } from '~/components/footer/Footer'
@@ -9,6 +9,7 @@ import { Section } from '~/components/ui/Section'
 import { ButtonLink } from '~/components/ui/ButtonLink'
 import { packages } from '~/content/packages'
 import { professionalsContent } from '~/content/niche'
+import { trackNichePageView } from '~/fns/analytics'
 
 export const head: DocumentHead = {
   title: 'For Professionals | Alden Gillespy',
@@ -22,6 +23,11 @@ export const head: DocumentHead = {
 }
 
 export default component$(() => {
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    trackNichePageView('professionals')
+  })
+
   return (
     <PageShell theme="neutral">
       <Header />

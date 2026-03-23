@@ -1,4 +1,5 @@
 import { component$, useSignal, $ } from '@builder.io/qwik'
+import { trackTeardownRequest } from '~/fns/analytics'
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -13,6 +14,7 @@ export const RequestTeardownForm = component$(() => {
 
     try {
       const formData = new FormData(form)
+      const intent = formData.get('intent')?.toString() || 'unknown'
 
       const response = await fetch('/api/contact/teardown', {
         method: 'POST',
@@ -25,6 +27,9 @@ export const RequestTeardownForm = component$(() => {
         formState.value = 'error'
         return
       }
+
+      // Track successful submission
+      trackTeardownRequest(intent)
 
       formState.value = 'success'
       form.reset()

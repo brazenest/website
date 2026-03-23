@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
 import { PackageGrid } from '~/components/packages/PackageGrid'
 import { PackageHero } from '~/components/hero/PackageHero'
@@ -11,10 +11,15 @@ import { ButtonLink } from '~/components/ui/ButtonLink'
 import { packageHeroContent } from '~/content/packages/hero'
 import { packages } from '~/content/packages'
 import { staticHeads } from '~/fns/seo/staticHeads'
+import { trackEvent } from '~/fns/analytics'
 
 export const head: DocumentHead = staticHeads.packages
 
 export default component$(() => {
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    trackEvent('view_packages')
+  })
   return (
     <PageShell theme="neutral">
       <Header />

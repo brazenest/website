@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik'
+import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
 import { ButtonLink } from '~/components/ui/ButtonLink'
 import { RequestTeardownForm } from '~/components/contact/RequestTeardownForm'
@@ -9,10 +9,16 @@ import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { contactPageContent } from '~/content/contact'
 import { staticHeads } from '~/fns/seo/staticHeads'
+import { trackEvent } from '~/fns/analytics'
 
 export const head: DocumentHead = staticHeads.contact
 
 export default component$(() => {
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    trackEvent('view_contact')
+  })
+
   return (
     <PageShell theme="neutral">
       <Header />
