@@ -1,5 +1,6 @@
 import { component$, useSignal, useTask$ } from '@builder.io/qwik'
 import { Container } from '~/components/ui/Container'
+import { ButtonLink } from '~/components/ui/ButtonLink'
 import { MobileMenu } from '~/components/nav/MobileMenu'
 
 /**
@@ -102,6 +103,15 @@ export const Header = component$(() => {
               Contact
             </a>
           </nav>
+
+          <div class="hidden items-center gap-3 md:flex">
+            <ButtonLink
+              href="/contact"
+              label="Request Teardown"
+              variant="primary"
+              size="sm"
+            />
+          </div>
 
           {/* 
             Conditional render: MobileMenu only hydrated on mobile viewports

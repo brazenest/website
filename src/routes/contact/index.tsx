@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
 import { ButtonLink } from '~/components/ui/ButtonLink'
+import { RequestTeardownForm } from '~/components/contact/RequestTeardownForm'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
 import { Header } from '~/components/nav/Header'
@@ -55,14 +56,14 @@ export default component$(() => {
 
                 <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2 xl:flex-col xl:items-stretch">
                   <ButtonLink
-                    href="mailto:ag@aldengillespy.com?subject=Project%20Inquiry"
-                    label="Email Project Details"
+                    href={contactPageContent.contactPanel.methods[0].href}
+                    label="Email Your Inquiry"
                     variant="primary"
                     class="w-full"
                   />
                   <ButtonLink
-                    href="/resume"
-                    label="View Resume"
+                    href="/packages"
+                    label="View Packages"
                     variant="secondary"
                     class="w-full"
                   />
@@ -130,6 +131,33 @@ export default component$(() => {
                   </li>
                 ))}
               </ul>
+            </section>
+          </Container>
+        </Section>
+
+        <Section spacing="default">
+          <Container width="content">
+            <section
+              id="teardown-request"
+              class="flex flex-col gap-5 md:gap-6"
+              aria-labelledby="teardown-heading"
+            >
+              <div class="flex flex-col gap-2">
+                <p class="ui-meta-label">
+                  Quick start
+                </p>
+                <h2 id="teardown-heading" class="text-2xl font-semibold tracking-tight md:text-3xl">
+                  Request a website teardown
+                </h2>
+                <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                  I'll review your site and send a short breakdown covering architecture,
+                  performance, and opportunities. Takes about a week. No commitment—just clarity.
+                </p>
+              </div>
+
+              <div class="max-w-[50ch]">
+                <RequestTeardownForm />
+              </div>
             </section>
           </Container>
         </Section>

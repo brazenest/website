@@ -32,6 +32,12 @@ export const ProductionCTASection = component$(({ caseStudyHref }: ProductionCTA
               variant="primary"
               class="w-full sm:w-auto"
             />
+            <ButtonLink
+              href="/contact"
+              label="Start a Project"
+              variant="secondary"
+              class="w-full sm:w-auto"
+            />
           </div>
         </section>
       </Container>

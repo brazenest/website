@@ -168,3 +168,67 @@ export type PackageHeroContent = {
   byline?: string
   description: string
 }
+
+export type ContactMethod = {
+  label: string
+  value: string
+  href: string
+  description: string
+}
+
+export type InquiryType = {
+  title: string
+  description: string
+}
+
+export type IncludeItem = {
+  title: string
+  description: string
+}
+
+export type NextStep = {
+  title: string
+  description: string
+}
+
+export type CTAButton = {
+  label: string
+  href: string
+  variant: 'primary' | 'secondary'
+}
+
+export type ContactPageContent = {
+  eyebrow: string
+  title: string
+  intro: string
+  bridge: string
+  contactPanel: {
+    eyebrow: string
+    heading: string
+    description: string
+    methods: ContactMethod[]
+  }
+  inquiryTypes: {
+    heading: string
+    intro: string
+    items: InquiryType[]
+  }
+  includeItems: {
+    heading: string
+    intro: string
+    items: IncludeItem[]
+  }
+  nextSteps: {
+    heading: string
+    intro: string
+    items: NextStep[]
+    note: string
+  }
+  cta: {
+    eyebrow: string
+    heading: string
+    description: string
+    buttons: CTAButton[]
+    footnote: string
+  }
+}

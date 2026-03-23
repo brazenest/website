@@ -2,6 +2,7 @@ import { component$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
 import { AboutPreview } from '~/components/hero/AboutPreview'
 import { HomeHero } from '~/components/hero/HomeHero'
+import { HomeCTASection } from '~/components/home/HomeCTASection'
 import { PageShell } from '~/components/layout/PageShell'
 import { Footer } from '~/components/footer/Footer'
 import { Header } from '~/components/nav/Header'
@@ -31,6 +32,8 @@ export default component$(() => {
 				</HomeHero>
 
 				<AboutPreview {...aboutPreviewContent} />
+
+				<HomeCTASection />
 			</main>
 
 			<Footer />

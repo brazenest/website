@@ -36,6 +36,24 @@ export default component$(() => {
           </Container>
         </Section>
 
+        <Section spacing="compact">
+          <Container width="content">
+            <section id="package-mid-cta" aria-labelledby="package-mid-cta-title" class="flex flex-col gap-4 md:gap-5">
+              <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                Unsure which tier fits? Let's talk about your goals—we can explore how each package might work for your practice.
+              </p>
+
+              <div class="ui-cta-group">
+                <ButtonLink
+                  href="/contact"
+                  label="Discuss Your Project"
+                  variant="secondary"
+                />
+              </div>
+            </section>
+          </Container>
+        </Section>
+
         <Section spacing="default">
           <Container>
             <section id="package-value" aria-labelledby="package-value-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
