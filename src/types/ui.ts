@@ -1,7 +1,9 @@
 export type ThemeName = 'neutral' | 'engineering' | 'production'
+export type ThemeSurface = 'base' | 'subtle' | 'elevated' | 'tint' | 'inset'
+export type ThemeGradient = 'hero' | 'section' | 'interactive-ring'
 
 export type SectionSpacing = 'compact' | 'default' | 'spacious'
-export type SectionSurface = 'base' | 'subtle' | 'inset'
+export type SectionSurface = ThemeSurface
 export type ContainerWidth = 'content' | 'wide' | 'full'
 export type StackGap = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type CardPadding = 'none' | 'default' | 'spacious'
