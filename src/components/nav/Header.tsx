@@ -1,7 +1,7 @@
-import { component$, useSignal, useTask$ } from '@builder.io/qwik'
-import { Container } from '~/components/ui/Container'
-import { ButtonLink } from '~/components/ui/ButtonLink'
-import { MobileMenu } from '~/components/nav/MobileMenu'
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { Container } from "~/components/ui/Container";
+import { ButtonLink } from "~/components/ui/ButtonLink";
+import { MobileMenu } from "~/components/nav/MobileMenu";
 
 /**
  * Header component with responsive navigation
@@ -20,32 +20,32 @@ export const Header = component$(() => {
   // undefined: server-side or not yet detected
   // true: mobile viewport detected, render MobileMenu
   // false: desktop viewport, skip MobileMenu hydration
-  const isMobileViewport = useSignal<boolean | undefined>(undefined)
+  const isMobileViewport = useSignal<boolean | undefined>(undefined);
 
   useTask$(() => {
     // Only run on client (window is available)
-    if (typeof window === 'undefined') {
-      return
+    if (typeof window === "undefined") {
+      return;
     }
 
     // Detect if viewport is below md breakpoint (768px in Tailwind)
-    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
 
     const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      isMobileViewport.value = e.matches
-    }
+      isMobileViewport.value = e.matches;
+    };
 
     // Set initial state
-    isMobileViewport.value = mediaQuery.matches
+    isMobileViewport.value = mediaQuery.matches;
 
     // Listen for changes (handles responsive resizing)
-    mediaQuery.addEventListener('change', handleChange)
+    mediaQuery.addEventListener("change", handleChange);
 
     // Cleanup
     return () => {
-      mediaQuery.removeEventListener('change', handleChange)
-    }
-  })
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  });
 
   return (
     <header class="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-sm">
@@ -108,7 +108,7 @@ export const Header = component$(() => {
             <ButtonLink
               href="/contact"
               label="Request Teardown"
-              variant="primary"
+              variant="secondary"
               size="sm"
             />
           </div>
@@ -126,5 +126,5 @@ export const Header = component$(() => {
         </div>
       </Container>
     </header>
-  )
-})
+  );
+});

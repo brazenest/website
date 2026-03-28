@@ -1,17 +1,17 @@
-import { component$ } from '@builder.io/qwik'
-import { Card } from '~/components/ui/Card'
-import { Heading } from '~/components/ui/Heading'
-import { LinkText } from '~/components/ui/LinkText'
-import { Text } from '~/components/ui/Text'
-import { cn } from '~/fns/cn'
-import type { SideLinkCardContent } from '~/types/content'
+import { component$ } from "@builder.io/qwik";
+import { Card } from "~/components/ui/Card";
+import { Heading } from "~/components/ui/Heading";
+import { LinkText } from "~/components/ui/LinkText";
+import { Text } from "~/components/ui/Text";
+import { cn } from "~/fns/cn";
+import type { SideLinkCardContent } from "~/types/content";
 
 export const SideCard = component$(
   ({ title, description, href, ctaLabel, themeHint }: SideCardProps) => {
-    const accentBorderClass =
-      themeHint === 'engineering'
-        ? 'border-l-[3px] border-l-[var(--color-engineering-500)]'
-        : 'border-l-[3px] border-l-[var(--color-production-500)]'
+    const sideThemeClass =
+      themeHint === "engineering"
+        ? "ui-side-card ui-side-card--engineering"
+        : "ui-side-card ui-side-card--production";
 
     return (
       <Card
@@ -19,11 +19,14 @@ export const SideCard = component$(
         interactive
         padding="spacious"
         class={cn(
-          accentBorderClass,
-          'touch-manipulation focus-visible:border-[var(--link-color)]',
+          sideThemeClass,
+          "touch-manipulation focus-visible:border-[var(--link-color)]",
         )}
       >
-        <div class="flex flex-1 flex-col" style={{ gap: 'var(--card-content-gap)' }}>
+        <div
+          class="flex flex-1 flex-col"
+          style={{ gap: "var(--card-content-gap)" }}
+        >
           <Heading level={3}>{title}</Heading>
           <Text variant="muted" class="max-w-[32ch]">
             {description}
@@ -34,8 +37,8 @@ export const SideCard = component$(
           </div>
         </div>
       </Card>
-    )
+    );
   },
-)
+);
 
-type SideCardProps = SideLinkCardContent
+type SideCardProps = SideLinkCardContent;
