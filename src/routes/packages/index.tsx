@@ -30,9 +30,9 @@ export default component$(() => {
           <Container>
             <section id="package-tiers" aria-labelledby="package-tiers-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 id="package-tiers-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Three Tiers, Clear Scope</h2>
+                <h2 id="package-tiers-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Three Packages, One Proven Structure</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Each package combines engineering excellence and visual craft. Choose the tier that matches your audience and acquisition goals. Pricing is custom and depends on scope—email to discuss what makes sense for your practice.
+                  Every package starts from a performance-first system refined across real client work, then tailored to your positioning, offer, and audience journey. Choose the tier that matches your growth goals and delivery depth.
                 </p>
               </div>
 
@@ -45,14 +45,21 @@ export default component$(() => {
           <Container width="content">
             <section id="package-mid-cta" aria-labelledby="package-mid-cta-title" class="flex flex-col gap-4 md:gap-5">
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                Unsure which tier fits? Let's talk about your goals—we can explore how each package might work for your practice.
+                Unsure which package fits? Start with strategy if you are ready to build, or begin with a teardown if you want clarity on your current site before committing.
               </p>
 
-              <div class="ui-cta-group">
+              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
                 <ButtonLink
                   href="/contact"
                   label="Discuss Your Project"
                   variant="secondary"
+                  class="w-full sm:w-auto"
+                />
+                <ButtonLink
+                  href="/contact#teardown-request"
+                  label="Request a Website Teardown"
+                  variant="ghost"
+                  class="w-full sm:w-auto"
                 />
               </div>
             </section>
@@ -63,34 +70,49 @@ export default component$(() => {
           <Container>
             <section id="package-value" aria-labelledby="package-value-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
-                <h2 id="package-value-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Why Packages?</h2>
+                <h2 id="package-value-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Proven Structure, Tailored Execution</h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  A website is a business asset that needs to perform. Packaged scope removes uncertainty, clarifies what success looks like, and lets you invest with confidence. No guessing about features or timelines—just clear outcomes and sustainable delivery.
+                  Structured builds reduce delivery risk and accelerate momentum without compromising craft. You get a scalable foundation, clear milestones, and custom decisions where they matter most.
                 </p>
               </div>
 
               <ul class="flex flex-col gap-5 md:gap-6">
                 <li class="flex flex-col gap-2">
-                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Predictable Delivery</h3>
+                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Faster Delivery, High Standards</h3>
                   <p class="text-base leading-7 text-[var(--muted)]">
-                    Packages eliminate scope creep. You know what you're getting, when you're getting it, and what success looks like when we ship.
+                    A proven underlying system eliminates reinvention, so delivery moves faster while performance, accessibility, and presentation quality remain first-class.
                   </p>
                 </li>
 
                 <li class="flex flex-col gap-2">
-                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Built Around Your Goals</h3>
+                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Clear Scope, Better Decisions</h3>
                   <p class="text-base leading-7 text-[var(--muted)]">
-                    Foundation sites establish presence. Growth sites convert prospects. Authority sites reinforce expertise. Pick the tier that matches where you're going.
+                    The structure clarifies what ships now and what evolves next. You can confidently choose Foundation, Growth, or Authority based on real business goals.
                   </p>
                 </li>
 
                 <li class="flex flex-col gap-2">
-                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Long-term Thinking</h3>
+                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Custom Where It Counts</h3>
                   <p class="text-base leading-7 text-[var(--muted)]">
-                    Your website grows with your practice. Packages are architected for maintainability and future work—not just initial launch.
+                    Messaging, proof, service narrative, and conversion paths are shaped to your practice so the site feels specific to your market, not interchangeable.
                   </p>
                 </li>
               </ul>
+
+              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+                <ButtonLink
+                  href="/packages/preview"
+                  label="Preview the Starting Structure"
+                  variant="secondary"
+                  class="w-full sm:w-auto"
+                />
+                <ButtonLink
+                  href="/contact#teardown-request"
+                  label="Start with a Teardown"
+                  variant="ghost"
+                  class="w-full sm:w-auto"
+                />
+              </div>
             </section>
           </Container>
         </Section>
@@ -99,16 +121,22 @@ export default component$(() => {
           <Container>
             <section id="package-cta" class="scroll-mt-24 flex flex-col gap-3 md:gap-4 rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] p-6 md:p-8">
               <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                Ready to talk about your project?
+                Ready to map your delivery path?
               </h2>
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                Email with your goals, current situation, and what tier resonates. Let's discuss what would make sense for your practice.
+                Share your goals and current constraints, and we will map the right package and rollout sequence. If you want to validate fit first, request a teardown and we will start there.
               </p>
               <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2 pt-2">
                 <ButtonLink
                   href="/contact"
                   label="Get in Touch"
                   variant="primary"
+                  class="w-full sm:w-auto"
+                />
+                <ButtonLink
+                  href="/contact#teardown-request"
+                  label="Request Teardown First"
+                  variant="secondary"
                   class="w-full sm:w-auto"
                 />
               </div>

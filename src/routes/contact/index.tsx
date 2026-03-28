@@ -1,23 +1,23 @@
-import { component$, useVisibleTask$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
-import { ButtonLink } from '~/components/ui/ButtonLink'
-import { RequestTeardownForm } from '~/components/contact/RequestTeardownForm'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
-import { contactPageContent } from '~/content/contact'
-import { staticHeads } from '~/fns/seo/staticHeads'
-import { trackEvent } from '~/fns/analytics'
+import { component$, useVisibleTask$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import { ButtonLink } from "~/components/ui/ButtonLink";
+import { RequestTeardownForm } from "~/components/contact/RequestTeardownForm";
+import { Footer } from "~/components/footer/Footer";
+import { PageShell } from "~/components/layout/PageShell";
+import { Header } from "~/components/nav/Header";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
+import { contactPageContent } from "~/content/contact";
+import { staticHeads } from "~/fns/seo/staticHeads";
+import { trackEvent } from "~/fns/analytics";
 
-export const head: DocumentHead = staticHeads.contact
+export const head: DocumentHead = staticHeads.contact;
 
 export default component$(() => {
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
-    trackEvent('view_contact')
-  })
+    trackEvent("view_contact");
+  });
 
   return (
     <PageShell theme="neutral">
@@ -28,9 +28,7 @@ export default component$(() => {
           <Container width="wide">
             <div class="grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] xl:gap-12">
               <div class="flex flex-col gap-4 md:gap-5">
-                <p class="ui-meta-label">
-                  {contactPageContent.eyebrow}
-                </p>
+                <p class="ui-meta-label">{contactPageContent.eyebrow}</p>
 
                 <h1 class="max-w-[18ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                   {contactPageContent.title}
@@ -45,7 +43,7 @@ export default component$(() => {
                 </p>
               </div>
 
-              <aside class="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface-subtle)] p-5 md:p-6">
+              <aside class="ui-context-panel flex flex-col gap-5 p-5 md:p-6">
                 <div class="flex flex-col gap-2">
                   <p class="ui-meta-label">
                     {contactPageContent.contactPanel.eyebrow}
@@ -87,8 +85,14 @@ export default component$(() => {
 
                       <a
                         href={method.href}
-                        target={method.href.startsWith('http') ? '_blank' : undefined}
-                        rel={method.href.startsWith('http') ? 'noreferrer' : undefined}
+                        target={
+                          method.href.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          method.href.startsWith("http")
+                            ? "noreferrer"
+                            : undefined
+                        }
                         class="rounded-[var(--radius-lg)] text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--state-hover-accent)] active:text-[var(--state-active-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)] md:text-base"
                       >
                         {method.value}
@@ -112,7 +116,10 @@ export default component$(() => {
               aria-labelledby="contact-fit"
             >
               <div class="flex flex-col gap-2">
-                <h2 id="contact-fit" class="text-2xl font-semibold tracking-tight md:text-3xl">
+                <h2
+                  id="contact-fit"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
                   {contactPageContent.inquiryTypes.heading}
                 </h2>
 
@@ -124,9 +131,7 @@ export default component$(() => {
               <ul class="grid gap-4 md:grid-cols-2">
                 {contactPageContent.inquiryTypes.items.map((item) => (
                   <li key={item.title}>
-                    <article
-                      class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
-                    >
+                    <article class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5">
                       <h3 class="text-lg font-semibold tracking-tight md:text-xl">
                         {item.title}
                       </h3>
@@ -149,15 +154,17 @@ export default component$(() => {
               aria-labelledby="teardown-heading"
             >
               <div class="flex flex-col gap-2">
-                <p class="ui-meta-label">
-                  Quick start
-                </p>
-                <h2 id="teardown-heading" class="text-2xl font-semibold tracking-tight md:text-3xl">
+                <p class="ui-meta-label">Quick start</p>
+                <h2
+                  id="teardown-heading"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
                   Request a website teardown
                 </h2>
                 <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  I'll review your site and send a short breakdown covering architecture,
-                  performance, and opportunities. Takes about a week. No commitment—just clarity.
+                  I'll review your site and send a short breakdown covering
+                  architecture, performance, and opportunities. Takes about a
+                  week. No commitment—just clarity.
                 </p>
               </div>
 
@@ -171,7 +178,10 @@ export default component$(() => {
         <Section spacing="compact" surface="subtle">
           <Container width="wide">
             <div class="grid gap-10 xl:grid-cols-2 xl:gap-12">
-              <section class="flex flex-col gap-5 md:gap-6" aria-labelledby="contact-include">
+              <section
+                class="flex flex-col gap-5 md:gap-6"
+                aria-labelledby="contact-include"
+              >
                 <h2
                   id="contact-include"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -186,9 +196,7 @@ export default component$(() => {
                 <ul class="flex flex-col gap-4">
                   {contactPageContent.includeItems.items.map((item) => (
                     <li key={item.title}>
-                      <article
-                        class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
-                      >
+                      <article class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5">
                         <h3 class="text-lg font-semibold tracking-tight md:text-xl">
                           {item.title}
                         </h3>
@@ -202,7 +210,10 @@ export default component$(() => {
                 </ul>
               </section>
 
-              <section class="flex flex-col gap-5 md:gap-6" aria-labelledby="contact-next">
+              <section
+                class="flex flex-col gap-5 md:gap-6"
+                aria-labelledby="contact-next"
+              >
                 <h2
                   id="contact-next"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -251,9 +262,7 @@ export default component$(() => {
               id="contact-cta"
               class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8"
             >
-              <p class="ui-meta-label">
-                {contactPageContent.cta.eyebrow}
-              </p>
+              <p class="ui-meta-label">{contactPageContent.cta.eyebrow}</p>
 
               <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                 {contactPageContent.cta.heading}
@@ -285,5 +294,5 @@ export default component$(() => {
 
       <Footer />
     </PageShell>
-  )
-})
+  );
+});
