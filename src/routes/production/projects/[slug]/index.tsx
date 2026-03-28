@@ -1,28 +1,28 @@
-import { component$ } from '@builder.io/qwik'
-import type { DocumentHeadProps } from '@builder.io/qwik-city'
-import { useLocation } from '@builder.io/qwik-city'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
-import { ResponsiveVideo } from '~/components/media/ResponsiveVideo'
-import { productionProjects } from '~/content/production/projects'
-import { buildMetadata } from '~/fns/seo/buildMetadata'
-import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
-import { buildProjectStructuredData } from '~/fns/seo/buildStructuredData'
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHeadProps } from "@builder.io/qwik-city";
+import { useLocation } from "@builder.io/qwik-city";
+import { Footer } from "~/components/footer/Footer";
+import { PageShell } from "~/components/layout/PageShell";
+import { Header } from "~/components/nav/Header";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
+import { ResponsiveVideo } from "~/components/media/ResponsiveVideo";
+import { productionProjects } from "~/content/production/projects";
+import { buildMetadata } from "~/fns/seo/buildMetadata";
+import { metadataToDocumentHead } from "~/fns/seo/metadataToDocumentHead";
+import { buildProjectStructuredData } from "~/fns/seo/buildStructuredData";
 
 export const head = ({ params }: DocumentHeadProps) => {
-  const project = productionProjects.find((item) => item.slug === params.slug)
+  const project = productionProjects.find((item) => item.slug === params.slug);
 
   if (!project) {
     return metadataToDocumentHead(
       buildMetadata({
-        title: 'Video Production Project | Alden Gillespy',
-        description: 'Production project detail by Alden Gillespy.',
+        title: "Video Production Project | Alden Gillespy",
+        description: "Production project detail by Alden Gillespy.",
         pathname: `/production/projects/${params.slug}`,
-      })
-    )
+      }),
+    );
   }
 
   // Build CreativeWork schema for this production project
@@ -31,35 +31,35 @@ export const head = ({ params }: DocumentHeadProps) => {
     description: project.description,
     url: `/production/projects/${params.slug}`,
     image: project.image,
-    section: 'Production',
-  })
+    section: "Production",
+  });
 
   const metadata = buildMetadata({
     title: `${project.title} — Video Production Case Study | Alden Gillespy`,
     description: project.seo?.description ?? project.description,
     pathname: `/production/projects/${params.slug}`,
     image: project.image,
-  })
+  });
 
-  const documentHead = metadataToDocumentHead(metadata)
+  const documentHead = metadataToDocumentHead(metadata);
   return {
     ...documentHead,
     scripts: [
       {
         props: {
-          type: 'application/ld+json',
+          type: "application/ld+json",
         },
         script: JSON.stringify(projectSchema),
       },
     ],
-  }
-}
+  };
+};
 
 export default component$(() => {
-  const location = useLocation()
-  const slug = location.params.slug
+  const location = useLocation();
+  const slug = location.params.slug;
 
-  const project = productionProjects.find((item) => item.slug === slug)
+  const project = productionProjects.find((item) => item.slug === slug);
 
   if (!project) {
     return (
@@ -70,9 +70,7 @@ export default component$(() => {
           <Section spacing="spacious">
             <Container width="content">
               <div class="flex flex-col gap-4">
-                <p class="ui-meta-label">
-                  Production
-                </p>
+                <p class="ui-meta-label">Production</p>
                 <h1 class="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                   Project not found
                 </h1>
@@ -86,10 +84,10 @@ export default component$(() => {
 
         <Footer />
       </PageShell>
-    )
+    );
   }
 
-  const heroMedia = project.media[0]
+  const heroMedia = project.media[0];
 
   return (
     <PageShell theme="production">
@@ -99,9 +97,9 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container>
             <div class="flex flex-col gap-6 md:gap-8">
-              <div class="aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)]">
+              <div class="aspect-[16/9] w-full overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-elevated)]">
                 {heroMedia ? (
-                  heroMedia.type === 'image' ? (
+                  heroMedia.type === "image" ? (
                     <img
                       src={heroMedia.src}
                       alt={heroMedia.alt ?? project.title}
@@ -130,9 +128,7 @@ export default component$(() => {
               </div>
 
               <div class="flex max-w-[72ch] flex-col gap-4 md:gap-5">
-                <p class="ui-meta-label">
-                  Production Case Study
-                </p>
+                <p class="ui-meta-label">Production Case Study</p>
 
                 <h1 class="max-w-[15ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                   {project.title}
@@ -150,7 +146,9 @@ export default component$(() => {
           <Section key={section.title} spacing="default">
             <Container width="content">
               <div class="flex flex-col gap-3 md:gap-4">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">{section.title}</h2>
+                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
+                  {section.title}
+                </h2>
 
                 {section.content ? (
                   <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
@@ -174,9 +172,9 @@ export default component$(() => {
                     {section.media.map((item, index) => (
                       <div
                         key={`${section.title}-${item.src}-${index}`}
-                        class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)]"
+                        class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-elevated)]"
                       >
-                        {item.type === 'image' ? (
+                        {item.type === "image" ? (
                           <img
                             src={item.src}
                             alt={item.alt ?? section.title}
@@ -190,13 +188,15 @@ export default component$(() => {
                             {item.poster ? (
                               <img
                                 src={item.poster}
-                                alt={item.alt ?? `${section.title} video preview`}
+                                alt={
+                                  item.alt ?? `${section.title} video preview`
+                                }
                                 width={1600}
                                 height={900}
                                 class="h-full w-full object-cover"
                               />
                             ) : (
-                              <div class="h-full w-full bg-gradient-to-br from-[var(--surface-subtle)] to-[var(--surface)]" />
+                              <div class="h-full w-full bg-gradient-to-br from-[var(--surface-elevated)] to-[var(--surface)]" />
                             )}
                             {/* Play button indicator */}
                             <div class="absolute inset-0 flex items-center justify-center">
@@ -210,7 +210,10 @@ export default component$(() => {
                                   class="h-5 w-5 text-[var(--bg)]"
                                   aria-hidden="true"
                                 >
-                                  <path d="M5 3.5L5 16.5L16 10L5 3.5Z" fill="currentColor" />
+                                  <path
+                                    d="M5 3.5L5 16.5L16 10L5 3.5Z"
+                                    fill="currentColor"
+                                  />
                                 </svg>
                               </div>
                             </div>
@@ -227,12 +230,15 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section class="flex flex-col gap-3 md:gap-4 rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] p-6 md:p-8">
+            <section class="ui-context-panel flex flex-col gap-3 p-6 md:gap-4 md:p-8">
               <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                 Work on projects like this
               </h2>
               <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)]">
-                This work demonstrates strategic planning, editorial discipline, and the craft of translating intention into compelling visual narrative. If you're looking to produce work at this level, let's discuss your project.
+                This work demonstrates strategic planning, editorial discipline,
+                and the craft of translating intention into compelling visual
+                narrative. If you're looking to produce work at this level,
+                let's discuss your project.
               </p>
               <div class="flex flex-col gap-2 pt-2">
                 <a
@@ -257,5 +263,5 @@ export default component$(() => {
 
       <Footer />
     </PageShell>
-  )
-})
+  );
+});

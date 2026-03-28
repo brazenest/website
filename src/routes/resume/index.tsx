@@ -1,15 +1,15 @@
-import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
-import { TextLink } from '~/components/ui/TextLink'
-import { resumePageContent } from '~/content/resume'
-import { staticHeads } from '~/fns/seo/staticHeads'
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import { Footer } from "~/components/footer/Footer";
+import { PageShell } from "~/components/layout/PageShell";
+import { Header } from "~/components/nav/Header";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
+import { TextLink } from "~/components/ui/TextLink";
+import { resumePageContent } from "~/content/resume";
+import { staticHeads } from "~/fns/seo/staticHeads";
 
-export const head: DocumentHead = staticHeads.resume
+export const head: DocumentHead = staticHeads.resume;
 
 export default component$(() => {
   return (
@@ -38,18 +38,26 @@ export default component$(() => {
                 </div>
 
                 <div class="flex flex-col gap-3 md:gap-4">
-                  <p class="ui-meta-label">
-                    Contact
-                  </p>
+                  <p class="ui-meta-label">Contact</p>
 
                   <ul class="grid gap-2 text-sm leading-6 text-[var(--muted)] md:text-base">
                     {resumePageContent.header.contactItems.map((item) => (
-                      <li key={`${item.label}-${'href' in item ? item.href : 'text'}`}>
-                        {'href' in item ? (
+                      <li
+                        key={`${item.label}-${"href" in item ? item.href : "text"}`}
+                      >
+                        {"href" in item ? (
                           <a
                             href={item.href}
-                            target={item.href.startsWith('http') ? '_blank' : undefined}
-                            rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+                            target={
+                              item.href.startsWith("http")
+                                ? "_blank"
+                                : undefined
+                            }
+                            rel={
+                              item.href.startsWith("http")
+                                ? "noreferrer"
+                                : undefined
+                            }
                             class="rounded-[var(--radius-lg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
                           >
                             {item.label}
@@ -72,7 +80,10 @@ export default component$(() => {
                 aria-labelledby="resume-summary"
                 data-scroll-reveal
               >
-                <h2 id="resume-summary" class="text-2xl font-semibold tracking-tight md:text-3xl">
+                <h2
+                  id="resume-summary"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
                   Summary
                 </h2>
 
@@ -95,8 +106,8 @@ export default component$(() => {
                   </h2>
 
                   <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-                    Reverse-chronological roles focused on product delivery, reliability, and
-                    full-stack system ownership.
+                    Reverse-chronological roles focused on product delivery,
+                    reliability, and full-stack system ownership.
                   </p>
                 </div>
 
@@ -139,10 +150,10 @@ export default component$(() => {
           </Container>
         </Section>
 
-        <Section spacing="compact" surface="subtle">
+        <Section spacing="compact">
           <Container width="wide">
             <section
-              class="grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+              class="ui-context-panel grid gap-6 p-5 md:p-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10 lg:p-8"
               aria-labelledby="resume-selected-projects"
             >
               <div class="flex flex-col gap-2">
@@ -154,8 +165,8 @@ export default component$(() => {
                 </h2>
 
                 <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-                  Compact cross-disciplinary examples adapted from the longer engineering and
-                  production case studies.
+                  Compact cross-disciplinary examples adapted from the longer
+                  engineering and production case studies.
                 </p>
               </div>
 
@@ -186,7 +197,10 @@ export default component$(() => {
                     </p>
 
                     <div class="mt-auto pt-1">
-                      <TextLink href={project.href} label={`View ${project.discipline} case study`} />
+                      <TextLink
+                        href={project.href}
+                        label={`View ${project.discipline} case study`}
+                      />
                     </div>
                   </article>
                 ))}
@@ -198,7 +212,10 @@ export default component$(() => {
         <Section spacing="compact">
           <Container width="wide">
             <div class="grid gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:gap-12">
-              <section class="flex flex-col gap-5 md:gap-6" aria-labelledby="resume-skills">
+              <section
+                class="flex flex-col gap-5 md:gap-6"
+                aria-labelledby="resume-skills"
+              >
                 <h2
                   id="resume-skills"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -231,7 +248,10 @@ export default component$(() => {
                 </div>
               </section>
 
-              <section class="flex flex-col gap-6 md:gap-8" aria-labelledby="resume-education">
+              <section
+                class="flex flex-col gap-6 md:gap-8"
+                aria-labelledby="resume-education"
+              >
                 <h2
                   id="resume-education"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -272,13 +292,35 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section id="resume-cta" aria-labelledby="resume-cta-title" class="flex flex-col gap-4 md:gap-5">
+            <section
+              id="resume-cta"
+              aria-labelledby="resume-cta-title"
+              class="flex flex-col gap-4 md:gap-5"
+            >
               <h2 id="resume-cta-title" class="ui-meta-label">
                 Next Steps
               </h2>
 
               <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                For a deeper look at the work, browse the <a href="/engineering#selected-work" class="underline hover:no-underline">engineering case studies</a> and <a href="/production#selected-work" class="underline hover:no-underline">production projects</a>. To discuss a specific role or project, <a href="/contact" class="underline hover:no-underline">start a conversation</a>.
+                For a deeper look at the work, browse the{" "}
+                <a
+                  href="/engineering#selected-work"
+                  class="underline hover:no-underline"
+                >
+                  engineering case studies
+                </a>{" "}
+                and{" "}
+                <a
+                  href="/production#selected-work"
+                  class="underline hover:no-underline"
+                >
+                  production projects
+                </a>
+                . To discuss a specific role or project,{" "}
+                <a href="/contact" class="underline hover:no-underline">
+                  start a conversation
+                </a>
+                .
               </p>
             </section>
           </Container>
@@ -287,5 +329,5 @@ export default component$(() => {
 
       <Footer />
     </PageShell>
-  )
-})
+  );
+});

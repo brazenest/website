@@ -1,27 +1,27 @@
-import { component$ } from '@builder.io/qwik'
-import type { DocumentHeadProps } from '@builder.io/qwik-city'
-import { useLocation } from '@builder.io/qwik-city'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
-import { engineeringProjects } from '~/content/engineering/projects'
-import { buildMetadata } from '~/fns/seo/buildMetadata'
-import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
-import { buildProjectStructuredData } from '~/fns/seo/buildStructuredData'
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHeadProps } from "@builder.io/qwik-city";
+import { useLocation } from "@builder.io/qwik-city";
+import { Footer } from "~/components/footer/Footer";
+import { PageShell } from "~/components/layout/PageShell";
+import { Header } from "~/components/nav/Header";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
+import { engineeringProjects } from "~/content/engineering/projects";
+import { buildMetadata } from "~/fns/seo/buildMetadata";
+import { metadataToDocumentHead } from "~/fns/seo/metadataToDocumentHead";
+import { buildProjectStructuredData } from "~/fns/seo/buildStructuredData";
 
 export const head = ({ params }: DocumentHeadProps) => {
-  const project = engineeringProjects.find((item) => item.slug === params.slug)
+  const project = engineeringProjects.find((item) => item.slug === params.slug);
 
   if (!project) {
     return metadataToDocumentHead(
       buildMetadata({
-        title: 'Engineering Project',
-        description: 'Engineering project detail by Alden Gillespy.',
+        title: "Engineering Project",
+        description: "Engineering project detail by Alden Gillespy.",
         pathname: `/engineering/projects/${params.slug}`,
-      })
-    )
+      }),
+    );
   }
 
   // Build CreativeWork schema for this engineering project
@@ -30,35 +30,35 @@ export const head = ({ params }: DocumentHeadProps) => {
     description: project.description,
     url: `/engineering/projects/${params.slug}`,
     image: project.image,
-    section: 'Engineering',
-  })
+    section: "Engineering",
+  });
 
   const metadata = buildMetadata({
     title: project.seo?.title ?? project.title,
     description: project.seo?.description ?? project.description,
     pathname: `/engineering/projects/${params.slug}`,
     image: project.image,
-  })
+  });
 
-  const documentHead = metadataToDocumentHead(metadata)
+  const documentHead = metadataToDocumentHead(metadata);
   return {
     ...documentHead,
     scripts: [
       {
         props: {
-          type: 'application/ld+json',
+          type: "application/ld+json",
         },
         script: JSON.stringify(projectSchema),
       },
     ],
-  }
-}
+  };
+};
 
 export default component$(() => {
-  const location = useLocation()
-  const slug = location.params.slug
+  const location = useLocation();
+  const slug = location.params.slug;
 
-  const project = engineeringProjects.find((item) => item.slug === slug)
+  const project = engineeringProjects.find((item) => item.slug === slug);
 
   if (!project) {
     return (
@@ -69,9 +69,7 @@ export default component$(() => {
           <Section spacing="spacious">
             <Container width="content">
               <div class="flex flex-col gap-4">
-                <p class="ui-meta-label">
-                  Engineering
-                </p>
+                <p class="ui-meta-label">Engineering</p>
                 <h1 class="text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                   Project not found
                 </h1>
@@ -85,7 +83,7 @@ export default component$(() => {
 
         <Footer />
       </PageShell>
-    )
+    );
   }
 
   return (
@@ -96,9 +94,7 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="content">
             <div class="flex flex-col gap-4 md:gap-5">
-              <p class="ui-meta-label">
-                Engineering Case Study
-              </p>
+              <p class="ui-meta-label">Engineering Case Study</p>
 
               <h1 class="max-w-[14ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                 {project.title}
@@ -112,7 +108,7 @@ export default component$(() => {
                 {project.techStack.map((tech) => (
                   <li
                     key={tech}
-                    class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1 text-xs font-medium text-[var(--muted)] md:text-sm"
+                    class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-elevated)] px-2.5 py-1 text-xs font-medium text-[var(--fg)] md:text-sm"
                   >
                     {tech}
                   </li>
@@ -123,10 +119,15 @@ export default component$(() => {
         </Section>
 
         {project.sections.map((section, index) => (
-          <Section key={section.title} spacing={index === 0 ? 'compact' : 'default'}>
+          <Section
+            key={section.title}
+            spacing={index === 0 ? "compact" : "default"}
+          >
             <Container width="content">
               <div class="flex flex-col gap-3 md:gap-4">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">{section.title}</h2>
+                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
+                  {section.title}
+                </h2>
                 <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                   {section.content}
                 </p>
@@ -137,12 +138,15 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section class="flex flex-col gap-3 md:gap-4 rounded-lg border border-[var(--border)] bg-[var(--surface-subtle)] p-6 md:p-8">
+            <section class="ui-context-panel flex flex-col gap-3 p-6 md:gap-4 md:p-8">
               <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                 Build systems like this
               </h2>
               <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)]">
-                This case study demonstrates architectural discipline, strategic decision-making under complexity, and long-term thinking about maintainability. If you're looking to build systems that scale with your business, let's talk about your challenges.
+                This case study demonstrates architectural discipline, strategic
+                decision-making under complexity, and long-term thinking about
+                maintainability. If you're looking to build systems that scale
+                with your business, let's talk about your challenges.
               </p>
               <div class="flex flex-col gap-2 pt-2">
                 <a
@@ -167,5 +171,5 @@ export default component$(() => {
 
       <Footer />
     </PageShell>
-  )
-})
+  );
+});

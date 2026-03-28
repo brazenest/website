@@ -443,15 +443,15 @@
 [data-theme="engineering"] {
   --bg: #edf8ff;
   --fg: var(--color-neutral-900);
-  --muted: color-mix(in srgb, var(--fg) 64%, var(--bg));
-  --border-subtle: color-mix(in srgb, var(--accent) 18%, var(--surface-2));
-  --border-default: color-mix(in srgb, var(--accent) 28%, var(--surface-2));
-  --border-strong: color-mix(in srgb, var(--accent) 40%, var(--surface-2));
+  --muted: color-mix(in srgb, var(--fg) 72%, var(--bg));
+  --border-subtle: color-mix(in srgb, var(--accent) 14%, var(--surface-3));
+  --border-default: color-mix(in srgb, var(--accent) 22%, var(--surface-3));
+  --border-strong: color-mix(in srgb, var(--accent) 34%, var(--surface-3));
   --surface-1: var(--bg);
-  --surface-2: #b8e0ff;
+  --surface-2: #d9efff;
   --surface-3: #f7fcff;
-  --surface-tint: color-mix(in srgb, var(--accent) 22%, white);
-  --surface-tint-strong: color-mix(in srgb, var(--accent) 36%, white);
+  --surface-tint: color-mix(in srgb, var(--accent) 12%, white);
+  --surface-tint-strong: color-mix(in srgb, var(--accent) 22%, white);
   --surface: var(--surface-1);
   --accent: var(--color-engineering-500);
   --focus: var(--color-engineering-500);
@@ -478,9 +478,9 @@
     );
   --section-gradient: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--accent) 22%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 14%, transparent) 0%,
     transparent 56%,
-    color-mix(in srgb, #22d3ee 22%, transparent) 100%
+    color-mix(in srgb, #22d3ee 14%, transparent) 100%
   );
   --card-glow: color-mix(
     in srgb,
@@ -493,7 +493,7 @@
     color-mix(in srgb, var(--accent) 60%, white)
   );
   --accent-fg: var(--color-neutral-0);
-  --accent-soft: color-mix(in srgb, var(--accent) 38%, var(--surface-2));
+  --accent-soft: color-mix(in srgb, var(--accent) 24%, var(--surface-2));
   --accent-soft-fg: var(--accent);
   --accent-border: var(--border-interactive);
   --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
@@ -501,12 +501,12 @@
   --accent-focus-ring: var(--accent);
   --border-interactive: color-mix(
     in srgb,
-    var(--accent) 20%,
+    var(--accent) 16%,
     var(--border-default)
   );
   --border-interactive-hover: color-mix(
     in srgb,
-    var(--accent) 38%,
+    var(--accent) 28%,
     var(--border-default)
   );
   --separator-color: var(--border-subtle);
@@ -518,7 +518,7 @@
   --surface-interactive-hover: var(--surface-tint-strong);
   --surface-inset: color-mix(
     in srgb,
-    var(--surface-2) 60%,
+    var(--surface-2) 78%,
     var(--surface-tint-strong)
   );
   --link-color: var(--accent);
@@ -565,15 +565,15 @@
 [data-theme="production"] {
   --bg: #fff6e6;
   --fg: var(--color-neutral-900);
-  --muted: color-mix(in srgb, var(--fg) 64%, var(--bg));
-  --border-subtle: color-mix(in srgb, var(--accent) 18%, var(--surface-2));
-  --border-default: color-mix(in srgb, var(--accent) 28%, var(--surface-2));
-  --border-strong: color-mix(in srgb, var(--accent) 40%, var(--surface-2));
+  --muted: color-mix(in srgb, var(--fg) 72%, var(--bg));
+  --border-subtle: color-mix(in srgb, var(--accent) 14%, var(--surface-3));
+  --border-default: color-mix(in srgb, var(--accent) 22%, var(--surface-3));
+  --border-strong: color-mix(in srgb, var(--accent) 34%, var(--surface-3));
   --surface-1: var(--bg);
-  --surface-2: #ffd083;
+  --surface-2: #fff0cf;
   --surface-3: #fffdf5;
-  --surface-tint: color-mix(in srgb, var(--accent) 22%, white);
-  --surface-tint-strong: color-mix(in srgb, var(--accent) 36%, white);
+  --surface-tint: color-mix(in srgb, var(--accent) 12%, white);
+  --surface-tint-strong: color-mix(in srgb, var(--accent) 22%, white);
   --surface: var(--surface-1);
   --accent: var(--color-production-500);
   --focus: var(--color-production-500);
@@ -600,9 +600,9 @@
     );
   --section-gradient: linear-gradient(
     145deg,
-    color-mix(in srgb, var(--accent) 22%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 14%, transparent) 0%,
     transparent 56%,
-    color-mix(in srgb, #fcd34d 22%, transparent) 100%
+    color-mix(in srgb, #fcd34d 14%, transparent) 100%
   );
   --card-glow: color-mix(
     in srgb,
@@ -615,7 +615,7 @@
     color-mix(in srgb, var(--accent) 60%, white)
   );
   --accent-fg: var(--color-neutral-0);
-  --accent-soft: color-mix(in srgb, var(--accent) 38%, var(--surface-2));
+  --accent-soft: color-mix(in srgb, var(--accent) 24%, var(--surface-2));
   --accent-soft-fg: var(--accent);
   --accent-border: var(--border-interactive);
   --accent-hover: color-mix(in srgb, var(--accent) 88%, black);
@@ -623,12 +623,12 @@
   --accent-focus-ring: var(--accent);
   --border-interactive: color-mix(
     in srgb,
-    var(--accent) 20%,
+    var(--accent) 16%,
     var(--border-default)
   );
   --border-interactive-hover: color-mix(
     in srgb,
-    var(--accent) 38%,
+    var(--accent) 28%,
     var(--border-default)
   );
   --separator-color: var(--border-subtle);
@@ -640,7 +640,7 @@
   --surface-interactive-hover: var(--surface-tint-strong);
   --surface-inset: color-mix(
     in srgb,
-    var(--surface-2) 62%,
+    var(--surface-2) 78%,
     var(--surface-tint-strong)
   );
   --link-color: var(--accent);
@@ -1009,7 +1009,7 @@ a {
   position: absolute;
   inset: 0;
   background: var(--side-background);
-  opacity: 0.96;
+  opacity: 0.88;
   z-index: 0;
 }
 
@@ -1017,13 +1017,13 @@ a {
   content: "";
   position: absolute;
   inset: 0 auto 0 0;
-  width: 5px;
+  width: 4px;
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--side-accent) 92%, white) 0%,
-    color-mix(in srgb, var(--side-accent) 70%, black) 100%
+    color-mix(in srgb, var(--side-accent) 84%, white) 0%,
+    color-mix(in srgb, var(--side-accent) 58%, white) 100%
   );
-  opacity: 0.95;
+  opacity: 0.82;
   z-index: 1;
 }
 
@@ -1036,18 +1036,18 @@ a {
   --side-accent: var(--color-engineering-500);
   --side-background: linear-gradient(
     145deg,
-    color-mix(in srgb, #22d3ee 10%, var(--surface)) 0%,
-    color-mix(in srgb, var(--color-engineering-500) 12%, var(--surface-2)) 52%,
-    color-mix(in srgb, #0f172a 10%, var(--surface)) 100%
+    color-mix(in srgb, #22d3ee 7%, white) 0%,
+    color-mix(in srgb, var(--color-engineering-500) 10%, white) 52%,
+    color-mix(in srgb, #dbeafe 86%, white) 100%
   );
   border-color: color-mix(
     in srgb,
-    var(--color-engineering-500) 24%,
+    var(--color-engineering-500) 18%,
     var(--border-default)
   );
   box-shadow:
-    0 18px 40px -36px
-      color-mix(in srgb, var(--color-engineering-500) 22%, transparent),
+    0 14px 30px -34px
+      color-mix(in srgb, var(--color-engineering-500) 14%, transparent),
     0 1px 2px rgb(15 23 42 / 0.05);
 }
 
@@ -1055,18 +1055,18 @@ a {
   --side-accent: var(--color-production-500);
   --side-background: linear-gradient(
     145deg,
-    color-mix(in srgb, #fcd34d 12%, var(--surface)) 0%,
-    color-mix(in srgb, var(--color-production-500) 14%, var(--surface-2)) 52%,
-    color-mix(in srgb, #422006 10%, var(--surface)) 100%
+    color-mix(in srgb, #fcd34d 9%, white) 0%,
+    color-mix(in srgb, var(--color-production-500) 11%, white) 52%,
+    color-mix(in srgb, #ffedd5 86%, white) 100%
   );
   border-color: color-mix(
     in srgb,
-    var(--color-production-500) 26%,
+    var(--color-production-500) 19%,
     var(--border-default)
   );
   box-shadow:
-    0 18px 40px -36px
-      color-mix(in srgb, var(--color-production-500) 24%, transparent),
+    0 14px 30px -34px
+      color-mix(in srgb, var(--color-production-500) 15%, transparent),
     0 1px 2px rgb(24 24 27 / 0.05);
 }
 
@@ -1074,11 +1074,11 @@ a {
   .ui-side-card.ui-card--interactive:hover {
     border-color: color-mix(
       in srgb,
-      var(--side-accent) 40%,
+      var(--side-accent) 30%,
       var(--border-default)
     );
     box-shadow:
-      0 22px 46px -30px color-mix(in srgb, var(--side-accent) 26%, transparent),
+      0 18px 34px -28px color-mix(in srgb, var(--side-accent) 18%, transparent),
       0 1px 2px rgb(15 23 42 / 0.06);
   }
 }
