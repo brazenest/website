@@ -1,0 +1,37 @@
+<svg width="1200" height="1000" viewBox="0 0 1200 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1000" rx="48" fill="#F8FAFC"/>
+  <rect x="56" y="56" width="1088" height="888" rx="40" fill="url(#bg)"/>
+  <rect x="112" y="112" width="412" height="776" rx="30" fill="#FFFFFF" stroke="#D5E3F1" stroke-width="6"/>
+  <rect x="156" y="160" width="324" height="40" rx="20" fill="#0F172A" fill-opacity="0.08"/>
+  <rect x="156" y="236" width="324" height="188" rx="24" fill="url(#gridPanel)"/>
+  <path d="M188 282H448" stroke="#2563EB" stroke-width="10" stroke-linecap="round"/>
+  <path d="M188 328H448" stroke="#2563EB" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+  <path d="M188 374H364" stroke="#2563EB" stroke-width="10" stroke-linecap="round" opacity="0.35"/>
+  <rect x="156" y="468" width="150" height="150" rx="20" fill="#EAF6FF"/>
+  <rect x="330" y="468" width="150" height="150" rx="20" fill="#F8FAFC"/>
+  <rect x="156" y="642" width="324" height="190" rx="24" fill="#F8FAFC" stroke="#D5E3F1" stroke-width="4"/>
+  <circle cx="654" cy="222" r="34" fill="#F59E0B"/>
+  <circle cx="734" cy="222" r="34" fill="#2563EB"/>
+  <circle cx="814" cy="222" r="34" fill="#0F172A" fill-opacity="0.12"/>
+  <rect x="590" y="292" width="500" height="256" rx="28" fill="#FFFFFF" stroke="#E7D7C0" stroke-width="6"/>
+  <rect x="632" y="334" width="416" height="172" rx="22" fill="url(#sequencePanel)"/>
+  <rect x="632" y="586" width="500" height="246" rx="28" fill="#FFFFFF" stroke="#D5E3F1" stroke-width="6"/>
+  <path d="M674 650C748 610 826 610 900 650" stroke="#F59E0B" stroke-width="16" stroke-linecap="round"/>
+  <path d="M674 722C748 682 826 682 900 722" stroke="#2563EB" stroke-width="16" stroke-linecap="round"/>
+  <path d="M674 794C748 754 826 754 900 794" stroke="#0F172A" stroke-width="16" stroke-linecap="round" opacity="0.16"/>
+  <defs>
+    <linearGradient id="bg" x1="82" y1="84" x2="1124" y2="924" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFF"/>
+      <stop offset="0.48" stop-color="#FFF9F0"/>
+      <stop offset="1" stop-color="#F8FAFC"/>
+    </linearGradient>
+    <linearGradient id="gridPanel" x1="156" y1="236" x2="480" y2="424" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0F2FE"/>
+      <stop offset="1" stop-color="#F8FAFC"/>
+    </linearGradient>
+    <linearGradient id="sequencePanel" x1="632" y1="334" x2="1048" y2="506" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FFEDD5"/>
+    </linearGradient>
+  </defs>
+</svg>

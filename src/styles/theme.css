@@ -993,6 +993,32 @@ a {
   opacity: 0.9;
 }
 
+.ui-editorial-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 14%, var(--border-default));
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-2) 94%, white) 0%,
+    color-mix(in srgb, var(--surface-tint) 10%, white) 100%
+  );
+  box-shadow: 0 24px 54px -42px var(--card-glow);
+}
+
+.ui-editorial-frame::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 28%;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface) 0%, transparent) 0%,
+    color-mix(in srgb, var(--surface) 92%, transparent) 100%
+  );
+  pointer-events: none;
+}
+
 .ui-side-card {
   position: relative;
   overflow: hidden;

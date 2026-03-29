@@ -168,6 +168,17 @@ export default component$(() => {
                   Compact cross-disciplinary examples adapted from the longer
                   engineering and production case studies.
                 </p>
+
+                <div class="ui-editorial-frame mt-2 aspect-[4/5] max-w-[20rem]">
+                  <img
+                    src="/media/identity/resume-projects-editorial.svg"
+                    alt="Abstract editorial composition representing engineering systems and production deliverables grouped in one portfolio."
+                    width={1000}
+                    height={1250}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
 
               <div class="grid gap-4 md:grid-cols-2">

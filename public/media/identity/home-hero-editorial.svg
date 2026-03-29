@@ -1,0 +1,35 @@
+<svg width="1200" height="1000" viewBox="0 0 1200 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="1000" rx="48" fill="#F8FAFC"/>
+  <rect x="40" y="40" width="1120" height="920" rx="40" fill="url(#bg)"/>
+  <rect x="88" y="100" width="484" height="356" rx="28" fill="#FFFFFF" stroke="#D7E4F2" stroke-width="6"/>
+  <rect x="120" y="132" width="420" height="36" rx="18" fill="#0F172A" fill-opacity="0.08"/>
+  <rect x="120" y="192" width="272" height="196" rx="20" fill="url(#engPanel)"/>
+  <rect x="416" y="192" width="124" height="92" rx="16" fill="#E0F2FE"/>
+  <rect x="416" y="296" width="124" height="92" rx="16" fill="#FFF3D6"/>
+  <circle cx="222" cy="290" r="58" fill="#0F172A" fill-opacity="0.08"/>
+  <rect x="640" y="100" width="472" height="520" rx="28" fill="#FFFFFF" stroke="#E7D6BE" stroke-width="6"/>
+  <rect x="680" y="144" width="392" height="256" rx="22" fill="url(#prodPanel)"/>
+  <rect x="680" y="430" width="188" height="124" rx="20" fill="#FFF7E8"/>
+  <rect x="884" y="430" width="188" height="124" rx="20" fill="#EAF6FF"/>
+  <path d="M744 682C839 612 934 612 1032 682" stroke="#F59E0B" stroke-width="18" stroke-linecap="round"/>
+  <path d="M168 698C314 594 472 592 634 690" stroke="#2563EB" stroke-width="18" stroke-linecap="round"/>
+  <rect x="120" y="742" width="960" height="148" rx="28" fill="#FFFFFF" stroke="#DCE7F3" stroke-width="6"/>
+  <rect x="156" y="780" width="228" height="74" rx="18" fill="#EFF6FF"/>
+  <rect x="404" y="780" width="392" height="74" rx="18" fill="#FFF7E8"/>
+  <rect x="816" y="780" width="228" height="74" rx="18" fill="#F8FAFC"/>
+  <defs>
+    <linearGradient id="bg" x1="78" y1="72" x2="1108" y2="942" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7FBFF"/>
+      <stop offset="0.52" stop-color="#FFF9EF"/>
+      <stop offset="1" stop-color="#F8FAFC"/>
+    </linearGradient>
+    <linearGradient id="engPanel" x1="120" y1="192" x2="392" y2="388" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E0F2FE"/>
+      <stop offset="1" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <linearGradient id="prodPanel" x1="680" y1="144" x2="1032" y2="400" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FEF3C7"/>
+      <stop offset="1" stop-color="#FFEDD5"/>
+    </linearGradient>
+  </defs>
+</svg>
