@@ -16,16 +16,16 @@ export const onPost: RequestHandler = async (requestEvent) => {
 
   // Validate required fields
   if (!websiteUrl || !intent) {
-    requestEvent.status(400)
-    return requestEvent.json({ message: 'Website URL and intent are required.' })
+    requestEvent.json(400, { message: 'Website URL and intent are required.' })
+    return
   }
 
   // Validate URL format
   try {
     new URL(websiteUrl)
   } catch {
-    requestEvent.status(400)
-    return requestEvent.json({ message: 'Please provide a valid website URL.' })
+    requestEvent.json(400, { message: 'Please provide a valid website URL.' })
+    return
   }
 
   try {
@@ -54,11 +54,11 @@ Submitted at: ${new Date().toISOString()}
     console.log(emailBody)
 
     // Send response
-    requestEvent.status(200)
-    return requestEvent.json({ success: true })
+    requestEvent.json(200, { success: true })
+    return
   } catch (error) {
     console.error('Error processing teardown request:', error)
-    requestEvent.status(500)
-    return requestEvent.json({ message: 'Failed to process your request. Please try again.' })
+    requestEvent.json(500, { message: 'Failed to process your request. Please try again.' })
+    return
   }
 }

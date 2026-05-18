@@ -51,6 +51,7 @@ export type MediaItem = {
 export type ProductionSection = {
   title: string;
   content?: string;
+  items?: string[];
   media?: MediaItem[];
 };
 
