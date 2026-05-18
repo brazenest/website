@@ -13,11 +13,11 @@ export const resumePageContent = {
         href: 'mailto:ag@aldengillespy.com',
       },
       {
-        label: '(813) 437-7425',
-        href: 'tel:+18134377425',
+        label: '(702) 670-2251',
+        href: 'tel:+17026702251',
       },
       {
-        label: 'Salt Lake City, UT',
+        label: 'Orlando, FL',
       },
       {
         label: 'LinkedIn',

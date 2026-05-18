@@ -8,10 +8,9 @@ export const nightMarketSocialCampaignProject: ProductionProject = {
     'A short-form campaign package for social channels, built from one production window into multiple cuts with distinct pacing profiles and format-aware visual hierarchy.',
   media: [
     {
-      type: 'video',
-      src: '/media/production/night-market-social-campaign.mp4',
-      alt: 'Night market social campaign video preview frame',
-      poster: '/media/production/night-market-social-campaign.jpg',
+      type: 'image',
+      src: '/media/production/night-market-social-campaign.jpg',
+      alt: 'Cinematic night market still for the Night Market Social Campaign case study',
     },
   ],
   sections: [

@@ -8,10 +8,9 @@ export const founderProfileLaunchFilmProject: ProductionProject = {
     'A founder-led launch film that translated product strategy into a focused interview narrative, balancing brand clarity with personal voice across direction, capture, and edit.',
   media: [
     {
-      type: 'video',
-      src: '/media/production/founder-profile-launch-film.mp4',
-      alt: 'Founder profile launch film preview frame',
-      poster: '/media/production/founder-profile-launch-film.jpg',
+      type: 'image',
+      src: '/media/production/founder-profile-launch-film.jpg',
+      alt: 'Cinematic interview still for the Founder Profile Launch Film case study',
     },
   ],
   sections: [
