@@ -25,7 +25,7 @@ FROM deps AS build
 COPY . .
 
 RUN --mount=type=secret,id=app_env,required=true \
-  node scripts/with-env.mjs /run/secrets/app_env -- qwik build
+  node scripts/with-env.mjs /run/secrets/app_env -- pnpm exec qwik build
 
 FROM deps AS prod-deps
 
@@ -43,6 +43,7 @@ COPY --from=prod-deps /usr/src/app/package.json ./package.json
 COPY --from=prod-deps /usr/src/app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=prod-deps /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/scripts/serve-built.mjs ./scripts/serve-built.mjs
 
 USER node
 
