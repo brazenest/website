@@ -17,8 +17,11 @@ Optional:
   env_file    Runtime/build env file on the EC2 host. Defaults to .env.production
 
 Environment:
-  DEPLOY_ROOT       Directory containing the git checkout. Defaults to current directory.
-  HEALTHCHECK_PATH  Path to check after container start. Defaults to /
+  DEPLOY_ROOT         Directory containing the git checkout. Defaults to current directory.
+  DEPLOY_REPOSITORY   Git repository URL used to bootstrap DEPLOY_ROOT when needed.
+  DEPLOY_SOURCE_MODE  Set to archive to skip git fetch/checkout/pull. Defaults to git.
+  DEPLOY_COMMIT_SHA   Commit SHA to use for image tags when DEPLOY_SOURCE_MODE=archive.
+  HEALTHCHECK_PATH    Path to check after container start. Defaults to /
 USAGE
 }
 
@@ -93,6 +96,9 @@ APP_OWNER_RAW="$4"
 APP_ORIGIN="$5"
 ENV_FILE="${6:-.env.production}"
 DEPLOY_ROOT="${DEPLOY_ROOT:-$(pwd)}"
+DEPLOY_REPOSITORY="${DEPLOY_REPOSITORY:-git@github.com:${APP_OWNER_RAW}/${APP_NAME_RAW}.git}"
+DEPLOY_SOURCE_MODE="${DEPLOY_SOURCE_MODE:-git}"
+DEPLOY_COMMIT_SHA="${DEPLOY_COMMIT_SHA:-}"
 HEALTHCHECK_PATH="${HEALTHCHECK_PATH:-/}"
 
 [[ "$APP_PORT" =~ ^[0-9]+$ ]] || fail "app_port must be numeric, got: ${APP_PORT}"
@@ -107,7 +113,9 @@ IMAGE_REPOSITORY="${APP_OWNER}/${APP_NAME}"
 CONTAINER_NAME="${APP_OWNER}-${APP_NAME}"
 PREVIOUS_CONTAINER_NAME="${CONTAINER_NAME}-previous"
 
-require_command git
+if [[ "$DEPLOY_SOURCE_MODE" != "archive" ]]; then
+  require_command git
+fi
 require_command docker
 require_command curl
 
@@ -123,9 +131,24 @@ if ! docker info >/dev/null 2>&1; then
   fi
 fi
 
+mkdir -p "$DEPLOY_ROOT"
 cd "$DEPLOY_ROOT" || fail "Cannot cd to DEPLOY_ROOT: ${DEPLOY_ROOT}"
-[[ -f Dockerfile ]] || fail "Dockerfile not found in ${DEPLOY_ROOT}"
-[[ -d .git ]] || fail "${DEPLOY_ROOT} is not a git checkout"
+
+if [[ "$DEPLOY_SOURCE_MODE" != "archive" ]]; then
+  if [[ ! -d .git ]]; then
+    log "Initializing git checkout in ${DEPLOY_ROOT}"
+    git init
+    git remote add origin "$DEPLOY_REPOSITORY"
+  elif ! git remote get-url origin >/dev/null 2>&1; then
+    git remote add origin "$DEPLOY_REPOSITORY"
+  fi
+
+  log "Updating git checkout"
+  git fetch --prune origin "$BRANCH"
+  git checkout -B "$BRANCH" "origin/${BRANCH}"
+fi
+
+[[ -f Dockerfile ]] || fail "Dockerfile not found in ${DEPLOY_ROOT} after source update"
 
 if [[ "$ENV_FILE" != /* ]]; then
   ENV_FILE_PATH="${DEPLOY_ROOT}/${ENV_FILE}"
@@ -144,14 +167,16 @@ require_env_file_key CONTACT_FORM_TO_EMAIL
 
 log "Deploying ${APP_OWNER_RAW}/${APP_NAME_RAW} from branch ${BRANCH}"
 log "Deploy root: ${DEPLOY_ROOT}"
+log "Deploy source mode: ${DEPLOY_SOURCE_MODE}"
 log "Env file: ${ENV_FILE_PATH}"
 
-log "Updating git checkout"
-git fetch --prune origin "$BRANCH"
-git checkout "$BRANCH"
-git pull --ff-only origin "$BRANCH"
+if [[ "$DEPLOY_SOURCE_MODE" == "archive" ]]; then
+  COMMIT_SHA="${DEPLOY_COMMIT_SHA:0:12}"
+  [[ -n "$COMMIT_SHA" ]] || COMMIT_SHA="uploaded"
+else
+  COMMIT_SHA="$(git rev-parse --short=12 HEAD)"
+fi
 
-COMMIT_SHA="$(git rev-parse --short=12 HEAD)"
 IMAGE_TAG="${BRANCH}-${COMMIT_SHA}"
 IMAGE="${IMAGE_REPOSITORY}:${IMAGE_TAG}"
 LATEST_IMAGE="${IMAGE_REPOSITORY}:latest"

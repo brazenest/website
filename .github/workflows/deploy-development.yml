@@ -52,6 +52,7 @@ jobs:
         timeout-minutes: 30
         env:
           DEPLOY_ROOT: ${{ vars.EC2_DEPLOY_ROOT_DIR }}
+          DEPLOY_REPOSITORY: git@github.com:${{ github.repository }}.git
           DEPLOY_BRANCH: ${{ github.ref_name }}
           APP_SERVER_PORT: ${{ vars.APP_SERVER_PORT }}
           APP_NAME: ${{ vars.APP_NAME }}
@@ -60,4 +61,4 @@ jobs:
           EC2_ENV_FILE: ${{ vars.EC2_ENV_FILE || '.env.development' }}
         run: |
           ssh myserver \
-            "DEPLOY_ROOT='${DEPLOY_ROOT}' /tmp/deploy-ec2.sh '${DEPLOY_BRANCH}' '${APP_SERVER_PORT}' '${APP_NAME}' '${APP_OWNER}' '${APP_ORIGIN}' '${EC2_ENV_FILE}'"
+            "DEPLOY_ROOT='${DEPLOY_ROOT}' DEPLOY_REPOSITORY='${DEPLOY_REPOSITORY}' /tmp/deploy-ec2.sh '${DEPLOY_BRANCH}' '${APP_SERVER_PORT}' '${APP_NAME}' '${APP_OWNER}' '${APP_ORIGIN}' '${EC2_ENV_FILE}'"
