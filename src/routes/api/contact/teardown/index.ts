@@ -1,4 +1,94 @@
 import type { RequestHandler } from '@builder.io/qwik-city'
+import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function getRequiredEnv(name: string) {
+  const value = process.env[name]?.trim()
+
+  if (!value) {
+    throw new Error(`${name} must be set before sending contact form email.`)
+  }
+
+  return value
+}
+
+function getIntentLabel(intent: string) {
+  if (intent === 'teardown') {
+    return 'Website Teardown Review'
+  }
+
+  if (intent === 'project') {
+    return 'Project Inquiry'
+  }
+
+  return 'Project & Teardown'
+}
+
+function getRecipientEmails() {
+  return getRequiredEnv('CONTACT_FORM_TO_EMAIL')
+    .split(',')
+    .map((email) => email.trim())
+    .filter(Boolean)
+}
+
+async function sendContactEmail({
+  websiteUrl,
+  intentLabel,
+  email,
+  context,
+}: {
+  websiteUrl: string
+  intentLabel: string
+  email?: string
+  context?: string
+}) {
+  const region = getRequiredEnv('AWS_REGION')
+  const fromEmail = getRequiredEnv('CONTACT_FORM_FROM_EMAIL')
+  const toEmails = getRecipientEmails()
+  const subjectPrefix = process.env.CONTACT_FORM_SUBJECT_PREFIX?.trim() || 'Website contact'
+  const submittedAt = new Date().toISOString()
+
+  if (toEmails.length === 0) {
+    throw new Error('CONTACT_FORM_TO_EMAIL must include at least one email address.')
+  }
+
+  const emailBody = [
+    'New teardown request / inquiry',
+    '',
+    `Website: ${websiteUrl}`,
+    `Intent: ${intentLabel}`,
+    `Email: ${email || 'Not provided'}`,
+    context ? `\nContext:\n${context}` : '',
+    '',
+    'This request came through the website teardown form.',
+    `Submitted at: ${submittedAt}`,
+  ].join('\n')
+
+  const ses = new SESClient({ region })
+
+  await ses.send(
+    new SendEmailCommand({
+      Source: fromEmail,
+      Destination: {
+        ToAddresses: toEmails,
+      },
+      ReplyToAddresses: email ? [email] : undefined,
+      Message: {
+        Subject: {
+          Charset: 'UTF-8',
+          Data: `${subjectPrefix}: ${intentLabel}`,
+        },
+        Body: {
+          Text: {
+            Charset: 'UTF-8',
+            Data: emailBody,
+          },
+        },
+      },
+    }),
+  )
+}
 
 /**
  * API route for handling teardown/contact requests
@@ -29,29 +119,17 @@ export const onPost: RequestHandler = async (requestEvent) => {
   }
 
   try {
-    // Format the email content
-    const intentLabel =
-      intent === 'teardown'
-        ? 'Website Teardown Review'
-        : intent === 'project'
-          ? 'Project Inquiry'
-          : 'Project & Teardown'
+    if (email && !emailPattern.test(email)) {
+      requestEvent.json(400, { message: 'Please provide a valid email address.' })
+      return
+    }
 
-    const emailBody = `
-New Teardown Request / Inquiry
-
-Website: ${websiteUrl}
-Intent: ${intentLabel}
-${email ? `Email: ${email}` : 'Email: Not provided'}
-${context ? `\nContext:\n${context}` : ''}
-
-This request came through the website teardown form.
-Submitted at: ${new Date().toISOString()}
-`
-
-    // For now, log to console (you can extend this with actual email service)
-    console.log('📧 Teardown Request Received:')
-    console.log(emailBody)
+    await sendContactEmail({
+      websiteUrl,
+      intentLabel: getIntentLabel(intent),
+      email,
+      context,
+    })
 
     // Send response
     requestEvent.json(200, { success: true })
