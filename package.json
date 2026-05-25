@@ -3,23 +3,25 @@
   "version": "3.0.0",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.32.1",
   "engines": {
-    "node": "^18.17.0 || ^20.3.0 || >=21.0.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
-    "build": "qwik build",
+    "build": "node scripts/with-env.mjs .env.production -- qwik build",
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "qwik check-client src dist && vite build -c adapters/fastify/vite.config.ts",
     "build.types": "tsc --noEmit",
-    "dev": "vite --mode ssr",
+    "dev": "node scripts/with-env.mjs .env.development -- vite --mode development",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "generate:case-study-images": "node scripts/generate-case-study-images.mjs",
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview",
-    "serve": "node dist/entry.fastify-*.js",
-    "start": "vite --mode ssr",
+    "serve": "node scripts/serve-built.mjs",
+    "serve:production": "node scripts/with-env.mjs .env.production -- node scripts/serve-built.mjs",
+    "start": "node scripts/with-env.mjs .env.development -- vite --mode development",
     "qwik": "qwik"
   },
   "devDependencies": {
@@ -29,6 +31,7 @@
     "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "20.19.0",
     "@types/pg": "^8.18.0",
+    "dotenv": "^16.3.2",
     "eslint": "9.32.0",
     "eslint-plugin-qwik": "^1.19.2",
     "globals": "16.4.0",
@@ -44,14 +47,19 @@
   "dependencies": {
     "@aws-sdk/client-sesv2": "^3.1014.0",
     "@fastify/compress": "^8.3.1",
-    "@fastify/static": "^8.3.0",
+    "@fastify/static": "^9.1.3",
     "@fontsource-variable/inter": "^5.2.8",
     "clsx": "^2.1.1",
-    "dotenv": "^16.3.2",
     "fastify": "^5.7.3",
     "fastify-plugin": "^4.5.0",
     "marked": "^17.0.5",
     "pg": "^8.20.0",
-    "tailwind-merge": "^3.5.0"
+    "tailwind-merge": "^3.5.0",
+    "undici": "^6.25.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "undici": "6.25.0"
+    }
   }
 }
