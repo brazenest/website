@@ -31,17 +31,25 @@ jobs:
             echo "  HostName ${{ secrets.EC2_SERVER_HOST }}"
             echo "  User ${{ secrets.EC2_SERVER_USER }}"
             echo "  IdentityFile ~/.ssh/id_rsa"
+            echo "  IdentitiesOnly yes"
+            echo "  BatchMode yes"
+            echo "  ConnectTimeout 15"
+            echo "  ServerAliveInterval 15"
+            echo "  ServerAliveCountMax 2"
             echo "  StrictHostKeyChecking no"
+            echo "  UserKnownHostsFile /dev/null"
           } >> ~/.ssh/config
 
       - id: upload-ec2-deploy-script
         name: Upload Deployment Script
+        timeout-minutes: 2
         run: |
-          scp scripts/deploy-ec2.sh myserver:/tmp/deploy-ec2.sh
+          ssh myserver 'cat > /tmp/deploy-ec2.sh' < scripts/deploy-ec2.sh
           ssh myserver 'chmod +x /tmp/deploy-ec2.sh'
 
       - id: run-ec2-deploy-script-via-ssh
         name: Run Deployment Script
+        timeout-minutes: 30
         env:
           DEPLOY_ROOT: ${{ vars.EC2_DEPLOY_ROOT_DIR }}
           DEPLOY_BRANCH: ${{ github.ref_name }}
