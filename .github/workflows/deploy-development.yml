@@ -7,12 +7,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  deploy:
 
     runs-on: ubuntu-latest
     environment: development
+    concurrency:
+      group: development-deploy
+      cancel-in-progress: false
 
     steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
  
       - id: configure-ssh
         name: Configure SSH
@@ -20,15 +26,30 @@ jobs:
           mkdir -p ~/.ssh/
           echo "${{ secrets.EC2_SERVER_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          echo "Host myserver " >> ~/.ssh/config
-          echo "  HostName ${{ secrets.EC2_SERVER_HOST }}" >> ~/.ssh/config
-          echo "  User ${{ secrets.EC2_SERVER_USER }}" >> ~/.ssh/config
-          echo "  IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
-          echo "  StrictHostKeyChecking no" >> ~/.ssh/config
+          {
+            echo "Host myserver"
+            echo "  HostName ${{ secrets.EC2_SERVER_HOST }}"
+            echo "  User ${{ secrets.EC2_SERVER_USER }}"
+            echo "  IdentityFile ~/.ssh/id_rsa"
+            echo "  StrictHostKeyChecking no"
+          } >> ~/.ssh/config
+
+      - id: upload-ec2-deploy-script
+        name: Upload Deployment Script
+        run: |
+          scp scripts/deploy-ec2.sh myserver:/tmp/deploy-ec2.sh
+          ssh myserver 'chmod +x /tmp/deploy-ec2.sh'
 
       - id: run-ec2-deploy-script-via-ssh
         name: Run Deployment Script
+        env:
+          DEPLOY_ROOT: ${{ vars.EC2_DEPLOY_ROOT_DIR }}
+          DEPLOY_BRANCH: ${{ github.ref_name }}
+          APP_SERVER_PORT: ${{ vars.APP_SERVER_PORT }}
+          APP_NAME: ${{ vars.APP_NAME }}
+          APP_OWNER: ${{ vars.APP_OWNER }}
+          APP_ORIGIN: ${{ vars.APP_ORIGIN }}
+          EC2_ENV_FILE: ${{ vars.EC2_ENV_FILE || '.env.development' }}
         run: |
-          ssh -t myserver \
-            'cd ${{ vars.EC2_DEPLOY_ROOT_DIR }}; \
-            sudo ./deploy.sh ${{ github.ref_name }} ${{ vars.APP_SERVER_PORT }} ${{ vars.APP_NAME }} ${{ vars.APP_OWNER }}'
+          ssh myserver \
+            "DEPLOY_ROOT='${DEPLOY_ROOT}' /tmp/deploy-ec2.sh '${DEPLOY_BRANCH}' '${APP_SERVER_PORT}' '${APP_NAME}' '${APP_OWNER}' '${APP_ORIGIN}' '${EC2_ENV_FILE}'"
