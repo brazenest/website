@@ -12,14 +12,14 @@
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "qwik check-client src dist && vite build -c adapters/fastify/vite.config.ts",
     "build.types": "tsc --noEmit",
-    "dev": "node scripts/with-env.mjs .env.development -- vite --mode development",
+    "dev": "node scripts/with-env.mjs .env.development -- vite --mode ssr",
     "fmt": "prettier --write .",
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview",
     "serve": "node scripts/serve-built.mjs",
     "serve:production": "node scripts/with-env.mjs .env.production -- node scripts/serve-built.mjs",
-    "start": "node scripts/with-env.mjs .env.development -- vite --mode development",
+    "start": "node scripts/with-env.mjs .env.development -- vite --mode ssr",
     "qwik": "qwik"
   },
   "devDependencies": {
