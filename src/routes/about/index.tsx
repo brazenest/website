@@ -127,7 +127,13 @@ export default component$(() => {
                         href={link.href}
                         label={link.label}
                         variant={link.variant}
-                        class="w-full sm:w-auto"
+                        class={
+                          link.href.startsWith('/engineering')
+                            ? 'w-full sm:min-h-[calc(var(--button-height-md)*1.14)] sm:min-w-[18rem] sm:px-6 sm:text-[0.9375rem] sm:shadow-[0_22px_44px_-26px_var(--card-glow)]'
+                            : link.href.startsWith('/production')
+                              ? 'w-full sm:min-w-[12rem]'
+                              : 'w-full sm:w-auto'
+                        }
                       />
                     ))}
                   </div>

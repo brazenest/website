@@ -409,8 +409,9 @@
   --state-disabled-opacity: 0.45;
   --button-bg-primary: linear-gradient(
     135deg,
-    color-mix(in srgb, var(--color-engineering-500) 92%, #22d3ee) 0%,
-    color-mix(in srgb, var(--color-production-500) 72%, #fcd34d) 100%
+    color-mix(in srgb, var(--color-engineering-500) 98%, #22d3ee) 0%,
+    color-mix(in srgb, var(--color-engineering-500) 86%, var(--color-production-500)) 48%,
+    color-mix(in srgb, var(--color-production-500) 92%, #fcd34d) 100%
   );
   --button-fg-primary: var(--accent-fg);
   --button-bg-secondary:

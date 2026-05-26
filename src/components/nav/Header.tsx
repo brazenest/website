@@ -108,8 +108,9 @@ export const Header = component$(() => {
             <ButtonLink
               href="/contact"
               label="Request Teardown"
-              variant="secondary"
+              variant="primary"
               size="sm"
+              class="shadow-[0_14px_30px_-20px_var(--card-glow)]"
             />
           </div>
 

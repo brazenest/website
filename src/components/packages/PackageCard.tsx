@@ -9,7 +9,7 @@ export const PackageCard = component$(
   ({ title, description, forWho, includes, outcome, ctaLabel, ctaHref, highlight }: PackageCardProps) => {
     return (
       <Card class={highlight ? 'ring-2 ring-[var(--primary)]' : undefined}>
-        <div class="flex flex-1 flex-col" style={{ gap: 'var(--card-content-gap)' }}>
+        <div class="grid flex-1 gap-5 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] md:gap-6 xl:flex xl:flex-col" style={{ gap: 'var(--card-content-gap)' }}>
           <div class="flex flex-col" style={{ gap: 'var(--card-title-body-gap)' }}>
             <Heading level={3}>{title}</Heading>
 
@@ -27,36 +27,38 @@ export const PackageCard = component$(
                 </p>
                 <Text variant="muted">{description}</Text>
               </div>
-
-              <div class="flex flex-col gap-1">
-                <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                  What's included
-                </p>
-                <ul class="flex flex-col gap-1.5">
-                  {includes.map((item) => (
-                    <li key={item} class="flex gap-2 text-sm leading-6 text-[var(--fg)]">
-                      <span class="text-[var(--muted)]">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div class="flex flex-col gap-1">
-                <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                  Outcome
-                </p>
-                <p class="text-sm leading-6 text-[var(--fg)]">{outcome}</p>
-              </div>
             </div>
           </div>
 
-          <div class="pt-3 md:pt-2">
-            <TextLink
-              href={ctaHref}
-              label={ctaLabel}
-              class="inline-flex min-h-10 items-center"
-            />
+          <div class="flex flex-col gap-3 md:gap-3.5">
+            <div class="flex flex-col gap-1">
+              <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                What's included
+              </p>
+              <ul class="flex flex-col gap-1.5">
+                {includes.map((item) => (
+                  <li key={item} class="flex gap-2 text-sm leading-6 text-[var(--fg)]">
+                    <span class="text-[var(--muted)]">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="flex flex-col gap-1">
+              <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                Outcome
+              </p>
+              <p class="text-sm leading-6 text-[var(--fg)]">{outcome}</p>
+            </div>
+
+            <div class="pt-3 md:pt-2">
+              <TextLink
+                href={ctaHref}
+                label={ctaLabel}
+                class="inline-flex min-h-10 items-center"
+              />
+            </div>
           </div>
         </div>
       </Card>

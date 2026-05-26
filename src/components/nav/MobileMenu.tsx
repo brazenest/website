@@ -1,4 +1,5 @@
 import { component$, useSignal } from '@builder.io/qwik'
+import { ButtonLink } from '~/components/ui/ButtonLink'
 import { cn } from '~/fns/cn'
 
 export const MobileMenu = component$(() => {
@@ -76,6 +77,14 @@ export const MobileMenu = component$(() => {
           >
             Production
           </a>
+          <div class="border-t border-[var(--border)] pt-4">
+            <ButtonLink
+              href="/contact"
+              label="Request Teardown"
+              variant="primary"
+              class="w-full"
+            />
+          </div>
         </nav>
       </div>
     </div>
