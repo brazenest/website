@@ -37,7 +37,7 @@ export const packages: Package[] = [
       'Dynamic content management',
       'Client testimonials or results showcase',
       'Performance monitoring and analytics',
-      'Blog or resources section',
+      'Resources section',
       'Lead capture workflows',
     ],
     outcome:

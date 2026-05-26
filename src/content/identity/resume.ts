@@ -21,7 +21,7 @@ export const resumeExperience: ResumeEntry[] = [
       'Built and shipped customer-facing web platform (Next.js, PostgreSQL) serving 50K+ users',
       'Designed and implemented authentication system supporting OAuth, JWT, and session-based flows',
       'Established SEO and performance baselines; improved Core Web Vitals by 40%',
-      'Contributed to open-source projects and published 6 technical blog posts',
+      'Contributed to open-source projects and published technical writing',
     ],
   },
   {

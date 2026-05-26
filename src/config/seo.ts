@@ -1,4 +1,4 @@
-import type { BlogArticleSEOFields, SEOInput, SEOPresetMap, SEOPageKey } from '~/types/seo'
+import type { SEOPresetMap, SEOPageKey } from '~/types/seo'
 
 /**
  * Route pathname mapping for canonical pages.
@@ -10,7 +10,6 @@ export const routePathnames: Record<SEOPageKey, string> = {
 	resume: '/resume',
 	contact: '/contact',
 	packages: '/packages',
-	blog: '/blog',
 	engineering: '/engineering',
 	production: '/production',
 }
@@ -65,15 +64,6 @@ export const seoPresets: SEOPresetMap = {
 		changefreq: 'yearly',
 		priority: 0.7,
 	},
-	blog: {
-		title: 'Writing on Systems, Stories & Craft',
-		description:
-			'Essays and process notes on architecture decisions, production craft, editorial judgment, and where engineering and storytelling intersect.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'weekly',
-		priority: 0.8,
-	},
 	engineering: {
 		title: 'Engineering Work & Case Studies',
 		description:
@@ -101,27 +91,4 @@ export const seoPresets: SEOPresetMap = {
 		changefreq: 'monthly',
 		priority: 0.8,
 	},
-}
-
-export const blogArticleSeoFallback = {
-	title: 'Blog Post',
-	description: 'Writing by Alden Gillespy across engineering and production practice.',
-	type: 'article',
-} as const satisfies Omit<SEOInput, 'pathname'>
-
-export function buildBlogArticleSEOInput(post: BlogArticleSEOFields): SEOInput {
-	return {
-		...blogArticleSeoFallback,
-		title: post.title,
-		description: post.summary,
-		pathname: `/blog/${post.slug}`,
-		image: post.coverImageUrl
-			? {
-				url: post.coverImageUrl,
-				...(post.coverImageAlt ? { alt: post.coverImageAlt } : {}),
-			}
-			: undefined,
-		publishedTime: post.publishedAt ?? undefined,
-		modifiedTime: post.updatedAt ?? undefined,
-	}
 }

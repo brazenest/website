@@ -48,12 +48,6 @@ export const MobileMenu = component$(() => {
             Resume
           </a>
           <a
-            href="/blog"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            Blog
-          </a>
-          <a
             href="/packages"
             class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
           >

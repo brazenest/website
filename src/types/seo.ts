@@ -29,22 +29,6 @@ export type SEOInput = {
   priority?: number
 }
 
-export type BlogArticleSEOFields = {
-  slug: string
-  title: string
-  summary: string
-  publishedAt: string | null
-  updatedAt: string | null
-  coverImageUrl: string | null
-  coverImageAlt: string | null
-}
-
-export type BlogArticleStructuredDataFields = BlogArticleSEOFields & {
-  createdAt: string
-  bodyMarkdown: string
-  side: string
-}
-
 /**
  * Complete, normalized SEO metadata for a page.
  * All fields are guaranteed to be present with sensible defaults.
@@ -94,7 +78,6 @@ export type SEOPageKey =
   | 'resume'
   | 'contact'
   | 'packages'
-  | 'blog'
   | 'engineering'
   | 'production'
 
@@ -183,23 +166,6 @@ export type ProjectStructuredDataInput = {
 }
 
 /**
- * Input for building an Article schema.
- * Covers blog posts, essays, and longform content.
- */
-export type ArticleStructuredDataInput = {
-  title: string
-  description: string
-  url: string
-  image?: string
-  datePublished: string
-  dateModified?: string
-  keywords?: string[]
-  excerpt?: string
-  authorName?: string
-  articleBody?: string
-}
-
-/**
  * JSON-LD CreativeWork schema for portfolio/project pages.
  */
 export type CreativeWorkStructuredData = StructuredDataObject & {
@@ -218,29 +184,10 @@ export type CreativeWorkStructuredData = StructuredDataObject & {
 }
 
 /**
- * JSON-LD Article schema for blog posts and longform content.
- */
-export type ArticleStructuredData = StructuredDataObject & {
-  '@context': 'https://schema.org'
-  '@type': 'Article'
-  headline: string
-  description: string
-  url: string
-  image?: string
-  datePublished: string
-  dateModified?: string
-  keywords?: string
-  articleBody?: string
-  author?: StructuredDataObject
-}
-
-/**
  * Type identifier for a page with structured data presets.
  * Maps to a specific route or route pattern.
  */
 export type StructuredDataPageKey =
-  | 'blog'
-  | 'blog-article'
   | 'engineering'
   | 'engineering-project'
   | 'production'
@@ -251,7 +198,7 @@ export type StructuredDataPageKey =
  * Declares the schema type and necessary input fields.
  */
 export type StructuredDataPreset = {
-  kind: 'project' | 'article' | 'none'
+  kind: 'project' | 'none'
   pathname?: string // For static pages; omit for dynamic routes
   title: string
   description: string

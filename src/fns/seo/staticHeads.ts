@@ -38,13 +38,6 @@ export const staticHeads = {
     })
   ),
 
-  blog: metadataToDocumentHead(
-    buildMetadata({
-      ...seoPresets.blog,
-      pathname: '/blog',
-    })
-  ),
-
   packages: metadataToDocumentHead(
     buildMetadata({
       ...seoPresets.packages,

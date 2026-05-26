@@ -9,8 +9,7 @@ import tsconfigPaths from "vite-tsconfig-paths";
    BUILD OUTPUT: Complete static HTML for all routes + versioned assets
    
    PRERENDERED ROUTES:
-   - Static: /, /about, /resume, /blog, /engineering, /production, /contact
-   - Blog: /blog/[slug] for all published posts (enumerated from content)
+   - Static: /, /about, /resume, /engineering, /production, /contact
    - Engineering: /engineering/projects/[slug] for all projects
    - Production: /production/projects/[slug] for all projects
    - Special: /robots.txt, /sitemap.xml
