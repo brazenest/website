@@ -7,7 +7,6 @@ export default extendConfig(baseConfig, () => {
     build: {
       emptyOutDir: false,
       ssr: true,
-      emptyOutDir: false,
       rollupOptions: {
         input: ["src/entry.fastify.tsx", "@qwik-city-plan"],
       },
