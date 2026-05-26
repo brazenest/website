@@ -11,28 +11,45 @@ export const HomeCTASection = component$(() => {
   return (
     <Section spacing="compact">
       <Container width="content">
-        <section id="home-cta" aria-labelledby="home-cta-title" class="flex flex-col gap-4 md:gap-5">
-          <h2 id="home-cta-title" class="ui-meta-label">
-            Ready to explore?
-          </h2>
+        <section id="home-cta" aria-labelledby="home-cta-title" class="ui-cta-panel flex flex-col gap-4 md:gap-5">
+          <div class="ui-cta-layout">
+            <div class="flex flex-col gap-4 md:gap-5">
+              <p class="ui-meta-label">Ready</p>
 
-          <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-            Review case studies across engineering and production, explore service packages, or start a conversation about your next project.
-          </p>
+              <h2 id="home-cta-title" class="ui-cta-title">
+                Choose your starting point.
+              </h2>
 
-          <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
-            <ButtonLink
-              href="/packages"
-              label="View Packages"
-              variant="primary"
-              class="w-full sm:w-auto"
-            />
-            <ButtonLink
-              href="/contact"
-              label="Start a Project"
-              variant="secondary"
-              class="w-full sm:w-auto"
-            />
+              <p class="ui-cta-text max-w-[42ch]">
+                Review the case studies, compare the packages, or open the conversation around the platform you need next. The fastest way in is the one that matches the pressure you are under now.
+              </p>
+
+              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+                <ButtonLink
+                  href="/packages"
+                  label="View Packages"
+                  variant="primary"
+                  class="w-full sm:w-auto"
+                />
+                <ButtonLink
+                  href="/contact"
+                  label="Start a Project"
+                  variant="secondary"
+                  class="w-full sm:w-auto"
+                />
+              </div>
+            </div>
+
+            <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+              <img
+                src="/media/generated/home-hero-studio.png"
+                alt="Editorial studio image representing the combined engineering and production practice."
+                width={1536}
+                height={1024}
+                loading="lazy"
+                class="h-full w-full object-cover"
+              />
+            </div>
           </div>
         </section>
       </Container>

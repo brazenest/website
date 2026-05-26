@@ -6,6 +6,7 @@ export type SEO = {
 export type EngineeringSection = {
   title: string;
   content: string;
+  media?: MediaItem[];
 };
 
 export type EngineeringProject = {
@@ -29,6 +30,7 @@ export type EngineeringHeroContent = {
   primaryCtaHref: string;
   secondaryCtaLabel: string;
   secondaryCtaHref: string;
+  visual?: MediaAsset;
 };
 
 export type SystemThinkingItem = {
@@ -74,6 +76,7 @@ export type ProductionHeroContent = {
   description: string;
   primaryCtaLabel: string;
   primaryCtaHref: string;
+  visual?: MediaAsset;
 };
 
 export type MediaAsset = {
@@ -105,6 +108,8 @@ export type ProofItem = {
   title: string;
   statement: string;
   href: string;
+  detail?: string;
+  impact?: string;
 };
 
 export type AboutPreviewContent = {
@@ -147,6 +152,7 @@ export type PackageHeroContent = {
   headline: string;
   byline?: string;
   description: string;
+  visual?: MediaAsset;
 };
 
 export type ContactMethod = {

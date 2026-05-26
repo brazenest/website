@@ -5,33 +5,50 @@ import { Section } from '~/components/ui/Section'
 import type { ProductionHeroContent } from '~/types/content'
 
 export const ProductionHero = component$(
-  ({ headline, byline, description, primaryCtaLabel, primaryCtaHref }: ProductionHeroProps) => {
+  ({ headline, byline, description, primaryCtaLabel, primaryCtaHref, visual }: ProductionHeroProps) => {
     return (
       <Section spacing="default">
-        <Container>
-          <div class="flex flex-col gap-5 md:gap-8">
-            <div class="flex max-w-[72ch] flex-col gap-3 md:gap-5">
-              <p class="ui-meta-label">
-                {byline || 'Production'}
-              </p>
+        <Container width="full">
+          <div class="grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(20rem,0.98fr)] lg:items-start">
+            <div class="ui-hero-copy flex flex-col gap-5 md:gap-8">
+              <div class="flex max-w-[72ch] flex-col gap-3 md:gap-5">
+                <p class="ui-meta-label">
+                  {byline || 'Production'}
+                </p>
 
-              <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:max-w-[15ch] md:text-6xl">
-                {headline}
-              </h1>
+                <h1 class="ui-hero-title md:max-w-[12ch]">
+                  {headline}
+                </h1>
 
-              <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {description}
-              </p>
+                <p class="ui-hero-text text-[var(--muted)]">
+                  {description}
+                </p>
+              </div>
+
+              <div class="ui-cta-group w-full">
+                <ButtonLink
+                  href={primaryCtaHref}
+                  label={primaryCtaLabel}
+                  variant="primary"
+                  class="w-full sm:w-auto"
+                />
+              </div>
             </div>
 
-            <div class="ui-cta-group w-full">
-              <ButtonLink
-                href={primaryCtaHref}
-                label={primaryCtaLabel}
-                variant="primary"
-                class="w-full sm:w-auto"
-              />
-            </div>
+            {visual ? (
+              <div class="lg:pt-2">
+                <div class="ui-editorial-frame aspect-[6/5]">
+                  <img
+                    src={visual.src}
+                    alt={visual.alt}
+                    width={1536}
+                    height={1024}
+                    loading="eager"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+            ) : null}
           </div>
         </Container>
       </Section>

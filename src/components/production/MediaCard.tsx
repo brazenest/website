@@ -21,14 +21,21 @@ export const MediaCard = component$(
         <div class="aspect-[16/10] w-full border-b border-[var(--border)] bg-[var(--surface-elevated)]">
           {primaryMedia ? (
             primaryMedia.type === "image" ? (
-              <img
-                src={primaryMedia.src}
-                alt={primaryMedia.alt ?? title}
-                width={1600}
-                height={1000}
-                loading="lazy"
-                class="h-full w-full object-cover"
-              />
+              <div class="relative h-full w-full">
+                <img
+                  src={primaryMedia.src}
+                  alt={primaryMedia.alt ?? title}
+                  width={1600}
+                  height={1000}
+                  loading="lazy"
+                  class="h-full w-full object-cover"
+                />
+                <div class="ui-media-graphic" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
             ) : (
               // Video media: render poster image with play button affordance
               <div class="relative h-full w-full">
@@ -42,7 +49,7 @@ export const MediaCard = component$(
                     class="h-full w-full object-cover"
                   />
                 ) : (
-                  <div class="h-full w-full bg-gradient-to-br from-[var(--surface-elevated)] to-[var(--surface)]" />
+                  <div class="h-full w-full bg-[var(--surface-elevated)]" />
                 )}
                 {/* Play button indicator */}
                 <div class="absolute inset-0 flex items-center justify-center">
@@ -63,6 +70,11 @@ export const MediaCard = component$(
                     </svg>
                   </div>
                 </div>
+                <div class="ui-media-graphic" aria-hidden="true">
+                  <span />
+                  <span />
+                  <span />
+                </div>
               </div>
             )
           ) : (
@@ -72,10 +84,16 @@ export const MediaCard = component$(
           )}
         </div>
 
-        <div
+          <div
           class="flex flex-1 flex-col"
           style={{ gap: "var(--card-content-gap)", padding: "var(--card-pad)" }}
         >
+          <div class="ui-card-accent-rail" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+
           <div
             class="flex flex-col"
             style={{ gap: "var(--card-title-body-gap)" }}

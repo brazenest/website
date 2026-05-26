@@ -11,29 +11,45 @@ export const EngineeringCTASection = component$(() => {
   return (
     <Section spacing="compact">
       <Container width="content">
-        <section id="engineering-cta" aria-labelledby="engineering-cta-title" class="flex flex-col gap-4 md:gap-5">
-          <h2 id="engineering-cta-title" class="ui-meta-label">
-            Next Steps
-          </h2>
+        <section id="engineering-cta" aria-labelledby="engineering-cta-title" class="ui-cta-panel flex flex-col gap-4 md:gap-5">
+          <div class="ui-cta-layout">
+            <div class="flex flex-col gap-4 md:gap-5">
+              <p class="ui-meta-label">Next</p>
 
-          <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-            To go deeper, open a case study for architecture rationale, tradeoffs, and
-            implementation detail. Or explore the <a href="/production" class="underline hover:no-underline">production side</a> of the practice, then <a href="/contact" class="underline hover:no-underline">discuss a project or role</a>.
-          </p>
+              <h2 id="engineering-cta-title" class="ui-cta-title">
+                Go deeper into the systems work.
+              </h2>
 
-          <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
-            <ButtonLink
-              href="/engineering#selected-work"
-              label="Browse Engineering Case Studies"
-              variant="primary"
-              class="w-full sm:w-auto"
-            />
-            <ButtonLink
-              href="/contact"
-              label="Start a Project"
-              variant="secondary"
-              class="w-full sm:w-auto"
-            />
+              <p class="ui-cta-text max-w-[42ch]">
+                Open a case study for architecture rationale and implementation choices, then compare how the production side sharpens the same practice into something people can immediately trust.
+              </p>
+
+              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+                <ButtonLink
+                  href="/engineering#selected-work"
+                  label="Browse Case Studies"
+                  variant="primary"
+                  class="w-full sm:w-auto"
+                />
+                <ButtonLink
+                  href="/contact"
+                  label="Start a Project"
+                  variant="secondary"
+                  class="w-full sm:w-auto"
+                />
+              </div>
+            </div>
+
+            <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+              <img
+                src="/media/generated/engineering-hero-systems.png"
+                alt="Editorial engineering image showing structured technical work."
+                width={1536}
+                height={1024}
+                loading="lazy"
+                class="h-full w-full object-cover"
+              />
+            </div>
           </div>
         </section>
       </Container>

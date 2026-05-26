@@ -14,15 +14,29 @@ export const ProjectCard = component$(
     techStack,
     cardDescriptor,
     cardHighlight,
+    image,
   }: ProjectCardProps) => {
     const visibleTech = techStack.slice(0, 3);
     const remainingTechCount = techStack.length - visibleTech.length;
 
     return (
-      <Card>
+      <Card padding="none" class="overflow-hidden">
+        {image ? (
+          <div class="aspect-[16/10] w-full border-b border-[var(--border)] bg-[var(--surface-elevated)]">
+            <img
+              src={image}
+              alt={title}
+              width={1600}
+              height={1000}
+              loading="lazy"
+              class="h-full w-full object-cover"
+            />
+          </div>
+        ) : null}
+
         <div
           class="flex flex-1 flex-col"
-          style={{ gap: "var(--card-content-gap)" }}
+          style={{ gap: "var(--card-content-gap)", padding: "var(--card-pad)" }}
         >
           <div
             class="flex flex-col"
@@ -97,4 +111,5 @@ type ProjectCardProps = Pick<
   | "techStack"
   | "cardDescriptor"
   | "cardHighlight"
+  | "image"
 >;

@@ -6,6 +6,7 @@ import { PageShell } from "~/components/layout/PageShell";
 import { Header } from "~/components/nav/Header";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
+import { cn } from "~/fns/cn";
 import { engineeringProjects } from "~/content/engineering/projects";
 import { buildMetadata } from "~/fns/seo/buildMetadata";
 import { metadataToDocumentHead } from "~/fns/seo/metadataToDocumentHead";
@@ -94,6 +95,19 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="content">
             <div class="flex flex-col gap-4 md:gap-5">
+              {project.image ? (
+                <div class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-elevated)]">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    width={1600}
+                    height={900}
+                    loading="eager"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              ) : null}
+
               <p class="ui-meta-label">Engineering Case Study</p>
 
               <h1 class="max-w-[14ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
@@ -124,13 +138,32 @@ export default component$(() => {
             spacing={index === 0 ? "compact" : "default"}
           >
             <Container width="content">
-              <div class="flex flex-col gap-3 md:gap-4">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                  {section.title}
-                </h2>
-                <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  {section.content}
-                </p>
+              <div
+                class={cn(
+                  "ui-case-study-section",
+                  index % 2 === 1 && "ui-case-study-section--reverse",
+                )}
+              >
+                <div class="ui-case-study-copy flex flex-col gap-3 md:gap-4">
+                  <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
+                    {section.title}
+                  </h2>
+                  <p class="max-w-[62ch] text-lg leading-8 text-[var(--muted)]">
+                    {section.content}
+                  </p>
+                </div>
+
+                {section.media?.[0] ? (
+                  <div class="ui-case-study-media aspect-[5/4]">
+                    <img
+                      src={section.media[0].src}
+                      alt={section.media[0].alt ?? section.title}
+                      width={1400}
+                      height={1120}
+                      loading="lazy"
+                    />
+                  </div>
+                ) : null}
               </div>
             </Container>
           </Section>

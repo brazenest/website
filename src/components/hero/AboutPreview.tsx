@@ -16,8 +16,8 @@ export const AboutPreview = component$(
     return (
       <Section spacing="default">
         <Container width="wide">
-          <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(18rem,0.9fr)] lg:items-center">
-            <div class="flex flex-col gap-4 md:gap-5">
+          <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.95fr)] lg:items-center">
+            <div class="ui-about-preview-copy flex flex-col gap-4 md:gap-5">
               {eyebrow ? <p class="ui-meta-label">{eyebrow}</p> : null}
 
               <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">

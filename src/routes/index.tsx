@@ -23,14 +23,25 @@ export default component$(() => {
 
 			<main id="main-content" class="flex-1 scroll-mt-24 p-0">
 				<HomeHero {...heroContent}>
-					<div class="flex flex-col gap-4 md:gap-5">
-						<p class="max-w-[62ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-							Explore how engineering and production come together to build complete,
-							professional-grade platforms.
-						</p>
+					<section
+						aria-labelledby="home-side-selector-heading"
+						class="flex flex-col gap-4 md:gap-5"
+					>
+						<div class="flex max-w-[62ch] flex-col gap-2 md:gap-3">
+							<h2
+								id="home-side-selector-heading"
+								class="text-2xl font-semibold tracking-tight md:text-3xl"
+							>
+								Choose a Side
+							</h2>
+
+							<p class="text-base leading-7 text-[var(--muted)] md:text-lg">
+								Start with the discipline you want to evaluate first. Each side expands into project work, process, and the decisions that shape the outcome.
+							</p>
+						</div>
 
 						<SideSelector items={sideLinkCards} />
-					</div>
+					</section>
 				</HomeHero>
 
 				<ProofStrip items={homeProofStrip} />

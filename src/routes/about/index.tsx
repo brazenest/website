@@ -35,8 +35,17 @@ export default component$(() => {
               </div>
 
               <div class="flex flex-col gap-10 md:gap-12">
-                {aboutPageContent.narrativeSections.map((section) => (
-                  <section key={section.heading} class="flex flex-col gap-4 md:gap-5" data-scroll-reveal>
+                {aboutPageContent.narrativeSections.map((section, index) => (
+                  <section
+                    key={section.heading}
+                    class={
+                      index === 1
+                        ? 'ui-about-focus grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.88fr)] lg:items-start'
+                        : 'flex flex-col gap-4 md:gap-5'
+                    }
+                    data-scroll-reveal
+                  >
+                    <div class="flex flex-col gap-4 md:gap-5">
                     <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                       {section.heading}
                     </h2>
@@ -51,6 +60,20 @@ export default component$(() => {
                         </p>
                       ))}
                     </div>
+                    </div>
+
+                    {index === 1 ? (
+                      <div class="ui-about-focus-media ui-editorial-frame aspect-[5/6] lg:sticky lg:top-24">
+                        <img
+                          src="/media/generated/about-practice-studio.png"
+                          alt="Editorial studio image showing technical notes, production tools, and authored visual planning in one multidisciplinary practice."
+                          width={1024}
+                          height={1536}
+                          loading="lazy"
+                          class="h-full w-full object-cover"
+                        />
+                      </div>
+                    ) : null}
                   </section>
                 ))}
 

@@ -24,7 +24,7 @@ export const SideCard = component$(
         )}
       >
         <div
-          class="flex flex-1 flex-col"
+          class="ui-side-card-copy flex flex-1 flex-col"
           style={{ gap: "var(--card-content-gap)" }}
         >
           <Heading level={3}>{title}</Heading>

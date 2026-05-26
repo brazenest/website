@@ -18,36 +18,85 @@ export const bellagioFountainFilmProject: ProductionProject = {
       title: 'Overview',
       content:
         'This piece was designed as a compact observational film. Instead of treating the fountains as a montage backdrop, the goal was to shape a clear visual arc with intent: establish place, build rhythm, and land a controlled finish.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/production/sections/bellagio-fountain-film-overview.jpg',
+          alt: 'Opening visual mood for an observational fountain film at night',
+        },
+      ],
     },
     {
       title: 'Context',
       content:
         'The location is visually rich but operationally difficult: dense crowds, shifting light levels, and no control over the choreography timing. The challenge was not access to spectacle; it was extracting narrative clarity from a constantly changing live environment.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/production/sections/bellagio-fountain-film-context.jpg',
+          alt: 'Crowded night fountain environment showing the live production constraints',
+        },
+      ],
     },
     {
       title: 'Role and Scope',
       content:
         'I handled end-to-end production: concept framing, shot planning, on-location camera operation, and final edit. The work centered on directing attention through composition and sequencing rather than relying on heavy post effects.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/production/sections/bellagio-fountain-film-role-and-scope.jpg',
+          alt: 'Solo filmmaker operating and planning camera coverage at a fountain performance',
+        },
+      ],
     },
     {
       title: 'Production Challenge',
       content:
         'Because the performance cadence was unpredictable, coverage had to be adaptable. I needed enough variation to shape progression in the edit while keeping orientation stable so viewers never lost spatial context.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/production/sections/bellagio-fountain-film-production-challenge.jpg',
+          alt: 'Live fountain choreography creating an unpredictable production challenge',
+        },
+      ],
     },
     {
       title: 'Framing and Coverage Decisions',
       content:
         'I built coverage in deliberate layers: wide anchors for geography, medium shots for motion phrasing, and detail captures for texture and reflection. This created editorial flexibility while preserving continuity across timing changes and audience movement in frame.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/production/sections/bellagio-fountain-film-framing-and-coverage-decisions.jpg',
+          alt: 'Layered fountain coverage with wide, medium, and reflective detail framing',
+        },
+      ],
     },
     {
       title: 'Editorial Judgment',
       content:
         'In post, I cut for temporal rhythm rather than speed. Shot transitions were timed to preserve flow between fountain beats, with restrained color and contrast adjustments that supported mood without overpowering the natural light behavior of the scene.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/production/sections/bellagio-fountain-film-editorial-judgment.jpg',
+          alt: 'Editing environment shaping rhythm and tone from fountain footage',
+        },
+      ],
     },
     {
       title: 'Why It Mattered',
       content:
         'The finished piece demonstrates practical production control under live constraints: adaptive coverage, clear visual hierarchy, and edit decisions that make a familiar location feel authored rather than incidental.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/production/sections/bellagio-fountain-film-why-it-mattered.jpg',
+          alt: 'Finished fountain film atmosphere feeling controlled and authored',
+        },
+      ],
     },
   ],
   image: '/media/production/bellagio-fountain-still-01.jpg',

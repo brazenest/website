@@ -4,9 +4,9 @@ export const heroContent: HeroContent = {
   name: "Alden Gillespy",
   headline: "High-Performance Websites for Self-Marketed Professionals",
   description:
-    "I build the platforms ambitious professionals use to amplify their work. Engineering excellence and visual storytelling combine to create websites that perform for search, convert visitors into clients, and deliver lasting professional credibility.",
+    "Websites engineered for visibility, shaped for authority.",
   visual: {
-    src: "/media/identity/home-hero-editorial.svg",
-    alt: "Abstract editorial composition suggesting technical systems, visual framing, and professional presentation.",
+    src: "/media/generated/home-hero-studio.png",
+    alt: "Editorial studio photograph showing a bold digital practice combining web structure, production tools, and authored professional presentation.",
   },
 };

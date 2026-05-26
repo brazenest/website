@@ -43,9 +43,15 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section id="package-mid-cta" aria-labelledby="package-mid-cta-title" class="flex flex-col gap-4 md:gap-5">
-              <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                Unsure which package fits? Start with strategy if you are ready to build, or begin with a teardown if you want clarity on your current site before committing.
+            <section id="package-mid-cta" aria-labelledby="package-mid-cta-title" class="ui-cta-panel flex flex-col gap-4 md:gap-5">
+              <p class="ui-meta-label">Fit Check</p>
+
+              <h2 id="package-mid-cta-title" class="ui-cta-title">
+                Start with the right entry point.
+              </h2>
+
+              <p class="ui-cta-text max-w-[34ch]">
+                Strategy if you are ready to build. Teardown if you want clarity first. Both give you a practical next move, not just a general opinion.
               </p>
 
               <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
@@ -119,26 +125,41 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container>
-            <section id="package-cta" class="scroll-mt-24 flex flex-col gap-3 md:gap-4 rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)] p-6 md:p-8">
-              <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                Ready to map your delivery path?
-              </h2>
-              <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                Share your goals and current constraints, and we will map the right package and rollout sequence. If you want to validate fit first, request a teardown and we will start there.
-              </p>
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2 pt-2">
-                <ButtonLink
-                  href="/contact"
-                  label="Get in Touch"
-                  variant="primary"
-                  class="w-full sm:w-auto"
-                />
-                <ButtonLink
-                  href="/contact#teardown-request"
-                  label="Request Teardown First"
-                  variant="secondary"
-                  class="w-full sm:w-auto"
-                />
+            <section id="package-cta" class="ui-cta-panel scroll-mt-24 flex flex-col gap-3 md:gap-4">
+              <div class="ui-cta-layout">
+                <div class="flex flex-col gap-3 md:gap-4">
+                  <h2 class="ui-cta-title">
+                    Ready to map your delivery path?
+                  </h2>
+                  <p class="ui-cta-text max-w-[42ch]">
+                    Share the goal, the current constraints, and the pace you need. We will map the right package and rollout sequence from there.
+                  </p>
+                  <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2 pt-2">
+                    <ButtonLink
+                      href="/contact"
+                      label="Get in Touch"
+                      variant="primary"
+                      class="w-full sm:w-auto"
+                    />
+                    <ButtonLink
+                      href="/contact#teardown-request"
+                      label="Request Teardown First"
+                      variant="secondary"
+                      class="w-full sm:w-auto"
+                    />
+                  </div>
+                </div>
+
+                <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+                  <img
+                    src="/media/generated/packages-hero-delivery.png"
+                    alt="Editorial image showing structured website delivery planning."
+                    width={1536}
+                    height={1024}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
             </section>
           </Container>

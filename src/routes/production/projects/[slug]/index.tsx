@@ -11,6 +11,7 @@ import { productionProjects } from "~/content/production/projects";
 import { buildMetadata } from "~/fns/seo/buildMetadata";
 import { metadataToDocumentHead } from "~/fns/seo/metadataToDocumentHead";
 import { buildProjectStructuredData } from "~/fns/seo/buildStructuredData";
+import { cn } from "~/fns/cn";
 
 export const head = ({ params }: DocumentHeadProps) => {
   const project = productionProjects.find((item) => item.slug === params.slug);
@@ -142,85 +143,56 @@ export default component$(() => {
           </Container>
         </Section>
 
-        {project.sections.map((section) => (
+        {project.sections.map((section, index) => (
           <Section key={section.title} spacing="default">
             <Container width="content">
-              <div class="flex flex-col gap-3 md:gap-4">
-                <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                  {section.title}
-                </h2>
+              <div
+                class={cn(
+                  "ui-case-study-section",
+                  index % 2 === 1 && "ui-case-study-section--reverse",
+                )}
+              >
+                <div class="ui-case-study-copy flex flex-col gap-3 md:gap-4">
+                  <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
+                    {section.title}
+                  </h2>
 
-                {section.content ? (
-                  <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                    {section.content}
-                  </p>
-                ) : null}
+                  {section.content ? (
+                    <p class="max-w-[65ch] text-lg leading-8 text-[var(--muted)]">
+                      {section.content}
+                    </p>
+                  ) : null}
 
-                {section.items?.length ? (
-                  <ul class="max-w-[65ch] flex flex-col gap-2 text-base leading-7 text-[var(--muted)] md:text-lg">
-                    {section.items.map((item) => (
-                      <li key={item} class="flex gap-3">
-                        <span class="flex-shrink-0 text-[var(--fg)]">•</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
+                  {section.items?.length ? (
+                    <ul class="max-w-[65ch] flex flex-col gap-2 text-lg leading-8 text-[var(--muted)]">
+                      {section.items.map((item) => (
+                        <li key={item} class="flex gap-3">
+                          <span class="flex-shrink-0 text-[var(--fg)]">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                </div>
 
-                {section.media?.length ? (
-                  <div class="grid grid-cols-1 gap-4 pt-2">
-                    {section.media.map((item, index) => (
-                      <div
-                        key={`${section.title}-${item.src}-${index}`}
-                        class="overflow-hidden rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-elevated)]"
-                      >
-                        {item.type === "image" ? (
-                          <img
-                            src={item.src}
-                            alt={item.alt ?? section.title}
-                            width={1600}
-                            height={900}
-                            class="h-full w-full object-cover"
-                          />
-                        ) : (
-                          // Section video: render poster with play button
-                          <div class="relative min-h-48 w-full">
-                            {item.poster ? (
-                              <img
-                                src={item.poster}
-                                alt={
-                                  item.alt ?? `${section.title} video preview`
-                                }
-                                width={1600}
-                                height={900}
-                                class="h-full w-full object-cover"
-                              />
-                            ) : (
-                              <div class="h-full w-full bg-gradient-to-br from-[var(--surface-elevated)] to-[var(--surface)]" />
-                            )}
-                            {/* Play button indicator */}
-                            <div class="absolute inset-0 flex items-center justify-center">
-                              <div class="rounded-full bg-[var(--fg)]/80 p-3 backdrop-blur-sm transition-all duration-200">
-                                <svg
-                                  width="20"
-                                  height="20"
-                                  viewBox="0 0 20 20"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  class="h-5 w-5 text-[var(--bg)]"
-                                  aria-hidden="true"
-                                >
-                                  <path
-                                    d="M5 3.5L5 16.5L16 10L5 3.5Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
+                {section.media?.[0] ? (
+                  <div class="ui-case-study-media aspect-[5/4]">
+                    {section.media[0].type === "image" ? (
+                      <img
+                        src={section.media[0].src}
+                        alt={section.media[0].alt ?? section.title}
+                        width={1400}
+                        height={1120}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <ResponsiveVideo
+                        src={section.media[0].src}
+                        poster={section.media[0].poster}
+                        width={1400}
+                        height={1120}
+                      />
+                    )}
                   </div>
                 ) : null}
               </div>

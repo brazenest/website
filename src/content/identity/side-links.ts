@@ -3,14 +3,14 @@ import type { SideLinkCardContent } from '~/types/content'
 export const sideLinkCards: SideLinkCardContent[] = [
   {
     title: 'Engineering',
-    description: 'Performance, search optimization, scalable infrastructure, and maintainable foundations that ensure your website works as hard as you do.',
+    description: 'Performance, search visibility, and durable architecture for platforms that have to keep working under real pressure, not just in a polished demo.',
     href: '/engineering',
     ctaLabel: 'View Engineering Work',
     themeHint: 'engineering',
   },
   {
     title: 'Production',
-    description: 'Polished visual presentation, compelling imagery, editorial refinement, and brand consistency that establish immediate professional authority.',
+    description: 'Imagery, polish, and editorial control that make the work feel authored, credible, and immediately professional from the first screen onward.',
     href: '/production',
     ctaLabel: 'View Production Work',
     themeHint: 'production',

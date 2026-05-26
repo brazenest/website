@@ -12,31 +12,73 @@ export const studioContentOpsPlatformProject: EngineeringProject = {
       title: 'Overview',
       content:
         'This platform supported marketing and editorial teams launching campaigns across multiple brands and markets. The objective was to move from ad-hoc implementations to a repeatable system that could scale without sacrificing content quality.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/engineering/sections/studio-content-ops-platform-overview.jpg',
+          alt: 'Editorial view of a multi-brand content operations workspace',
+        },
+      ],
     },
     {
       title: 'Problem Space',
       content:
         'Each launch previously required bespoke page assembly, inconsistent data structures, and manual QA handoffs. As campaign volume increased, the team spent more time reconciling schema differences and release risk than improving content quality or speed.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/engineering/sections/studio-content-ops-platform-problem-space.jpg',
+          alt: 'Fragmented campaign launch process with inconsistent content operations cues',
+        },
+      ],
     },
     {
       title: 'Role and Scope',
       content:
         'I led platform design and implementation for the shared content model, authoring constraints, and publish lifecycle. I coordinated requirements with design, content operations, and engineering stakeholders to align flexibility for authors with enforceable technical guardrails.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/engineering/sections/studio-content-ops-platform-role-and-scope.jpg',
+          alt: 'Lead platform engineer shaping publishing workflow with multiple stakeholders',
+        },
+      ],
     },
     {
       title: 'System Design Decisions',
       content:
         'I modeled content as versioned block schemas with explicit validation and ownership boundaries. Draft, preview, and publish states were treated as first-class workflow stages, making release intent visible and reducing accidental drift between authored content and rendered output.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/engineering/sections/studio-content-ops-platform-system-design-decisions.jpg',
+          alt: 'Structured publishing system visuals showing versioned content and release states',
+        },
+      ],
     },
     {
       title: 'Implementation Complexity',
       content:
         'The core challenge was balancing composability with governance. I built migration-safe schema evolution patterns, deterministic preview rendering, and release checks that prevented invalid states from moving forward while still letting teams ship quickly under tight campaign timelines.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/engineering/sections/studio-content-ops-platform-implementation-complexity.jpg',
+          alt: 'Complex publishing workflow scene showing preview and release checks under control',
+        },
+      ],
     },
     {
       title: 'Why It Mattered',
       content:
         'The platform fundamentally shifted campaign delivery from custom engineering to operational execution. Teams could launch without engineering involvement, reducing approval cycles and allowing campaigns to ship on schedule. More importantly, the versioned schema and release workflow architecture built safety into the system rather than relying on manual QA gates. Engineering effort moved from repetitive assembly work toward improving core platform capabilities, which compounded as the number of campaigns increased. By treating content modeling and release management as first-class engineering problems, the platform became a scalable asset rather than a repeating bottleneck.',
+      media: [
+        {
+          type: 'image',
+          src: '/media/engineering/sections/studio-content-ops-platform-why-it-mattered.jpg',
+          alt: 'Mature content operations environment running smoothly across many campaigns',
+        },
+      ],
     },
   ],
   image: '/media/engineering/studio-content-ops-platform.jpg',

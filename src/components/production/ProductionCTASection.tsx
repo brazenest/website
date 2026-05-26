@@ -15,29 +15,45 @@ export const ProductionCTASection = component$(({ caseStudyHref }: ProductionCTA
   return (
     <Section spacing="compact">
       <Container width="content">
-        <section id="production-cta" aria-labelledby="production-cta-title" class="flex flex-col gap-4 md:gap-5">
-          <h2 id="production-cta-title" class="ui-meta-label">
-            Next Steps
-          </h2>
+        <section id="production-cta" aria-labelledby="production-cta-title" class="ui-cta-panel flex flex-col gap-4 md:gap-5">
+          <div class="ui-cta-layout">
+            <div class="flex flex-col gap-4 md:gap-5">
+              <p class="ui-meta-label">Next</p>
 
-          <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-            To see this approach end-to-end, the full case study covers framing decisions,
-            coverage strategy, and editorial choices from concept to final cut. Alternatively, explore the <a href="/engineering" class="underline hover:no-underline">engineering side</a> of the practice, then <a href="/contact" class="underline hover:no-underline">discuss a project or role</a>.
-          </p>
+              <h2 id="production-cta-title" class="ui-cta-title">
+                See the full editorial breakdown.
+              </h2>
 
-          <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
-            <ButtonLink
-              href={caseStudyHref}
-              label="Read the Case Study"
-              variant="primary"
-              class="w-full sm:w-auto"
-            />
-            <ButtonLink
-              href="/contact"
-              label="Start a Project"
-              variant="secondary"
-              class="w-full sm:w-auto"
-            />
+              <p class="ui-cta-text max-w-[42ch]">
+                Read the case study for framing, coverage, and pacing decisions, then compare the engineering side or start a project with a sharper visual standard from day one.
+              </p>
+
+              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+                <ButtonLink
+                  href={caseStudyHref}
+                  label="Read the Case Study"
+                  variant="primary"
+                  class="w-full sm:w-auto"
+                />
+                <ButtonLink
+                  href="/contact"
+                  label="Start a Project"
+                  variant="secondary"
+                  class="w-full sm:w-auto"
+                />
+              </div>
+            </div>
+
+            <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+              <img
+                src="/media/generated/production-hero-storycraft.png"
+                alt="Editorial production image showing directed cinematic work."
+                width={1536}
+                height={1024}
+                loading="lazy"
+                class="h-full w-full object-cover"
+              />
+            </div>
           </div>
         </section>
       </Container>
