@@ -21,7 +21,7 @@ export default component$(() => {
 		<PageShell theme="neutral">
 			<Header />
 
-			<main id="main-content" class="flex-1 scroll-mt-24 p-0">
+			<main id="main-content" class="page-home flex-1 scroll-mt-24 p-0">
 				<HomeHero {...heroContent}>
 					<section
 						aria-labelledby="home-side-selector-heading"
@@ -36,7 +36,7 @@ export default component$(() => {
 							</h2>
 
 							<p class="text-base leading-7 text-[var(--muted)] md:text-lg">
-								Start with the discipline you want to evaluate first. Each side expands into project work, process, and the decisions that shape the outcome.
+								Start with the discipline you want to evaluate first. Each side expands into <a href="/engineering#selected-work" class="ui-link-inline">project work</a>, process, and the decisions that shape the outcome. The paths are distinct, but they are designed to reconnect in the <a href="/about" class="ui-link-inline">broader practice</a> so strategic and visual quality evolve together rather than drift apart.
 							</p>
 						</div>
 

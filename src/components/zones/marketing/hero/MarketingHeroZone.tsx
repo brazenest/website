@@ -29,14 +29,13 @@ export const MarketingHeroZone = component$(
             <Text class="max-w-[70ch]">{description}</Text>
 
             {(primaryAction || secondaryAction) && (
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+              <div class="ui-cta-group ui-cta-actions">
                 {primaryAction && (
                   <ButtonLink
                     href={primaryAction.href}
                     label={primaryAction.label}
                     variant={primaryAction.variant ?? 'primary'}
                     disabled={primaryAction.disabled}
-                    class="w-full sm:w-auto"
                   />
                 )}
                 {secondaryAction && (
@@ -45,7 +44,6 @@ export const MarketingHeroZone = component$(
                     label={secondaryAction.label}
                     variant={secondaryAction.variant ?? 'secondary'}
                     disabled={secondaryAction.disabled}
-                    class="w-full sm:w-auto"
                   />
                 )}
               </div>

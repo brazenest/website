@@ -11,7 +11,7 @@ export const SystemThinkingSection = component$(() => {
   return (
     <Section spacing="compact">
       <div class="ui-method-band ui-method-band--engineering">
-        <Container width="full">
+        <Container width="wide">
           <section id="system-thinking" aria-labelledby="system-thinking-title" class="ui-method-section scroll-mt-24">
             <div class="ui-method-hero">
               <div class="ui-method-copy flex max-w-[64ch] flex-col gap-3">
@@ -19,7 +19,7 @@ export const SystemThinkingSection = component$(() => {
                 <h2 id="system-thinking-title" class="text-3xl font-semibold tracking-tight md:text-5xl">How I Make System Decisions</h2>
                 <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                   The projects show the outcomes; these principles explain the decision model behind
-                  them. <a href="/about" class="underline hover:no-underline">Learn how this approach connects to the production side</a>.
+                  them. <a href="/about" class="ui-link-inline">Learn how this approach connects to the production side</a>.
                 </p>
               </div>
 

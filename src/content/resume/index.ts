@@ -33,8 +33,8 @@ export const resumePageContent = {
       },
     ],
   }, intro:
-    'Below is my complete professional background across software engineering, product work, and production roles. Each section shows the scope, impact, and decisions from roles I have held.', summary:
-    'Full-stack software engineer with a production background, working at the overlap of systems and storytelling. Builds scalable web applications across frontend, backend, and cloud infrastructure while bringing narrative clarity, usability judgment, and cross-disciplinary execution to product work.',
+    'Below is my complete professional background across software engineering, product work, and production roles. Each section highlights scope, operating context, measurable impact, and the decision patterns I used to move work from concept to durable delivery.', summary:
+    'Full-stack software engineer with a production background, working at the overlap of systems and storytelling. I build scalable web applications across frontend, backend, and cloud infrastructure while bringing narrative clarity, usability judgment, and cross-disciplinary execution to product and platform work.',
   experience: [
     {
       title: 'Senior Software Engineer',

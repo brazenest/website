@@ -54,7 +54,7 @@ export const RequestTeardownForm = component$(() => {
       onSubmit$={handleSubmit$}
       class="flex flex-col gap-5 md:gap-6"
     >
-      <div class="flex flex-col gap-5">
+      <div class="grid gap-5 md:grid-cols-2">
         {/* Website URL */}
         <div class="flex flex-col gap-2">
           <label for="website-url" class="text-sm font-medium text-[var(--fg)]">
@@ -105,8 +105,23 @@ export const RequestTeardownForm = component$(() => {
           />
         </div>
 
-        {/* Optional: Context */}
+        {/* Optional: Phone */}
         <div class="flex flex-col gap-2">
+          <label for="phone" class="text-sm font-medium text-[var(--muted)]">
+            Telephone number (optional)
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            name="phone"
+            placeholder="+1 (555) 123-4567"
+            disabled={formState.value === "submitting"}
+            class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] px-4 py-2.5 text-sm text-[var(--fg)] placeholder-[var(--muted)] transition-colors focus:border-[var(--focus)] focus:outline-none focus:ring-2 focus:ring-[var(--focus)]/10 disabled:opacity-50"
+          />
+        </div>
+
+        {/* Optional: Context */}
+        <div class="flex flex-col gap-2 md:col-span-2">
           <label for="context" class="text-sm font-medium text-[var(--muted)]">
             Brief context (optional)
           </label>
@@ -123,13 +138,13 @@ export const RequestTeardownForm = component$(() => {
 
       {/* Status Messages */}
       {formState.value === "error" && (
-        <div class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)] px-4 py-3 text-sm text-[var(--muted)]">
+        <div class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)] px-4 py-3 text-sm text-[var(--muted)] md:col-span-2">
           {errorMessage.value}
         </div>
       )}
 
       {formState.value === "success" && (
-        <div class="rounded-[var(--radius-lg)] border border-green-200/30 bg-green-50/30 px-4 py-3 text-sm text-[var(--fg)]">
+        <div class="rounded-[var(--radius-lg)] border border-green-200/30 bg-green-50/30 px-4 py-3 text-sm text-[var(--fg)] md:col-span-2">
           Thanks for reaching out! I'll review your site and send a breakdown
           soon.
         </div>

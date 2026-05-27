@@ -2,16 +2,16 @@ import type { ContactPageContent } from '~/types/content'
 
 export const contactPageContent: ContactPageContent = {
   eyebrow: 'Contact',
-  title: 'Project inquiries, website teardowns, and focused collaborations.',
+  title: 'Let’s talk about your project.',
   intro:
-    'I take on software engineering projects, production work, professional collaborations, and website strategy sessions. Whether you\'re building something new, improving what you have, or evaluating your current web presence, this is where to start.',
+    'If you are building something new, improving what already exists, or trying to understand why your current site is not performing, you are in the right place. I take on engineering work, production work, and strategy-led website engagements.',
   bridge:
-    'If the work sits somewhere between engineering and production rather than neatly inside one category, that is usually useful context, not a problem.',
+    'If your project sits between engineering and production, that is usually a strength. I work across both, so you do not need to force your situation into one box.',
   contactPanel: {
     eyebrow: 'Best first step',
-    heading: 'Email with your situation and goals.',
+    heading: 'Send me your context and what you need.',
     description:
-      'Email is the best opening move for project inquiries, website teardowns, collaboration ideas, and strategy discussions. A brief note explaining your situation and what you\'re looking for is enough to start a real conversation.',
+      'Email is the easiest way to start. A short note on where things stand, what you are aiming for, and where you feel stuck gives me enough to respond usefully.',
     methods: [
       {
         label: 'Email',
@@ -40,9 +40,9 @@ export const contactPageContent: ContactPageContent = {
     ],
   },
   inquiryTypes: {
-    heading: 'What we can discuss',
+    heading: 'What I can help with',
     intro:
-      'The strongest outreach is specific about your situation, your goals, and what you need help with.',
+      'The most helpful messages are specific about your situation, your goals, and the decision you are trying to make.',
     items: [
       {
         title: 'Website projects',
@@ -69,7 +69,7 @@ export const contactPageContent: ContactPageContent = {
   includeItems: {
     heading: 'What to include',
     intro:
-      'The details you provide help me understand your situation quickly and respond with something useful.',
+      'A little context upfront helps me understand your situation quickly and reply with something concrete.',
     items: [
       {
         title: 'Your situation or current state',
@@ -96,7 +96,7 @@ export const contactPageContent: ContactPageContent = {
   nextSteps: {
     heading: 'What happens next',
     intro:
-      'After you email, I review for fit, scope, and timing. If the work looks aligned, I respond with a specific next step rather than generic back-and-forth.',
+      'After you reach out, I review for fit, scope, and timing. If it looks aligned, I will reply with a clear next step instead of generic back-and-forth.',
     items: [
       {
         title: 'Initial review',
@@ -115,13 +115,13 @@ export const contactPageContent: ContactPageContent = {
       },
     ],
     note:
-      'Replies are direct and personal, not automated. If the work looks aligned, the first response will be specific to your situation rather than a template.',
+      'You will get a direct reply from me. No automation, no canned intake sequence.',
   },
   cta: {
     eyebrow: 'Ready to start',
-    heading: 'Send your project brief or teardown request.',
+    heading: 'Send a quick note and I’ll take it from there.',
     description:
-      'A short email with your situation, goals, and timeline is enough to start a real conversation about what\'s possible.',
+      'A few lines about your situation, goals, and timeline are enough to start a focused conversation.',
     buttons: [
       {
         label: 'Email Your Inquiry',
@@ -135,6 +135,6 @@ export const contactPageContent: ContactPageContent = {
       },
     ],
     footnote:
-      'Not sure if you want a full project or just a teardown? Send the context anyway. I can quickly clarify what makes sense given your goals and budget.',
+      'If you are not sure whether you need a full project or a teardown, send the context anyway. I can help you choose the right path quickly.',
   },
 } as const

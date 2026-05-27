@@ -6,9 +6,13 @@ import { TextLink } from '~/components/ui/TextLink'
 import type { Package } from '~/types/content'
 
 export const PackageCard = component$(
-  ({ title, description, forWho, includes, outcome, ctaLabel, ctaHref, highlight }: PackageCardProps) => {
+  ({ title, description, forWho, includes, outcome, ctaLabel, ctaHref, highlight, toneClass }: PackageCardProps) => {
+    const cardClass = [highlight ? 'ring-2 ring-[var(--primary)]' : '', toneClass ?? '']
+      .filter(Boolean)
+      .join(' ')
+
     return (
-      <Card class={highlight ? 'ring-2 ring-[var(--primary)]' : undefined}>
+      <Card class={cardClass || undefined}>
         <div class="grid flex-1 gap-5 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] md:gap-6 xl:flex xl:flex-col" style={{ gap: 'var(--card-content-gap)' }}>
           <div class="flex flex-col" style={{ gap: 'var(--card-title-body-gap)' }}>
             <Heading level={3}>{title}</Heading>
@@ -67,3 +71,6 @@ export const PackageCard = component$(
 )
 
 type PackageCardProps = Package
+  & {
+    toneClass?: string
+  }

@@ -18,19 +18,26 @@ export const ProofStrip = component$(({ items }: ProofStripProps) => {
               Selected work across systems and stories.
             </h2>
             <p class="max-w-[42ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-              Each case study is compact on purpose: enough context to see the decision-making, enough specificity to understand the standard.
+              Each case study is compact on purpose: enough context to see the decision-making, enough specificity to understand the standard. The goal is to make strategic quality visible quickly, then let you decide where to go deeper.
             </p>
           </div>
 
           <ul class="ui-proof-grid">
-            {items.map((item) => (
+            {items.map((item) => {
+              const disciplineClass = item.href.startsWith('/engineering/')
+                ? 'ui-proof-card--engineering'
+                : item.href.startsWith('/production/')
+                  ? 'ui-proof-card--production'
+                  : ''
+
+              return (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  class="ui-proof-card ui-proof-card--graphic group px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 md:px-5 md:py-4"
+                  class={`ui-proof-card ui-proof-card--graphic ${disciplineClass} group px-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 md:px-5 md:py-4`}
                 >
                   {item.impact ? (
-                    <p class="text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--fg)]/72">
+                    <p class="ui-proof-impact text-[11px] font-semibold uppercase tracking-[0.12em] text-[var(--fg)]/72">
                       {item.impact}
                     </p>
                   ) : null}
@@ -52,7 +59,8 @@ export const ProofStrip = component$(({ items }: ProofStripProps) => {
                   ) : null}
                 </a>
               </li>
-            ))}
+              )
+            })}
           </ul>
 
           <div class="ui-proof-footer">

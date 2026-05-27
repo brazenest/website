@@ -20,7 +20,7 @@ export const MarketingCtaZone = component$(
     return (
       <Section spacing={spacing} surface={surface}>
         <Container width={containerWidth}>
-          <section class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8">
+          <section class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
             {eyebrow && <p class="ui-meta-label">{eyebrow}</p>}
 
             <Heading level={2} class="max-w-[20ch]">
@@ -29,13 +29,12 @@ export const MarketingCtaZone = component$(
 
             <Text class="max-w-[62ch]">{description}</Text>
 
-            <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+            <div class="ui-cta-group ui-cta-actions">
               <ButtonLink
                 href={primaryAction.href}
                 label={primaryAction.label}
                 variant={primaryAction.variant ?? 'primary'}
                 disabled={primaryAction.disabled}
-                class="w-full sm:w-auto"
               />
 
               {secondaryAction && (
@@ -44,7 +43,6 @@ export const MarketingCtaZone = component$(
                   label={secondaryAction.label}
                   variant={secondaryAction.variant ?? 'secondary'}
                   disabled={secondaryAction.disabled}
-                  class="w-full sm:w-auto"
                 />
               )}
             </div>

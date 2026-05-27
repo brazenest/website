@@ -11,7 +11,7 @@ export const ProductionStorySection = component$(() => {
   return (
     <Section spacing="compact">
       <div class="ui-method-band ui-method-band--production">
-        <Container width="full">
+        <Container width="wide">
           <section id="production-story" aria-labelledby="production-story-title" class="ui-method-section">
             <div class="ui-method-hero">
               <div class="ui-method-copy flex max-w-[64ch] flex-col gap-3">
@@ -19,7 +19,7 @@ export const ProductionStorySection = component$(() => {
                 <h2 id="production-story-title" class="text-3xl font-semibold tracking-tight md:text-5xl">How I Build the Story</h2>
                 <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                   After the finished work, here is the repeatable method behind it: define visual
-                  intent, capture adaptable coverage, and cut for rhythm, clarity, and mood. <a href="/about" class="underline hover:no-underline">See how this connects to system thinking</a>.
+                  intent, capture adaptable coverage, and cut for rhythm, clarity, and mood. <a href="/about" class="ui-link-inline">See how this connects to system thinking</a>.
                 </p>
               </div>
 

@@ -23,7 +23,7 @@ export default component$(() => {
     <PageShell theme="neutral">
       <Header />
 
-      <main id="main-content" class="flex-1 scroll-mt-24">
+      <main id="main-content" class="page-contact flex-1 scroll-mt-24">
         <Section spacing="spacious">
           <Container width="wide">
             <div class="grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] xl:gap-12">
@@ -58,7 +58,7 @@ export default component$(() => {
                   </p>
                 </div>
 
-                <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2 xl:flex-col xl:items-stretch">
+                <div class="ui-cta-group ui-cta-actions xl:flex-col xl:items-stretch">
                   <ButtonLink
                     href={contactPageContent.contactPanel.methods[0].href}
                     label="Email Your Inquiry"
@@ -147,10 +147,10 @@ export default component$(() => {
         </Section>
 
         <Section spacing="default">
-          <Container width="content">
+          <Container width="wide">
             <section
               id="teardown-request"
-              class="flex flex-col gap-5 md:gap-6"
+              class="ui-contact-teardown-band flex flex-col gap-5 md:gap-6"
               aria-labelledby="teardown-heading"
             >
               <div class="flex flex-col gap-2">
@@ -168,7 +168,7 @@ export default component$(() => {
                 </p>
               </div>
 
-              <div class="max-w-[50ch]">
+              <div class="w-full">
                 <RequestTeardownForm />
               </div>
             </section>
@@ -260,33 +260,47 @@ export default component$(() => {
           <Container width="content">
             <section
               id="contact-cta"
-              class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8"
+              class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
             >
-              <p class="ui-meta-label">{contactPageContent.cta.eyebrow}</p>
+              <div class="ui-cta-layout">
+                <div class="flex flex-col gap-4 md:gap-5">
+                  <p class="ui-meta-label">{contactPageContent.cta.eyebrow}</p>
 
-              <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                {contactPageContent.cta.heading}
-              </h2>
+                  <h2 class="ui-cta-title">
+                    {contactPageContent.cta.heading}
+                  </h2>
 
-              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {contactPageContent.cta.description}
-              </p>
+                  <p class="ui-cta-text max-w-[42ch]">
+                    {contactPageContent.cta.description}
+                  </p>
 
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
-                {contactPageContent.cta.buttons.map((button) => (
-                  <ButtonLink
-                    key={`${button.href}-${button.label}`}
-                    href={button.href}
-                    label={button.label}
-                    variant={button.variant}
-                    class="w-full sm:w-auto"
+                  <div class="ui-cta-group ui-cta-actions">
+                    {contactPageContent.cta.buttons.map((button) => (
+                      <ButtonLink
+                        key={`${button.href}-${button.label}`}
+                        href={button.href}
+                        label={button.label}
+                        variant={button.variant}
+                      />
+                    ))}
+                  </div>
+
+                  <p class="max-w-[42ch] text-sm leading-6 text-[var(--muted)] md:text-base">
+                    {contactPageContent.cta.footnote}
+                  </p>
+                </div>
+
+                <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+                  <img
+                    src="/media/generated/cta-consultation-workspace.png"
+                    alt="Editorial studio workspace prepared for discovery and delivery planning."
+                    width={1536}
+                    height={1024}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
                   />
-                ))}
+                </div>
               </div>
-
-              <p class="max-w-[62ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-                {contactPageContent.cta.footnote}
-              </p>
             </section>
           </Container>
         </Section>

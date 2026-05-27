@@ -17,7 +17,7 @@ export const EngineeringHero = component$(
   }: EngineeringHeroProps) => {
     return (
       <Section spacing="default">
-        <Container width="full">
+        <Container width="wide">
           <div class="grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(20rem,0.98fr)] lg:items-start">
             <div class="ui-hero-copy flex flex-col gap-4 md:gap-7">
               <div class="flex max-w-[68ch] flex-col gap-3 md:gap-4">
@@ -34,18 +34,16 @@ export const EngineeringHero = component$(
                 </p>
               </div>
 
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+              <div class="ui-cta-group ui-cta-actions">
                 <ButtonLink
                   href={primaryCtaHref}
                   label={primaryCtaLabel}
                   variant="primary"
-                  class="w-full sm:w-auto"
                 />
                 <ButtonLink
                   href={secondaryCtaHref}
                   label={secondaryCtaLabel}
                   variant="secondary"
-                  class="w-full sm:w-auto"
                 />
               </div>
             </div>

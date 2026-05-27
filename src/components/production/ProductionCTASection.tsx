@@ -15,7 +15,7 @@ export const ProductionCTASection = component$(({ caseStudyHref }: ProductionCTA
   return (
     <Section spacing="compact">
       <Container width="content">
-        <section id="production-cta" aria-labelledby="production-cta-title" class="ui-cta-panel flex flex-col gap-4 md:gap-5">
+        <section id="production-cta" aria-labelledby="production-cta-title" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
           <div class="ui-cta-layout">
             <div class="flex flex-col gap-4 md:gap-5">
               <p class="ui-meta-label">Next</p>
@@ -28,18 +28,16 @@ export const ProductionCTASection = component$(({ caseStudyHref }: ProductionCTA
                 Read the case study for framing, coverage, and pacing decisions, then compare the engineering side or start a project with a sharper visual standard from day one.
               </p>
 
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+              <div class="ui-cta-group ui-cta-actions">
                 <ButtonLink
                   href={caseStudyHref}
                   label="Read the Case Study"
                   variant="primary"
-                  class="w-full sm:w-auto"
                 />
                 <ButtonLink
                   href="/contact"
                   label="Start a Project"
                   variant="secondary"
-                  class="w-full sm:w-auto"
                 />
               </div>
             </div>

@@ -4,7 +4,7 @@ export const engineeringHeroContent: EngineeringHeroContent = {
   headline: 'I architect and ship maintainable software systems.',
   byline: 'Alden Gillespy — Software Engineer',
   description:
-    'Systems built for clarity, change, and long-term use.',
+    'I design systems that stay understandable as they scale: clear contracts, reliable performance, and implementation choices teams can extend without rewriting core foundations every quarter.',
   primaryCtaLabel: 'Browse Case Studies',
   primaryCtaHref: '/engineering#selected-work',
   secondaryCtaLabel: 'See My Approach',

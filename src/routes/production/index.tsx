@@ -27,14 +27,16 @@ export default component$(() => {
         <ProductionHero {...productionHeroContent} />
 
         <Section spacing="default">
-          <Container width="full">
+          <Container width="wide">
             <section id="selected-work" aria-labelledby="selected-work-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="flex flex-col gap-2">
                 <h2 id="selected-work-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Selected Production Case Studies</h2>
                 <p class="max-w-[60ch] text-lg leading-8 text-[var(--muted)]">
                   Start with compact case studies. Each case study shows the production context,
                   the role I held, and the framing, coverage, pacing, and editorial decisions
-                  that shaped the final result.
+                  that shaped the final result. They also show how one production window can be
+                  <a href="/production#production-story" class="ui-link-inline">structured to produce stronger outcomes across multiple deliverables</a> without
+                  losing creative consistency.
                 </p>
               </div>
 

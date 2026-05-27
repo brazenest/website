@@ -11,7 +11,7 @@ export const HomeCTASection = component$(() => {
   return (
     <Section spacing="compact">
       <Container width="content">
-        <section id="home-cta" aria-labelledby="home-cta-title" class="ui-cta-panel flex flex-col gap-4 md:gap-5">
+        <section id="home-cta" aria-labelledby="home-cta-title" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
           <div class="ui-cta-layout">
             <div class="flex flex-col gap-4 md:gap-5">
               <p class="ui-meta-label">Ready</p>
@@ -21,21 +21,19 @@ export const HomeCTASection = component$(() => {
               </h2>
 
               <p class="ui-cta-text max-w-[42ch]">
-                Review the case studies, compare the packages, or open the conversation around the platform you need next. The fastest way in is the one that matches the pressure you are under now.
+                Review the case studies, compare the packages, or open the conversation around the platform you need next. The fastest way in is the one that matches the pressure you are under now, then expands into a delivery path that can hold up as your business changes.
               </p>
 
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+              <div class="ui-cta-group ui-cta-actions">
                 <ButtonLink
                   href="/packages"
                   label="View Packages"
                   variant="primary"
-                  class="w-full sm:w-auto"
                 />
                 <ButtonLink
                   href="/contact"
                   label="Start a Project"
                   variant="secondary"
-                  class="w-full sm:w-auto"
                 />
               </div>
             </div>

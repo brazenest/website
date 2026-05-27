@@ -4,6 +4,7 @@ import { useLocation } from "@builder.io/qwik-city";
 import { Footer } from "~/components/footer/Footer";
 import { PageShell } from "~/components/layout/PageShell";
 import { Header } from "~/components/nav/Header";
+import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
 import { ResponsiveVideo } from "~/components/media/ResponsiveVideo";
@@ -67,7 +68,7 @@ export default component$(() => {
       <PageShell theme="production">
         <Header />
 
-        <main id="main-content" class="flex-1">
+        <main id="main-content" class="page-production-project flex-1">
           <Section spacing="spacious">
             <Container width="content">
               <div class="flex flex-col gap-4">
@@ -94,7 +95,7 @@ export default component$(() => {
     <PageShell theme="production">
       <Header />
 
-      <main id="main-content" class="flex-1">
+      <main id="main-content" class="page-production-project flex-1">
         <Section spacing="spacious">
           <Container>
             <div class="flex flex-col gap-6 md:gap-8">
@@ -202,31 +203,40 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section class="ui-context-panel flex flex-col gap-3 p-6 md:gap-4 md:p-8">
-              <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                Work on projects like this
-              </h2>
-              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)]">
-                This work demonstrates strategic planning, editorial discipline,
-                and the craft of translating intention into compelling visual
-                narrative. If you're looking to produce work at this level,
-                let's discuss your project.
-              </p>
-              <div class="flex flex-col gap-2 pt-2">
-                <a
-                  href="/packages"
-                  class="inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
-                >
-                  View service packages
-                  <span aria-hidden="true">→</span>
-                </a>
-                <a
-                  href="/contact"
-                  class="inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
-                >
-                  Email about your project
-                  <span aria-hidden="true">→</span>
-                </a>
+            <section id="production-project-cta" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
+              <div class="ui-cta-layout">
+                <div class="flex flex-col gap-4 md:gap-5">
+                  <p class="ui-meta-label">Next</p>
+                  <h2 class="ui-cta-title">
+                    Work on projects like this.
+                  </h2>
+                  <p class="ui-cta-text max-w-[42ch]">
+                    This work shows strategic planning, editorial discipline, and translation of intent into compelling visual narrative. If you want this level of production execution, let&apos;s discuss your project.
+                  </p>
+                  <div class="ui-cta-group ui-cta-actions">
+                    <ButtonLink
+                      href="/packages"
+                      label="View Service Packages"
+                      variant="primary"
+                    />
+                    <ButtonLink
+                      href="/contact"
+                      label="Start a Project"
+                      variant="secondary"
+                    />
+                  </div>
+                </div>
+
+                <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+                  <img
+                    src="/media/generated/production-hero-storycraft.png"
+                    alt="Editorial production image representing cinematic direction and finishing craft."
+                    width={1536}
+                    height={1024}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
             </section>
           </Container>

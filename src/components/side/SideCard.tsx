@@ -33,7 +33,7 @@ export const SideCard = component$(
           </Text>
 
           <div class="pt-3 md:pt-2">
-            <LinkText label={ctaLabel} showArrow />
+            <LinkText label={ctaLabel} class="ui-link-action--internal" />
           </div>
         </div>
       </Card>

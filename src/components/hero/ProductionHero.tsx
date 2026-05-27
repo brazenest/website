@@ -8,7 +8,7 @@ export const ProductionHero = component$(
   ({ headline, byline, description, primaryCtaLabel, primaryCtaHref, visual }: ProductionHeroProps) => {
     return (
       <Section spacing="default">
-        <Container width="full">
+        <Container width="wide">
           <div class="grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(20rem,0.98fr)] lg:items-start">
             <div class="ui-hero-copy flex flex-col gap-5 md:gap-8">
               <div class="flex max-w-[72ch] flex-col gap-3 md:gap-5">
@@ -25,12 +25,11 @@ export const ProductionHero = component$(
                 </p>
               </div>
 
-              <div class="ui-cta-group w-full">
+              <div class="ui-cta-group ui-cta-actions">
                 <ButtonLink
                   href={primaryCtaHref}
                   label={primaryCtaLabel}
                   variant="primary"
-                  class="w-full sm:w-auto"
                 />
               </div>
             </div>

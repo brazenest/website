@@ -4,6 +4,7 @@ import { useLocation } from "@builder.io/qwik-city";
 import { Footer } from "~/components/footer/Footer";
 import { PageShell } from "~/components/layout/PageShell";
 import { Header } from "~/components/nav/Header";
+import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
 import { cn } from "~/fns/cn";
@@ -66,7 +67,7 @@ export default component$(() => {
       <PageShell theme="engineering">
         <Header />
 
-        <main id="main-content" class="flex-1">
+        <main id="main-content" class="page-engineering-project flex-1">
           <Section spacing="spacious">
             <Container width="content">
               <div class="flex flex-col gap-4">
@@ -91,7 +92,7 @@ export default component$(() => {
     <PageShell theme="engineering">
       <Header />
 
-      <main id="main-content" class="flex-1">
+      <main id="main-content" class="page-engineering-project flex-1">
         <Section spacing="spacious">
           <Container width="content">
             <div class="flex flex-col gap-4 md:gap-5">
@@ -171,31 +172,40 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section class="ui-context-panel flex flex-col gap-3 p-6 md:gap-4 md:p-8">
-              <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                Build systems like this
-              </h2>
-              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)]">
-                This case study demonstrates architectural discipline, strategic
-                decision-making under complexity, and long-term thinking about
-                maintainability. If you're looking to build systems that scale
-                with your business, let's talk about your challenges.
-              </p>
-              <div class="flex flex-col gap-2 pt-2">
-                <a
-                  href="/packages"
-                  class="inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
-                >
-                  View service packages
-                  <span aria-hidden="true">→</span>
-                </a>
-                <a
-                  href="/contact"
-                  class="inline-flex items-center gap-1 text-sm font-medium text-[var(--primary)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
-                >
-                  Email about your project
-                  <span aria-hidden="true">→</span>
-                </a>
+            <section id="engineering-project-cta" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
+              <div class="ui-cta-layout">
+                <div class="flex flex-col gap-4 md:gap-5">
+                  <p class="ui-meta-label">Next</p>
+                  <h2 class="ui-cta-title">
+                    Build systems like this.
+                  </h2>
+                  <p class="ui-cta-text max-w-[42ch]">
+                    This case study demonstrates architectural discipline, strategic decision-making under complexity, and long-term maintainability thinking. If you want this level of system clarity, let&apos;s talk.
+                  </p>
+                  <div class="ui-cta-group ui-cta-actions">
+                    <ButtonLink
+                      href="/packages"
+                      label="View Service Packages"
+                      variant="primary"
+                    />
+                    <ButtonLink
+                      href="/contact"
+                      label="Start a Project"
+                      variant="secondary"
+                    />
+                  </div>
+                </div>
+
+                <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+                  <img
+                    src="/media/generated/engineering-hero-systems.png"
+                    alt="Editorial engineering image showing structured technical systems work."
+                    width={1536}
+                    height={1024}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
             </section>
           </Container>

@@ -7,7 +7,7 @@ export const PackageHero = component$(
   ({ headline, byline, description, visual }: PackageHeroProps) => {
     return (
       <Section spacing="default">
-        <Container width="full">
+        <Container width="wide">
           <div class="grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(20rem,0.98fr)] lg:items-start">
             <div class="ui-hero-copy flex max-w-[68ch] flex-col gap-3 md:gap-4">
               {byline ? (

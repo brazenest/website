@@ -28,7 +28,7 @@ export const AboutPreview = component$(
                 {description}
               </p>
 
-              <div class="ui-cta-group">
+              <div class="ui-cta-group ui-cta-actions">
                 <ButtonLink href={href} label={ctaLabel} variant="secondary" />
               </div>
             </div>

@@ -4,7 +4,6 @@ import { cn } from '~/fns/cn'
 type LinkTextProps = {
   href?: string
   label: string
-  showArrow?: boolean
   disabled?: boolean
   class?: string
 }
@@ -15,20 +14,17 @@ const LINK_TEXT_STYLE = {
   letterSpacing: 'var(--small-tracking)',
 }
 
-export const LinkText = component$(({ href, label, showArrow = false, disabled = false, class: className }: LinkTextProps) => {
-  const rootClass = cn('ui-link inline-flex items-center gap-[var(--stack-gap-sm)] group', className)
+export const LinkText = component$(({ href, label, disabled = false, class: className }: LinkTextProps) => {
+  const isInternal = Boolean(href && href.startsWith('/'))
+  const rootClass = cn(
+    'ui-link-action inline-flex items-center gap-[var(--stack-gap-sm)]',
+    isInternal && 'ui-link-action--internal',
+    className,
+  )
 
   const content = (
     <>
       <span>{label}</span>
-      {showArrow ? (
-        <span
-          aria-hidden="true"
-          class="transition-transform duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] motion-reduce:transform-none group-hover:translate-x-0.5"
-        >
-          →
-        </span>
-      ) : null}
     </>
   )
 

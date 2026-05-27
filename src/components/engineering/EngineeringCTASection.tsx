@@ -11,7 +11,7 @@ export const EngineeringCTASection = component$(() => {
   return (
     <Section spacing="compact">
       <Container width="content">
-        <section id="engineering-cta" aria-labelledby="engineering-cta-title" class="ui-cta-panel flex flex-col gap-4 md:gap-5">
+        <section id="engineering-cta" aria-labelledby="engineering-cta-title" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
           <div class="ui-cta-layout">
             <div class="flex flex-col gap-4 md:gap-5">
               <p class="ui-meta-label">Next</p>
@@ -24,18 +24,16 @@ export const EngineeringCTASection = component$(() => {
                 Open a case study for architecture rationale and implementation choices, then compare how the production side sharpens the same practice into something people can immediately trust.
               </p>
 
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
+              <div class="ui-cta-group ui-cta-actions">
                 <ButtonLink
                   href="/engineering#selected-work"
                   label="Browse Case Studies"
                   variant="primary"
-                  class="w-full sm:w-auto"
                 />
                 <ButtonLink
                   href="/contact"
                   label="Start a Project"
                   variant="secondary"
-                  class="w-full sm:w-auto"
                 />
               </div>
             </div>

@@ -117,7 +117,7 @@ export default component$(() => {
                 Unsure which tier fits your creative practice? Let's explore what serves your audience best.
               </p>
 
-              <div class="ui-cta-group">
+              <div class="ui-cta-group ui-cta-actions">
                 <ButtonLink
                   href="/contact"
                   label="Discuss Your Creative Work"
@@ -131,28 +131,41 @@ export default component$(() => {
         {/* End CTA */}
         <Section spacing="compact">
           <Container width="content">
-            <section class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8">
-              <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                {creatorsContent.cta.heading}
-              </h2>
+            <section class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
+              <div class="ui-cta-layout">
+                <div class="flex flex-col gap-4 md:gap-5">
+                  <h2 class="ui-cta-title">
+                    {creatorsContent.cta.heading}
+                  </h2>
 
-              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {creatorsContent.cta.description}
-              </p>
+                  <p class="ui-cta-text max-w-[42ch]">
+                    {creatorsContent.cta.description}
+                  </p>
 
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
-                <ButtonLink
-                  href="/contact"
-                  label="Start a Conversation"
-                  variant="primary"
-                  class="w-full sm:w-auto"
-                />
-                <ButtonLink
-                  href="/packages"
-                  label="View All Packages"
-                  variant="secondary"
-                  class="w-full sm:w-auto"
-                />
+                  <div class="ui-cta-group ui-cta-actions">
+                    <ButtonLink
+                      href="/contact"
+                      label="Start a Conversation"
+                      variant="primary"
+                    />
+                    <ButtonLink
+                      href="/packages"
+                      label="View All Packages"
+                      variant="secondary"
+                    />
+                  </div>
+                </div>
+
+                <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+                  <img
+                    src="/media/generated/production-hero-storycraft.png"
+                    alt="Editorial production image representing creator-focused storytelling and craft execution."
+                    width={1536}
+                    height={1024}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
             </section>
           </Container>

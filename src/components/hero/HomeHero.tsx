@@ -7,7 +7,7 @@ export const HomeHero = component$(
   ({ name, headline, description, visual }: HomeHeroProps) => {
     return (
       <Section spacing="default">
-        <Container width="full">
+        <Container width="wide">
           <div class="flex flex-col gap-6 md:gap-10">
             <div class="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)] lg:items-start">
               <div class="ui-hero-copy flex max-w-[70ch] flex-col gap-3 md:gap-6">
