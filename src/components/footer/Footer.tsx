@@ -1,6 +1,7 @@
 import { $, Slot, component$, useSignal, useTask$ } from '@builder.io/qwik'
 import { Form, globalAction$ } from '@builder.io/qwik-city'
 import { Container } from '~/components/ui/Container'
+import { TextLink } from '~/components/ui/TextLink'
 import { releaseDateLabel, releaseLabel } from '~/config/site'
 import {
   CONTACT_INQUIRY_TYPES,
