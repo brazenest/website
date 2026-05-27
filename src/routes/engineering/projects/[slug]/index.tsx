@@ -109,8 +109,6 @@ export default component$(() => {
                 </div>
               ) : null}
 
-              <p class="ui-meta-label">Engineering Case Study</p>
-
               <div class="flex flex-col gap-4 md:gap-5">
                 <p class="ui-meta-label">
                   Engineering Case Study
@@ -130,6 +128,7 @@ export default component$(() => {
                   </li>
                 ))}
               </ul>
+              </div>
             </div>
           </Container>
         </Section>
