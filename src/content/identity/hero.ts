@@ -1,25 +1,12 @@
-import type { HeroContent } from '~/types/content'
+import type { HeroContent } from "~/types/content";
 
 export const heroContent: HeroContent = {
-  name: 'Alden Gillespy',
-  headline: 'Software Systems & Visual Storytelling',
+  name: "Alden Gillespy",
+  headline: "High-Performance Websites for Self-Marketed Professionals",
   description:
-    'I am a software engineer and video producer using the same working method across both disciplines: define intent, respect constraints, and execute with discipline. This site is split into Engineering and Production so you can move directly into software systems, architecture, performance, and tooling work or into filming, editing, and visual narrative work. Use this page to orient yourself, then choose the side that best matches what you want to evaluate.',
-  ctas: [
-    {
-      label: 'Enter Engineering Side',
-      href: '/engineering',
-      variant: 'primary',
-    },
-    {
-      label: 'Enter Production Side',
-      href: '/production',
-      variant: 'secondary',
-    },
-    {
-      label: 'Learn More About Alden',
-      href: '/about',
-      variant: 'ghost',
-    },
-  ],
-}
+    "Websites engineered for visibility, shaped for authority, and structured to support long-term positioning rather than short-term redesign cycles.",
+  visual: {
+    src: "/media/generated/home-hero-studio.png",
+    alt: "Editorial studio photograph showing a bold digital practice combining web structure, production tools, and authored professional presentation.",
+  },
+};

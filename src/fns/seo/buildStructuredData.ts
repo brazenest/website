@@ -2,9 +2,7 @@ import type {
   PersonStructuredData,
   WebSiteStructuredData,
   ProjectStructuredDataInput,
-  ArticleStructuredDataInput,
   CreativeWorkStructuredData,
-  ArticleStructuredData,
 } from '~/types/seo'
 import { releaseInfo, releaseLabel, siteConfig } from '~/config/site'
 
@@ -101,41 +99,6 @@ export function buildProjectStructuredData(input: ProjectStructuredDataInput): C
     }),
     ...(input.excerpt && {
       about: input.excerpt,
-    }),
-    author,
-  }
-}
-
-/**
- * Build a valid JSON-LD Article schema for a blog post or longform content.
- *
- * @param input Article-level metadata
- * @returns Complete Article schema object
- */
-export function buildArticleStructuredData(input: ArticleStructuredDataInput): ArticleStructuredData {
-  const author = {
-    '@type': 'Person',
-    name: input.authorName || siteConfig.personFullName || siteConfig.siteName,
-  }
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: input.title,
-    description: input.description,
-    url: ensureAbsoluteUrl(input.url),
-    ...(input.image && {
-      image: ensureAbsoluteUrl(input.image),
-    }),
-    datePublished: input.datePublished,
-    ...(input.dateModified && {
-      dateModified: input.dateModified,
-    }),
-    ...(input.keywords && input.keywords.length > 0 && {
-      keywords: input.keywords.join(', '),
-    }),
-    ...(input.articleBody && {
-      articleBody: input.articleBody,
     }),
     author,
   }

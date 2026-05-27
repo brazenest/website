@@ -1,29 +1,34 @@
-import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
-import { ContactInquiryModal, Footer } from '~/components/footer/Footer'
-import { ButtonLink } from '~/components/ui/ButtonLink'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
-import { contactPageContent } from '~/content/contact'
-import { staticHeads } from '~/fns/seo/staticHeads'
+import { component$, useVisibleTask$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import { ButtonLink } from "~/components/ui/ButtonLink";
+import { RequestTeardownForm } from "~/components/contact/RequestTeardownForm";
+import { Footer } from "~/components/footer/Footer";
+import { PageShell } from "~/components/layout/PageShell";
+import { Header } from "~/components/nav/Header";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
+import { contactPageContent } from "~/content/contact";
+import { staticHeads } from "~/fns/seo/staticHeads";
+import { trackEvent } from "~/fns/analytics";
 
-export const head: DocumentHead = staticHeads.contact
+export const head: DocumentHead = staticHeads.contact;
 
 export default component$(() => {
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    trackEvent("view_contact");
+  });
+
   return (
     <PageShell theme="neutral">
       <Header />
 
-      <main id="main-content" class="flex-1 scroll-mt-24">
+      <main id="main-content" class="page-contact flex-1 scroll-mt-24">
         <Section spacing="spacious">
           <Container width="wide">
             <div class="grid gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,24rem)] xl:gap-12">
               <div class="flex flex-col gap-4 md:gap-5">
-                <p class="ui-meta-label">
-                  {contactPageContent.eyebrow}
-                </p>
+                <p class="ui-meta-label">{contactPageContent.eyebrow}</p>
 
                 <h1 class="max-w-[18ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
                   {contactPageContent.title}
@@ -38,7 +43,7 @@ export default component$(() => {
                 </p>
               </div>
 
-              <aside class="flex flex-col gap-5 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface-subtle)] p-5 md:p-6">
+              <aside class="ui-context-panel flex flex-col gap-5 p-5 md:p-6">
                 <div class="flex flex-col gap-2">
                   <p class="ui-meta-label">
                     {contactPageContent.contactPanel.eyebrow}
@@ -53,11 +58,16 @@ export default component$(() => {
                   </p>
                 </div>
 
-                <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2 xl:flex-col xl:items-stretch">
-                  <ContactInquiryModal triggerLabel="Open Contact Form" triggerClass="w-full" />
+                <div class="ui-cta-group ui-cta-actions xl:flex-col xl:items-stretch">
                   <ButtonLink
-                    href="/resume"
-                    label="View Resume"
+                    href={contactPageContent.contactPanel.methods[0].href}
+                    label="Email Your Inquiry"
+                    variant="primary"
+                    class="w-full"
+                  />
+                  <ButtonLink
+                    href="/packages"
+                    label="View Packages"
                     variant="secondary"
                     class="w-full"
                   />
@@ -73,22 +83,20 @@ export default component$(() => {
                         {method.label}
                       </p>
 
-                      {'href' in method ? (
-                        <a
-                          href={method.href}
-                          target={method.href.startsWith('http') ? '_blank' : undefined}
-                          rel={method.href.startsWith('http') ? 'noreferrer' : undefined}
-                          class="rounded-[var(--radius-lg)] text-left text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--state-hover-accent)] active:text-[var(--state-active-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)] md:text-base"
-                        >
-                          {method.value}
-                        </a>
-                      ) : (
-                        <ContactInquiryModal
-                          triggerLabel={method.value}
-                          triggerVariant="ghost"
-                          triggerClass="rounded-[var(--radius-lg)] text-left text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--state-hover-accent)] active:text-[var(--state-active-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)] md:text-base"
-                        />
-                      )}
+                      <a
+                        href={method.href}
+                        target={
+                          method.href.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          method.href.startsWith("http")
+                            ? "noreferrer"
+                            : undefined
+                        }
+                        class="rounded-[var(--radius-lg)] text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--state-hover-accent)] active:text-[var(--state-active-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)] md:text-base"
+                      >
+                        {method.value}
+                      </a>
 
                       <p class="text-sm leading-6 text-[var(--muted)]">
                         {method.description}
@@ -108,7 +116,10 @@ export default component$(() => {
               aria-labelledby="contact-fit"
             >
               <div class="flex flex-col gap-2">
-                <h2 id="contact-fit" class="text-2xl font-semibold tracking-tight md:text-3xl">
+                <h2
+                  id="contact-fit"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
                   {contactPageContent.inquiryTypes.heading}
                 </h2>
 
@@ -120,9 +131,7 @@ export default component$(() => {
               <ul class="grid gap-4 md:grid-cols-2">
                 {contactPageContent.inquiryTypes.items.map((item) => (
                   <li key={item.title}>
-                    <article
-                      class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
-                    >
+                    <article class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5">
                       <h3 class="text-lg font-semibold tracking-tight md:text-xl">
                         {item.title}
                       </h3>
@@ -137,10 +146,42 @@ export default component$(() => {
           </Container>
         </Section>
 
+        <Section spacing="default">
+          <Container width="wide">
+            <section
+              id="teardown-request"
+              class="ui-contact-teardown-band flex flex-col gap-5 md:gap-6"
+              aria-labelledby="teardown-heading"
+            >
+              <div class="flex flex-col gap-2">
+                <p class="ui-meta-label">Quick start</p>
+                <h2
+                  id="teardown-heading"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
+                  Request a website teardown
+                </h2>
+                <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                  I'll review your site and send a short breakdown covering
+                  architecture, performance, and opportunities. Takes about a
+                  week. No commitment—just clarity.
+                </p>
+              </div>
+
+              <div class="w-full">
+                <RequestTeardownForm />
+              </div>
+            </section>
+          </Container>
+        </Section>
+
         <Section spacing="compact" surface="subtle">
           <Container width="wide">
             <div class="grid gap-10 xl:grid-cols-2 xl:gap-12">
-              <section class="flex flex-col gap-5 md:gap-6" aria-labelledby="contact-include">
+              <section
+                class="flex flex-col gap-5 md:gap-6"
+                aria-labelledby="contact-include"
+              >
                 <h2
                   id="contact-include"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -155,9 +196,7 @@ export default component$(() => {
                 <ul class="flex flex-col gap-4">
                   {contactPageContent.includeItems.items.map((item) => (
                     <li key={item.title}>
-                      <article
-                        class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
-                      >
+                      <article class="flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5">
                         <h3 class="text-lg font-semibold tracking-tight md:text-xl">
                           {item.title}
                         </h3>
@@ -171,7 +210,10 @@ export default component$(() => {
                 </ul>
               </section>
 
-              <section class="flex flex-col gap-5 md:gap-6" aria-labelledby="contact-next">
+              <section
+                class="flex flex-col gap-5 md:gap-6"
+                aria-labelledby="contact-next"
+              >
                 <h2
                   id="contact-next"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -218,44 +260,47 @@ export default component$(() => {
           <Container width="content">
             <section
               id="contact-cta"
-              class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8"
+              class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
             >
-              <p class="ui-meta-label">
-                {contactPageContent.cta.eyebrow}
-              </p>
+              <div class="ui-cta-layout">
+                <div class="flex flex-col gap-4 md:gap-5">
+                  <p class="ui-meta-label">{contactPageContent.cta.eyebrow}</p>
 
-              <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
-                {contactPageContent.cta.heading}
-              </h2>
+                  <h2 class="ui-cta-title">
+                    {contactPageContent.cta.heading}
+                  </h2>
 
-              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {contactPageContent.cta.description}
-              </p>
+                  <p class="ui-cta-text max-w-[42ch]">
+                    {contactPageContent.cta.description}
+                  </p>
 
-              <div class="ui-cta-group flex-col items-stretch gap-3 sm:flex-row sm:items-start sm:gap-2">
-                {contactPageContent.cta.buttons.map((button) => (
-                  'href' in button ? (
-                    <ButtonLink
-                      key={`${button.href}-${button.label}`}
-                      href={button.href}
-                      label={button.label}
-                      variant={button.variant}
-                      class="w-full sm:w-auto"
-                    />
-                  ) : (
-                    <ContactInquiryModal
-                      key={`${button.action}-${button.label}`}
-                      triggerLabel={button.label}
-                      triggerVariant={button.variant}
-                      triggerClass="w-full sm:w-auto"
-                    />
-                  )
-                ))}
+                  <div class="ui-cta-group ui-cta-actions">
+                    {contactPageContent.cta.buttons.map((button) => (
+                      <ButtonLink
+                        key={`${button.href}-${button.label}`}
+                        href={button.href}
+                        label={button.label}
+                        variant={button.variant}
+                      />
+                    ))}
+                  </div>
+
+                  <p class="max-w-[42ch] text-sm leading-6 text-[var(--muted)] md:text-base">
+                    {contactPageContent.cta.footnote}
+                  </p>
+                </div>
+
+                <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+                  <img
+                    src="/media/generated/cta-consultation-workspace.png"
+                    alt="Editorial studio workspace prepared for discovery and delivery planning."
+                    width={1536}
+                    height={1024}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
-
-              <p class="max-w-[62ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-                {contactPageContent.cta.footnote}
-              </p>
             </section>
           </Container>
         </Section>
@@ -263,5 +308,5 @@ export default component$(() => {
 
       <Footer />
     </PageShell>
-  )
-})
+  );
+});

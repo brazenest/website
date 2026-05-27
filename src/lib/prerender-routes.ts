@@ -6,7 +6,7 @@
  *
  * ROUTE CATEGORIES:
  * 1. Static routes - fixed paths, always prerendered
- * 2. Dynamic routes - enumerated from content arrays (blog, projects)
+ * 2. Dynamic routes - enumerated from content arrays (projects)
  *
  * USAGE:
  * - Referenced during build to enumerate all routes
@@ -14,7 +14,6 @@
  * - Ensures all content is discoverable and prerendered
  */
 
-import { getPublishedBlogRouteEntries } from '~/lib/blog/getPublishedBlogRouteEntries'
 import { engineeringProjects } from '~/content/engineering/projects'
 import { productionProjects } from '~/content/production/projects'
 
@@ -26,20 +25,12 @@ export const STATIC_ROUTES = [
   '/',
   '/about',
   '/resume',
-  '/blog',
   '/engineering',
   '/production',
   '/contact',
   '/robots.txt',
   '/sitemap.xml',
 ] as const
-
-/**
- * Enumerate all blog post routes
- * Only published posts are prerendered (unpublished drafts are not exposed)
- */
-export const getBlogRoutes = async () =>
-  (await getPublishedBlogRouteEntries()).map((entry) => `/blog/${entry.slug}` as const)
 
 /**
  * Enumerate all engineering project routes
@@ -63,11 +54,10 @@ export const getProductionProjectRoutes = () =>
  */
 export const getAllPrerenderedRoutes = async () => {
   const staticRoutes = [...STATIC_ROUTES]
-  const blogRoutes = await getBlogRoutes()
   const engineeringRoutes = getEngineeringProjectRoutes()
   const productionRoutes = getProductionProjectRoutes()
 
-  return [...staticRoutes, ...blogRoutes, ...engineeringRoutes, ...productionRoutes]
+  return [...staticRoutes, ...engineeringRoutes, ...productionRoutes]
 }
 
 /**
@@ -75,11 +65,9 @@ export const getAllPrerenderedRoutes = async () => {
  */
 export const getPrerenderSummary = async () => {
   const all = await getAllPrerenderedRoutes()
-  const blogRoutes = await getBlogRoutes()
 
   return {
     static: STATIC_ROUTES.length,
-    blog: blogRoutes.length,
     engineering: getEngineeringProjectRoutes().length,
     production: getProductionProjectRoutes().length,
     total: all.length,

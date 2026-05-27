@@ -1,20 +1,47 @@
-import { component$ } from '@builder.io/qwik'
-import { Card } from '~/components/ui/Card'
-import { Heading } from '~/components/ui/Heading'
-import { Tag } from '~/components/ui/Tag'
-import { Text } from '~/components/ui/Text'
-import { TextLink } from '~/components/ui/TextLink'
-import type { EngineeringProject } from '~/types/content'
+import { component$ } from "@builder.io/qwik";
+import { Card } from "~/components/ui/Card";
+import { Heading } from "~/components/ui/Heading";
+import { Tag } from "~/components/ui/Tag";
+import { Text } from "~/components/ui/Text";
+import { TextLink } from "~/components/ui/TextLink";
+import type { EngineeringProject } from "~/types/content";
 
 export const ProjectCard = component$(
-  ({ title, slug, description, techStack, cardDescriptor, cardHighlight }: ProjectCardProps) => {
-    const visibleTech = techStack.slice(0, 3)
-    const remainingTechCount = techStack.length - visibleTech.length
+  ({
+    title,
+    slug,
+    description,
+    techStack,
+    cardDescriptor,
+    cardHighlight,
+    image,
+  }: ProjectCardProps) => {
+    const visibleTech = techStack.slice(0, 3);
+    const remainingTechCount = techStack.length - visibleTech.length;
 
     return (
-      <Card>
-        <div class="flex flex-1 flex-col" style={{ gap: 'var(--card-content-gap)' }}>
-          <div class="flex flex-col" style={{ gap: 'var(--card-title-body-gap)' }}>
+      <Card padding="none" class="overflow-hidden">
+        {image ? (
+          <div class="aspect-[16/10] w-full border-b border-[var(--border)] bg-[var(--surface-elevated)]">
+            <img
+              src={image}
+              alt={title}
+              width={1600}
+              height={1000}
+              loading="lazy"
+              class="h-full w-full object-cover"
+            />
+          </div>
+        ) : null}
+
+        <div
+          class="flex flex-1 flex-col"
+          style={{ gap: "var(--card-content-gap)", padding: "var(--card-pad)" }}
+        >
+          <div
+            class="flex flex-col"
+            style={{ gap: "var(--card-title-body-gap)" }}
+          >
             <Heading level={3}>{title}</Heading>
 
             <div class="flex flex-col gap-3 md:gap-3.5">
@@ -23,7 +50,9 @@ export const ProjectCard = component$(
                   <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                     Role and scope
                   </p>
-                  <p class="text-sm leading-6 text-[var(--fg)]">{cardDescriptor}</p>
+                  <p class="text-sm leading-6 text-[var(--fg)]">
+                    {cardDescriptor}
+                  </p>
                 </div>
               ) : null}
 
@@ -39,7 +68,9 @@ export const ProjectCard = component$(
                   <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
                     Why it mattered
                   </p>
-                  <p class="text-sm leading-6 text-[var(--muted)]">{cardHighlight}</p>
+                  <p class="text-sm leading-6 text-[var(--fg)]">
+                    {cardHighlight}
+                  </p>
                 </div>
               ) : null}
             </div>
@@ -68,11 +99,17 @@ export const ProjectCard = component$(
           </div>
         </div>
       </Card>
-    )
+    );
   },
-)
+);
 
 type ProjectCardProps = Pick<
   EngineeringProject,
-  'title' | 'slug' | 'description' | 'techStack' | 'cardDescriptor' | 'cardHighlight'
->
+  | "title"
+  | "slug"
+  | "description"
+  | "techStack"
+  | "cardDescriptor"
+  | "cardHighlight"
+  | "image"
+>;

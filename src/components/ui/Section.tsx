@@ -10,6 +10,8 @@ const SPACING_TOKEN: Record<NonNullable<SectionSpacing>, string> = {
 const SURFACE_TOKEN: Record<SectionSurface, string> = {
   base: 'var(--surface-base)',
   subtle: 'var(--surface-subtle)',
+  elevated: 'var(--surface-elevated)',
+  tint: 'var(--surface-tint)',
   inset: 'var(--surface-inset)',
 }
 

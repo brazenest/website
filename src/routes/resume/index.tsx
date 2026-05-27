@@ -1,26 +1,33 @@
-import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
-import { TextLink } from '~/components/ui/TextLink'
-import { resumePageContent } from '~/content/resume'
-import { staticHeads } from '~/fns/seo/staticHeads'
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import { Footer } from "~/components/footer/Footer";
+import { PageShell } from "~/components/layout/PageShell";
+import { Header } from "~/components/nav/Header";
+import { ButtonLink } from "~/components/ui/ButtonLink";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
+import { TextLink } from "~/components/ui/TextLink";
+import { resumePageContent } from "~/content/resume";
+import { staticHeads } from "~/fns/seo/staticHeads";
 
-export const head: DocumentHead = staticHeads.resume
+export const head: DocumentHead = staticHeads.resume;
 
 export default component$(() => {
+  const getSkillDisciplineClass = (title: string) => {
+    if (title.toLowerCase().includes("engineering")) return "ui-resume-cue--engineering";
+    if (title.toLowerCase().includes("production")) return "ui-resume-cue--production";
+    return "ui-resume-cue--mixed";
+  };
+
   return (
     <PageShell theme="neutral" enableScrollReveal>
       <Header />
 
-      <main id="main-content" class="resume-page flex-1 scroll-mt-24">
+      <main id="main-content" class="page-resume flex-1 scroll-mt-24">
         <Section spacing="spacious">
           <Container width="wide">
             <div class="flex flex-col gap-12 md:gap-16">
-              <div class="resume-print-header grid gap-8 border-b border-[var(--border)] pb-10 md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] md:items-start md:gap-10 md:pb-12">
+              <div class="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(16rem,20rem)] md:items-start md:gap-10">
                 <div class="flex flex-col gap-3 md:gap-4">
                   <p class="ui-meta-label">
                     {resumePageContent.header.eyebrow}
@@ -35,24 +42,51 @@ export default component$(() => {
                       {resumePageContent.header.title}
                     </p>
                   </div>
+
+                  <p class="max-w-[64ch] text-sm leading-6 text-[color-mix(in_srgb,var(--fg)_58%,var(--bg))] md:text-base">
+                    {resumePageContent.intro}
+                  </p>
                 </div>
 
-                <div class="resume-contact flex flex-col gap-3 md:gap-4">
-                  <p class="ui-meta-label">
-                    Contact
-                  </p>
+                <div class="flex flex-col gap-3 md:gap-4">
+                  <div class="ui-editorial-frame aspect-[4/5] w-full max-w-[13rem]">
+                    <img
+                      src="/media/production/founder-profile-launch-film.jpg"
+                      alt="Portrait of Alden Gillespy."
+                      width={1000}
+                      height={1250}
+                      loading="lazy"
+                      class="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
 
-                  <ul class="grid gap-2 text-sm leading-6 text-[var(--muted)] md:text-base">
+                <div class="ui-resume-meta-band ui-resume-cue--mixed flex flex-col gap-3 md:col-span-2 md:gap-4">
+                  <p class="ui-meta-label">Contact</p>
+
+                  <ul class="grid gap-2 text-sm leading-6 text-[var(--muted)] sm:grid-cols-2 xl:grid-cols-4 md:text-base">
                     {resumePageContent.header.contactItems.map((item) => (
-                      <li key={`${item.label}-${'href' in item ? item.href : 'text'}`}>
-                        {'href' in item ? (
+                      <li
+                        key={`${item.label}-${"href" in item ? item.href : "text"}`}
+                      class="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-2"
+                      >
+                        {"href" in item ? (
                           <a
                             href={item.href}
-                            target={item.href.startsWith('http') ? '_blank' : undefined}
-                            rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+                            target={
+                              item.href.startsWith("http")
+                                ? "_blank"
+                                : undefined
+                            }
+                            rel={
+                              item.href.startsWith("http")
+                                ? "noreferrer"
+                                : undefined
+                            }
                             class="rounded-[var(--radius-lg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
                           >
                             {item.label}
+                            {item.href.startsWith("http") ? " 🔗" : ""}
                           </a>
                         ) : (
                           <span>{item.label}</span>
@@ -63,16 +97,15 @@ export default component$(() => {
                 </div>
               </div>
 
-              <p class="resume-print-intro max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {resumePageContent.intro}
-              </p>
-
               <section
-                class="resume-print-section resume-print-summary grid gap-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+                class="ui-resume-section ui-resume-cue--mixed grid gap-4 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
                 aria-labelledby="resume-summary"
                 data-scroll-reveal
               >
-                <h2 id="resume-summary" class="text-2xl font-semibold tracking-tight md:text-3xl">
+                <h2
+                  id="resume-summary"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
                   Summary
                 </h2>
 
@@ -82,7 +115,7 @@ export default component$(() => {
               </section>
 
               <section
-                class="resume-print-section resume-print-experience grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+                class="ui-resume-section ui-resume-cue--mixed grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
                 aria-labelledby="resume-experience"
                 data-scroll-reveal
               >
@@ -95,8 +128,8 @@ export default component$(() => {
                   </h2>
 
                   <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-                    Reverse-chronological roles focused on product delivery, reliability, and
-                    full-stack system ownership.
+                    Reverse-chronological roles focused on product delivery,
+                    reliability, and full-stack system ownership.
                   </p>
                 </div>
 
@@ -104,7 +137,7 @@ export default component$(() => {
                   {resumePageContent.experience.map((entry) => (
                     <article
                       key={`${entry.title}-${entry.organization}-${entry.timeframe}`}
-                      class="grid gap-4 border-t border-[var(--border)] pt-6 first:border-t-0 first:pt-0 md:grid-cols-[minmax(15rem,18rem)_minmax(0,1fr)] md:gap-8"
+                      class="ui-resume-unit ui-resume-cue--engineering grid gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5 md:grid-cols-[minmax(15rem,18rem)_minmax(0,1fr)] md:gap-8"
                     >
                       <div class="flex flex-col gap-1">
                         <h3 class="text-lg font-semibold tracking-tight md:text-xl">
@@ -139,10 +172,10 @@ export default component$(() => {
           </Container>
         </Section>
 
-        <Section spacing="compact" surface="subtle">
+        <Section spacing="compact">
           <Container width="wide">
             <section
-              class="resume-print-section resume-print-projects grid gap-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10"
+              class="ui-context-panel ui-resume-projects-panel ui-resume-cue--mixed grid gap-6 p-5 md:p-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10 lg:p-8"
               aria-labelledby="resume-selected-projects"
             >
               <div class="flex flex-col gap-2">
@@ -154,16 +187,27 @@ export default component$(() => {
                 </h2>
 
                 <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
-                  Compact cross-disciplinary examples adapted from the longer engineering and
-                  production case studies.
+                  Compact cross-disciplinary examples adapted from the longer
+                  engineering and production case studies.
                 </p>
+
+                <div class="ui-editorial-frame mt-2 aspect-[4/5] max-w-[20rem]">
+                  <img
+                    src="/media/identity/resume-projects-editorial.svg"
+                    alt="Abstract editorial composition representing engineering systems and production deliverables grouped in one portfolio."
+                    width={1000}
+                    height={1250}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
 
               <div class="resume-print-project-list grid gap-4 md:grid-cols-2">
                 {resumePageContent.selectedProjects.map((project) => (
                   <article
                     key={`${project.discipline}-${project.title}`}
-                    class="resume-print-card flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                    class={`ui-resume-unit ${project.discipline === "Engineering" ? "ui-resume-cue--engineering" : "ui-resume-cue--production"} flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5`}
                   >
                     <div class="flex flex-col gap-2">
                       <p class="text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
@@ -186,7 +230,10 @@ export default component$(() => {
                     </p>
 
                     <div class="mt-auto pt-1">
-                      <TextLink href={project.href} label={`View ${project.discipline} case study`} />
+                      <TextLink
+                        href={project.href}
+                        label={`View ${project.discipline} case study`}
+                      />
                     </div>
                   </article>
                 ))}
@@ -197,8 +244,11 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="wide">
-            <div class="resume-print-skills-grid grid gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:gap-12">
-              <section class="resume-print-section flex flex-col gap-5 md:gap-6" aria-labelledby="resume-skills">
+            <div class="grid gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] xl:gap-12">
+              <section
+                class="flex flex-col gap-5 md:gap-6"
+                aria-labelledby="resume-skills"
+              >
                 <h2
                   id="resume-skills"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -210,7 +260,7 @@ export default component$(() => {
                   {resumePageContent.skills.map((group) => (
                     <article
                       key={group.title}
-                      class="resume-print-card flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                      class={`ui-resume-unit ${getSkillDisciplineClass(group.title)} flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5`}
                     >
                       <h3 class="text-lg font-semibold tracking-tight md:text-xl">
                         {group.title}
@@ -231,7 +281,10 @@ export default component$(() => {
                 </div>
               </section>
 
-              <section class="resume-print-section flex flex-col gap-6 md:gap-8" aria-labelledby="resume-education">
+              <section
+                class="flex flex-col gap-6 md:gap-8"
+                aria-labelledby="resume-education"
+              >
                 <h2
                   id="resume-education"
                   class="text-2xl font-semibold tracking-tight md:text-3xl"
@@ -243,7 +296,7 @@ export default component$(() => {
                   {resumePageContent.education.map((entry) => (
                     <article
                       key={`${entry.credential}-${entry.institution}`}
-                      class="resume-print-card flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                      class="ui-resume-unit ui-resume-cue--mixed flex flex-col gap-2 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
                     >
                       <div class="flex flex-col gap-1">
                         <h3 class="text-lg font-semibold tracking-tight md:text-xl">
@@ -272,14 +325,53 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section id="resume-cta" aria-labelledby="resume-cta-title" class="flex flex-col gap-4 md:gap-5">
-              <h2 id="resume-cta-title" class="ui-meta-label">
-                Next Steps
-              </h2>
+            <section
+              id="resume-cta"
+              aria-labelledby="resume-cta-title"
+              class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
+            >
+              <div class="ui-cta-layout">
+                <div class="flex flex-col gap-4 md:gap-5">
+                  <p class="ui-meta-label">Next Steps</p>
 
-              <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                For a deeper look at the work, browse the <a href="/engineering#selected-work" class="underline hover:no-underline">engineering case studies</a> and <a href="/production#selected-work" class="underline hover:no-underline">production projects</a>. To discuss a specific role or project, <a href="/contact" class="underline hover:no-underline">start a conversation</a>.
-              </p>
+                  <h2 id="resume-cta-title" class="ui-cta-title">
+                    Continue with the work that answers your question.
+                  </h2>
+
+                  <p class="ui-cta-text max-w-[42ch]">
+                    Review engineering case studies for technical depth, production projects for narrative execution, or open the conversation for role-specific context.
+                  </p>
+
+                  <div class="ui-cta-group ui-cta-actions">
+                    <ButtonLink
+                      href="/engineering#selected-work"
+                      label="Browse Engineering Case Studies"
+                      variant="primary"
+                    />
+                    <ButtonLink
+                      href="/production#selected-work"
+                      label="Browse Production Projects"
+                      variant="secondary"
+                    />
+                    <ButtonLink
+                      href="/contact"
+                      label="Start a Conversation"
+                      variant="ghost"
+                    />
+                  </div>
+                </div>
+
+                <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+                  <img
+                    src="/media/generated/about-practice-studio.png"
+                    alt="Studio context image representing engineering and production collaboration."
+                    width={1536}
+                    height={1024}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
             </section>
           </Container>
         </Section>
@@ -287,5 +379,5 @@ export default component$(() => {
 
       <Footer />
     </PageShell>
-  )
-})
+  );
+});

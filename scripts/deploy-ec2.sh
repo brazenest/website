@@ -160,7 +160,6 @@ if [[ ! -f "$ENV_FILE_PATH" ]]; then
   fail "Env file not found: ${ENV_FILE_PATH}"
 fi
 
-require_env_file_key DATABASE_URL
 require_env_file_key AWS_REGION
 require_env_file_key CONTACT_FORM_FROM_EMAIL
 require_env_file_key CONTACT_FORM_TO_EMAIL

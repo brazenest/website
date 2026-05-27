@@ -3,16 +3,14 @@ import type { SideLinkCardContent } from '~/types/content'
 export const sideLinkCards: SideLinkCardContent[] = [
   {
     title: 'Engineering',
-    description:
-      'Explore systems architecture, application builds, performance work, and tooling that keeps products maintainable in production. This side focuses on turning ambiguous requirements into clear implementations across frontend, backend, data, and developer experience without losing operational discipline.',
+    description: 'Performance, search visibility, and durable architecture for platforms that have to keep working under real pressure, not just in a polished demo. This side focuses on maintainability, clarity of contracts, and technical decisions that compound over time.',
     href: '/engineering',
     ctaLabel: 'Enter Engineering Side',
     themeHint: 'engineering',
   },
   {
     title: 'Production',
-    description:
-      'Explore filming, editing, and visual story work shaped through pre-production planning, coverage decisions, and post-production craft. This side focuses on cinematic narrative, pacing, and emotional clarity across client pieces and self-directed work where execution has to serve the story.',
+    description: 'Imagery, polish, and editorial control that make the work feel authored, credible, and immediately professional from the first screen onward. This side focuses on framing, pacing, and visual judgment that strengthens trust before visitors read deeply.',
     href: '/production',
     ctaLabel: 'Enter Production Side',
     themeHint: 'production',

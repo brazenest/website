@@ -1,21 +1,23 @@
-export const contactPageContent = {
+import type { ContactPageContent } from '~/types/content'
+
+export const contactPageContent: ContactPageContent = {
   eyebrow: 'Contact',
-  title: 'Engineering work, production projects, and focused collaborations.',
+  title: 'Let’s talk about your project.',
   intro:
-    'I\'m Alden Gillespy. I take on software engineering engagements, production assignments, and professional collaborations where clarity, execution, and ownership matter.',
+    'If you are building something new, improving what already exists, or trying to understand why your current site is not performing, you are in the right place. I take on engineering work, production work, and strategy-led website engagements.',
   bridge:
-    'If the work sits somewhere between engineering and production rather than neatly inside one category, that is usually useful context, not a problem.',
+    'If your project sits between engineering and production, that is usually a strength. I work across both, so you do not need to force your situation into one box.',
   contactPanel: {
     eyebrow: 'Best first step',
-    heading: 'Start with the contact form.',
+    heading: 'Send me your context and what you need.',
     description:
-      'Use the form for project inquiries, collaboration ideas, and role discussions. A short note is enough if it explains the work, the timeline, and why the fit makes sense.',
+      'Email is the easiest way to start. A short note on where things stand, what you are aiming for, and where you feel stuck gives me enough to respond usefully.',
     methods: [
       {
-        label: 'Contact form',
-        value: 'Open project inquiry form',
-        action: 'open-contact-form',
-        description: 'Best for project briefs, collaboration notes, and role conversations.',
+        label: 'Email',
+        value: 'ag@aldengillespy.com',
+        href: 'mailto:ag@aldengillespy.com?subject=Website%20Project%20Inquiry',
+        description: 'Best for project briefs, website analysis requests, and collaboration notes.',
       },
       {
         label: 'LinkedIn',
@@ -38,17 +40,22 @@ export const contactPageContent = {
     ],
   },
   inquiryTypes: {
-    heading: 'Good reasons to reach out',
+    heading: 'What I can help with',
     intro:
-      'The strongest outreach is specific about the work, the constraints, and the kind of judgment you need.',
+      'The most helpful messages are specific about your situation, your goals, and the decision you are trying to make.',
     items: [
       {
-        title: 'Engineering engagements',
+        title: 'Website projects',
         description:
-          'Frontend systems, full-stack product work, platform tooling, performance improvement, search/data workflows, and maintainability-focused architecture work.',
+          'Building or redesigning professional websites. Single-page platforms, full-stack applications, performance optimization, search visibility, and conversion-focused architecture.',
       },
       {
-        title: 'Production engagements',
+        title: 'Website teardowns and audits',
+        description:
+          'Strategic analysis of your existing website. Technology assessment, performance review, SEO diagnostics, design/UX critique, and recommendations for improvement.',
+      },
+      {
+        title: 'Production work',
         description:
           'Directed shoots, founder and profile pieces, branded content, interviews, editorial finishing, and multi-format campaign delivery.',
       },
@@ -57,82 +64,77 @@ export const contactPageContent = {
         description:
           'Projects where product, content, and communication overlap and the work benefits from both technical structure and narrative control.',
       },
-      {
-        title: 'Selected professional opportunities',
-        description:
-          'Freelance, contract, consulting, and carefully scoped roles where multidisciplinary ownership is part of the actual job, not just a nice-to-have.',
-      },
     ],
   },
   includeItems: {
     heading: 'What to include',
     intro:
-      'A concise message is enough if it gives me the context I need to respond with something useful.',
+      'A little context upfront helps me understand your situation quickly and reply with something concrete.',
     items: [
       {
-        title: 'The project or opportunity',
+        title: 'Your situation or current state',
         description:
-          'What you are building, producing, or hiring for, and what outcome you are trying to reach.',
+          'For projects: what you\'re building and what outcome you want. For teardowns: your current website URL and what prompted the analysis request.',
       },
       {
-        title: 'Scope and deliverables',
+        title: 'Your specific goals',
         description:
-          'What needs to happen, what stage the work is in, and where you need direct ownership or support.',
+          'For projects: scope, deliverables, and where you need ownership. For teardowns: what you want to understand (performance, design, strategy, all of the above).',
       },
       {
         title: 'Timeline and constraints',
         description:
-          'Deadlines, technical realities, production limitations, approval loops, or anything that shapes the decision-making.',
+          'Deadlines, budget range, technical requirements, approval processes, or anything that shapes the decision-making.',
       },
       {
-        title: 'Why the fit makes sense',
+        title: 'Why you\'re reaching out now',
         description:
-          'A sentence on why you think my engineering, production, or crossover background matches the work helps move the conversation faster.',
+          'A sentence on what prompted this inquiry helps me understand urgency and context. For packages: which tier interests you. For teardowns: what triggered the need.',
       },
     ],
   },
   nextSteps: {
     heading: 'What happens next',
     intro:
-      'After you reach out, I review for fit, scope, and timing. If the work looks aligned, I respond with the most useful next step instead of generic back-and-forth.',
+      'After you reach out, I review for fit, scope, and timing. If it looks aligned, I will reply with a clear next step instead of generic back-and-forth.',
     items: [
       {
         title: 'Initial review',
         description:
-          'I look at the project type, the decision surface, and whether the scope fits the kind of engineering or production work I take on.',
+          'I look at the project type or analysis scope, the decision surface, whether it aligns with the work I take on, and if there\'s a time fit.',
       },
       {
-        title: 'Reply with questions or availability',
+        title: 'Reply with questions or next step',
         description:
-          'If it looks aligned, I usually reply with follow-up questions, a sense of timing, or a proposed conversation.',
+          'If aligned: I\'ll ask clarifying questions, share availability, or suggest a conversation. If not aligned: I\'ll explain why and suggest alternatives where possible.',
       },
       {
-        title: 'Scope discussion',
+        title: 'Scope alignment or analysis',
         description:
-          'For active projects, the next step is typically a short call or email thread to clarify goals, constraints, ownership, and deliverables.',
+          'For projects: a call or email thread to nail deliverables and timeline. For teardowns: discussion of what to analyze and how to present findings.',
       },
     ],
     note:
-      'Replies are direct and personal, not routed through an intake system. If the work looks aligned, the first response will be specific to your context rather than a generic acknowledgment.',
+      'You will get a direct reply from me. No automation, no canned intake sequence.',
   },
   cta: {
-    eyebrow: 'Start here',
-    heading: 'Send enough context to make the first response useful.',
+    eyebrow: 'Ready to start',
+    heading: 'Send a quick note and I’ll take it from there.',
     description:
-      'A short brief with the project, goal, timeline, and the help you need is enough to start a real conversation.',
+      'A few lines about your situation, goals, and timeline are enough to start a focused conversation.',
     buttons: [
       {
-        label: 'Open Contact Form',
-        action: 'open-contact-form',
+        label: 'Email Your Inquiry',
+        href: 'mailto:ag@aldengillespy.com?subject=Website%20Project%20Inquiry',
         variant: 'primary',
       },
       {
-        label: 'View Resume',
-        href: '/resume',
+        label: 'View Packages',
+        href: '/packages',
         variant: 'secondary',
       },
     ],
     footnote:
-      'If you are unsure whether the project belongs on the engineering side or the production side, send the context anyway. I can usually tell quickly where the conversation should go.',
+      'If you are not sure whether you need a full project or a teardown, send the context anyway. I can help you choose the right path quickly.',
   },
 } as const

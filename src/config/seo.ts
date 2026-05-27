@@ -1,4 +1,4 @@
-import type { BlogArticleSEOFields, SEOInput, SEOPresetMap, SEOPageKey } from '~/types/seo'
+import type { SEOPresetMap, SEOPageKey } from '~/types/seo'
 
 /**
  * Route pathname mapping for canonical pages.
@@ -9,7 +9,7 @@ export const routePathnames: Record<SEOPageKey, string> = {
 	about: '/about',
 	resume: '/resume',
 	contact: '/contact',
-	blog: '/blog',
+	packages: '/packages',
 	engineering: '/engineering',
 	production: '/production',
 }
@@ -64,15 +64,6 @@ export const seoPresets: SEOPresetMap = {
 		changefreq: 'yearly',
 		priority: 0.7,
 	},
-	blog: {
-		title: 'Blog — Engineering, Systems & Creative Work | Alden Gillespy',
-		description:
-			'Essays and process notes on architecture decisions, production craft, editorial judgment, and where engineering and storytelling intersect.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'weekly',
-		priority: 0.8,
-	},
 	engineering: {
 		title: 'Software Engineering Portfolio — Systems, Architecture & Projects | Alden Gillespy',
 		description:
@@ -91,27 +82,13 @@ export const seoPresets: SEOPresetMap = {
 		changefreq: 'monthly',
 		priority: 0.9,
 	},
-}
-
-export const blogArticleSeoFallback = {
-	title: 'Blog Post | Alden Gillespy',
-	description: 'Writing by Alden Gillespy across engineering and production practice.',
-	type: 'article',
-} as const satisfies Omit<SEOInput, 'pathname'>
-
-export function buildBlogArticleSEOInput(post: BlogArticleSEOFields): SEOInput {
-	return {
-		...blogArticleSeoFallback,
-		title: `${post.title} — Blog | Alden Gillespy`,
-		description: post.summary,
-		pathname: `/blog/${post.slug}`,
-		image: post.coverImageUrl
-			? {
-				url: post.coverImageUrl,
-				...(post.coverImageAlt ? { alt: post.coverImageAlt } : {}),
-			}
-			: undefined,
-		publishedTime: post.publishedAt ?? undefined,
-		modifiedTime: post.updatedAt ?? undefined,
-	}
+	packages: {
+		title: 'Website Packages for Professionals',
+		description:
+			'Productized website solutions designed for self-marketed professionals. Foundation, Growth, and Authority tiers combining performance, visual craft, and conversion.',
+		type: 'website',
+		includeSitemap: true,
+		changefreq: 'monthly',
+		priority: 0.8,
+	},
 }

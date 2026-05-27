@@ -1,27 +1,14 @@
-import type { AboutPreviewContent } from '~/types/content'
+import type { AboutPreviewContent } from "~/types/content";
 
 export const aboutPreviewContent: AboutPreviewContent = {
-  eyebrow: 'About Alden',
-  heading: 'Why the Work Splits in Two',
-  paragraphs: [
-    'My work is multidisciplinary by necessity, not branding. I build software for real production environments, shape product architecture, and also plan, shoot, and edit visual pieces where timing, coverage, and story have to hold up under constraints.',
-    'The overlap matters: engineering sharpens systems thinking, reliability, and tool design; production sharpens judgment, sequencing, and audience awareness. The About page explains the background, the working method, and how those two practices reinforce each other across the projects on this site.',
-  ],
-  links: [
-    {
-      label: 'Read More',
-      href: '/about',
-      variant: 'secondary',
-    },
-    {
-      label: 'View Engineering Work',
-      href: '/engineering',
-      variant: 'primary',
-    },
-    {
-      label: 'View Production Work',
-      href: '/production',
-      variant: 'ghost',
-    },
-  ],
-}
+  eyebrow: "Why This Matters",
+  heading: "Technical Excellence Meets Visual Craft",
+  description:
+    "Performance builds trust and presentation builds authority, but durable outcomes need both working together. The strongest work pairs clean systems underneath with unmistakable visual signals above, so visitors understand value fast and continue deeper with confidence.",
+  href: "/about",
+  ctaLabel: "About the Approach",
+  visual: {
+    src: "/media/generated/about-practice-studio.png",
+    alt: "Editorial photograph of a multidisciplinary studio workspace combining camera tools, technical notes, and visual planning artifacts.",
+  },
+};

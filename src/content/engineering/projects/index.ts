@@ -7,25 +7,25 @@ export const engineeringProjects: EngineeringProject[] = [
   {
     ...andacityBookingSystemProject,
     description:
-      'Search inputs arrived from users and suppliers in inconsistent formats, so I designed a canonical query layer and normalized data model that kept booking behavior stable as the product expanded.',
+      'Search inputs arrived from users and suppliers in inconsistent formats, creating unpredictable search behavior. I designed a canonical query layer and normalized entity model that kept booking behavior stable as the product expanded and suppliers grew.',
     cardDescriptor: 'Lead full-stack engineer · Search architecture and data modeling',
     cardHighlight:
-      'Canonical contracts and entity normalization reduced edge-case drift and made new integrations safer to ship.',
+      'Canonical contracts eliminated edge-case branching logic. New integrations shipped without rewriting search semantics. Architecture-level decisions made feature work faster and safer.',
   },
   {
     ...timeshareSearchRentalsProject,
     description:
-      'Dense listing inventory and inconsistent card hierarchy made search harder to trust, so I reworked the listing system around clearer comparison, stronger information lanes, and stable booking interactions.',
-    cardDescriptor: 'Frontend systems engineer · Search ergonomics and comparison UX',
+      'Campaign launches were bespoke builds with inconsistent schemas and manual QA handoffs. I implemented schema-driven content blocks and governed publish workflows that transformed delivery from project-based into platform-based operations.',
+    cardDescriptor: 'Lead platform engineer · Content modeling and publishing workflow',
     cardHighlight:
-      'Stable listing structure turned variable inventory into a more predictable, decision-friendly search experience.',
+      'Versioned schemas and release gates prevented regressions by design. Campaign teams shipped faster with fewer approval steps. Platform reduced engineering overhead of each new launch.',
   },
   {
     ...ancestryDnaKitActivationProject,
     description:
-      'A high-trust activation flow for a sensitive consumer product, rebuilt around explicit state, calm validation patterns, and reusable UI behavior at very large scale.',
-    cardDescriptor: 'Frontend systems engineer · High-trust flow design and state clarity',
+      'Incident diagnosis scattered across logs, scripts, and tribal knowledge. I built a reliability console that unified failure context and recovery controls so operations and engineering could move from reactive incident heroics to systematic troubleshooting.',
+    cardDescriptor: 'Lead systems engineer · Reliability tooling and incident response UX',
     cardHighlight:
-      'Clear state transitions and predictable validation reduced uncertainty in a sensitive multi-step experience.',
+      'Event correlation and guarded replay tooling made diagnosis systematic and safe. Operations team gained visibility without requiring engineering on every incident. Infrastructure reliability became measurable.',
   },
 ]

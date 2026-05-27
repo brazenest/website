@@ -1,6 +1,7 @@
-import { component$, useSignal, useTask$ } from '@builder.io/qwik'
-import { Container } from '~/components/ui/Container'
-import { MobileMenu } from '~/components/nav/MobileMenu'
+import { component$, useSignal, useTask$ } from "@builder.io/qwik";
+import { Container } from "~/components/ui/Container";
+import { ButtonLink } from "~/components/ui/ButtonLink";
+import { MobileMenu } from "~/components/nav/MobileMenu";
 
 /**
  * Header component with responsive navigation
@@ -19,32 +20,32 @@ export const Header = component$(() => {
   // undefined: server-side or not yet detected
   // true: mobile viewport detected, render MobileMenu
   // false: desktop viewport, skip MobileMenu hydration
-  const isMobileViewport = useSignal<boolean | undefined>(undefined)
+  const isMobileViewport = useSignal<boolean | undefined>(undefined);
 
   useTask$(() => {
     // Only run on client (window is available)
-    if (typeof window === 'undefined') {
-      return
+    if (typeof window === "undefined") {
+      return;
     }
 
     // Detect if viewport is below md breakpoint (768px in Tailwind)
-    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
 
     const handleChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      isMobileViewport.value = e.matches
-    }
+      isMobileViewport.value = e.matches;
+    };
 
     // Set initial state
-    isMobileViewport.value = mediaQuery.matches
+    isMobileViewport.value = mediaQuery.matches;
 
     // Listen for changes (handles responsive resizing)
-    mediaQuery.addEventListener('change', handleChange)
+    mediaQuery.addEventListener("change", handleChange);
 
     // Cleanup
     return () => {
-      mediaQuery.removeEventListener('change', handleChange)
-    }
-  })
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  });
 
   return (
     <header class="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-sm">
@@ -84,10 +85,10 @@ export const Header = component$(() => {
               Resume
             </a>
             <a
-              href="/blog"
+              href="/packages"
               class="text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
             >
-              Blog
+              Packages
             </a>
             <a
               href="/contact"
@@ -96,6 +97,16 @@ export const Header = component$(() => {
               Contact
             </a>
           </nav>
+
+          <div class="hidden items-center gap-3 md:flex">
+            <ButtonLink
+              href="/contact"
+              label="Request Teardown"
+              variant="primary"
+              size="sm"
+              class="shadow-[0_14px_30px_-20px_var(--card-glow)]"
+            />
+          </div>
 
           {/* 
             Conditional render: MobileMenu only hydrated on mobile viewports
@@ -110,5 +121,5 @@ export const Header = component$(() => {
         </div>
       </Container>
     </header>
-  )
-})
+  );
+});

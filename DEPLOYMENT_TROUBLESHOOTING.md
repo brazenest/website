@@ -7,17 +7,20 @@
 ## Fixed Issues
 
 ### 1. ✅ Docker Build Permission Error (EACCES)
+
 **Problem**: `npm install -g pnpm` failed with permission denied in non-root context  
 **Root Cause**: Dockerfile switched to non-root `node` user before running npm install  
 **Fix**: Moved `USER node` directive to AFTER all package installation steps  
 **Commit**: 4b9a302
 
-### 2. ✅ Missing DATABASE_URL During Build  
+### 2. ✅ Missing DATABASE_URL During Build
+
 **Problem**: Build fails when prerendering blog routes (requires database query)  
 **Root Cause**: DATABASE_URL not available as build argument  
 **Fix**: Added DATABASE_URL as top-level build ARG and passed to build stage  
 **Commit**: 8052fbc
 **Required deploy.sh Change**:
+
 ```bash
 docker build \
   --build-arg DATABASE_URL="$DATABASE_URL" \
@@ -31,6 +34,7 @@ docker build \
 ### Server-Side Diagnostics Checklist
 
 **1. Check GitHub Actions Workflow Status**
+
 ```bash
 # Visit: https://github.com/brazenest/website/actions
 # Check the latest deploy-production run
@@ -41,6 +45,7 @@ docker build \
 ```
 
 **2. Check if deploy.sh exists and is correct**
+
 ```bash
 # SSH into server
 ssh user@aldengillespy.com
@@ -57,6 +62,7 @@ cat $EC2_DEPLOY_ROOT_DIR/deploy.sh
 ```
 
 **3. Check Docker Build & Container Status**
+
 ```bash
 # See if build succeeded
 docker images | grep website
@@ -72,7 +78,8 @@ docker logs <container_id> --tail 50
 docker inspect <container_id> | grep -A 5 State
 ```
 
-**4. Check App Process Status** 
+**4. Check App Process Status**
+
 ```bash
 # If using PM2
 pm2 status
@@ -88,6 +95,7 @@ docker-compose logs app -n 50
 ```
 
 **5. Verify Environment Variables**
+
 ```bash
 # On server, check what env vars are set for the app process
 # For Docker container:
@@ -103,6 +111,7 @@ docker inspect <container_id> | grep -A 100 ENV
 ```
 
 **6. Check Port Wiring**
+
 ```bash
 # Verify nginx is configured to proxy to the right port
 grep -A 5 "upstream" /etc/nginx/sites-available/default
@@ -119,6 +128,7 @@ curl -v http://localhost:3000/
 ```
 
 **7. Check Nginx Error Logs**
+
 ```bash
 # View recent nginx errors
 tail -50 /var/log/nginx/error.log
@@ -130,6 +140,7 @@ tail -50 /var/log/nginx/error.log
 ```
 
 **8. Application Startup Issues**
+
 ```bash
 # Try running the app manually to see detailed errors
 docker run -it --rm \
@@ -149,6 +160,7 @@ docker run -it --rm \
 ## Expected Behavior After Fix
 
 ### Successful Deployment Sequence
+
 1. ✅ Push to main triggers GitHub Actions deploy-production
 2. ✅ GitHub Actions SSH to server and runs deploy.sh (should complete in seconds)
 3. ✅ deploy.sh sets environment variables and exports DATABASE_URL
@@ -156,11 +168,12 @@ docker run -it --rm \
    - Docker builds deps stage (installs pnpm and dependencies)
    - Docker builds build stage (runs pnpm build, pnpm build.server) - needs DATABASE_URL
    - Docker builds final stage (installs pnpm as root, then switches to node user)
-4. ✅ deploy.sh stops old container and starts new container
-5. ✅ nginx has healthy upstream → 502 resolves
-6. ✅ All routes return 200 OK
+5. ✅ deploy.sh stops old container and starts new container
+6. ✅ nginx has healthy upstream → 502 resolves
+7. ✅ All routes return 200 OK
 
 ### Expected Test Results
+
 ```bash
 # After deployment succeeds, these should all return 200 OK:
 curl -I https://aldengillespy.com/
@@ -200,6 +213,7 @@ curl -I \
 **Recommended improvements** (for future sprints):
 
 1. **Add Dockerfile health check**
+
    ```dockerfile
    HEALTHCHECK --interval=10s --timeout=3s --start-period=10s --retries=3 \
      CMD curl -f http://localhost:3000/ || exit 1
