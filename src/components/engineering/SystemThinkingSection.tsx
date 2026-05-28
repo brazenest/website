@@ -16,7 +16,7 @@ export const SystemThinkingSection = component$(() => {
             <div class="ui-method-hero">
               <div class="ui-method-copy flex max-w-[64ch] flex-col gap-3">
                 <p class="ui-meta-label">Decision Model</p>
-                <h2 id="system-thinking-title" class="text-3xl font-semibold tracking-tight md:text-5xl">How I Make System Decisions</h2>
+                <h2 id="system-thinking-title" class="text-3xl font-semibold tracking-tight md:text-4xl">How I Make System Decisions</h2>
                 <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
                   The projects show the outcomes; these principles explain the decision model behind
                   them. <a href="/about" class="ui-link-inline">Learn how this approach connects to the production side</a>.

@@ -19,8 +19,36 @@ function getSslConfig(databaseUrl: string) {
     return undefined
   }
 
+  if (sslMode === 'require') {
+    return {
+      rejectUnauthorized: process.env.PGSSLREJECTUNAUTHORIZED?.trim().toLowerCase() === 'true',
+    }
+  }
+
   return {
     rejectUnauthorized: process.env.PGSSLREJECTUNAUTHORIZED !== 'false',
+  }
+}
+
+function getConnectionString(databaseUrl: string) {
+  const sslMode = process.env.PGSSLMODE?.trim().toLowerCase()
+
+  if (sslMode !== 'require') {
+    try {
+      if (new URL(databaseUrl).searchParams.get('sslmode')?.trim().toLowerCase() !== 'require') {
+        return databaseUrl
+      }
+    } catch {
+      return databaseUrl
+    }
+  }
+
+  try {
+    const url = new URL(databaseUrl)
+    url.searchParams.set('uselibpqcompat', 'true')
+    return url.toString()
+  } catch {
+    return databaseUrl
   }
 }
 
@@ -37,7 +65,7 @@ function getDatabaseUrl() {
 async function main() {
   const databaseUrl = getDatabaseUrl()
   const client = new Client({
-    connectionString: databaseUrl,
+    connectionString: getConnectionString(databaseUrl),
     ssl: getSslConfig(databaseUrl),
   })
 
@@ -167,7 +195,9 @@ async function main() {
     console.log(`- visible posts: ${quality.rows[0].visible_posts}`)
     console.log(`- hidden posts: ${quality.rows[0].hidden_posts}`)
     console.log(`- posts without tags: ${quality.rows[0].posts_without_tags}`)
-    console.log(`- rows where dek differs from excerpt: ${quality.rows[0].dek_differs_from_excerpt}`)
+    console.log(
+      `- rows where dek differs from excerpt: ${quality.rows[0].dek_differs_from_excerpt}`,
+    )
 
     console.log('')
     console.log('## Category Distribution')

@@ -1,4 +1,5 @@
-import type { SEOPresetMap, SEOPageKey } from '~/types/seo'
+import type { SEOInput, SEOPresetMap, SEOPageKey } from '~/types/seo'
+import type { BlogPostRecord } from '~/types/content'
 
 /**
  * Route pathname mapping for canonical pages.
@@ -8,6 +9,8 @@ export const routePathnames: Record<SEOPageKey, string> = {
 	home: '/',
 	about: '/about',
 	resume: '/resume',
+	work: '/work',
+	blog: '/blog',
 	contact: '/contact',
 	packages: '/packages',
 	engineering: '/engineering',
@@ -82,6 +85,24 @@ export const seoPresets: SEOPresetMap = {
 		changefreq: 'monthly',
 		priority: 0.9,
 	},
+	blog: {
+		title: 'Writing on Systems, Stories & Craft | Alden Gillespy',
+		description:
+			'Essays and process notes on architecture decisions, production craft, editorial judgment, and where engineering and storytelling intersect.',
+		type: 'website',
+		includeSitemap: true,
+		changefreq: 'weekly',
+		priority: 0.8,
+	},
+	work: {
+		title: 'Work — Engineering and Production Case Studies | Alden Gillespy',
+		description:
+			'Selected case studies across software engineering and cinematic production. Each entry surfaces the challenge, the role, and the decisions that shaped the outcome.',
+		type: 'website',
+		includeSitemap: true,
+		changefreq: 'monthly',
+		priority: 0.9,
+	},
 	packages: {
 		title: 'Website Packages for Professionals',
 		description:
@@ -91,4 +112,29 @@ export const seoPresets: SEOPresetMap = {
 		changefreq: 'monthly',
 		priority: 0.8,
 	},
+}
+
+export const blogArticleSeoFallback = {
+	title: 'Blog Post',
+	description: 'Writing by Alden Gillespy across engineering and production practice.',
+	type: 'article',
+} as const satisfies Omit<SEOInput, 'pathname'>
+
+type BlogArticleSEOFields = Pick<BlogPostRecord, 'title' | 'summary' | 'slug' | 'coverImageUrl' | 'coverImageAlt' | 'publishedAt' | 'updatedAt'>
+
+export function buildBlogArticleSEOInput(post: BlogArticleSEOFields): SEOInput {
+	return {
+		...blogArticleSeoFallback,
+		title: post.title,
+		description: post.summary,
+		pathname: `/blog/${post.slug}`,
+		image: post.coverImageUrl
+			? {
+				url: post.coverImageUrl,
+				...(post.coverImageAlt ? { alt: post.coverImageAlt } : {}),
+			}
+			: undefined,
+		publishedTime: post.publishedAt ?? undefined,
+		modifiedTime: post.updatedAt ?? undefined,
+	}
 }

@@ -2,7 +2,7 @@ import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { RequestTeardownForm } from "~/components/contact/RequestTeardownForm";
-import { Footer } from "~/components/footer/Footer";
+import { ContactInquiryModal, Footer } from "~/components/footer/Footer";
 import { PageShell } from "~/components/layout/PageShell";
 import { Header } from "~/components/nav/Header";
 import { Container } from "~/components/ui/Container";
@@ -59,11 +59,10 @@ export default component$(() => {
                 </div>
 
                 <div class="ui-cta-group ui-cta-actions xl:flex-col xl:items-stretch">
-                  <ButtonLink
-                    href={contactPageContent.contactPanel.methods[0].href}
-                    label="Email Your Inquiry"
-                    variant="primary"
-                    class="w-full"
+                  <ContactInquiryModal
+                    triggerLabel="Open Contact Form"
+                    triggerVariant="primary"
+                    triggerClass="ui-button-link ui-button-link--primary w-full"
                   />
                   <ButtonLink
                     href="/packages"
@@ -275,14 +274,15 @@ export default component$(() => {
                   </p>
 
                   <div class="ui-cta-group ui-cta-actions">
-                    {contactPageContent.cta.buttons.map((button) => (
-                      <ButtonLink
-                        key={`${button.href}-${button.label}`}
-                        href={button.href}
-                        label={button.label}
-                        variant={button.variant}
-                      />
-                    ))}
+                    <ContactInquiryModal
+                      triggerLabel={contactPageContent.cta.buttons[0].label}
+                      triggerVariant="primary"
+                    />
+                    <ButtonLink
+                      href={contactPageContent.cta.buttons[1].href}
+                      label={contactPageContent.cta.buttons[1].label}
+                      variant={contactPageContent.cta.buttons[1].variant}
+                    />
                   </div>
 
                   <p class="max-w-[42ch] text-sm leading-6 text-[var(--muted)] md:text-base">

@@ -1,8 +1,6 @@
 import { $, Slot, component$, useSignal, useTask$ } from '@builder.io/qwik'
 import { Form, globalAction$ } from '@builder.io/qwik-city'
 import { Container } from '~/components/ui/Container'
-import { TextLink } from '~/components/ui/TextLink'
-import { releaseDateLabel, releaseLabel } from '~/config/site'
 import {
   CONTACT_INQUIRY_TYPES,
   DEFAULT_CONTACT_FORM_VALUES,
@@ -68,57 +66,49 @@ export const ContactInquiryModal = component$(
     const actionValue = submitContactInquiryAction.value
     const isOpen = useSignal(false)
     const showSuccessState = useSignal(false)
+    const dialogRef = useSignal<HTMLDialogElement>()
     const values = actionValue?.success === false ? actionValue.values : DEFAULT_CONTACT_FORM_VALUES
     const fieldErrors = actionValue?.success === false ? actionValue.fieldErrors : {}
 
     useTask$(({ track }) => {
       const actionStatus = track(() => submitContactInquiryAction.value?.success)
+      const dialog = dialogRef.value
 
       if (actionStatus === false) {
         isOpen.value = true
+        if (dialog && !dialog.open) {
+          dialog.showModal()
+        }
       }
 
       if (actionStatus === true) {
         isOpen.value = true
         showSuccessState.value = true
-      }
-    })
-
-    useTask$(({ track, cleanup }) => {
-      const modalOpen = track(() => isOpen.value)
-
-      if (!modalOpen || typeof document === 'undefined' || typeof window === 'undefined') {
-        return
-      }
-
-      const previousOverflow = document.body.style.overflow
-      document.body.style.overflow = 'hidden'
-
-      const onKeyDown = (event: KeyboardEvent) => {
-        if (event.key === 'Escape') {
-          isOpen.value = false
+        if (dialog && !dialog.open) {
+          dialog.showModal()
         }
       }
-
-      window.addEventListener('keydown', onKeyDown)
-
-      cleanup(() => {
-        document.body.style.overflow = previousOverflow
-        window.removeEventListener('keydown', onKeyDown)
-      })
     })
 
     const openModal = $(() => {
       showSuccessState.value = false
       isOpen.value = true
+      const dialog = dialogRef.value
+      if (dialog && !dialog.open) {
+        dialog.showModal()
+      }
     })
 
     const closeModal = $(() => {
       isOpen.value = false
+      const dialog = dialogRef.value
+      if (dialog?.open) {
+        dialog.close()
+      }
     })
 
     return (
-      <>
+      <div class="relative z-20">
         {triggerVariant === 'text-link' ? (
           <button
             type="button"
@@ -144,21 +134,32 @@ export const ContactInquiryModal = component$(
           </button>
         )}
 
-        {isOpen.value && (
-          <div class="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6">
-            <button
-              type="button"
-              aria-label="Close contact form"
-              onClick$={closeModal}
-              class="absolute inset-0 bg-[var(--bg)]/80 backdrop-blur-sm"
-            />
-
+        <dialog
+          ref={dialogRef}
+          onClose$={() => {
+            isOpen.value = false
+          }}
+          onCancel$={() => {
+            isOpen.value = false
+          }}
+          onClick$={(event) => {
+            if (event.target === event.currentTarget) {
+              isOpen.value = false
+              const dialog = dialogRef.value
+              if (dialog?.open) {
+                dialog.close()
+              }
+            }
+          }}
+          class="contact-inquiry-modal m-0 h-full w-full max-h-none max-w-none border-0 bg-transparent p-0"
+        >
+          <div class="flex min-h-full items-start justify-center overflow-y-auto px-4 pb-4 pt-20 md:px-6 md:pb-6 md:pt-24">
             <div
               role="dialog"
               aria-modal="true"
               aria-labelledby="contact-form-title"
               aria-describedby="contact-form-description"
-              class="relative z-10 flex max-h-[min(92vh,60rem)] w-full max-w-3xl flex-col overflow-hidden rounded-[var(--radius-2xl)] border border-[var(--border)] bg-[var(--surface)] shadow-[var(--shadow-elevated)]"
+              class="relative z-10 flex max-h-[calc(100dvh-6rem)] w-full max-w-3xl flex-col overflow-hidden rounded-[var(--radius-2xl)] border border-[var(--border)] bg-[var(--bg)] shadow-[var(--shadow-elevated)] md:max-h-[calc(100dvh-7rem)]"
             >
               <div class="flex items-start justify-between gap-4 border-b border-[var(--border)] px-5 py-5 md:px-6 md:py-6">
                 <div class="flex flex-col gap-2">
@@ -236,7 +237,7 @@ export const ContactInquiryModal = component$(
                       </ContactField>
 
                       <ContactField label="Message" error={fieldErrors.message} class="md:col-span-2">
-                        <textarea name="message" rows={8} required minLength={40} maxLength={5000} class={getContactFieldClass()}>
+                        <textarea name="message" rows={6} required minLength={40} maxLength={5000} class={getContactFieldClass()}>
                           {values.message}
                         </textarea>
                       </ContactField>
@@ -261,8 +262,8 @@ export const ContactInquiryModal = component$(
               </div>
             </div>
           </div>
-        )}
-      </>
+        </dialog>
+      </div>
     )
   },
 )
@@ -311,7 +312,7 @@ export const Footer = component$(() => {
   return (
     <footer class="border-t border-[var(--border)] bg-[var(--surface-subtle)]">
       <Container>
-        <div class="grid gap-8 py-12 md:grid-cols-3 md:gap-10 md:py-16">
+        <div class="grid gap-8 py-10 md:grid-cols-3 md:gap-10 md:py-14">
           <div class="flex flex-col gap-3">
             <p class="text-base font-semibold tracking-tight">Alden Gillespy</p>
             <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)]">
@@ -322,42 +323,25 @@ export const Footer = component$(() => {
           <div class="flex flex-col gap-3">
             <p class="text-sm font-semibold tracking-tight">Navigation</p>
             <nav aria-label="Footer" class="flex flex-col gap-2">
-              <a
-                href="/"
-                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-              >
-                Home
-              </a>
-              <a
-                href="/about"
-                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-              >
-                About
-              </a>
-              <a
-                href="/resume"
-                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-              >
-                Resume
-              </a>
-              <a
-                href="/contact"
-                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-              >
-                Contact
-              </a>
-              <a
-                href="/engineering"
-                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-              >
-                Engineering
-              </a>
-              <a
-                href="/production"
-                class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-              >
-                Production
-              </a>
+              {[
+                { href: '/', label: 'Home' },
+                { href: '/about', label: 'About' },
+                { href: '/work', label: 'Work' },
+                { href: '/blog', label: 'Blog' },
+                { href: '/engineering', label: 'Engineering' },
+                { href: '/production', label: 'Production' },
+                { href: '/packages', label: 'Packages' },
+                { href: '/contact', label: 'Contact' },
+                { href: '/resume', label: 'Resume' },
+              ].map(({ href, label }) => (
+                <a
+                  key={href}
+                  href={href}
+                  class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
+                >
+                  {label}
+                </a>
+              ))}
             </nav>
           </div>
 
@@ -367,72 +351,13 @@ export const Footer = component$(() => {
               Engineering work, production inquiries, and selected opportunities.
             </p>
             <div>
-              <TextLink href="/contact" label="Start a project conversation" />
-            </div>
-
-            <div class="flex flex-col gap-3">
-              <p class="text-sm font-semibold tracking-tight">Navigation</p>
-              <nav aria-label="Footer" class="flex flex-col gap-2">
-                <a
-                  href="/"
-                  class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-                >
-                  Home
-                </a>
-                <a
-                  href="/about"
-                  class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-                >
-                  About
-                </a>
-                <a
-                  href="/resume"
-                  class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-                >
-                  Resume
-                </a>
-                <a
-                  href="/blog"
-                  class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-                >
-                  Blog
-                </a>
-                <a
-                  href="/contact"
-                  class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-                >
-                  Contact
-                </a>
-                <a
-                  href="/engineering"
-                  class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-                >
-                  Engineering
-                </a>
-                <a
-                  href="/production"
-                  class="rounded-[var(--radius-lg)] text-sm text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-                >
-                  Production
-                </a>
-              </nav>
-            </div>
-
-            <div class="flex flex-col gap-3">
-              <p class="text-sm font-semibold tracking-tight">Contact</p>
-              <p class="max-w-[30ch] text-sm leading-6 text-[var(--muted)]">
-                Engineering work, production inquiries, and selected opportunities.
-              </p>
-              <div>
-                <ContactInquiryModal triggerLabel="Start a project conversation" triggerVariant="text-link" />
-              </div>
+              <ContactInquiryModal triggerLabel="Start a project conversation" triggerVariant="text-link" />
             </div>
           </div>
+        </div>
 
-          <div class="mt-10 border-t border-[var(--border)] pt-5 text-sm text-[var(--muted)] md:mt-12 md:flex md:items-center md:justify-between md:gap-6">
-            <p>Release {releaseLabel}</p>
-            <p>Published {releaseDateLabel}</p>
-          </div>
+        <div class="border-t border-[var(--border)] py-5 text-sm text-[var(--muted)]">
+          <p>© 2025 Alden Gillespy</p>
         </div>
       </Container>
     </footer>

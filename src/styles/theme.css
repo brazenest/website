@@ -150,7 +150,8 @@
   --font-display: "Inter Variable", system-ui, sans-serif;
   --font-heading: var(--font-display);
   --font-body: var(--font-sans);
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo,
+  --font-mono:
+    ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo,
     monospace;
 
   /* Font display strategy for perceived performance */
@@ -264,9 +265,9 @@
   --card-cta-gap: var(--stack-gap-sm);
 
   /* Semantic layout spacing aliases — mobile-first base values */
-  --section-pad-y: var(--space-16);
-  --section-pad-y-compact: var(--space-12);
-  --section-pad-y-spacious: 5rem;
+  --section-pad-y: 3rem;
+  --section-pad-y-compact: 2rem;
+  --section-pad-y-spacious: 4rem;
   --container-pad-x: var(--space-4);
   --stack-gap-xs: var(--space-1);
   --stack-gap-sm: var(--space-2);
@@ -294,7 +295,9 @@
   --article-block-space: var(--space-8);
   --article-lead-size: clamp(1.2rem, 1.4vw + 1rem, 1.5rem);
   --article-lead-leading: 1.58;
-  --article-scroll-margin-top: calc(var(--section-pad-y-compact) + var(--space-8));
+  --article-scroll-margin-top: calc(
+    var(--section-pad-y-compact) + var(--space-8)
+  );
 
   /* Motion tokens for interactions and animations */
   --motion-duration-micro: 75ms;
@@ -389,12 +392,9 @@
   --meta-fg: var(--text-muted);
   --meta-strong-fg: var(--text-strong);
   --card-surface: #ffffff;
-  --card-shadow:
-    0 1px 2px rgb(15 23 42 / 0.06),
-    8px 8px 0 rgb(5 5 5 / 0.12);
+  --card-shadow: 0 1px 2px rgb(15 23 42 / 0.06), 8px 8px 0 rgb(5 5 5 / 0.12);
   --card-shadow-hover:
-    0 1px 2px rgb(15 23 42 / 0.08),
-    10px 10px 0 rgb(5 5 5 / 0.18);
+    0 1px 2px rgb(15 23 42 / 0.08), 10px 10px 0 rgb(5 5 5 / 0.18);
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
 }
@@ -480,11 +480,9 @@
   --meta-strong-fg: var(--text-strong);
   --card-surface: #ffffff;
   --card-shadow:
-    0 1px 2px rgb(15 23 42 / 0.05),
-    8px 8px 0 rgb(11 61 215 / 0.16);
+    0 1px 2px rgb(15 23 42 / 0.05), 8px 8px 0 rgb(11 61 215 / 0.16);
   --card-shadow-hover:
-    0 1px 2px rgb(15 23 42 / 0.08),
-    10px 10px 0 rgb(11 61 215 / 0.24);
+    0 1px 2px rgb(15 23 42 / 0.08), 10px 10px 0 rgb(11 61 215 / 0.24);
   --font-sans: "Inter Variable", system-ui, sans-serif;
   --font-display: "Inter Variable", system-ui, sans-serif;
 }
@@ -569,12 +567,9 @@
   --meta-fg: var(--text-muted);
   --meta-strong-fg: var(--text-strong);
   --card-surface: #fff8f1;
-  --card-shadow:
-    0 1px 2px rgb(24 24 27 / 0.06),
-    8px 8px 0 rgb(92 23 61 / 0.18);
+  --card-shadow: 0 1px 2px rgb(24 24 27 / 0.06), 8px 8px 0 rgb(92 23 61 / 0.18);
   --card-shadow-hover:
-    0 1px 2px rgb(24 24 27 / 0.08),
-    10px 10px 0 rgb(92 23 61 / 0.26);
+    0 1px 2px rgb(24 24 27 / 0.08), 10px 10px 0 rgb(92 23 61 / 0.26);
   --font-sans: "Space Grotesk Variable", system-ui, sans-serif;
   --font-display: "Space Grotesk Variable", system-ui, sans-serif;
 }
@@ -586,12 +581,21 @@
 /* Responsive layout token overrides (≥ 768px). */
 @media (min-width: 768px) {
   :root {
-    --section-pad-y: 6rem;
-    --section-pad-y-compact: var(--space-16);
-    --section-pad-y-spacious: 7rem;
+    --section-pad-y: 5rem;
+    --section-pad-y-compact: 3.5rem;
+    --section-pad-y-spacious: 6rem;
     --container-pad-x: 2.5rem;
     --card-pad: 1.75rem;
     --card-pad-spacious: var(--space-8);
+  }
+}
+
+/* Responsive layout token overrides (≥ 1280px). */
+@media (min-width: 1280px) {
+  :root {
+    --section-pad-y: 6rem;
+    --section-pad-y-compact: var(--space-16);
+    --section-pad-y-spacious: 7rem;
   }
 }
 
@@ -672,32 +676,21 @@ a {
 
 [data-theme] main > section:first-of-type {
   position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  background: color-mix(in srgb, var(--inversion-bg) 86%, white 14%);
-  color: var(--inversion-fg);
-  border-bottom: 3px solid var(--impact);
-  width: 100%;
-}
-
-[data-theme] main > section:first-of-type::before {
-  content: "";
-  position: absolute;
-  inset: 0;
   background:
     linear-gradient(
       118deg,
       color-mix(in srgb, white 20%, transparent) 0%,
       color-mix(in srgb, white 8%, transparent) 30%,
       transparent 60%
-    );
-  pointer-events: none;
-  z-index: 0;
+    ),
+    color-mix(in srgb, var(--inversion-bg) 86%, white 14%);
+  color: var(--inversion-fg);
+  border-bottom: 3px solid var(--impact);
+  width: 100%;
 }
 
 [data-theme] main > section:first-of-type > * {
   position: relative;
-  z-index: 1;
 }
 
 [data-theme] main > section:first-of-type :is(h1, h2, h3) {
@@ -788,6 +781,70 @@ a {
   line-height: 1.66;
 }
 
+.ui-home-hero-grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.ui-home-hero-title {
+  max-width: 17ch;
+}
+
+.ui-home-hero-actions {
+  padding-top: 0.25rem;
+}
+
+.ui-home-hero-points {
+  display: grid;
+  gap: 0.55rem;
+  max-width: 48rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ui-home-hero-points li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: color-mix(in srgb, var(--fg) 74%, var(--bg));
+}
+
+.ui-home-hero-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.75em;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 9999px;
+  background: var(--impact);
+}
+
+.ui-home-hero-visual {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .ui-home-hero-points {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ui-home-hero-grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(19rem, 0.78fr);
+    gap: 3rem;
+  }
+
+  .ui-home-hero-visual {
+    padding-top: 0.35rem;
+  }
+}
+
 [data-theme] main > section:first-of-type .ui-hero-copy {
   background: transparent;
   color: var(--inversion-fg);
@@ -797,7 +854,11 @@ a {
   color: var(--inversion-fg);
 }
 
-[data-theme] main > section:first-of-type .ui-hero-copy :is(p, li, .ui-text--muted) {
+[data-theme]
+  main
+  > section:first-of-type
+  .ui-hero-copy
+  :is(p, li, .ui-text--muted) {
   color: color-mix(in srgb, white 78%, var(--inversion-bg));
 }
 
@@ -827,14 +888,23 @@ a {
   color: var(--heading-fg);
 }
 
-[data-theme="neutral"] main > section:first-of-type :is(p, li).text-\[var\(--muted\)\],
+[data-theme="neutral"]
+  main
+  > section:first-of-type
+  :is(p, li).text-\[var\(--muted\)\],
 [data-theme="neutral"] main > section:first-of-type p.text-\[var\(--muted\)\],
 [data-theme="neutral"] main > section:first-of-type .ui-text--muted {
   color: color-mix(in srgb, var(--fg) 82%, var(--bg));
 }
 
-[data-theme="production"] main > section:first-of-type :is(p, li).text-\[var\(--muted\)\],
-[data-theme="production"] main > section:first-of-type p.text-\[var\(--muted\)\],
+[data-theme="production"]
+  main
+  > section:first-of-type
+  :is(p, li).text-\[var\(--muted\)\],
+[data-theme="production"]
+  main
+  > section:first-of-type
+  p.text-\[var\(--muted\)\],
 [data-theme="production"] main > section:first-of-type .ui-text--muted {
   color: color-mix(in srgb, var(--fg) 82%, var(--bg));
 }
@@ -863,7 +933,10 @@ a {
   border-color: var(--border-strong);
 }
 
-[data-theme="production"] main > section:first-of-type .ui-button-link--secondary {
+[data-theme="production"]
+  main
+  > section:first-of-type
+  .ui-button-link--secondary {
   background: var(--surface-elevated);
   color: var(--button-fg-secondary);
   border-color: var(--border-strong);
@@ -876,33 +949,75 @@ a {
   border-bottom-color: var(--impact);
 }
 
-[data-theme="engineering"] .page-engineering-project > section:first-of-type :is(h1, h2, h3),
-[data-theme="production"] .page-production-project > section:first-of-type :is(h1, h2, h3) {
+[data-theme="engineering"]
+  .page-engineering-project
+  > section:first-of-type
+  :is(h1, h2, h3),
+[data-theme="production"]
+  .page-production-project
+  > section:first-of-type
+  :is(h1, h2, h3) {
   color: var(--inversion-fg);
 }
 
-[data-theme="engineering"] .page-engineering-project > section:first-of-type :is(p, li).text-\[var\(--muted\)\],
-[data-theme="engineering"] .page-engineering-project > section:first-of-type p.text-\[var\(--muted\)\],
-[data-theme="engineering"] .page-engineering-project > section:first-of-type .ui-text--muted,
-[data-theme="production"] .page-production-project > section:first-of-type :is(p, li).text-\[var\(--muted\)\],
-[data-theme="production"] .page-production-project > section:first-of-type p.text-\[var\(--muted\)\],
-[data-theme="production"] .page-production-project > section:first-of-type .ui-text--muted {
+[data-theme="engineering"]
+  .page-engineering-project
+  > section:first-of-type
+  :is(p, li).text-\[var\(--muted\)\],
+[data-theme="engineering"]
+  .page-engineering-project
+  > section:first-of-type
+  p.text-\[var\(--muted\)\],
+[data-theme="engineering"]
+  .page-engineering-project
+  > section:first-of-type
+  .ui-text--muted,
+[data-theme="production"]
+  .page-production-project
+  > section:first-of-type
+  :is(p, li).text-\[var\(--muted\)\],
+[data-theme="production"]
+  .page-production-project
+  > section:first-of-type
+  p.text-\[var\(--muted\)\],
+[data-theme="production"]
+  .page-production-project
+  > section:first-of-type
+  .ui-text--muted {
   color: color-mix(in srgb, white 78%, var(--inversion-bg));
 }
 
-[data-theme="engineering"] .page-engineering-project > section:first-of-type .ui-meta-label,
-[data-theme="production"] .page-production-project > section:first-of-type .ui-meta-label {
+[data-theme="engineering"]
+  .page-engineering-project
+  > section:first-of-type
+  .ui-meta-label,
+[data-theme="production"]
+  .page-production-project
+  > section:first-of-type
+  .ui-meta-label {
   color: color-mix(in srgb, white 84%, var(--inversion-bg));
 }
 
-[data-theme="engineering"] .page-engineering-project > section:first-of-type .ui-editorial-frame,
-[data-theme="production"] .page-production-project > section:first-of-type .ui-editorial-frame {
+[data-theme="engineering"]
+  .page-engineering-project
+  > section:first-of-type
+  .ui-editorial-frame,
+[data-theme="production"]
+  .page-production-project
+  > section:first-of-type
+  .ui-editorial-frame {
   border-color: color-mix(in srgb, var(--inversion-fg) 42%, transparent);
   box-shadow: 6px 6px 0 color-mix(in srgb, var(--inversion-fg) 20%, transparent);
 }
 
-[data-theme="engineering"] .page-engineering-project > section:first-of-type .ui-button-link--secondary,
-[data-theme="production"] .page-production-project > section:first-of-type .ui-button-link--secondary {
+[data-theme="engineering"]
+  .page-engineering-project
+  > section:first-of-type
+  .ui-button-link--secondary,
+[data-theme="production"]
+  .page-production-project
+  > section:first-of-type
+  .ui-button-link--secondary {
   background: transparent;
   color: var(--inversion-fg);
   border-color: color-mix(in srgb, var(--inversion-fg) 72%, transparent);
@@ -948,8 +1063,14 @@ a {
   color: var(--inversion-fg);
 }
 
-[data-theme="neutral"] .page-packages > section:first-of-type :is(p, li).text-\[var\(--muted\)\],
-[data-theme="neutral"] .page-packages > section:first-of-type p.text-\[var\(--muted\)\],
+[data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  :is(p, li).text-\[var\(--muted\)\],
+[data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  p.text-\[var\(--muted\)\],
 [data-theme="neutral"] .page-packages > section:first-of-type .ui-text--muted {
   color: color-mix(in srgb, white 88%, var(--inversion-bg));
 }
@@ -958,36 +1079,36 @@ a {
   color: color-mix(in srgb, white 86%, var(--impact));
 }
 
-[data-theme="neutral"] .page-packages > section:first-of-type .ui-editorial-frame {
+[data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  .ui-editorial-frame {
   border-color: var(--impact);
   box-shadow: 6px 6px 0 color-mix(in srgb, var(--impact) 60%, transparent);
 }
 
 [data-theme="neutral"] .ui-package-card--tone-1 {
-  background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, #f4f4f5 86%, #ffffff) 0%,
-      color-mix(in srgb, #fafafa 92%, #ffffff) 100%
-    );
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #f4f4f5 86%, #ffffff) 0%,
+    color-mix(in srgb, #fafafa 92%, #ffffff) 100%
+  );
 }
 
 [data-theme="neutral"] .ui-package-card--tone-2 {
-  background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, #e9e9ec 84%, #ffffff) 0%,
-      color-mix(in srgb, #f4f4f5 90%, #ffffff) 100%
-    );
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #e9e9ec 84%, #ffffff) 0%,
+    color-mix(in srgb, #f4f4f5 90%, #ffffff) 100%
+  );
 }
 
 [data-theme="neutral"] .ui-package-card--tone-3 {
-  background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, #dddddf 82%, #ffffff) 0%,
-      color-mix(in srgb, #eeeeef 88%, #ffffff) 100%
-    );
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #dddddf 82%, #ffffff) 0%,
+    color-mix(in srgb, #eeeeef 88%, #ffffff) 100%
+  );
 }
 
 [data-theme="neutral"] .ui-package-value-intro {
@@ -1001,12 +1122,11 @@ a {
   padding: 1rem;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
-  background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, #ffffff 88%, #d1d5db) 0%,
-      color-mix(in srgb, #ffffff 96%, #e5e7eb) 100%
-    );
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #ffffff 88%, #d1d5db) 0%,
+    color-mix(in srgb, #ffffff 96%, #e5e7eb) 100%
+  );
   box-shadow: 0 12px 24px -22px rgb(15 23 42 / 0.22);
 }
 
@@ -1140,12 +1260,11 @@ a {
 
 [data-theme="neutral"] .ui-side-card--engineering {
   --side-accent: #0b3dd7;
-  --side-background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, #0b3dd7 16%, #ffffff) 0%,
-      color-mix(in srgb, #0b3dd7 8%, #ffffff) 100%
-    );
+  --side-background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #0b3dd7 16%, #ffffff) 0%,
+    color-mix(in srgb, #0b3dd7 8%, #ffffff) 100%
+  );
   --side-heading: var(--heading-fg);
   --side-text: color-mix(in srgb, var(--fg) 76%, var(--bg));
   border-color: color-mix(in srgb, #0b3dd7 42%, var(--border-default));
@@ -1156,12 +1275,11 @@ a {
 
 [data-theme="neutral"] .ui-side-card--production {
   --side-accent: #b07a2a;
-  --side-background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, #b07a2a 18%, #ffffff) 0%,
-      color-mix(in srgb, #b07a2a 9%, #ffffff) 100%
-    );
+  --side-background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #b07a2a 18%, #ffffff) 0%,
+    color-mix(in srgb, #b07a2a 9%, #ffffff) 100%
+  );
   --side-heading: var(--heading-fg);
   --side-text: color-mix(in srgb, var(--fg) 76%, var(--bg));
   border-color: color-mix(in srgb, #b07a2a 44%, var(--border-default));
@@ -1181,7 +1299,11 @@ a {
 
 @media (hover: hover) {
   [data-theme="neutral"] .ui-side-card.ui-card--interactive:hover {
-    border-color: color-mix(in srgb, var(--side-accent) 46%, var(--border-default));
+    border-color: color-mix(
+      in srgb,
+      var(--side-accent) 46%,
+      var(--border-default)
+    );
     box-shadow: none;
   }
 }
@@ -1190,8 +1312,14 @@ a {
   color: var(--heading-fg);
 }
 
-[data-theme="engineering"] main > section:first-of-type :is(p, li).text-\[var\(--muted\)\],
-[data-theme="engineering"] main > section:first-of-type p.text-\[var\(--muted\)\],
+[data-theme="engineering"]
+  main
+  > section:first-of-type
+  :is(p, li).text-\[var\(--muted\)\],
+[data-theme="engineering"]
+  main
+  > section:first-of-type
+  p.text-\[var\(--muted\)\],
 [data-theme="engineering"] main > section:first-of-type .ui-text--muted {
   color: color-mix(in srgb, var(--fg) 82%, var(--bg));
 }
@@ -1209,21 +1337,45 @@ a {
   color: var(--fg);
 }
 
-[data-theme="neutral"] main > section:first-of-type .ui-hero-copy :is(h1, h2, h3),
-[data-theme="engineering"] main > section:first-of-type .ui-hero-copy :is(h1, h2, h3) {
+[data-theme="neutral"]
+  main
+  > section:first-of-type
+  .ui-hero-copy
+  :is(h1, h2, h3),
+[data-theme="engineering"]
+  main
+  > section:first-of-type
+  .ui-hero-copy
+  :is(h1, h2, h3) {
   color: var(--heading-fg);
 }
 
-[data-theme="production"] main > section:first-of-type .ui-hero-copy :is(h1, h2, h3) {
+[data-theme="production"]
+  main
+  > section:first-of-type
+  .ui-hero-copy
+  :is(h1, h2, h3) {
   color: var(--heading-fg);
 }
 
-[data-theme="neutral"] main > section:first-of-type .ui-hero-copy :is(p, li, .ui-text--muted),
-[data-theme="engineering"] main > section:first-of-type .ui-hero-copy :is(p, li, .ui-text--muted) {
+[data-theme="neutral"]
+  main
+  > section:first-of-type
+  .ui-hero-copy
+  :is(p, li, .ui-text--muted),
+[data-theme="engineering"]
+  main
+  > section:first-of-type
+  .ui-hero-copy
+  :is(p, li, .ui-text--muted) {
   color: color-mix(in srgb, var(--fg) 82%, var(--bg));
 }
 
-[data-theme="production"] main > section:first-of-type .ui-hero-copy :is(p, li, .ui-text--muted) {
+[data-theme="production"]
+  main
+  > section:first-of-type
+  .ui-hero-copy
+  :is(p, li, .ui-text--muted) {
   color: color-mix(in srgb, var(--fg) 82%, var(--bg));
 }
 
@@ -1231,13 +1383,27 @@ a {
   color: #fffaf2;
 }
 
-[data-theme="neutral"] .page-packages > section:first-of-type .ui-hero-copy :is(h1, h2, h3) {
+[data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  .ui-hero-copy
+  :is(h1, h2, h3) {
   color: #ffffff;
 }
 
-[data-theme="neutral"] .page-packages > section:first-of-type .ui-hero-copy :is(p, li, .ui-text--muted),
-[data-theme="neutral"] .page-packages > section:first-of-type :is(p, li).text-\[var\(--muted\)\],
-[data-theme="neutral"] .page-packages > section:first-of-type p.text-\[var\(--muted\)\],
+[data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  .ui-hero-copy
+  :is(p, li, .ui-text--muted),
+[data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  :is(p, li).text-\[var\(--muted\)\],
+[data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  p.text-\[var\(--muted\)\],
 [data-theme="neutral"] .page-packages > section:first-of-type .ui-text--muted {
   color: #8f97a5;
 }
@@ -1246,7 +1412,10 @@ a {
   color: #7b8493;
 }
 
-[data-theme="engineering"] main > section:first-of-type .ui-button-link--secondary {
+[data-theme="engineering"]
+  main
+  > section:first-of-type
+  .ui-button-link--secondary {
   background: var(--surface-elevated);
   color: var(--button-fg-secondary);
   border-color: var(--border-strong);
@@ -1339,7 +1508,8 @@ a {
   .ui-button-link--secondary:hover {
     background: var(--surface-interactive);
     border-color: var(--accent);
-    box-shadow: 0 10px 22px -16px color-mix(in srgb, var(--accent) 36%, transparent);
+    box-shadow: 0 10px 22px -16px
+      color-mix(in srgb, var(--accent) 36%, transparent);
   }
 }
 
@@ -1527,7 +1697,19 @@ a {
   width: 3.8rem;
   height: 1.2rem;
   background:
-    linear-gradient(90deg, var(--surface-elevated) 0 14%, transparent 14% 18%, var(--surface-elevated) 18% 32%, transparent 32% 36%, var(--surface-elevated) 36% 50%, transparent 50% 54%, var(--surface-elevated) 54% 68%, transparent 68% 72%, var(--surface-elevated) 72% 86%, transparent 86% 100%),
+    linear-gradient(
+      90deg,
+      var(--surface-elevated) 0 14%,
+      transparent 14% 18%,
+      var(--surface-elevated) 18% 32%,
+      transparent 32% 36%,
+      var(--surface-elevated) 36% 50%,
+      transparent 50% 54%,
+      var(--surface-elevated) 54% 68%,
+      transparent 68% 72%,
+      var(--surface-elevated) 72% 86%,
+      transparent 86% 100%
+    ),
     var(--accent);
 }
 
@@ -1544,7 +1726,6 @@ a {
 
 .ui-context-panel {
   position: relative;
-  overflow: hidden;
   border: 2px solid color-mix(in srgb, var(--accent) 46%, var(--border-default));
   border-radius: 0.5rem;
   background: var(--surface-elevated);
@@ -1590,8 +1771,11 @@ a {
   padding: 1.25rem;
   border: 0;
   border-radius: 0.75rem;
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--surface-3) 92%, white) 0%, color-mix(in srgb, var(--surface-1) 86%, white) 100%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-3) 92%, white) 0%,
+    color-mix(in srgb, var(--surface-1) 86%, white) 100%
+  );
   box-shadow: 4px 4px 0 color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
@@ -1615,12 +1799,11 @@ a {
 .ui-about-intro--emphasis {
   padding: 1rem 1.1rem;
   border-radius: var(--radius-card);
-  background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, var(--surface-2) 66%, #ffffff) 0%,
-      color-mix(in srgb, var(--surface-1) 88%, #ffffff) 100%
-    );
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--surface-2) 66%, #ffffff) 0%,
+    color-mix(in srgb, var(--surface-1) 88%, #ffffff) 100%
+  );
   box-shadow: 0 14px 30px -26px rgb(15 23 42 / 0.3);
 }
 
@@ -1628,12 +1811,11 @@ a {
   padding: 1.5rem;
   border: 1px solid color-mix(in srgb, var(--fg) 22%, var(--bg));
   border-radius: var(--radius-card);
-  background:
-    linear-gradient(
-      145deg,
-      color-mix(in srgb, #eef1f5 72%, #ffffff) 0%,
-      color-mix(in srgb, #e4e8ee 78%, #ffffff) 100%
-    );
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, #eef1f5 72%, #ffffff) 0%,
+    color-mix(in srgb, #e4e8ee 78%, #ffffff) 100%
+  );
 }
 
 .ui-about-focus--inverted h2 {
@@ -1676,22 +1858,20 @@ a {
 }
 
 .ui-about-split-card--engineering {
-  background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, #0b3dd7 12%, #ffffff) 0%,
-      color-mix(in srgb, #0b3dd7 5%, #ffffff) 100%
-    );
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #0b3dd7 12%, #ffffff) 0%,
+    color-mix(in srgb, #0b3dd7 5%, #ffffff) 100%
+  );
   border-color: color-mix(in srgb, #0b3dd7 36%, var(--border-default));
 }
 
 .ui-about-split-card--production {
-  background:
-    linear-gradient(
-      150deg,
-      color-mix(in srgb, #b07a2a 14%, #ffffff) 0%,
-      color-mix(in srgb, #b07a2a 6%, #ffffff) 100%
-    );
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, #b07a2a 14%, #ffffff) 0%,
+    color-mix(in srgb, #b07a2a 6%, #ffffff) 100%
+  );
   border-color: color-mix(in srgb, #b07a2a 38%, var(--border-default));
 }
 
@@ -1758,13 +1938,12 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
-      118deg,
-      color-mix(in srgb, white 32%, transparent) 0%,
-      color-mix(in srgb, white 10%, transparent) 28%,
-      transparent 58%
-    );
+  background: linear-gradient(
+    118deg,
+    color-mix(in srgb, white 32%, transparent) 0%,
+    color-mix(in srgb, white 10%, transparent) 28%,
+    transparent 58%
+  );
   pointer-events: none;
   z-index: 0;
 }
@@ -1801,35 +1980,41 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
-      118deg,
-      color-mix(in srgb, white 16%, transparent) 0%,
-      color-mix(in srgb, white 6%, transparent) 30%,
-      transparent 60%
-    );
+  background: linear-gradient(
+    118deg,
+    color-mix(in srgb, white 16%, transparent) 0%,
+    color-mix(in srgb, white 6%, transparent) 30%,
+    transparent 60%
+  );
   pointer-events: none;
   z-index: 0;
 }
 
 :is(
-  .ui-cta-panel,
-  .ui-context-panel,
-  .ui-about-panel,
-  .ui-proof-card,
-  .ui-side-card,
-  .ui-method-card,
-  .ui-card--interactive
-) > * {
+    .ui-cta-panel,
+    .ui-context-panel,
+    .ui-about-panel,
+    .ui-proof-card,
+    .ui-side-card,
+    .ui-method-card,
+    .ui-card--interactive
+  )
+  > * {
   position: relative;
   z-index: 1;
 }
 
-[data-theme="neutral"] .page-contact .ui-contact-teardown-band :is(h1, h2, h3, h4, h5, h6) {
+[data-theme="neutral"]
+  .page-contact
+  .ui-contact-teardown-band
+  :is(h1, h2, h3, h4, h5, h6) {
   color: #f9fafb;
 }
 
-[data-theme="neutral"] .page-contact .ui-contact-teardown-band :is(p, li).text-\[var\(--muted\)\],
+[data-theme="neutral"]
+  .page-contact
+  .ui-contact-teardown-band
+  :is(p, li).text-\[var\(--muted\)\],
 [data-theme="neutral"] .page-contact .ui-contact-teardown-band .ui-text--muted,
 [data-theme="neutral"] .page-contact .ui-contact-teardown-band p {
   color: color-mix(in srgb, white 90%, #4f4f5a);
@@ -1839,13 +2024,19 @@ a {
   color: color-mix(in srgb, white 93%, #4f4f5a);
 }
 
-[data-theme="neutral"] .page-contact .ui-contact-teardown-band :is(input, select, textarea) {
+[data-theme="neutral"]
+  .page-contact
+  .ui-contact-teardown-band
+  :is(input, select, textarea) {
   background: #34343d;
   border-color: #6b7280;
   color: #f3f4f6;
 }
 
-[data-theme="neutral"] .page-contact .ui-contact-teardown-band :is(input, textarea)::placeholder {
+[data-theme="neutral"]
+  .page-contact
+  .ui-contact-teardown-band
+  :is(input, textarea)::placeholder {
   color: #a1a1aa;
 }
 
@@ -1853,15 +2044,32 @@ a {
   color: #e5e7eb !important;
 }
 
-[data-theme="neutral"] .page-contact .ui-contact-teardown-band button[type="submit"] {
+[data-theme="neutral"]
+  .page-contact
+  .ui-contact-teardown-band
+  button[type="submit"] {
   background: #ffffff;
   border-color: #ffffff;
   color: #111111;
 }
 
-[data-theme="neutral"] .page-contact .ui-contact-teardown-band button[type="submit"]:hover {
+[data-theme="neutral"]
+  .page-contact
+  .ui-contact-teardown-band
+  button[type="submit"]:hover {
   background: #f3f4f6;
   border-color: #f3f4f6;
+}
+
+/* Keep contact-page inquiry modal from being clipped by local panel effects. */
+[data-theme="neutral"] .page-contact .ui-context-panel {
+  overflow: visible;
+  isolation: auto;
+}
+
+.contact-inquiry-modal::backdrop {
+  background: color-mix(in srgb, var(--bg) 95%, transparent);
+  backdrop-filter: blur(4px);
 }
 
 [data-theme="neutral"] #about-next {
@@ -1914,7 +2122,10 @@ a {
   color: color-mix(in srgb, white 83%, #24242a);
 }
 
-[data-theme="neutral"] .page-resume #resume-cta :is(p, li).text-\[var\(--muted\)\],
+[data-theme="neutral"]
+  .page-resume
+  #resume-cta
+  :is(p, li).text-\[var\(--muted\)\],
 [data-theme="neutral"] .page-resume #resume-cta .ui-text--muted,
 [data-theme="neutral"] .page-resume #resume-cta .ui-cta-text {
   color: color-mix(in srgb, white 79%, #24242a);
@@ -1967,33 +2178,63 @@ a {
 }
 
 .ui-method-band--engineering {
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--surface-2) 92%, white) 0%, color-mix(in srgb, var(--surface-1) 88%, white) 100%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-2) 92%, white) 0%,
+    color-mix(in srgb, var(--surface-1) 88%, white) 100%
+  );
 }
 
 .ui-method-band--engineering::before {
-  background:
-    linear-gradient(180deg, transparent 0 8%, color-mix(in srgb, var(--accent) 12%, transparent) 8% 18%, transparent 18% 26%, color-mix(in srgb, var(--accent) 58%, transparent) 26% 48%, transparent 48% 58%, color-mix(in srgb, var(--impact) 24%, transparent) 58% 82%, transparent 82% 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 0 8%,
+    color-mix(in srgb, var(--accent) 12%, transparent) 8% 18%,
+    transparent 18% 26%,
+    color-mix(in srgb, var(--accent) 58%, transparent) 26% 48%,
+    transparent 48% 58%,
+    color-mix(in srgb, var(--impact) 24%, transparent) 58% 82%,
+    transparent 82% 100%
+  );
 }
 
 .ui-method-band--engineering::after {
-  background:
-    linear-gradient(135deg, transparent 0 24%, color-mix(in srgb, var(--accent) 10%, transparent) 24% 42%, transparent 42% 100%);
+  background: linear-gradient(
+    135deg,
+    transparent 0 24%,
+    color-mix(in srgb, var(--accent) 10%, transparent) 24% 42%,
+    transparent 42% 100%
+  );
 }
 
 .ui-method-band--production {
-  background:
-    linear-gradient(180deg, color-mix(in srgb, var(--surface-3) 18%, var(--surface-1)) 0%, color-mix(in srgb, var(--surface-2) 82%, white) 100%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--surface-3) 18%, var(--surface-1)) 0%,
+    color-mix(in srgb, var(--surface-2) 82%, white) 100%
+  );
 }
 
 .ui-method-band--production::before {
-  background:
-    linear-gradient(180deg, transparent 0 12%, color-mix(in srgb, var(--impact) 54%, transparent) 12% 24%, transparent 24% 36%, color-mix(in srgb, var(--accent) 88%, transparent) 36% 58%, transparent 58% 72%, color-mix(in srgb, var(--impact) 28%, transparent) 72% 90%, transparent 90% 100%);
+  background: linear-gradient(
+    180deg,
+    transparent 0 12%,
+    color-mix(in srgb, var(--impact) 54%, transparent) 12% 24%,
+    transparent 24% 36%,
+    color-mix(in srgb, var(--accent) 88%, transparent) 36% 58%,
+    transparent 58% 72%,
+    color-mix(in srgb, var(--impact) 28%, transparent) 72% 90%,
+    transparent 90% 100%
+  );
 }
 
 .ui-method-band--production::after {
-  background:
-    linear-gradient(135deg, transparent 0 26%, color-mix(in srgb, var(--accent) 7%, transparent) 26% 44%, transparent 44% 100%);
+  background: linear-gradient(
+    135deg,
+    transparent 0 26%,
+    color-mix(in srgb, var(--accent) 7%, transparent) 26% 44%,
+    transparent 44% 100%
+  );
 }
 
 .ui-method-section {
@@ -2099,7 +2340,23 @@ a {
   height: 1.9rem;
   border-radius: 0.25rem;
   background:
-    linear-gradient(90deg, var(--surface-3) 0 10%, transparent 10% 14%, var(--surface-3) 14% 24%, transparent 24% 28%, var(--surface-3) 28% 38%, transparent 38% 42%, var(--surface-3) 42% 52%, transparent 52% 56%, var(--surface-3) 56% 66%, transparent 66% 70%, var(--surface-3) 70% 80%, transparent 80% 84%, var(--surface-3) 84% 94%, transparent 94% 100%),
+    linear-gradient(
+      90deg,
+      var(--surface-3) 0 10%,
+      transparent 10% 14%,
+      var(--surface-3) 14% 24%,
+      transparent 24% 28%,
+      var(--surface-3) 28% 38%,
+      transparent 38% 42%,
+      var(--surface-3) 42% 52%,
+      transparent 52% 56%,
+      var(--surface-3) 56% 66%,
+      transparent 66% 70%,
+      var(--surface-3) 70% 80%,
+      transparent 80% 84%,
+      var(--surface-3) 84% 94%,
+      transparent 94% 100%
+    ),
     color-mix(in srgb, var(--accent) 78%, white);
 }
 
@@ -2142,8 +2399,35 @@ a {
   height: 6.6rem;
   border-radius: 0.65rem;
   background:
-    linear-gradient(90deg, var(--surface-3) 0 11%, transparent 11% 16%, var(--surface-3) 16% 27%, transparent 27% 32%, var(--surface-3) 32% 43%, transparent 43% 48%, var(--surface-3) 48% 59%, transparent 59% 64%, var(--surface-3) 64% 75%, transparent 75% 80%, var(--surface-3) 80% 91%, transparent 91% 100%),
-    linear-gradient(180deg, transparent 0 13%, color-mix(in srgb, var(--surface-3) 85%, transparent) 13% 18%, transparent 18% 31%, color-mix(in srgb, var(--surface-3) 85%, transparent) 31% 36%, transparent 36% 49%, color-mix(in srgb, var(--surface-3) 85%, transparent) 49% 54%, transparent 54% 67%, color-mix(in srgb, var(--surface-3) 85%, transparent) 67% 72%, transparent 72% 85%, color-mix(in srgb, var(--surface-3) 85%, transparent) 85% 90%, transparent 90% 100%),
+    linear-gradient(
+      90deg,
+      var(--surface-3) 0 11%,
+      transparent 11% 16%,
+      var(--surface-3) 16% 27%,
+      transparent 27% 32%,
+      var(--surface-3) 32% 43%,
+      transparent 43% 48%,
+      var(--surface-3) 48% 59%,
+      transparent 59% 64%,
+      var(--surface-3) 64% 75%,
+      transparent 75% 80%,
+      var(--surface-3) 80% 91%,
+      transparent 91% 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0 13%,
+      color-mix(in srgb, var(--surface-3) 85%, transparent) 13% 18%,
+      transparent 18% 31%,
+      color-mix(in srgb, var(--surface-3) 85%, transparent) 31% 36%,
+      transparent 36% 49%,
+      color-mix(in srgb, var(--surface-3) 85%, transparent) 49% 54%,
+      transparent 54% 67%,
+      color-mix(in srgb, var(--surface-3) 85%, transparent) 67% 72%,
+      transparent 72% 85%,
+      color-mix(in srgb, var(--surface-3) 85%, transparent) 85% 90%,
+      transparent 90% 100%
+    ),
     color-mix(in srgb, var(--impact) 88%, black 4%);
 }
 
@@ -2221,12 +2505,20 @@ a {
 }
 
 .ui-side-card :is(h1, h2, h3, h4, h5, h6),
-[data-theme] main > section:first-of-type .ui-side-card :is(h1, h2, h3, h4, h5, h6) {
+[data-theme]
+  main
+  > section:first-of-type
+  .ui-side-card
+  :is(h1, h2, h3, h4, h5, h6) {
   color: var(--side-heading);
 }
 
 .ui-side-card :is(p, li, .ui-text--muted),
-[data-theme] main > section:first-of-type .ui-side-card :is(p, li, .ui-text--muted) {
+[data-theme]
+  main
+  > section:first-of-type
+  .ui-side-card
+  :is(p, li, .ui-text--muted) {
   color: var(--side-text);
 }
 
@@ -2347,7 +2639,6 @@ a {
 
 .ui-cta-panel > * {
   position: relative;
-  z-index: 1;
 }
 
 @media (min-width: 768px) {
@@ -2386,6 +2677,18 @@ a {
   }
 }
 
+@media (min-width: 640px) and (max-width: 1079px) {
+  .page-home .ui-proof-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1080px) {
+  .page-home .ui-proof-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .ui-side-card--engineering {
   --side-accent: #0b3dd7;
   --side-background: #0b3dd7;
@@ -2393,26 +2696,23 @@ a {
   --side-text: #dbeafe;
   border-color: #0b3dd7;
   box-shadow:
-    0 18px 38px -26px
-      color-mix(in srgb, #0b3dd7 38%, transparent),
+    0 18px 38px -26px color-mix(in srgb, #0b3dd7 38%, transparent),
     0 1px 2px rgb(15 23 42 / 0.05);
 }
 
 .ui-side-card--production {
   --side-accent: #fde68a;
-  --side-background:
-    linear-gradient(
-      130deg,
-      color-mix(in srgb, #ffffff 18%, #b07a2a) 0%,
-      #b07a2a 48%,
-      color-mix(in srgb, #000000 10%, #b07a2a) 100%
-    );
+  --side-background: linear-gradient(
+    130deg,
+    color-mix(in srgb, #ffffff 18%, #b07a2a) 0%,
+    #b07a2a 48%,
+    color-mix(in srgb, #000000 10%, #b07a2a) 100%
+  );
   --side-heading: #ffffff;
   --side-text: #ffedd5;
   border-color: #b07a2a;
   box-shadow:
-    0 18px 38px -26px
-      color-mix(in srgb, #b07a2a 42%, transparent),
+    0 18px 38px -26px color-mix(in srgb, #b07a2a 42%, transparent),
     0 1px 2px rgb(24 24 27 / 0.05);
 }
 
@@ -2433,13 +2733,12 @@ a {
 }
 
 [data-theme="production"] .ui-cta-panel {
-  background:
-    linear-gradient(
-      138deg,
-      color-mix(in srgb, #ffffff 14%, #b07a2a) 0%,
-      #b07a2a 46%,
-      color-mix(in srgb, #000000 9%, #b07a2a) 100%
-    );
+  background: linear-gradient(
+    138deg,
+    color-mix(in srgb, #ffffff 14%, #b07a2a) 0%,
+    #b07a2a 46%,
+    color-mix(in srgb, #000000 9%, #b07a2a) 100%
+  );
   color: #fffaf2;
   border-color: #b07a2a;
   box-shadow: 0 24px 44px -32px color-mix(in srgb, #b07a2a 70%, transparent);
@@ -2493,40 +2792,171 @@ a {
   color: color-mix(in srgb, var(--fg) 72%, var(--bg));
 }
 
-[data-theme="engineering"] #selected-work .text-xs.font-medium.uppercase.tracking-\[0\.12em\].text-\[var\(--muted\)\] {
+[data-theme="engineering"]
+  #selected-work
+  .text-xs.font-medium.uppercase.tracking-\[0\.12em\].text-\[var\(--muted\)\] {
   color: color-mix(in srgb, var(--fg) 52%, var(--bg));
 }
 
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel {
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel {
   background: #24242a;
   color: var(--inversion-fg);
   border-color: #24242a;
   box-shadow: 0 20px 42px -34px color-mix(in srgb, #24242a 56%, transparent);
 }
 
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel :is(h1, h2, h3, h4, h5, h6),
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel .ui-cta-title {
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  :is(h1, h2, h3, h4, h5, h6),
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-cta-title {
   color: var(--inversion-fg);
 }
 
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel .ui-meta-label {
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-meta-label {
   color: color-mix(in srgb, white 83%, #24242a);
 }
 
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel :is(p, li).text-\[var\(--muted\)\],
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel .ui-text--muted,
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel .ui-cta-text {
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  :is(p, li).text-\[var\(--muted\)\],
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-text--muted,
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-cta-text {
   color: color-mix(in srgb, white 79%, #24242a);
 }
 
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel .ui-button-link--primary {
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-button-link--primary {
   background: #ffffff;
   border-color: #ffffff;
   color: #050505;
 }
 
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel .ui-button-link--secondary,
-[data-theme] :is(#about-next, #resume-cta, #package-cta, #package-mid-cta, #engineering-cta, #production-cta, #contact-cta, #engineering-project-cta, #production-project-cta).ui-cta-panel .ui-button-link--ghost {
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-button-link--secondary,
+[data-theme]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-button-link--ghost {
   background: transparent;
   border-color: color-mix(in srgb, white 70%, transparent);
   color: var(--inversion-fg);
@@ -2615,7 +3045,9 @@ a {
 }
 
 .ui-card--interactive.ui-side-card {
-  transition: background-color var(--motion-duration-standard) var(--motion-easing-standard),
+  transition:
+    background-color var(--motion-duration-standard)
+      var(--motion-easing-standard),
     transform var(--motion-duration-standard) var(--motion-easing-standard),
     box-shadow var(--motion-duration-standard) var(--motion-easing-standard),
     border-color var(--motion-duration-standard) var(--motion-easing-standard);
@@ -2623,13 +3055,29 @@ a {
 
 @media (hover: hover) {
   .ui-card--interactive.ui-side-card.ui-side-card--engineering:hover {
-    background: color-mix(in srgb, var(--color-engineering-500) 4%, var(--card-surface));
-    border-color: color-mix(in srgb, var(--color-engineering-500) 24%, var(--card-border));
+    background: color-mix(
+      in srgb,
+      var(--color-engineering-500) 4%,
+      var(--card-surface)
+    );
+    border-color: color-mix(
+      in srgb,
+      var(--color-engineering-500) 24%,
+      var(--card-border)
+    );
   }
 
   .ui-card--interactive.ui-side-card.ui-side-card--production:hover {
-    background: color-mix(in srgb, var(--color-production-500) 5%, var(--card-surface));
-    border-color: color-mix(in srgb, var(--color-production-500) 28%, var(--card-border));
+    background: color-mix(
+      in srgb,
+      var(--color-production-500) 5%,
+      var(--card-surface)
+    );
+    border-color: color-mix(
+      in srgb,
+      var(--color-production-500) 28%,
+      var(--card-border)
+    );
   }
 }
 
@@ -2737,7 +3185,7 @@ a {
 .route-transition {
   animation: route-fade-in var(--motion-duration-transition)
     var(--motion-easing-smooth) both;
-  will-change: opacity, transform;
+  will-change: opacity;
 }
 
 [data-scroll-reveal] {
@@ -2754,7 +3202,7 @@ a {
 
 [data-scroll-reveal][data-reveal-state="visible"] {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

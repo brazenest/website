@@ -87,6 +87,66 @@ export default component$(() => {
 
         <Section spacing="default">
           <Container>
+            <section id="teardown" aria-labelledby="teardown-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
+              <div class="flex flex-col gap-2">
+                <p class="ui-meta-label">Not Ready for a Full Build?</p>
+                <h2 id="teardown-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Start with a Website Teardown.</h2>
+                <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
+                  A teardown is a structured, direct assessment of your current site — what is holding it back technically, visually, and strategically. It is the lowest-commitment way to get actionable clarity before committing to a full engagement.
+                </p>
+              </div>
+
+              <ul class="grid gap-4 md:grid-cols-3 md:gap-5">
+                <li class="ui-package-value-card flex flex-col gap-3">
+                  <div class="ui-package-value-graphic" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Performance and SEO Assessment</h3>
+                  <p class="text-base leading-7 text-[var(--muted)]">
+                    Core Web Vitals, load behavior, and search visibility reviewed against the specific conditions your visitors encounter — not just a Lighthouse score.
+                  </p>
+                </li>
+
+                <li class="ui-package-value-card flex flex-col gap-3">
+                  <div class="ui-package-value-graphic" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Visual and Conversion Audit</h3>
+                  <p class="text-base leading-7 text-[var(--muted)]">
+                    Hierarchy, trust signals, and the visual decisions that accelerate or slow a visitor's path to taking action — identified and explained without jargon.
+                  </p>
+                </li>
+
+                <li class="ui-package-value-card flex flex-col gap-3">
+                  <div class="ui-package-value-graphic" aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                  <h3 class="text-lg font-medium tracking-tight md:text-xl">Actionable Next Steps</h3>
+                  <p class="text-base leading-7 text-[var(--muted)]">
+                    You receive a prioritized set of specific improvements — not a general to-do list. Each recommendation explains the problem and the expected outcome so you can act on it or hand it off.
+                  </p>
+                </li>
+              </ul>
+
+              <div class="ui-cta-group ui-cta-actions">
+                <ButtonLink
+                  href="/contact#teardown-request"
+                  label="Request a Website Teardown"
+                  variant="secondary"
+                />
+              </div>
+            </section>
+          </Container>
+        </Section>
+
+        <Section spacing="default">
+          <Container>
             <section id="package-value" aria-labelledby="package-value-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8">
               <div class="ui-package-value-intro flex flex-col gap-2">
                 <h2 id="package-value-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Proven Structure, Tailored Execution</h2>

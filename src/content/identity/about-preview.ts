@@ -1,12 +1,13 @@
 import type { AboutPreviewContent } from "~/types/content";
 
 export const aboutPreviewContent: AboutPreviewContent = {
-  eyebrow: "Why This Matters",
-  heading: "Technical Excellence Meets Visual Craft",
+  eyebrow: "About Alden",
+  heading:
+    "The useful overlap is where engineering, media, and personal positioning meet.",
   description:
-    "Performance builds trust and presentation builds authority, but durable outcomes need both working together. The strongest work pairs clean systems underneath with unmistakable visual signals above, so visitors understand value fast and continue deeper with confidence.",
+    "My background is split between software engineering and production work, which makes me useful on projects where a website has to be technically solid and personally convincing. I care about the system underneath, the story on the surface, and the judgment that connects them.",
   href: "/about",
-  ctaLabel: "About the Approach",
+  ctaLabel: "Read About Alden",
   visual: {
     src: "/media/generated/about-practice-studio.png",
     alt: "Editorial photograph of a multidisciplinary studio workspace combining camera tools, technical notes, and visual planning artifacts.",
