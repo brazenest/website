@@ -64,8 +64,36 @@ function getSslConfig(databaseUrl: string) {
     return undefined
   }
 
+  if (sslMode === 'require') {
+    return {
+      rejectUnauthorized: process.env.PGSSLREJECTUNAUTHORIZED?.trim().toLowerCase() === 'true',
+    }
+  }
+
   return {
     rejectUnauthorized: process.env.PGSSLREJECTUNAUTHORIZED !== 'false',
+  }
+}
+
+function getConnectionString(databaseUrl: string) {
+  const sslMode = process.env.PGSSLMODE?.trim().toLowerCase()
+
+  if (sslMode !== 'require') {
+    try {
+      if (new URL(databaseUrl).searchParams.get('sslmode')?.trim().toLowerCase() !== 'require') {
+        return databaseUrl
+      }
+    } catch {
+      return databaseUrl
+    }
+  }
+
+  try {
+    const url = new URL(databaseUrl)
+    url.searchParams.set('uselibpqcompat', 'true')
+    return url.toString()
+  } catch {
+    return databaseUrl
   }
 }
 
@@ -123,7 +151,13 @@ function assertSchemaInspection(schema: SchemaInspection) {
   const missingDestinationColumns = REQUIRED_DESTINATION_COLUMNS.filter(
     (columnName) =>
       !schema.destinationColumns.includes(columnName) &&
-      !['legacy_post_id', 'legacy_category_slug', 'legacy_category_name', 'legacy_tag_slugs', 'legacy_readtime'].includes(columnName),
+      ![
+        'legacy_post_id',
+        'legacy_category_slug',
+        'legacy_category_name',
+        'legacy_tag_slugs',
+        'legacy_readtime',
+      ].includes(columnName),
   )
 
   if (missingDestinationColumns.length > 0) {
@@ -284,8 +318,13 @@ function buildMigrationPlan(
   }
 }
 
-function validatePlannedPosts(plannedPosts: PlannedMigratedBlogPost[], legacyPosts: LegacyBlogSourcePost[]) {
-  const visibleLegacyCount = legacyPosts.filter((post) => mapLegacyVisibilityToStatus(post.visible) === 'published').length
+function validatePlannedPosts(
+  plannedPosts: PlannedMigratedBlogPost[],
+  legacyPosts: LegacyBlogSourcePost[],
+) {
+  const visibleLegacyCount = legacyPosts.filter(
+    (post) => mapLegacyVisibilityToStatus(post.visible) === 'published',
+  ).length
   const plannedPublishedCount = plannedPosts.filter((post) => post.status === 'published').length
   const uniqueTargetSlugs = new Set(plannedPosts.map((post) => post.targetSlug))
 
@@ -459,10 +498,10 @@ async function validateMigratedRows(client: Client, legacyPosts: LegacyBlogSourc
 
   const compatibilityRows = compatibilitySlugs.length
     ? await client.query<{
-      slug: string
-      body_markdown: string
-    }>(
-      `
+        slug: string
+        body_markdown: string
+      }>(
+        `
           SELECT slug, body_markdown
           FROM blog_posts
           WHERE slug = ANY($1::text[])
@@ -470,8 +509,8 @@ async function validateMigratedRows(client: Client, legacyPosts: LegacyBlogSourc
             AND published_at IS NOT NULL
           ORDER BY slug
         `,
-      [compatibilitySlugs],
-    )
+        [compatibilitySlugs],
+      )
     : { rows: [] }
 
   const paragraphCounts = compatibilityRows.rows.map((row) => ({
@@ -486,15 +525,18 @@ async function validateMigratedRows(client: Client, legacyPosts: LegacyBlogSourc
   }
 }
 
-function printReport(mode: Mode, report: {
-  sourceCount: number
-  sourcePublishedCount: number
-  existingDestinationCount: number
-  plannedCount: number
-  plannedPublishedCount: number
-  slugCollisions: MigrationPlan['slugCollisions']
-  validation?: Awaited<ReturnType<typeof validateMigratedRows>>
-}) {
+function printReport(
+  mode: Mode,
+  report: {
+    sourceCount: number
+    sourcePublishedCount: number
+    existingDestinationCount: number
+    plannedCount: number
+    plannedPublishedCount: number
+    slugCollisions: MigrationPlan['slugCollisions']
+    validation?: Awaited<ReturnType<typeof validateMigratedRows>>
+  },
+) {
   console.log(`# Legacy Blog Migration Report (${mode})`)
   console.log('')
   console.log(`- source posts: ${report.sourceCount}`)
@@ -508,7 +550,9 @@ function printReport(mode: Mode, report: {
     console.log('')
     console.log('## Slug Collision Redirect Requirements')
     for (const collision of report.slugCollisions) {
-      console.log(`- ${collision.sourceSlug} -> ${collision.targetSlug} (legacy id ${collision.legacyPostId})`)
+      console.log(
+        `- ${collision.sourceSlug} -> ${collision.targetSlug} (legacy id ${collision.legacyPostId})`,
+      )
     }
   }
 
@@ -523,12 +567,20 @@ function printReport(mode: Mode, report: {
   console.log(`- migrated draft rows: ${report.validation.destination.migrated_draft}`)
   console.log(`- migrated rows missing slug: ${report.validation.destination.missing_slug}`)
   console.log(`- migrated rows missing title: ${report.validation.destination.missing_title}`)
-  console.log(`- duplicate migrated slug count: ${report.validation.destination.duplicate_slug_count}`)
-  console.log(`- migrated rows missing category metadata: ${report.validation.destination.missing_category_metadata}`)
-  console.log(`- migrated rows missing tag arrays: ${report.validation.destination.missing_tag_array}`)
+  console.log(
+    `- duplicate migrated slug count: ${report.validation.destination.duplicate_slug_count}`,
+  )
+  console.log(
+    `- migrated rows missing category metadata: ${report.validation.destination.missing_category_metadata}`,
+  )
+  console.log(
+    `- migrated rows missing tag arrays: ${report.validation.destination.missing_tag_array}`,
+  )
   console.log(`- created_at mismatches: ${report.validation.timestampChecks.mismatched_created_at}`)
   console.log(`- updated_at mismatches: ${report.validation.timestampChecks.mismatched_updated_at}`)
-  console.log(`- published_at mismatches on published rows: ${report.validation.timestampChecks.mismatched_published_at}`)
+  console.log(
+    `- published_at mismatches on published rows: ${report.validation.timestampChecks.mismatched_published_at}`,
+  )
 
   if (report.validation.paragraphCounts.length > 0) {
     console.log('')
@@ -543,7 +595,7 @@ async function main() {
   const mode = parseMode(process.argv.slice(2))
   const databaseUrl = getDatabaseUrl()
   const client = new Client({
-    connectionString: databaseUrl,
+    connectionString: getConnectionString(databaseUrl),
     ssl: getSslConfig(databaseUrl),
   })
 

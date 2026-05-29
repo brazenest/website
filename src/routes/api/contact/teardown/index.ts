@@ -1,5 +1,5 @@
 import type { RequestHandler } from '@builder.io/qwik-city'
-import { SESClient, SendEmailCommand } from '@aws-sdk/client-ses'
+import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -36,11 +36,13 @@ async function sendContactEmail({
   websiteUrl,
   intentLabel,
   email,
+  phone,
   context,
 }: {
   websiteUrl: string
   intentLabel: string
   email?: string
+  phone?: string
   context?: string
 }) {
   const region = getRequiredEnv('AWS_REGION')
@@ -59,30 +61,33 @@ async function sendContactEmail({
     `Website: ${websiteUrl}`,
     `Intent: ${intentLabel}`,
     `Email: ${email || 'Not provided'}`,
+    `Phone: ${phone || 'Not provided'}`,
     context ? `\nContext:\n${context}` : '',
     '',
     'This request came through the website teardown form.',
     `Submitted at: ${submittedAt}`,
   ].join('\n')
 
-  const ses = new SESClient({ region })
+  const ses = new SESv2Client({ region })
 
   await ses.send(
     new SendEmailCommand({
-      Source: fromEmail,
+      FromEmailAddress: fromEmail,
       Destination: {
         ToAddresses: toEmails,
       },
       ReplyToAddresses: email ? [email] : undefined,
-      Message: {
-        Subject: {
-          Charset: 'UTF-8',
-          Data: `${subjectPrefix}: ${intentLabel}`,
-        },
-        Body: {
-          Text: {
+      Content: {
+        Simple: {
+          Subject: {
             Charset: 'UTF-8',
-            Data: emailBody,
+            Data: `${subjectPrefix}: ${intentLabel}`,
+          },
+          Body: {
+            Text: {
+              Charset: 'UTF-8',
+              Data: emailBody,
+            },
           },
         },
       },
@@ -102,6 +107,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
   const websiteUrl = formData.get('websiteUrl')?.toString().trim()
   const intent = formData.get('intent')?.toString().trim()
   const email = formData.get('email')?.toString().trim()
+  const phone = formData.get('phone')?.toString().trim()
   const context = formData.get('context')?.toString().trim()
 
   // Validate required fields
@@ -128,6 +134,7 @@ export const onPost: RequestHandler = async (requestEvent) => {
       websiteUrl,
       intentLabel: getIntentLabel(intent),
       email,
+      phone,
       context,
     })
 

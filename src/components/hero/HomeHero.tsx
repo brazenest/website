@@ -1,4 +1,5 @@
 import { Slot, component$ } from "@builder.io/qwik";
+import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
 import type { HeroContent } from "~/types/content";
@@ -8,23 +9,38 @@ export const HomeHero = component$(
     return (
       <Section spacing="default">
         <Container width="wide">
-          <div class="flex flex-col gap-6 md:gap-10">
-            <div class="grid gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(18rem,0.95fr)] lg:items-start">
-              <div class="ui-hero-copy flex max-w-[70ch] flex-col gap-3 md:gap-6">
+          <div class="flex flex-col gap-8 md:gap-12">
+            <div class="ui-home-hero-grid">
+              <div class="ui-hero-copy flex max-w-[70ch] flex-col gap-4 md:gap-6">
                 <p class="ui-meta-label">{name}</p>
 
-                <h1 class="ui-hero-title md:max-w-[12ch]">
-                  {headline}
-                </h1>
+                <h1 class="ui-hero-title ui-home-hero-title">{headline}</h1>
 
-                <p class="ui-hero-text text-[var(--muted)]">
-                  {description}
-                </p>
+                <p class="ui-hero-text text-[var(--muted)]">{description}</p>
+
+                <div class="ui-cta-group ui-cta-actions ui-home-hero-actions">
+                  <ButtonLink
+                    href="/contact"
+                    label="Start a Project"
+                    variant="primary"
+                  />
+                  <ButtonLink
+                    href="/work"
+                    label="View Work"
+                    variant="secondary"
+                  />
+                </div>
+
+                <ul class="ui-home-hero-points" aria-label="Core services">
+                  <li>Sites that sell expertise clearly</li>
+                  <li>Audits for speed, SEO, UX, and architecture</li>
+                  <li>Founder media, profile films, and launch assets</li>
+                </ul>
               </div>
 
               {visual ? (
-                <div class="lg:pt-2">
-                  <div class="ui-editorial-frame aspect-[6/5]">
+                <div class="ui-home-hero-visual">
+                  <div class="ui-editorial-frame aspect-[5/4] sm:aspect-[6/5]">
                     <img
                       src={visual.src}
                       alt={visual.alt}

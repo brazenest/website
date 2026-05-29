@@ -1,4 +1,8 @@
-import type { StructuredDataPresetMap } from '~/types/seo'
+import type {
+  ArticleStructuredDataInput,
+  BlogArticleStructuredDataFields,
+  StructuredDataPresetMap,
+} from '~/types/seo'
 
 /**
  * Route-level structured data presets for pages that should emit JSON-LD.
@@ -14,6 +18,22 @@ import type { StructuredDataPresetMap } from '~/types/seo'
  * For static routes, presets include the full pathname.
  */
 export const structuredDataPresets: StructuredDataPresetMap = {
+  blog: {
+    kind: 'none',
+    pathname: '/blog',
+    title: 'Writing on Systems, Stories & Craft',
+    description:
+      'Essays and process notes on architecture decisions, production craft, editorial judgment, and where engineering and storytelling intersect.',
+  },
+
+  'blog-article': {
+    kind: 'article',
+    title: 'Blog Post',
+    description: 'Writing by Alden Gillespy across engineering and production practice.',
+    keywords: ['engineering', 'production', 'bridge'],
+    excerpt: 'Writing by Alden Gillespy across engineering and production practice.',
+  },
+
   engineering: {
     kind: 'none',
     pathname: '/engineering',
@@ -47,4 +67,21 @@ export const structuredDataPresets: StructuredDataPresetMap = {
     keywords: ['filmmaking', 'visual', 'craft'],
     excerpt: '[Key production insight or creative decision]',
   },
+}
+
+export function buildBlogArticleStructuredDataInput(
+  post: BlogArticleStructuredDataFields,
+  imageUrl?: string
+): ArticleStructuredDataInput {
+  return {
+    title: post.title,
+    description: post.summary,
+    url: `/blog/${post.slug}`,
+    image: imageUrl ?? undefined,
+    datePublished: post.publishedAt ?? post.createdAt ?? new Date().toISOString(),
+    dateModified: post.updatedAt ?? undefined,
+    keywords: post.side ? [post.side] : structuredDataPresets['blog-article'].keywords,
+    excerpt: post.summary,
+    articleBody: post.bodyMarkdown,
+  }
 }

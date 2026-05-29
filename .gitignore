@@ -3,6 +3,7 @@
 /lib
 /lib-types
 /server
+/artifacts
 
 # Development
 node_modules

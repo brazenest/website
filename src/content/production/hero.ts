@@ -1,14 +1,15 @@
-import type { ProductionHeroContent } from '~/types/content'
+import type { ProductionHeroContent } from "~/types/content";
 
 export const productionHeroContent: ProductionHeroContent = {
-  headline: 'I direct, shoot, and edit visual stories.',
-  byline: 'Alden Gillespy — Video Producer',
+  headline:
+    "I make visual work that helps people understand the person behind the offer.",
+  byline: "Production Services",
   description:
-    'I build visual narratives with deliberate framing, adaptable coverage, and edit decisions that hold attention, communicate intent quickly, and give brands a stronger first impression.',
-  primaryCtaLabel: 'Browse Case Studies',
-  primaryCtaHref: '/production#selected-work',
+    "Founder profiles, service explainers, interviews, campaign assets, and editorial pieces built with deliberate framing, adaptable coverage, and edits that feel human instead of generic.",
+  primaryCtaLabel: "Browse Production Work",
+  primaryCtaHref: "/production#selected-work",
   visual: {
-    src: '/media/generated/production-hero-storycraft.png',
-    alt: 'Cinematic production photograph showing a director shaping a scene with camera and lighting tools in a controlled set environment.',
+    src: "/media/generated/production-hero-storycraft.png",
+    alt: "Cinematic production photograph showing a director shaping a scene with camera and lighting tools in a controlled set environment.",
   },
-}
+};

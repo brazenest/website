@@ -1,7 +1,7 @@
-import { component$ } from '@builder.io/qwik'
-import { ButtonLink } from '~/components/ui/ButtonLink'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
+import { component$ } from "@builder.io/qwik";
+import { ButtonLink } from "~/components/ui/ButtonLink";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
 
 /**
  * CTA section for homepage
@@ -11,28 +11,34 @@ export const HomeCTASection = component$(() => {
   return (
     <Section spacing="compact">
       <Container width="content">
-        <section id="home-cta" aria-labelledby="home-cta-title" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
+        <section
+          id="home-cta"
+          aria-labelledby="home-cta-title"
+          class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
+        >
           <div class="ui-cta-layout">
             <div class="flex flex-col gap-4 md:gap-5">
-              <p class="ui-meta-label">Ready</p>
+              <p class="ui-meta-label">Start Here</p>
 
               <h2 id="home-cta-title" class="ui-cta-title">
-                Choose your starting point.
+                Bring the project, the site, or the question.
               </h2>
 
               <p class="ui-cta-text max-w-[42ch]">
-                Review the case studies, compare the packages, or open the conversation around the platform you need next. The fastest way in is the one that matches the pressure you are under now, then expands into a delivery path that can hold up as your business changes.
+                You can ask for a build, a focused teardown, a production
+                package, or help figuring out which path fits. A short note with
+                your situation is enough to start a useful reply.
               </p>
 
               <div class="ui-cta-group ui-cta-actions">
                 <ButtonLink
                   href="/packages"
-                  label="View Packages"
+                  label="Compare Packages"
                   variant="primary"
                 />
                 <ButtonLink
                   href="/contact"
-                  label="Start a Project"
+                  label="Contact Alden"
                   variant="secondary"
                 />
               </div>
@@ -52,5 +58,5 @@ export const HomeCTASection = component$(() => {
         </section>
       </Container>
     </Section>
-  )
-})
+  );
+});

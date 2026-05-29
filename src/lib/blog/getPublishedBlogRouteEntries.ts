@@ -1,4 +1,5 @@
 import { query } from '~/lib/db'
+import { isMissingBlogPostsTableError } from './shared'
 
 type PublishedBlogRouteEntryRow = {
   slug: string
@@ -25,26 +26,35 @@ function toIsoString(value: Date | string | null): string | null {
 }
 
 export async function getPublishedBlogRouteEntries(): Promise<PublishedBlogRouteEntry[]> {
-  const { rows } = await query<PublishedBlogRouteEntryRow>(
-    `
-      SELECT
-        slug,
-        updated_at,
-        published_at,
-        created_at
-      FROM blog_posts
-      WHERE status = $1
-        AND published_at IS NOT NULL
-      ORDER BY published_at DESC, created_at DESC
-    `,
-    ['published'],
-  )
+  try {
+    const { rows } = await query<PublishedBlogRouteEntryRow>(
+      `
+        SELECT
+          slug,
+          updated_at,
+          published_at,
+          created_at
+        FROM blog_posts
+        WHERE status = $1
+          AND published_at IS NOT NULL
+        ORDER BY published_at DESC, created_at DESC
+      `,
+      ['published'],
+    )
 
-  return rows.map((row) => ({
-    slug: row.slug,
-    lastModified: toIsoString(row.updated_at)
-      ?? toIsoString(row.published_at)
-      ?? toIsoString(row.created_at)
-      ?? new Date(0).toISOString(),
-  }))
+    return rows.map((row) => ({
+      slug: row.slug,
+      lastModified:
+        toIsoString(row.updated_at)
+        ?? toIsoString(row.published_at)
+        ?? toIsoString(row.created_at)
+        ?? new Date(0).toISOString(),
+    }))
+  } catch (error) {
+    if (isMissingBlogPostsTableError(error)) {
+      return []
+    }
+
+    throw error
+  }
 }

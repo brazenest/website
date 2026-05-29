@@ -1,12 +1,12 @@
-import type { PackageHeroContent } from '~/types/content'
+import type { PackageHeroContent } from "~/types/content";
 
 export const packageHeroContent: PackageHeroContent = {
-  headline: 'Website Packages for Professionals',
-  byline: 'Clear scope. Sustainable delivery.',
+  headline: "Website Packages for Independent Professionals and Small Teams",
+  byline: "Clear structure. Fast sites. Room to grow.",
   description:
-    'Each package combines technical depth, conversion-aware structure, and polished presentation so your site can rank, communicate authority, and support real business decisions over time.',
+    "Structured website builds for people who need a professional web presence without turning the project into a fog bank. Each package gives the work a clear shape, a solid technical base, and enough flexibility to feel like yours.",
   visual: {
-    src: '/media/generated/packages-hero-delivery.png',
-    alt: 'Editorial planning photograph showing a professional website delivery workflow with structured materials, roadmap documents, and premium workspace details.',
+    src: "/media/generated/packages-hero-delivery.png",
+    alt: "Editorial planning photograph showing a professional website delivery workflow with structured materials, roadmap documents, and premium workspace details.",
   },
-}
+};
