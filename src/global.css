@@ -1,5 +1,5 @@
-@import './styles/theme.css';
-@import './styles/prose.css';
+@import "./styles/theme.css";
+@import "./styles/prose.css";
 
 body {
   font-family: var(--font-body);
@@ -185,7 +185,7 @@ main {
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.15;
-  letter-spacing: normal;
+  letter-spacing: 0;
   text-transform: none;
 }
 
@@ -240,11 +240,18 @@ main {
   content: ", ";
 }
 
-.resume-page.resume-mode-ats .resume-print-skills-column article li:last-child::after {
+.resume-page.resume-mode-ats
+  .resume-print-skills-column
+  article
+  li:last-child::after {
   content: "";
 }
 
-.resume-page.resume-mode-ats .resume-print-project-list article > div > p:first-child {
+.resume-page.resume-mode-ats
+  .resume-print-project-list
+  article
+  > div
+  > p:first-child {
   display: none !important;
 }
 
@@ -380,7 +387,7 @@ main {
 
   .resume-page .ui-meta-label {
     color: #475569 !important;
-    letter-spacing: 0.08em !important;
+    letter-spacing: 0 !important;
   }
 
   .resume-page [data-scroll-reveal] {
@@ -394,13 +401,20 @@ main {
     page-break-inside: auto;
   }
 
-  .resume-page :is(.ui-editorial-frame, .ui-context-panel, .ui-resume-unit, .ui-resume-section, .ui-resume-meta-band) {
+  .resume-page
+    :is(
+      .ui-editorial-frame,
+      .ui-context-panel,
+      .ui-resume-unit,
+      .ui-resume-section,
+      .ui-resume-meta-band
+    ) {
     background: transparent !important;
     border-radius: 0 !important;
   }
 
   .resume-page .container,
-  .resume-page [class*='max-w-'] {
+  .resume-page [class*="max-w-"] {
     max-width: none !important;
   }
 
@@ -466,20 +480,20 @@ main {
     line-height: 1.25 !important;
   }
 
-  .resume-page .resume-contact a[href^='http']::after {
-    content: ' (' attr(href) ')';
+  .resume-page .resume-contact a[href^="http"]::after {
+    content: " (" attr(href) ")";
     font-size: 8pt;
     color: #475569;
   }
 
-  .resume-page .resume-contact a[href^='mailto:']::after {
-    content: ' (' attr(href) ')';
+  .resume-page .resume-contact a[href^="mailto:"]::after {
+    content: " (" attr(href) ")";
     font-size: 8pt;
     color: #475569;
   }
 
-  .resume-page .resume-contact a[href^='tel:']::after {
-    content: ' (' attr(href) ')';
+  .resume-page .resume-contact a[href^="tel:"]::after {
+    content: " (" attr(href) ")";
     font-size: 8pt;
     color: #475569;
   }
@@ -632,11 +646,15 @@ main {
     padding-inline: 0.08in !important;
   }
 
-  .resume-page.resume-mode-human .resume-print-project-list article:nth-child(odd) {
+  .resume-page.resume-mode-human
+    .resume-print-project-list
+    article:nth-child(odd) {
     padding-left: 0 !important;
   }
 
-  .resume-page.resume-mode-human .resume-print-project-list article:nth-child(even) {
+  .resume-page.resume-mode-human
+    .resume-print-project-list
+    article:nth-child(even) {
     padding-right: 0 !important;
   }
 
@@ -645,8 +663,10 @@ main {
     font-size: 8.5pt !important;
   }
 
-  .resume-page.resume-mode-human .resume-print-project-list a[href^='/']::after {
-    content: ' (' attr(href) ')';
+  .resume-page.resume-mode-human
+    .resume-print-project-list
+    a[href^="/"]::after {
+    content: " (" attr(href) ")";
     color: #64748b;
   }
 
@@ -748,7 +768,6 @@ main {
     columns: 1 !important;
   }
 
-
   .resume-page .flex.flex-col.gap-12,
   .resume-page .md\:gap-16,
   .resume-page .gap-10,
@@ -845,7 +864,7 @@ main {
     font-size: 12pt !important;
     font-weight: 600 !important;
     line-height: 1.15 !important;
-    letter-spacing: normal !important;
+    letter-spacing: 0 !important;
     text-transform: none !important;
   }
 
@@ -885,11 +904,18 @@ main {
     content: ", " !important;
   }
 
-  .resume-page.resume-mode-ats .resume-print-skills-column article li:last-child::after {
+  .resume-page.resume-mode-ats
+    .resume-print-skills-column
+    article
+    li:last-child::after {
     content: "" !important;
   }
 
-  .resume-page.resume-mode-ats .resume-print-project-list article > div > p:first-child {
+  .resume-page.resume-mode-ats
+    .resume-print-project-list
+    article
+    > div
+    > p:first-child {
     display: none !important;
   }
 
@@ -970,10 +996,10 @@ main {
     padding: 0.02in 0 0 !important;
   }
 
-  .resume-page.resume-mode-ats .resume-contact a[href^='http']::after,
-  .resume-page.resume-mode-ats .resume-contact a[href^='mailto:']::after,
-  .resume-page.resume-mode-ats .resume-contact a[href^='tel:']::after,
-  .resume-page.resume-mode-ats .resume-print-project-list a[href^='/']::after {
+  .resume-page.resume-mode-ats .resume-contact a[href^="http"]::after,
+  .resume-page.resume-mode-ats .resume-contact a[href^="mailto:"]::after,
+  .resume-page.resume-mode-ats .resume-contact a[href^="tel:"]::after,
+  .resume-page.resume-mode-ats .resume-print-project-list a[href^="/"]::after {
     color: #000 !important;
   }
 }

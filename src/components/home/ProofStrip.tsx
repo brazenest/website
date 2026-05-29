@@ -12,15 +12,15 @@ export const ProofStrip = component$(({ items }: ProofStripProps) => {
     <Section spacing="compact" surface="subtle">
       <Container width="wide">
         <section class="ui-proof-band flex flex-col gap-4 md:gap-5">
-          <p class="ui-meta-label">Selected Proof</p>
+          <p class="ui-meta-label">Selected Work</p>
           <div class="ui-proof-intro">
             <h2 class="text-3xl font-semibold tracking-tight md:text-4xl">
-              Work that shows the standard before you start a conversation.
+              A few examples of how the work comes together.
             </h2>
             <p class="max-w-[42ch] text-base leading-7 text-[var(--muted)] md:text-lg">
               These are compact case studies by design. Each one shows the
-              problem, the judgment behind the work, and the kind of result I
-              look for when a site or story has to perform in public.
+              context, the decisions behind the work, and the shape of the
+              finished result.
             </p>
           </div>
 
@@ -72,12 +72,12 @@ export const ProofStrip = component$(({ items }: ProofStripProps) => {
             </p>
             <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
               Production work is about the parts visitors feel immediately:
-              framing, pacing, credibility, and voice.
+              framing, pacing, mood, and voice.
             </p>
             <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
               This site is the same kind of artifact I build for clients: a
-              clear position, a maintainable system, and enough proof to make
-              the next step obvious.
+              clear position, a maintainable system, and enough context to make
+              the next step feel natural.
             </p>
           </div>
         </section>

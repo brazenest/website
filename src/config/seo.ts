@@ -1,21 +1,21 @@
-import type { SEOInput, SEOPresetMap, SEOPageKey } from '~/types/seo'
-import type { BlogPostRecord } from '~/types/content'
+import type { SEOInput, SEOPresetMap, SEOPageKey } from "~/types/seo";
+import type { BlogPostRecord } from "~/types/content";
 
 /**
  * Route pathname mapping for canonical pages.
  * Ties SEO preset keys to their corresponding route paths.
  */
 export const routePathnames: Record<SEOPageKey, string> = {
-	home: '/',
-	about: '/about',
-	resume: '/resume',
-	work: '/work',
-	blog: '/blog',
-	contact: '/contact',
-	packages: '/packages',
-	engineering: '/engineering',
-	production: '/production',
-}
+  home: "/",
+  about: "/about",
+  resume: "/resume",
+  work: "/work",
+  blog: "/blog",
+  contact: "/contact",
+  packages: "/packages",
+  engineering: "/engineering",
+  production: "/production",
+};
 
 /**
  * Route-level SEO metadata presets for all implemented pages.
@@ -31,110 +31,124 @@ export const routePathnames: Record<SEOPageKey, string> = {
  * Pathname is injected per-route when building metadata with buildMetadata().
  */
 export const seoPresets: SEOPresetMap = {
-	home: {
-		title: 'Alden Gillespy — Senior Software Engineer and Production Storyteller',
-		description:
-			"Explore Alden Gillespy's work across software architecture, maintainable systems, and production storytelling.",
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'weekly',
-		priority: 1.0,
-	},
-	about: {
-		title: 'About Alden Gillespy — Senior Software Engineer and Production Storyteller',
-		description:
-			'Learn about my approach to software engineering, production storytelling, and the operating principles that connect both practices.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'monthly',
-		priority: 0.8,
-	},
-	resume: {
-		title: 'Resume — Alden Gillespy | Senior Software Engineer and Production Storyteller',
-		description:
-			'Senior Software Engineer and Production Storyteller. Full technical background across startups and agencies, with experience in systems design, implementation, and cross-disciplinary delivery.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'monthly',
-		priority: 0.8,
-	},
-	contact: {
-		title: 'Contact — Work With Alden Gillespy',
-		description:
-			'Inquire about engineering work, production projects, or focused collaborations. Start with the contact form for project briefs and role discussions.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'yearly',
-		priority: 0.7,
-	},
-	engineering: {
-		title: 'Software Engineering Portfolio — Systems, Architecture & Projects | Alden Gillespy',
-		description:
-			'Selected software projects showcasing system design, implementation tradeoffs, and long-term maintainability across platforms and teams.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'monthly',
-		priority: 0.9,
-	},
-	production: {
-		title: 'Video Production Portfolio — Cinematic Work & Storytelling | Alden Gillespy',
-		description:
-			'Film, photo, and campaign work demonstrating framing, coverage, pacing, tone, and the craft behind visual storytelling.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'monthly',
-		priority: 0.9,
-	},
-	blog: {
-		title: 'Writing on Systems, Stories & Craft | Alden Gillespy',
-		description:
-			'Essays and process notes on architecture decisions, production craft, editorial judgment, and where engineering and storytelling intersect.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'weekly',
-		priority: 0.8,
-	},
-	work: {
-		title: 'Work — Engineering and Production Case Studies | Alden Gillespy',
-		description:
-			'Selected case studies across software engineering and cinematic production. Each entry surfaces the challenge, the role, and the decisions that shaped the outcome.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'monthly',
-		priority: 0.9,
-	},
-	packages: {
-		title: 'Website Packages for Professionals',
-		description:
-			'Productized website solutions designed for self-marketed professionals. Foundation, Growth, and Authority tiers combining performance, visual craft, and conversion.',
-		type: 'website',
-		includeSitemap: true,
-		changefreq: 'monthly',
-		priority: 0.8,
-	},
-}
+  home: {
+    title: "Alden Gillespy — Websites, Web Systems & Video Production",
+    description:
+      "Personal portfolio and professional services site for Alden Gillespy, a software engineer and video producer building websites, web systems, and visual stories.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "weekly",
+    priority: 1.0,
+  },
+  about: {
+    title: "About Alden Gillespy — Website Systems, Positioning & Production",
+    description:
+      "Learn how Alden Gillespy combines software engineering, positioning, and production work across websites, web systems, and visual storytelling.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "monthly",
+    priority: 0.8,
+  },
+  resume: {
+    title:
+      "Resume — Alden Gillespy | Senior Software Engineer and Production Storyteller",
+    description:
+      "Senior Software Engineer and Production Storyteller. Full technical background across startups and agencies, with experience in systems design, implementation, and cross-disciplinary delivery.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "monthly",
+    priority: 0.8,
+  },
+  contact: {
+    title: "Contact Alden Gillespy — Website Builds, Teardowns & Production",
+    description:
+      "Reach out about website builds, redesigns, teardowns, technical cleanup, production work, or cross-disciplinary web and media projects.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "yearly",
+    priority: 0.7,
+  },
+  engineering: {
+    title: "Engineering Services — Websites & Web Systems | Alden Gillespy",
+    description:
+      "Engineering services and case studies for fast websites, maintainable web systems, search-ready structure, and useful product surfaces.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "monthly",
+    priority: 0.9,
+  },
+  production: {
+    title:
+      "Production Services — Video, Profiles & Visual Stories | Alden Gillespy",
+    description:
+      "Founder profiles, service explainers, campaign assets, interviews, and production case studies by Alden Gillespy.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "monthly",
+    priority: 0.9,
+  },
+  blog: {
+    title: "Writing on Systems, Stories & Craft | Alden Gillespy",
+    description:
+      "Essays and process notes on architecture decisions, production craft, editorial judgment, and where engineering and storytelling intersect.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "weekly",
+    priority: 0.8,
+  },
+  work: {
+    title:
+      "Work — Web Systems, Engineering & Production Case Studies | Alden Gillespy",
+    description:
+      "Selected case studies across web systems, software engineering, and production, including project context, roles, and decisions behind the work.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "monthly",
+    priority: 0.9,
+  },
+  packages: {
+    title:
+      "Website Packages for Professionals and Small Teams | Alden Gillespy",
+    description:
+      "Structured website packages for independent professionals, local service businesses, and small teams who need a clear, maintainable web presence.",
+    type: "website",
+    includeSitemap: true,
+    changefreq: "monthly",
+    priority: 0.8,
+  },
+};
 
 export const blogArticleSeoFallback = {
-	title: 'Blog Post',
-	description: 'Writing by Alden Gillespy across engineering and production practice.',
-	type: 'article',
-} as const satisfies Omit<SEOInput, 'pathname'>
+  title: "Blog Post",
+  description:
+    "Writing by Alden Gillespy across engineering and production practice.",
+  type: "article",
+} as const satisfies Omit<SEOInput, "pathname">;
 
-type BlogArticleSEOFields = Pick<BlogPostRecord, 'title' | 'summary' | 'slug' | 'coverImageUrl' | 'coverImageAlt' | 'publishedAt' | 'updatedAt'>
+type BlogArticleSEOFields = Pick<
+  BlogPostRecord,
+  | "title"
+  | "summary"
+  | "slug"
+  | "coverImageUrl"
+  | "coverImageAlt"
+  | "publishedAt"
+  | "updatedAt"
+>;
 
 export function buildBlogArticleSEOInput(post: BlogArticleSEOFields): SEOInput {
-	return {
-		...blogArticleSeoFallback,
-		title: post.title,
-		description: post.summary,
-		pathname: `/blog/${post.slug}`,
-		image: post.coverImageUrl
-			? {
-				url: post.coverImageUrl,
-				...(post.coverImageAlt ? { alt: post.coverImageAlt } : {}),
-			}
-			: undefined,
-		publishedTime: post.publishedAt ?? undefined,
-		modifiedTime: post.updatedAt ?? undefined,
-	}
+  return {
+    ...blogArticleSeoFallback,
+    title: post.title,
+    description: post.summary,
+    pathname: `/blog/${post.slug}`,
+    image: post.coverImageUrl
+      ? {
+          url: post.coverImageUrl,
+          ...(post.coverImageAlt ? { alt: post.coverImageAlt } : {}),
+        }
+      : undefined,
+    publishedTime: post.publishedAt ?? undefined,
+    modifiedTime: post.updatedAt ?? undefined,
+  };
 }

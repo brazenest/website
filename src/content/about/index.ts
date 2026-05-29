@@ -1,97 +1,98 @@
 export const aboutPageContent = {
-  eyebrow: 'About',
-  title: 'One Practice Across Systems and Stories',
+  eyebrow: "About Alden",
+  title: "I work across code, camera, and the story a site needs to tell.",
   intro:
-    'I am Alden Gillespy. I build software systems and produce visual stories. The tools change between code and camera, but the method stays the same: define intent, work inside constraints, and execute with discipline.',
+    "I am Alden Gillespy, a software engineer and video producer. I build websites, web systems, and visual material for people whose work is already real, but needs a clearer shape online.",
   portrait: {
-    src: '/media/about/alden-portrait.jpg',
-    alt: 'Portrait of Alden Gillespy',
-    eyebrow: 'Alden Gillespy',
-    caption: 'Software engineer and video producer.',
+    src: "/media/about/alden-portrait.jpg",
+    alt: "Portrait of Alden Gillespy",
+    eyebrow: "Alden Gillespy",
+    caption: "Software engineer and video producer.",
   },
   narrativeSections: [
     {
-      heading: 'Who I Am',
+      heading: "Who I Am",
       paragraphs: [
-        'My work combines software engineering and visual production. On one project I may be modeling data, structuring routes, and making architecture decisions. On another, I may be planning coverage, directing a sequence, and shaping rhythm in the edit.',
-        'What connects those environments is responsibility. I care about taking ideas from vague to concrete, making key decisions explicit, and shipping work that remains understandable to collaborators after the first handoff.',
+        "My work combines software engineering, positioning, and visual production. On one project I may be structuring a fast service website. On another, I may be shaping a founder profile, planning a shoot, or cleaning up the technical layer underneath a growing site.",
+        "What connects those environments is care for structure. I like taking a loose idea, finding the center of it, and turning it into something another person can understand, use, and remember.",
       ],
     },
     {
-      heading: 'A Multidisciplinary Practice, Not Two Separate Careers',
+      heading: "One Practice, Several Tools",
       paragraphs: [
-        'Engineering and production can look unrelated from the outside, but I do not treat them as parallel tracks. They are two views into the same working style.',
-        'Engineering is where I show system clarity: boundaries, naming, tradeoffs, and long-term maintainability. Production is where I show narrative clarity: framing, coverage strategy, pacing, and editorial intent.',
-        'Both require the same judgment: choose what matters, remove what does not, and leave behind structure that supports the next decision.',
+        "I do not treat engineering and production as separate lives. They are different ways of solving the same kind of problem: how do you make something complex feel understandable and worth paying attention to?",
+        "Engineering is where I make the foundation fast, maintainable, searchable, and reliable. Production is where I make the human side easier to see: better images, cleaner rhythm, and a story that feels specific instead of generic.",
+        "Both ask for the same judgment: choose what matters, remove what does not, and leave behind work that makes the next step easier.",
       ],
     },
   ],
   principles: {
-    heading: 'How I Think About the Work',
-    intro: 'Across engineering and production, my process follows a repeatable decision model.',
+    heading: "How I Think About the Work",
+    intro:
+      "I like work that has energy without losing its manners. The process is practical, but it leaves room for taste.",
     items: [
       {
-        title: 'Start from audience and outcome',
+        title: "Start from the person on the other side",
         description:
-          'Before choosing frameworks or shot lists, I define who the work is for and what should change for them by the end.',
+          "Before choosing layouts, frameworks, or shot lists, I look at who will visit, what they need to understand, and what would make the next step feel natural.",
       },
       {
-        title: 'Make tradeoffs legible',
+        title: "Make tradeoffs explicit",
         description:
-          'I document why decisions were made, from architecture constraints to editorial choices, so teams can reason about the work instead of guessing.',
+          "I explain why decisions were made, from architecture constraints to positioning choices, so the work does not feel arbitrary later.",
       },
       {
-        title: 'Design for revision',
+        title: "Design for life after launch",
         description:
-          'I structure code and coverage so iteration stays possible when scope, timelines, or requirements shift.',
+          "I structure code, content, and media so the site can keep improving after launch instead of becoming a fragile snapshot.",
       },
       {
-        title: 'Use restraint as a craft tool',
+        title: "Use energy with restraint",
         description:
-          'I avoid unnecessary abstraction, unnecessary effects, and unnecessary complexity. Clarity is usually a stronger signal than novelty.',
+          "A site can feel young, strong, and alive without yelling. I prefer strong hierarchy, clean movement, useful color, and copy that sounds like a person.",
       },
     ],
   },
   split: {
-    heading: 'Why the Site Is Split Into Engineering and Production',
+    heading: "Why Engineering and Production Both Belong Here",
     intro:
-      'The split is intentional. Each section lets you evaluate a different kind of evidence from the same practice.',
+      "Many good projects need both a working system and a clearer way to show the people behind it.",
     sides: [
       {
-        title: 'Engineering',
+        title: "Engineering",
         description:
-          'Architecture rationale, implementation choices, and maintainability decisions under real product constraints.',
+          "Fast, maintainable websites and product surfaces with clean architecture, good performance, SEO foundations, and room to grow.",
       },
       {
-        title: 'Production',
+        title: "Production",
         description:
-          'Story intent, visual strategy, and editorial control from capture through final cut.',
+          "Profile pieces, campaign assets, interviews, and visual material that make the work feel more immediate and human.",
       },
     ],
     bridge:
-      'They belong on one site because they reinforce each other. Engineering sharpens how I structure complex problems. Production sharpens how I control attention, sequence, and emotional clarity. Together they produce work that is both functional and authored.',
+      "They reinforce each other. Engineering gives the site a durable foundation. Production gives that foundation more life, context, and feeling.",
   },
   cta: {
-    eyebrow: 'Next',
-    heading: 'Choose the lens that matches your question.',
+    eyebrow: "Next",
+    heading: "Start wherever the project feels most real.",
     description:
-      'If you want technical depth, start with engineering case studies. If you want narrative and visual execution, start with production case studies. For role context across both, review the resume.',
+      "Start with packages if you want a clear service path. Browse the work if you want to see how I think across systems, sites, and production.",
     links: [
       {
-        label: 'Browse Engineering Case Studies',
-        href: '/engineering#selected-work',
-        variant: 'primary',
+        label: "View Website Packages",
+        href: "/packages",
+        variant: "primary",
       },
       {
-        label: 'Browse Production Case Studies',
-        href: '/production#selected-work',
-        variant: 'secondary',
+        label: "Browse Selected Work",
+        href: "/work",
+        variant: "secondary",
       },
       {
-        label: 'View Resume',
-        href: '/resume',
-        variant: 'ghost',
+        label: "Start a Project",
+        href: "/contact",
+        variant: "ghost",
       },
     ],
   },
-} as const
+} as const;

@@ -1,18 +1,18 @@
-import { component$ } from '@builder.io/qwik'
-import type { DocumentHead } from '@builder.io/qwik-city'
-import { ProjectGrid } from '~/components/engineering/ProjectGrid'
-import { MediaGrid } from '~/components/production/MediaGrid'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
-import { ButtonLink } from '~/components/ui/ButtonLink'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
-import { engineeringProjects } from '~/content/engineering/projects'
-import { productionProjects } from '~/content/production/projects'
-import { staticHeads } from '~/fns/seo/staticHeads'
+import { component$ } from "@builder.io/qwik";
+import type { DocumentHead } from "@builder.io/qwik-city";
+import { ProjectGrid } from "~/components/engineering/ProjectGrid";
+import { MediaGrid } from "~/components/production/MediaGrid";
+import { Footer } from "~/components/footer/Footer";
+import { PageShell } from "~/components/layout/PageShell";
+import { Header } from "~/components/nav/Header";
+import { ButtonLink } from "~/components/ui/ButtonLink";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
+import { engineeringProjects } from "~/content/engineering/projects";
+import { productionProjects } from "~/content/production/projects";
+import { staticHeads } from "~/fns/seo/staticHeads";
 
-export const head: DocumentHead = staticHeads.work
+export const head: DocumentHead = staticHeads.work;
 
 export default component$(() => {
   return (
@@ -25,10 +25,13 @@ export default component$(() => {
             <div class="flex flex-col gap-3 md:gap-4">
               <p class="ui-meta-label">Selected Work</p>
               <h1 class="text-4xl font-semibold tracking-tight leading-tight md:text-5xl">
-                Case studies across engineering and production.
+                A few projects across web systems, software, and media.
               </h1>
               <p class="max-w-[56ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                Each entry surfaces the operating challenge, the role I held, and the decisions — architectural or editorial — that shaped the outcome. Engineering work focuses on systems, reliability, and long-term maintainability. Production work focuses on framing, coverage, and editorial judgment.
+                These case studies show the context, the role I held, and the
+                decisions behind the work. Some are technical systems. Some are
+                production pieces. The common thread is careful structure and a
+                bias toward work that stays useful after the first handoff.
               </p>
             </div>
           </Container>
@@ -36,19 +39,34 @@ export default component$(() => {
 
         <Section spacing="default">
           <Container width="wide">
-            <section id="engineering-work" aria-labelledby="engineering-work-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8" data-scroll-reveal>
+            <section
+              id="engineering-work"
+              aria-labelledby="engineering-work-title"
+              class="scroll-mt-24 flex flex-col gap-6 md:gap-8"
+              data-scroll-reveal
+            >
               <div class="flex flex-col gap-2">
                 <p class="ui-meta-label">Engineering</p>
-                <h2 id="engineering-work-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Software Engineering</h2>
+                <h2
+                  id="engineering-work-title"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
+                  Systems With Some Staying Power
+                </h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  Architecture, data modeling, and system decisions that keep platforms performant, maintainable, and stable under real operating conditions.
+                  Architecture, data modeling, state clarity, and interface
+                  decisions that make products easier to operate and extend.
                 </p>
               </div>
 
               <ProjectGrid projects={engineeringProjects} />
 
               <div class="ui-cta-group ui-cta-actions">
-                <ButtonLink href="/engineering" label="Full Engineering Context" variant="secondary" />
+                <ButtonLink
+                  href="/engineering"
+                  label="Explore Engineering Services"
+                  variant="secondary"
+                />
               </div>
             </section>
           </Container>
@@ -56,19 +74,34 @@ export default component$(() => {
 
         <Section spacing="default">
           <Container width="wide">
-            <section id="production-work" aria-labelledby="production-work-title" class="scroll-mt-24 flex flex-col gap-6 md:gap-8" data-scroll-reveal>
+            <section
+              id="production-work"
+              aria-labelledby="production-work-title"
+              class="scroll-mt-24 flex flex-col gap-6 md:gap-8"
+              data-scroll-reveal
+            >
               <div class="flex flex-col gap-2">
                 <p class="ui-meta-label">Production</p>
-                <h2 id="production-work-title" class="text-2xl font-semibold tracking-tight md:text-3xl">Cinematic Production</h2>
+                <h2
+                  id="production-work-title"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
+                  Media With a Human Center
+                </h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  Framing, coverage, pacing, and editorial decisions that make the work feel authored, credible, and immediately legible to the audience it is made for.
+                  Framing, coverage, pacing, and editorial decisions that make
+                  people, places, and ideas easier to understand.
                 </p>
               </div>
 
               <MediaGrid projects={productionProjects} />
 
               <div class="ui-cta-group ui-cta-actions">
-                <ButtonLink href="/production" label="Full Production Context" variant="secondary" />
+                <ButtonLink
+                  href="/production"
+                  label="Explore Production Services"
+                  variant="secondary"
+                />
               </div>
             </section>
           </Container>
@@ -76,22 +109,36 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section id="work-cta" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5" data-scroll-reveal>
+            <section
+              id="work-cta"
+              class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
+              data-scroll-reveal
+            >
               <div class="ui-cta-layout">
                 <div class="flex flex-col gap-4 md:gap-5">
                   <p class="ui-meta-label">Start a Project</p>
 
                   <h2 class="ui-cta-title">
-                    Ready to discuss your project?
+                    Working on something that needs a clearer shape online?
                   </h2>
 
                   <p class="ui-cta-text max-w-[42ch]">
-                    If the work looks aligned, get in touch with the goal and constraints. Or start with a website teardown if you want an honest read on what is holding your current site back.
+                    Send the current site, idea, or project context. If a full
+                    build is not the right first step, a teardown can help
+                    clarify what is worth changing next.
                   </p>
 
                   <div class="ui-cta-group ui-cta-actions">
-                    <ButtonLink href="/contact" label="Get in Touch" variant="primary" />
-                    <ButtonLink href="/packages" label="View Packages" variant="secondary" />
+                    <ButtonLink
+                      href="/contact"
+                      label="Get in Touch"
+                      variant="primary"
+                    />
+                    <ButtonLink
+                      href="/packages"
+                      label="View Packages"
+                      variant="secondary"
+                    />
                   </div>
                 </div>
 
@@ -113,5 +160,5 @@ export default component$(() => {
 
       <Footer />
     </PageShell>
-  )
-})
+  );
+});

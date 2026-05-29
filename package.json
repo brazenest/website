@@ -22,12 +22,14 @@
     "serve": "node scripts/serve-built.mjs",
     "serve:production": "node scripts/with-env.mjs .env.production -- node scripts/serve-built.mjs",
     "start": "node scripts/with-env.mjs .env.development -- vite --mode ssr",
+    "test:visual": "node scripts/visual-smoke.mjs",
     "qwik": "qwik"
   },
   "devDependencies": {
     "@builder.io/qwik": "^1.19.2",
     "@builder.io/qwik-city": "^1.19.2",
     "@eslint/js": "^9",
+    "@playwright/test": "^1.60.0",
     "@tailwindcss/postcss": "^4.2.1",
     "@types/node": "20.19.0",
     "@types/pg": "^8.20.0",

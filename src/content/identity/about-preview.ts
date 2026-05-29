@@ -3,9 +3,9 @@ import type { AboutPreviewContent } from "~/types/content";
 export const aboutPreviewContent: AboutPreviewContent = {
   eyebrow: "About Alden",
   heading:
-    "The useful overlap is where engineering, media, and personal positioning meet.",
+    "I work where technical judgment, visual taste, and useful communication meet.",
   description:
-    "My background is split between software engineering and production work, which makes me useful on projects where a website has to be technically solid and personally convincing. I care about the system underneath, the story on the surface, and the judgment that connects them.",
+    "My background is split between software engineering and production work, which makes me useful when a site needs both a solid foundation and a more human surface. I care about the system underneath, the story people see, and the judgment that keeps both connected.",
   href: "/about",
   ctaLabel: "Read About Alden",
   visual: {

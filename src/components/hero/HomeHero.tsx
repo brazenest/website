@@ -32,11 +32,9 @@ export const HomeHero = component$(
                 </div>
 
                 <ul class="ui-home-hero-points" aria-label="Core services">
-                  <li>Professional websites and redesigns</li>
-                  <li>Performance, SEO, and architecture audits</li>
-                  <li>
-                    Profile films, launch content, and editorial production
-                  </li>
+                  <li>Sites that sell expertise clearly</li>
+                  <li>Audits for speed, SEO, UX, and architecture</li>
+                  <li>Founder media, profile films, and launch assets</li>
                 </ul>
               </div>
 

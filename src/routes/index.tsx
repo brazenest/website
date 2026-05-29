@@ -34,18 +34,17 @@ export default component$(() => {
                 id="home-side-selector-heading"
                 class="text-2xl font-semibold tracking-tight md:text-3xl"
               >
-                A profile site when people are learning who I am. A services
-                site when they need help with their own.
+                One practice split into two useful paths.
               </h2>
 
               <p class="text-base leading-7 text-[var(--muted)] md:text-lg">
-                The work splits into two service paths. Engineering makes the
-                site fast, findable, maintainable, and ready for real visitors.
-                Production gives the site credible images, interviews, and
-                motion assets when your expertise needs to be seen as well as
-                explained. Explore the path that matches your project, or{" "}
+                Engineering is where I work on the structure underneath:
+                performance, architecture, content models, and maintainable web
+                systems. Production is where I work on the human surface:
+                profiles, interviews, campaign assets, and visual stories.
+                Explore the path that matches your project, or{" "}
                 <a href="/about" class="ui-link-inline">
-                  read the personal background behind the work
+                  read the personal background behind both
                 </a>
                 .
               </p>

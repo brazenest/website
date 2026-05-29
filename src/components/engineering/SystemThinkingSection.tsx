@@ -1,7 +1,7 @@
-import { component$ } from '@builder.io/qwik'
-import { Container } from '~/components/ui/Container'
-import { Section } from '~/components/ui/Section'
-import { systemThinkingItems } from '~/content/engineering/system-thinking'
+import { component$ } from "@builder.io/qwik";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
+import { systemThinkingItems } from "~/content/engineering/system-thinking";
 
 /**
  * Secondary section: "How I Make System Decisions"
@@ -12,18 +12,34 @@ export const SystemThinkingSection = component$(() => {
     <Section spacing="compact">
       <div class="ui-method-band ui-method-band--engineering">
         <Container width="wide">
-          <section id="system-thinking" aria-labelledby="system-thinking-title" class="ui-method-section scroll-mt-24">
+          <section
+            id="system-thinking"
+            aria-labelledby="system-thinking-title"
+            class="ui-method-section scroll-mt-24"
+          >
             <div class="ui-method-hero">
               <div class="ui-method-copy flex max-w-[64ch] flex-col gap-3">
                 <p class="ui-meta-label">Decision Model</p>
-                <h2 id="system-thinking-title" class="text-3xl font-semibold tracking-tight md:text-4xl">How I Make System Decisions</h2>
+                <h2
+                  id="system-thinking-title"
+                  class="text-3xl font-semibold tracking-tight md:text-4xl"
+                >
+                  How I Build Web Systems That Stay Useful
+                </h2>
                 <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  The projects show the outcomes; these principles explain the decision model behind
-                  them. <a href="/about" class="ui-link-inline">Learn how this approach connects to the production side</a>.
+                  The projects show outcomes; these principles explain the
+                  delivery model behind them.{" "}
+                  <a href="/about" class="ui-link-inline">
+                    Learn how this connects to positioning and production
+                  </a>
+                  .
                 </p>
               </div>
 
-              <div class="ui-method-graphic ui-method-graphic--engineering" aria-hidden="true">
+              <div
+                class="ui-method-graphic ui-method-graphic--engineering"
+                aria-hidden="true"
+              >
                 <span class="ui-method-block ui-method-block--solid" />
                 <span class="ui-method-block ui-method-block--tall" />
                 <span class="ui-method-block ui-method-block--grid" />
@@ -34,7 +50,10 @@ export const SystemThinkingSection = component$(() => {
 
             <ul class="ui-method-grid">
               {systemThinkingItems.map((item, index) => (
-                <li key={item.title} class="ui-method-card ui-method-card--engineering">
+                <li
+                  key={item.title}
+                  class="ui-method-card ui-method-card--engineering"
+                >
                   <div class="ui-method-card-top">
                     <span class="ui-method-index">0{index + 1}</span>
                     <div class="ui-method-card-graphic" aria-hidden="true">
@@ -45,8 +64,12 @@ export const SystemThinkingSection = component$(() => {
                   </div>
 
                   <div class="flex flex-col gap-2">
-                    <h3 class="text-lg font-medium tracking-tight md:text-xl">{item.title}</h3>
-                    <p class="text-base leading-7 text-[var(--muted)]">{item.description}</p>
+                    <h3 class="text-lg font-medium tracking-tight md:text-xl">
+                      {item.title}
+                    </h3>
+                    <p class="text-base leading-7 text-[var(--muted)]">
+                      {item.description}
+                    </p>
                   </div>
                 </li>
               ))}
@@ -55,5 +78,5 @@ export const SystemThinkingSection = component$(() => {
         </Container>
       </div>
     </Section>
-  )
-})
+  );
+});
