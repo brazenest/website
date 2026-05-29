@@ -106,11 +106,14 @@ HEALTHCHECK_PATH="${HEALTHCHECK_PATH:-/}"
 
 APP_NAME="$(normalize_name "$APP_NAME_RAW")"
 APP_OWNER="$(normalize_name "$APP_OWNER_RAW")"
+BRANCH_NAME="$(normalize_name "$BRANCH")"
 [[ -n "$APP_NAME" ]] || fail "app_name normalized to an empty value"
 [[ -n "$APP_OWNER" ]] || fail "app_owner normalized to an empty value"
+[[ -n "$BRANCH_NAME" ]] || fail "branch normalized to an empty value"
 
-IMAGE_REPOSITORY="${APP_OWNER}/${APP_NAME}"
-CONTAINER_NAME="${APP_OWNER}-${APP_NAME}"
+RELEASE_NAME="${APP_NAME}--${BRANCH_NAME}"
+IMAGE_REPOSITORY="${APP_OWNER}/${RELEASE_NAME}"
+CONTAINER_NAME="${APP_OWNER}-${RELEASE_NAME}"
 PREVIOUS_CONTAINER_NAME="${CONTAINER_NAME}-previous"
 
 if [[ "$DEPLOY_SOURCE_MODE" != "archive" ]]; then
@@ -165,6 +168,7 @@ require_env_file_key CONTACT_FORM_FROM_EMAIL
 require_env_file_key CONTACT_FORM_TO_EMAIL
 
 log "Deploying ${APP_OWNER_RAW}/${APP_NAME_RAW} from branch ${BRANCH}"
+log "Release name: ${RELEASE_NAME}"
 log "Deploy root: ${DEPLOY_ROOT}"
 log "Deploy source mode: ${DEPLOY_SOURCE_MODE}"
 log "Env file: ${ENV_FILE_PATH}"
