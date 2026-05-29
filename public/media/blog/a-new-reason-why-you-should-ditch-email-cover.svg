@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+  <title id="title">Ditch Email</title>
+  <desc id="desc">Abstract cross-disciplinary cover with an envelope silhouette and surveillance signal lines for an email privacy essay.</desc>
+  <defs>
+    <linearGradient id="grad-a-new-reason-why-you-should-ditch-email" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#142032" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#grad-a-new-reason-why-you-should-ditch-email)"/>
+  <circle cx="130" cy="110" r="170" fill="#22d3ee" opacity="0.08"/>
+  <circle cx="1050" cy="490" r="210" fill="#a78bfa" opacity="0.08"/>
+  <rect x="84" y="80" width="236" height="42" rx="21" fill="#102033" opacity="0.88"/>
+  <text x="202" y="107" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#ecfeff" opacity="0.88">Bridge Essay</text>
+  
+      <g opacity="0.92">
+        <rect x="280" y="180" width="360" height="220" rx="24" fill="none" stroke="#22d3ee" stroke-width="6" opacity="0.45"/>
+        <path d="M300 210L460 325L620 210" stroke="#22d3ee" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+        <circle cx="790" cy="252" r="62" fill="none" stroke="#a78bfa" stroke-width="8" opacity="0.48"/>
+        <circle cx="790" cy="252" r="22" fill="#a78bfa" opacity="0.65"/>
+        <path d="M700 352L872 154" stroke="#a78bfa" stroke-width="8" stroke-linecap="round" opacity="0.6"/>
+      </g>
+    
+  <g>
+    <text x="88" y="472" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" fill="#ecfeff">Ditch Email</text>
+    <text x="88" y="522" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#ecfeff" opacity="0.84">Communication systems and hidden surveillance</text>
+  </g>
+</svg>

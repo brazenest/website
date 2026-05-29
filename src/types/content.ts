@@ -1,3 +1,5 @@
+import type { ButtonVariant } from '~/types/ui'
+
 export type SEO = {
   title: string;
   description: string;
@@ -5,7 +7,9 @@ export type SEO = {
 
 export type EngineeringSection = {
   title: string;
-  content: string;
+  content?: string;
+  paragraphs?: string[];
+  items?: string[];
   media?: MediaItem[];
 };
 
@@ -89,6 +93,12 @@ export type ProcessItem = {
   description: string;
 };
 
+export type ContentCta = {
+  label: string
+  href: string
+  variant?: ButtonVariant
+}
+
 export type HeroContent = {
   name: string;
   headline: string;
@@ -126,6 +136,66 @@ export type AboutContent = {
   intro: string;
   paragraphs: string[];
 };
+
+export type EntryOrientationContent = {
+  eyebrow: string;
+  heading: string;
+  paragraphs: string[];
+};
+
+export type BlogPostSide = 'engineering' | 'production' | 'bridge';
+
+export type BlogPostStatus = 'draft' | 'published';
+
+export type BlogPostFormValues = {
+  title: string;
+  slug: string;
+  summary: string;
+  bodyMarkdown: string;
+  side: BlogPostSide;
+  status: BlogPostStatus;
+  publishedAt: string;
+  coverImageUrl: string;
+  coverImageAlt: string;
+};
+
+export type BlogPostFormFieldErrorMap = Partial<Record<keyof BlogPostFormValues, string>>;
+
+export type BlogPostAuthoringValues = {
+  title: string;
+  slug: string;
+  summary: string;
+  bodyMarkdown: string;
+  side: BlogPostSide;
+  status: BlogPostStatus;
+  publishedAt: string | null;
+  updatedAt: string;
+  coverImageUrl: string | null;
+  coverImageAlt: string | null;
+};
+
+export type CreateBlogPostInput = BlogPostAuthoringValues;
+
+export type UpdateBlogPostInput = BlogPostAuthoringValues & {
+  id: string;
+};
+
+export type BlogPostAdminRecord = {
+  id: string;
+  title: string;
+  slug: string;
+  summary: string;
+  bodyMarkdown: string;
+  side: BlogPostSide;
+  status: BlogPostStatus;
+  publishedAt: string | null;
+  updatedAt: string | null;
+  createdAt: string | null;
+  coverImageUrl: string | null;
+  coverImageAlt: string | null;
+};
+
+export type BlogPostRecord = BlogPostAdminRecord;
 
 export type ResumeEntry = {
   title: string;

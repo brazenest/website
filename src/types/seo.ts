@@ -76,6 +76,8 @@ export type SEOPageKey =
   | 'home'
   | 'about'
   | 'resume'
+  | 'work'
+  | 'blog'
   | 'contact'
   | 'packages'
   | 'engineering'
@@ -93,6 +95,7 @@ export type SEOPreset = Omit<SEOInput, 'pathname'>
  */
 export type SitemapEntry = {
   loc: string
+  lastmod?: string
   changefreq?: 'never' | 'yearly' | 'monthly' | 'weekly' | 'daily' | 'hourly' | 'always'
   priority?: number
 }
@@ -146,6 +149,8 @@ export type WebSiteStructuredData = StructuredDataObject & {
   url: string
   description?: string
   image?: string
+  version?: string
+  dateModified?: string
 }
 
 /**
@@ -184,10 +189,59 @@ export type CreativeWorkStructuredData = StructuredDataObject & {
 }
 
 /**
+ * Input for building an Article (blog post) schema.
+ */
+export type ArticleStructuredDataInput = {
+  title: string
+  description: string
+  url: string
+  image?: string
+  datePublished: string
+  dateModified?: string
+  keywords?: string[]
+  excerpt?: string
+  authorName?: string
+  articleBody?: string
+}
+
+/**
+ * JSON-LD Article schema for blog posts and longform content.
+ */
+export type ArticleStructuredData = StructuredDataObject & {
+  '@context': 'https://schema.org'
+  '@type': 'Article'
+  headline: string
+  description: string
+  url: string
+  image?: string
+  datePublished: string
+  dateModified?: string
+  keywords?: string
+  articleBody?: string
+  author?: StructuredDataObject
+}
+
+/**
+ * Blog post fields required for building article structured data.
+ */
+export type BlogArticleStructuredDataFields = {
+  slug: string
+  title: string
+  summary: string
+  publishedAt: string | null
+  updatedAt: string | null
+  createdAt: string | null
+  bodyMarkdown: string
+  side: string
+}
+
+/**
  * Type identifier for a page with structured data presets.
  * Maps to a specific route or route pattern.
  */
 export type StructuredDataPageKey =
+  | 'blog'
+  | 'blog-article'
   | 'engineering'
   | 'engineering-project'
   | 'production'
@@ -198,7 +252,7 @@ export type StructuredDataPageKey =
  * Declares the schema type and necessary input fields.
  */
 export type StructuredDataPreset = {
-  kind: 'project' | 'none'
+  kind: 'project' | 'article' | 'none'
   pathname?: string // For static pages; omit for dynamic routes
   title: string
   description: string

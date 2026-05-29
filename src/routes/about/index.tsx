@@ -20,18 +20,31 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="content">
             <div class="flex flex-col gap-10 md:gap-12">
-              <div class="flex flex-col gap-3 md:gap-4">
-                <p class="ui-meta-label">
-                  {aboutPageContent.eyebrow}
-                </p>
+              <div class="grid gap-8 md:gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+                <div class="flex flex-col gap-3 md:gap-4">
+                  <p class="ui-meta-label">
+                    {aboutPageContent.eyebrow}
+                  </p>
 
-                <h1 class="text-4xl font-semibold tracking-tight leading-tight md:text-5xl">
-                  {aboutPageContent.title}
-                </h1>
+                  <h1 class="text-4xl font-semibold tracking-tight leading-tight md:text-5xl">
+                    {aboutPageContent.title}
+                  </h1>
 
-                <p class="max-w-[70ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  {aboutPageContent.intro}
-                </p>
+                  <p class="max-w-[56ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                    {aboutPageContent.intro}
+                  </p>
+                </div>
+
+                <figure class="mx-auto w-full max-w-[18rem] overflow-hidden rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] shadow-[0_24px_60px_rgba(15,23,42,0.08)] lg:mx-0" data-scroll-reveal>
+                  <img
+                    src="/media/identity/about-approach-editorial.svg"
+                    alt="Abstract editorial composition representing one practice across systems, structure, and visual storytelling."
+                    width={960}
+                    height={1200}
+                    loading="eager"
+                    class="aspect-[4/5] w-full object-cover"
+                  />
+                </figure>
               </div>
 
               <div class="flex flex-col gap-10 md:gap-12">
@@ -42,25 +55,26 @@ export default component$(() => {
                       index === 1
                         ? 'ui-about-focus grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.88fr)] lg:items-start'
                         : index === 0
-                          ? 'ui-about-intro ui-about-intro--emphasis grid gap-5 md:gap-6 md:grid-cols-[minmax(11rem,13rem)_minmax(0,1fr)] md:items-start'
+                          ? 'ui-about-intro grid gap-5 md:gap-6 md:grid-cols-[minmax(11rem,13rem)_minmax(0,1fr)] md:items-start'
                           : 'flex flex-col gap-4 md:gap-5'
                     }
                     data-scroll-reveal
                   >
                     {index === 0 ? (
-                      <div class="ui-about-intro-photo ui-editorial-frame aspect-[4/5] md:aspect-[3/4]">
+                      <div class="ui-about-intro-photo ui-editorial-frame aspect-[4/5] order-last md:order-first md:aspect-[3/4]">
                         <img
-                          src="/media/production/founder-profile-launch-film.jpg"
-                          alt="Portrait of Alden Gillespy."
-                          width={1000}
-                          height={1333}
+                          src={aboutPageContent.portrait.src}
+                          alt={aboutPageContent.portrait.alt}
+                          width={720}
+                          height={900}
                           loading="lazy"
                           class="h-full w-full object-cover"
+                          style={{ objectPosition: '52% 34%' }}
                         />
                       </div>
                     ) : null}
 
-                    <div class="flex flex-col gap-4 md:gap-5">
+                    <div class="flex flex-col gap-4 md:gap-5 order-first md:order-last">
                     <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                       {section.heading}
                     </h2>
@@ -78,7 +92,7 @@ export default component$(() => {
                     </div>
 
                     {index === 1 ? (
-                      <div class="ui-about-focus-media ui-editorial-frame aspect-[5/6]">
+                      <div class="ui-about-focus-media ui-editorial-frame aspect-[5/6] hidden lg:block">
                         <img
                           src="/media/generated/about-practice-studio.png"
                           alt="Editorial studio image showing technical notes, production tools, and authored visual planning in one multidisciplinary practice."

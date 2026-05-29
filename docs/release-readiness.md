@@ -13,16 +13,16 @@ This document serves as the canonical source of truth for all remaining verifica
 
 **Key Principle**: ✅ = Pass | ❌ = Fail | 🟡 = In Progress | ⏭️ = Deferred
 
-**[Updated TASK-138, March 20, 2026]**: Blog database integration verified | SSG blocker resolved | Minification workaround documented
+**[Updated TASK-149, March 21, 2026]**: Minimal admin authoring validated end-to-end | Public blog and sitemap alignment verified | Admin launch blocker resolved
 
 ---
 
 ## 1. Route Inventory & Completeness
 
-**Status**: 🟡 In Progress (Content verified, assets pending)
+**Status**: 🟡 In Progress (Public content verified, private admin authoring validated, image assets still pending)
 
 **Audit Date**: March 20, 2026 (TASK-125)  
-**Audit Findings**: All 10 routes verified. Content complete. Project images and OG image pending deployment.
+**Audit Findings**: All 10 public routes verified. Minimal private admin authoring validated against the live production server path. Remaining launch blockers are the missing OG and project image assets.
 
 ### 1.1 Core Routes — BLOCKING
 
@@ -100,6 +100,48 @@ This document serves as the canonical source of truth for all remaining verifica
   - [x] Disallow rules correct (allow all policy, no restrictions)
   - [x] Sitemap URL specified (dynamic reference to siteConfig.siteUrl)
   - [x] No accidental blocking of public pages
+
+### 1.2 Private Admin Routes — BLOCKING
+
+**Status**: ✅ Complete and validated (TASK-149)
+
+- [x] **`/admin`** (Private entry route)
+  - [x] Server-side auth gate enforced before child route rendering
+  - [x] No public navigation link, sitemap entry, or discoverability from public pages
+  - [x] Response defaults to non-public posture (`noindex`, SSR-only)
+
+- [x] **`/admin/blog`** (Minimal post index)
+  - [x] Lists existing blog posts with status visibility for draft vs published
+  - [x] Supports only create-entry and edit-entry actions for v3.0.0
+  - [x] No search, filtering, bulk actions, analytics, or media library in v3.0.0
+
+- [x] **`/admin/blog/new`** (Create post)
+  - [x] Minimal form limited to launch authoring contract
+  - [x] Slug remains unique against `blog_posts.slug`
+
+- [x] **`/admin/blog/[id]`** (Edit post)
+  - [x] Edits a single row by `blog_posts.id`
+  - [x] Supports draft/publish toggle only; no revision history, preview system, scheduling workflow, or delete/archive flow in v3.0.0
+
+**TASK-149 Validation Notes**
+
+- Verified unauthenticated `/admin` requests return `401` with a Basic Auth challenge, while authenticated requests return `200`
+- Verified draft creation through the live admin action path and confirmed drafts remain absent from `/blog` and return `404` on `/blog/[slug]`
+- Verified publish + edit flow updates title, summary, slug, cover image, `published_at`, and `updated_at`
+- Verified published edits propagate to the public blog index, blog detail route, Article JSON-LD, sitemap output, and prerender source inventory
+- Fixed runtime issues discovered during validation: Fastify plugin version mismatches, server build output clobbering client assets, production body parsing for admin actions, success-path short-circuiting in admin actions, and stale `sitemap.xml` serving from the static layer
+
+**Explicit v3.0.0 Admin Scope Constraint**
+
+- Included: create post, edit post, draft/publish toggle
+- Excluded: role management, rich text editor, autosave, revisions, tags, categories, upload pipeline, scheduling UI, delete/archive workflow, analytics dashboard, and non-blog CMS features
+
+**Launch Access Posture**
+
+- Protect all `/admin` routes with a server-side auth gate, using a single launch credential from environment configuration
+- Enforce access in the server layer before route data loads; do not rely on client-side hiding or client-only auth checks
+- Exclude all `/admin` routes from sitemap generation and add `noindex, nofollow` metadata
+- Keep the admin surface unpublished by default: no header/footer links, no public discovery path, no anonymous read access
 
 ---
 
@@ -368,6 +410,11 @@ This document serves as the canonical source of truth for all remaining verifica
   - [x] Draft posts excluded from public index (2 unpublished posts filtered)
   - [x] Draft pages return 404 or redirect (filtering logic in place)
 
+- [x] **Private Admin Authoring** (Launch scope)
+  - [x] Minimal blog authoring routes implemented under `/admin/blog`
+  - [x] Form constrained to the `blog_posts` authoring contract only
+  - [x] Server-side protection enabled before launch
+
 ### 5.6 Resume Page
 
 - [x] **Resume Content**
@@ -631,12 +678,13 @@ This document serves as the canonical source of truth for all remaining verifica
 
 1. ⚠️ **Missing OG Image** (`/assets/og-image.jpg`) — Required for social sharing preview
 2. ⚠️ **Missing Project Images** (6 files in `/media/engineering/` and `/media/production/`) — Required for project card rendering
-
-**RESOLVED (TASK-138)** ✅:
+**RESOLVED (TASK-138/TASK-149)** ✅:
 
 - ✅ SSG Build Blocker — Fixed minification + chunk configuration
 - ✅ Blog Database Integration — Verified connectivity and routing
 - ✅ Blog Content Management — 3 posts seeded, dynamic slug support enabled
+- ✅ Admin Authoring Scope Definition — Minimal route map, field contract, and access posture fixed for implementation (TASK-142)
+- ✅ Minimal Admin Blog Authoring — Live admin create/edit/draft/publish flow validated and aligned with public routes, sitemap, and prerender inputs (TASK-149)
 
 **Category Status**:
 
@@ -686,16 +734,44 @@ This document serves as the canonical source of truth for all remaining verifica
 - [ ] `/media/production/founder-profile-launch-film.jpg`
 - [ ] `/media/production/night-market-social-campaign.jpg`
 
+### Admin Authoring Contract
+
+**Route Structure**
+
+- [x] `/admin`
+- [x] `/admin/blog`
+- [x] `/admin/blog/new`
+- [x] `/admin/blog/[id]`
+
+**Form Contract Against `blog_posts`**
+
+- [x] `title` — required text
+- [x] `slug` — required unique text
+- [x] `summary` — required text
+- [x] `body_markdown` — required markdown body
+- [x] `side` — required enum: `engineering | production | bridge`
+- [x] `status` — required enum: `draft | published`
+- [x] `published_at` — nullable timestamp; required when `status = 'published'`
+- [x] `cover_image_url` — nullable text
+- [x] `cover_image_alt` — nullable text
+
+**Behavior Constraint**
+
+- Draft/publish is a status toggle, not a full editorial workflow
+- If publishing without a user-supplied timestamp, the server may set `published_at = NOW()` during save
+- Draft saves should persist `published_at = NULL` unless intentionally preserved by an edit flow
+- Verified in TASK-149: published edits flow into `/blog`, `/blog/[slug]`, Article JSON-LD, sitemap, and prerender inputs; drafts remain non-public
+
 ### Overall Status
 
-- **Ready for Deployment**: ❌ **NO** (image assets required)
-- **Deployment Blockers**: 7 image assets must be added
-- **Code Quality**: ✅ **READY** (all config fixed, SSG blocker resolved, blog DB verified)
+- **Ready for Deployment**: ❌ **NO** (required image assets still missing)
+- **Deployment Blockers**: 7 image assets only
+- **Code Quality**: ✅ **READY** (admin authoring, blog DB integration, sitemap alignment, and build/runtime path validated)
 - **Build Status**: ✅ **PASSING** (TASK-140: final validation complete, build succeeds consistently)
-- **Final Validation**: ✅ **COMPLETE** (TASK-140: Production build configuration verified end-to-end)
-- **Next Step**: Add 7 missing image assets, then full integration testing before launch
+- **Final Validation**: ✅ **COMPLETE** (TASK-149: Admin authoring, public blog behavior, and discoverability alignment verified end-to-end)
+- **Next Step**: Add the 7 missing image assets, then run final asset/visual QA before launch
 - **Approved By**: (pending asset delivery)
-- **Approval Date**: (pending asset delivery)
+- **Approval Date**: (pending blocker resolution)
 - **Deployed**: (pending)
 
 ---
@@ -718,6 +794,10 @@ TASK-125 AUDIT FINDINGS (March 20, 2026):
    - 1x OG image (og-image.jpg)
    - 3x Engineering project images
    - 3x Production project images
+2. Minimal private admin authoring blocker resolved in TASK-149:
+  - Required routes implemented and validated: `/admin`, `/admin/blog`, `/admin/blog/new`, `/admin/blog/[id]`
+  - Live validation confirmed create draft, publish, edit, slug change, SEO propagation, and sitemap alignment
+  - Remaining launch blockers are limited to missing image assets
 
 TASK-126 ACCESSIBILITY AUDIT (March 20, 2026):
 
@@ -791,13 +871,37 @@ TASK-138 SSG BUILD & BLOG DB INTEGRATION (March 20, 2026): ✅ RESOLVED
 
 ✅ BLOG DATABASE INTEGRATION VERIFIED:
 - Database: Remote EC2-hosted PostgreSQL (user: agcom)
-- Schema: blog_posts table with (id, title, slug, content, summary, published, created_at) columns
+- Schema: blog_posts table with (id, slug, title, summary, body_markdown, side, status, published_at, updated_at, cover_image_url, cover_image_alt, created_at) columns
 - Content: 3 seeded launch posts (postgres-schema-design-for-scale, single-shoot-multiple-deliverables, revision-as-method)
 - Connectivity: SSL-enabled pool configuration, environment-driven connection settings
 - Routing: src/routes/blog/[slug]/index.tsx queries database for dynamic posts
 - SEO: Sitemap includes all published blog slugs from database queries
 - Status codes: Returns HTTP 404 for missing or draft blog slugs (correct SEO behavior)
 - Content source: Blog posts load from database (not static), enabling future content management
+
+TASK-142 MINIMAL ADMIN AUTHORING DEFINITION (March 20, 2026): ✅ DEFINED
+
+✅ ADMIN SCOPE LOCKED:
+- Included in v3.0.0: create post, edit post, draft/publish toggle
+- Excluded from v3.0.0: delete/archive, revisions, autosave, preview pipeline, media uploads, taxonomy management, multi-user RBAC, analytics, and non-blog CMS features
+
+✅ PRIVATE ROUTE STRUCTURE LOCKED:
+- `/admin`
+- `/admin/blog`
+- `/admin/blog/new`
+- `/admin/blog/[id]`
+
+✅ AUTHORING DATA CONTRACT LOCKED:
+- Fields: title, slug, summary, body_markdown, side, status, published_at, cover_image_url, cover_image_alt
+- `slug` remains unique at the database level
+- `status = 'published'` requires non-null `published_at` per existing database constraint
+- Admin implementation should target `blog_posts.id` for edits and reuse existing DB-backed content model
+
+✅ ACCESS POSTURE LOCKED:
+- Admin remains server-side and non-public by default
+- Apply a server-side auth gate to all `/admin` routes using launch credentials from environment configuration
+- Do not expose admin links publicly; exclude routes from sitemap and add noindex metadata
+- Client-side hiding alone is not acceptable as launch protection
 
 ✅ BUILD PIPELINE STATUS:
 - build.types: TypeScript check passes
@@ -830,7 +934,7 @@ TASK-140 FINAL LAUNCH VALIDATION (March 20, 2026): ✅ COMPLETE
 - SSG Duration: 33.3 ms (verified multiple runs)
 - All build stages pass: types ✓, client ✓, lint ✓, server ✓, SSG ✓
 
-✅ CRITICAL ROUTE VALIDATION:  
+✅ CRITICAL ROUTE VALIDATION:
 - Routes enumerated: All core routes (/, /about, /resume, /blog, /engineering, /production, /contact)
 - Blog routes: Database connectivity functional, published posts rendering
 - Metadata: Structured data generation working, canonical URLs present
@@ -839,14 +943,14 @@ TASK-140 FINAL LAUNCH VALIDATION (March 20, 2026): ✅ COMPLETE
 ✅ BUILD ARTIFACTS GENERATED:
 - dist/entry.ssr*.js - SSR entry points (unminified)
 - dist/buildStructuredData*.js - Compiled utilities (191KB)
-- dist/@qwik-city-plan*.js - Route/component plan (195KB)  
+- dist/@qwik-city-plan*.js - Route/component plan (195KB)
 - dist/sitemap.xml - XML sitemap generated
 - dist/404.html - Fallback error page
 - Total output: ~512 KB unprorendered, ~50KB post-gzip estimated
 
 ✅ PRODUCTION READINESS CONFIRMED:
 - No breaking TypeScript errors
-- No linting failures  
+- No linting failures
 - No runtime errors during build or SSG
 - No unexpected 500s or initialization failures
 - Regressions vs TASK-138: None detected
@@ -857,10 +961,27 @@ TASK-140 FINAL LAUNCH VALIDATION (March 20, 2026): ✅ COMPLETE
 - Actual working configuration: NO manual chunks + minify: false
 - This was committed as part of TASK-140 validation fix
 
+TASK-149 FINAL ADMIN AUTHORING VALIDATION (March 21, 2026): ✅ COMPLETE
+
+✅ LIVE VALIDATION CONFIRMED:
+- `/admin` rejects anonymous access with HTTP Basic Auth challenge and allows authenticated access
+- Draft creation succeeds through the production action path and remains non-public on `/blog` and `/blog/[slug]`
+- Publish/edit flow updates slug, title, summary, cover image, `published_at`, and `updated_at`
+- Published post changes flow into `/blog`, `/blog/[slug]`, Article JSON-LD, sitemap output, and prerender source inventory
+
+✅ RUNTIME ISSUES FOUND AND FIXED DURING TASK-149:
+- Updated `@fastify/compress` and `@fastify/static` to Fastify 5-compatible releases
+- Prevented the Fastify adapter server build from wiping client assets in `dist/`
+- Updated the Fastify plugin to tolerate the current Qwik output layout instead of requiring `dist/build`
+- Fixed admin request-body parsing for Fastify/Qwik production POST bodies
+- Fixed admin create/edit success-path handling so valid submissions reach the database helpers
+- Routed `/sitemap.xml` and `/robots.txt` through Qwik before the static file layer so discoverability endpoints stay aligned with DB state
+
 🚀 RELEASE DECISION:
-- v3.0.0 ready to ship with image assets (code/build fully validated)
+- Admin authoring blocker resolved; code/build/runtime validation for the admin + public blog system is complete
+- v3.0.0 is still blocked only by the 7 required image assets listed above
 - Configuration shipping: Latest vite.config.ts (TASK-140 corrected)
 - No code regressions since TASK-138
 - Production build path stable and reproducible
-- Asset blockers: 7 images required before final deployment
+- Remaining blockers: 7 required image assets before final deployment
 ```

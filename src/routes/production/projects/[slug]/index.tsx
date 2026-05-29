@@ -37,7 +37,7 @@ export const head = ({ params }: DocumentHeadProps) => {
   });
 
   const metadata = buildMetadata({
-    title: `${project.title} — Video Production Case Study | Alden Gillespy`,
+    title: `${project.seo?.title ?? project.title} — Video Production Case Study | Alden Gillespy`,
     description: project.seo?.description ?? project.description,
     pathname: `/production/projects/${params.slug}`,
     image: project.image,
@@ -203,15 +203,19 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section id="production-project-cta" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
+            <section
+              id="production-project-cta"
+              class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
+            >
               <div class="ui-cta-layout">
                 <div class="flex flex-col gap-4 md:gap-5">
                   <p class="ui-meta-label">Next</p>
-                  <h2 class="ui-cta-title">
-                    Work on projects like this.
-                  </h2>
+                  <h2 class="ui-cta-title">Work on projects like this.</h2>
                   <p class="ui-cta-text max-w-[42ch]">
-                    This work shows strategic planning, editorial discipline, and translation of intent into compelling visual narrative. If you want this level of production execution, let&apos;s discuss your project.
+                    This work shows strategic planning, editorial discipline,
+                    and translation of intent into compelling visual narrative.
+                    If you want this level of production execution, let&apos;s
+                    discuss your project.
                   </p>
                   <div class="ui-cta-group ui-cta-actions">
                     <ButtonLink

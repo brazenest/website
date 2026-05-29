@@ -1,19 +1,19 @@
-import type { SystemThinkingItem } from '~/types/content'
+import type { SystemThinkingItem } from "~/types/content";
 
 export const systemThinkingItems: SystemThinkingItem[] = [
   {
-    title: 'Set architectural defaults that scale',
+    title: "Make the work easy to understand",
     description:
-      'I turn key decisions into defaults — typed contracts, explicit boundaries, and shared patterns — so teams move quickly without drift.',
+      "I turn the project into clear pages, sections, data structures, and calls to action so visitors can orient quickly.",
   },
   {
-    title: 'Keep layers accountable',
+    title: "Keep the technical layers tidy",
     description:
-      'I separate domain logic, content structure, and rendering concerns so complexity stays legible as features and collaborators increase.',
+      "I separate content structure, domain logic, rendering, analytics, and integration concerns so the site stays maintainable as features and content grow.",
   },
   {
-    title: 'Design for change, not just launch',
+    title: "Design for change after launch",
     description:
-      'I evaluate implementation choices by future cost: naming clarity, testable seams, and how safely the system can evolve.',
+      "I evaluate implementation choices by future cost: naming clarity, content ownership, testable boundaries, performance budgets, and how comfortably the system can evolve.",
   },
-]
+];

@@ -2,9 +2,9 @@ import type { HeroContent } from "~/types/content";
 
 export const heroContent: HeroContent = {
   name: "Alden Gillespy",
-  headline: "High-Performance Websites for Self-Marketed Professionals",
+  headline: "Websites, stories, and useful systems for people building things.",
   description:
-    "Websites engineered for visibility, shaped for authority, and structured to support long-term positioning rather than short-term redesign cycles.",
+    "I am a software engineer and video producer. I help independent professionals, small teams, and founder-led projects turn good work into a web presence that feels clear, current, and easy to trust.",
   visual: {
     src: "/media/generated/home-hero-studio.png",
     alt: "Editorial studio photograph showing a bold digital practice combining web structure, production tools, and authored professional presentation.",

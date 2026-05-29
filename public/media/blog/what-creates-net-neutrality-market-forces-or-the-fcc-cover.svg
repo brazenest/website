@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+  <title id="title">Net Neutrality</title>
+  <desc id="desc">Abstract cross-disciplinary cover with network lines and a balancing motif for a net neutrality essay.</desc>
+  <defs>
+    <linearGradient id="grad-what-creates-net-neutrality-market-forces-or-the-fcc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#142032" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#grad-what-creates-net-neutrality-market-forces-or-the-fcc)"/>
+  <circle cx="130" cy="110" r="170" fill="#22d3ee" opacity="0.08"/>
+  <circle cx="1050" cy="490" r="210" fill="#a78bfa" opacity="0.08"/>
+  <rect x="84" y="80" width="236" height="42" rx="21" fill="#102033" opacity="0.88"/>
+  <text x="202" y="107" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#ecfeff" opacity="0.88">Bridge Essay</text>
+  
+      <g opacity="0.9">
+        <line x1="240" y1="320" x2="960" y2="320" stroke="#22d3ee" stroke-width="8" opacity="0.45"/>
+        <line x1="600" y1="180" x2="600" y2="320" stroke="#a78bfa" stroke-width="8" opacity="0.6"/>
+        <line x1="420" y1="230" x2="780" y2="230" stroke="#a78bfa" stroke-width="8" opacity="0.52"/>
+        <circle cx="360" cy="320" r="24" fill="#22d3ee" opacity="0.6"/>
+        <circle cx="510" cy="320" r="24" fill="#a78bfa" opacity="0.6"/>
+        <circle cx="690" cy="320" r="24" fill="#a78bfa" opacity="0.6"/>
+        <circle cx="840" cy="320" r="24" fill="#22d3ee" opacity="0.6"/>
+        <path d="M420 230L360 320" stroke="#a78bfa" stroke-width="7" opacity="0.55"/>
+        <path d="M780 230L840 320" stroke="#a78bfa" stroke-width="7" opacity="0.55"/>
+      </g>
+    
+  <g>
+    <text x="88" y="472" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" fill="#ecfeff">Net Neutrality</text>
+    <text x="88" y="522" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#ecfeff" opacity="0.84">Market structure, policy, and infrastructure power</text>
+  </g>
+</svg>

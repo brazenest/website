@@ -5,6 +5,7 @@ import baseConfig from "../../vite.config";
 export default extendConfig(baseConfig, () => {
   return {
     build: {
+      emptyOutDir: false,
       ssr: true,
       emptyOutDir: false,
       rollupOptions: {

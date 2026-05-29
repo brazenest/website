@@ -3,8 +3,10 @@ import type {
   WebSiteStructuredData,
   ProjectStructuredDataInput,
   CreativeWorkStructuredData,
+  ArticleStructuredDataInput,
+  ArticleStructuredData,
 } from '~/types/seo'
-import { siteConfig } from '~/config/site'
+import { releaseInfo, releaseLabel, siteConfig } from '~/config/site'
 
 /**
  * Ensure an image URL is absolute.
@@ -59,6 +61,8 @@ export function buildWebSiteStructuredData(): WebSiteStructuredData {
     ...(siteConfig.defaultOGImage && {
       image: ensureAbsoluteUrl(siteConfig.defaultOGImage.url),
     }),
+    version: releaseLabel,
+    dateModified: releaseInfo.releasedOn,
   }
 }
 
@@ -97,6 +101,38 @@ export function buildProjectStructuredData(input: ProjectStructuredDataInput): C
     }),
     ...(input.excerpt && {
       about: input.excerpt,
+    }),
+    author,
+  }
+}
+
+/**
+ * Build a valid JSON-LD Article schema for a blog post or longform content.
+ */
+export function buildArticleStructuredData(input: ArticleStructuredDataInput): ArticleStructuredData {
+  const author = {
+    '@type': 'Person',
+    name: input.authorName || siteConfig.personFullName || siteConfig.siteName,
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: input.title,
+    description: input.description,
+    url: ensureAbsoluteUrl(input.url),
+    ...(input.image && {
+      image: ensureAbsoluteUrl(input.image),
+    }),
+    datePublished: input.datePublished,
+    ...(input.dateModified && {
+      dateModified: input.dateModified,
+    }),
+    ...(input.keywords && input.keywords.length > 0 && {
+      keywords: input.keywords.join(', '),
+    }),
+    ...(input.articleBody && {
+      articleBody: input.articleBody,
     }),
     author,
   }

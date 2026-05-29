@@ -9,6 +9,7 @@ import { getSitemapEntries } from '~/fns/seo/getSitemapEntries'
  *
  * Each entry includes:
  * - `loc`: Absolute URL (required)
+ * - `lastmod`: ISO last-modified timestamp (optional)
  * - `changefreq`: Update frequency (optional)
  * - `priority`: Crawl priority (optional, 0.0-1.0)
  *
@@ -23,6 +24,10 @@ export const onGet: RequestHandler = async (requestEvent) => {
   const urlElements = entries
     .map((entry) => {
       const lines = [`    <url>`, `      <loc>${escapeXml(entry.loc)}</loc>`]
+
+      if (entry.lastmod) {
+        lines.push(`      <lastmod>${escapeXml(entry.lastmod)}</lastmod>`)
+      }
 
       if (entry.changefreq) {
         lines.push(`      <changefreq>${entry.changefreq}</changefreq>`)

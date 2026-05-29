@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" role="img" aria-labelledby="title desc">
+  <title id="title">Shadowcat Pictures</title>
+  <desc id="desc">Abstract production cover with a play-button motif and film frame details for the Shadowcat Pictures launch announcement.</desc>
+  <defs>
+    <linearGradient id="grad-shadowcat-pictures-youtube-video-bellagio-fountains-airbus-boeing" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2b173b" />
+      <stop offset="100%" stop-color="#1f2937" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#grad-shadowcat-pictures-youtube-video-bellagio-fountains-airbus-boeing)"/>
+  <circle cx="130" cy="110" r="170" fill="#f472b6" opacity="0.08"/>
+  <circle cx="1050" cy="490" r="210" fill="#f59e0b" opacity="0.08"/>
+  <rect x="84" y="80" width="236" height="42" rx="21" fill="#1c1028" opacity="0.88"/>
+  <text x="202" y="107" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" text-anchor="middle" fill="#f8fafc" opacity="0.88">Production Essay</text>
+  
+      <g opacity="0.9">
+        <rect x="220" y="120" width="760" height="330" rx="26" fill="none" stroke="#f472b6" stroke-width="5" opacity="0.35"/>
+        <polygon points="510,200 510,370 680,285" fill="#f472b6" opacity="0.7"/>
+        <circle cx="600" cy="285" r="110" fill="none" stroke="#f59e0b" stroke-width="8" opacity="0.4"/>
+        <circle cx="310" cy="168" r="10" fill="#f472b6" opacity="0.55"/>
+        <circle cx="890" cy="168" r="10" fill="#f472b6" opacity="0.55"/>
+        <circle cx="310" cy="400" r="10" fill="#f472b6" opacity="0.55"/>
+        <circle cx="890" cy="400" r="10" fill="#f472b6" opacity="0.55"/>
+      </g>
+    
+  <g>
+    <text x="88" y="472" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" fill="#f8fafc">Shadowcat Pictures</text>
+    <text x="88" y="522" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#f8fafc" opacity="0.84">A launch announcement for the video channel</text>
+  </g>
+</svg>

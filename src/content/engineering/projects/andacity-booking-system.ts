@@ -81,7 +81,7 @@ export const andacityBookingSystemProject: EngineeringProject = {
       ],
     },
   ],
-  image: '/media/engineering/andacity-booking-system.jpg',
+  image: '/media/engineering/andacity-booking-system.svg',
   seo: {
     title: 'Andacity Booking System',
     description:

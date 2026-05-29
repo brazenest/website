@@ -34,7 +34,7 @@ export const AboutPreview = component$(
             </div>
 
             {visual ? (
-              <div class="ui-editorial-frame aspect-[6/5]">
+              <div class="hidden lg:block ui-editorial-frame aspect-[6/5]">
                 <img
                   src={visual.src}
                   alt={visual.alt}

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="title desc">
+  <title id="title">Bellagio Fountain Film</title>
+  <desc id="desc">Live-performance coverage shaped into a coherent visual sequence</desc>
+  <defs>
+    <linearGradient id="grad-bellagio-fountain-film" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0f12" />
+      <stop offset="100%" stop-color="#3f1d24" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#grad-bellagio-fountain-film)"/>
+  <circle cx="140" cy="120" r="190" fill="#f59e0b" opacity="0.08"/>
+  <circle cx="1080" cy="570" r="230" fill="#fb7185" opacity="0.08"/>
+  <rect x="86" y="78" width="270" height="40" rx="20" fill="#221316" opacity="0.9"/>
+  <text x="221" y="104" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#fff7ed" opacity="0.88">Production Case Study</text>
+  
+        <g opacity="0.92">
+          <path d="M140 360C220 240 320 180 420 360" stroke="#f59e0b" stroke-width="10" fill="none" opacity="0.78"/>
+          <path d="M330 390C430 180 570 100 690 390" stroke="#fb7185" stroke-width="10" fill="none" opacity="0.72"/>
+          <path d="M600 370C700 210 850 130 1020 370" stroke="#f59e0b" stroke-width="10" fill="none" opacity="0.78"/>
+          <circle cx="245" cy="262" r="10" fill="#f59e0b" opacity="0.82"/>
+          <circle cx="515" cy="188" r="10" fill="#fb7185" opacity="0.82"/>
+          <circle cx="820" cy="218" r="10" fill="#f59e0b" opacity="0.82"/>
+        </g>
+  <g>
+    <text x="86" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="800" fill="#fff7ed">Bellagio Fountain Film</text>
+    <text x="86" y="562" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="500" fill="#fff7ed" opacity="0.82">Live-performance coverage shaped into a coherent visual sequence</text>
+  </g>
+</svg>

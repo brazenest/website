@@ -31,6 +31,20 @@ export const staticHeads = {
     })
   ),
 
+  work: metadataToDocumentHead(
+    buildMetadata({
+      ...seoPresets.work,
+      pathname: '/work',
+    })
+  ),
+
+  blog: metadataToDocumentHead(
+    buildMetadata({
+      ...seoPresets.blog,
+      pathname: '/blog',
+    })
+  ),
+
   contact: metadataToDocumentHead(
     buildMetadata({
       ...seoPresets.contact,

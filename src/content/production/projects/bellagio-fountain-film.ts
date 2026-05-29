@@ -8,9 +8,10 @@ export const bellagioFountainFilmProject: ProductionProject = {
     'A night exterior short built around a live fountain performance, using disciplined framing and editorial pacing to turn an unpredictable public spectacle into a coherent visual sequence.',
   media: [
     {
-      type: 'image',
-      src: '/media/production/bellagio-fountain-still-01.jpg',
-      alt: 'Wide cinematic still of the Bellagio fountains at night',
+      type: 'video',
+      src: 'https://www.youtube.com/watch?v=7v3GNwprM8Q',
+      alt: 'Bellagio Fountain Film embedded from YouTube',
+      poster: '/media/production/bellagio-fountain-film.svg',
     },
   ],
   sections: [
@@ -39,7 +40,7 @@ export const bellagioFountainFilmProject: ProductionProject = {
       ],
     },
     {
-      title: 'Role and Scope',
+      title: 'Problem',
       content:
         'I handled end-to-end production: concept framing, shot planning, on-location camera operation, and final edit. The work centered on directing attention through composition and sequencing rather than relying on heavy post effects.',
       media: [
@@ -51,7 +52,7 @@ export const bellagioFountainFilmProject: ProductionProject = {
       ],
     },
     {
-      title: 'Production Challenge',
+      title: 'Approach',
       content:
         'Because the performance cadence was unpredictable, coverage had to be adaptable. I needed enough variation to shape progression in the edit while keeping orientation stable so viewers never lost spatial context.',
       media: [
@@ -75,7 +76,7 @@ export const bellagioFountainFilmProject: ProductionProject = {
       ],
     },
     {
-      title: 'Editorial Judgment',
+      title: 'Outcome',
       content:
         'In post, I cut for temporal rhythm rather than speed. Shot transitions were timed to preserve flow between fountain beats, with restrained color and contrast adjustments that supported mood without overpowering the natural light behavior of the scene.',
       media: [
@@ -87,7 +88,7 @@ export const bellagioFountainFilmProject: ProductionProject = {
       ],
     },
     {
-      title: 'Why It Mattered',
+      title: 'Reflection',
       content:
         'The finished piece demonstrates practical production control under live constraints: adaptive coverage, clear visual hierarchy, and edit decisions that make a familiar location feel authored rather than incidental.',
       media: [
@@ -99,7 +100,7 @@ export const bellagioFountainFilmProject: ProductionProject = {
       ],
     },
   ],
-  image: '/media/production/bellagio-fountain-still-01.jpg',
+  image: '/media/production/bellagio-fountain-film.svg',
   seo: {
     title: 'Bellagio Fountain Film',
     description:

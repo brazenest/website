@@ -3,6 +3,7 @@ import fastifyStatic from "@fastify/static";
 import qwikCityPlan from "@qwik-city-plan";
 import type { FastifyPluginAsync } from "fastify";
 import fastifyPlugin from "fastify-plugin";
+import { existsSync } from "node:fs";
 
 import render from "../entry.ssr";
 
@@ -14,26 +15,38 @@ export interface FastifyQwikOptions {
 
 const { router, notFound } = createQwikCity({ render, qwikCityPlan });
 
+const DYNAMIC_EXACT_ROUTES = ["/robots.txt", "/sitemap.xml"] as const;
+
 const qwikPlugin: FastifyPluginAsync<FastifyQwikOptions> = async (
   fastify,
   options,
 ) => {
   const { buildDir, distDir, assetsDir } = options;
 
-  fastify.register(fastifyStatic, {
-    root: buildDir,
-    prefix: "/build",
-    immutable: true,
-    maxAge: "1y",
-    decorateReply: false,
-  });
+  for (const route of DYNAMIC_EXACT_ROUTES) {
+    fastify.all(route, async (request, response) => {
+      await router(request.raw, response.raw, (err) => fastify.log.error(err));
+    });
+  }
 
-  fastify.register(fastifyStatic, {
-    root: assetsDir,
-    prefix: "/assets",
-    immutable: true,
-    maxAge: "1y",
-  });
+  if (existsSync(buildDir)) {
+    fastify.register(fastifyStatic, {
+      root: buildDir,
+      prefix: "/build",
+      immutable: true,
+      maxAge: "1y",
+      decorateReply: false,
+    });
+  }
+
+  if (existsSync(assetsDir)) {
+    fastify.register(fastifyStatic, {
+      root: assetsDir,
+      prefix: "/assets",
+      immutable: true,
+      maxAge: "1y",
+    });
+  }
 
   fastify.register(fastifyStatic, {
     root: distDir,

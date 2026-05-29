@@ -5,6 +5,7 @@ import "./global.css";
 import fontInterStyles from "@fontsource-variable/inter?inline";
 import { buildPersonStructuredData, buildWebSiteStructuredData } from "~/fns/seo/buildStructuredData";
 import { StructuredData } from "~/components/seo/StructuredData";
+import { releaseInfo, releaseLabel } from "~/config/site";
 
 export default component$(() => {
 
@@ -15,6 +16,8 @@ export default component$(() => {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="release-version" content={releaseLabel} />
+        <meta name="release-date" content={releaseInfo.releasedOn} />
         <DocumentRouterHead />
       </head>
       <body>
@@ -51,7 +54,7 @@ export const DocumentRouterHead = component$(() => {
   return (
     <>
       {/* Title from route metadata (includes template formatting) */}
-      <title>{head.title || 'Personal Site v3'}</title>
+      <title>{head.title || 'Personal Site v3.0.0'}</title>
 
       {/* Meta tags: description, canonical, OG, Twitter, article metadata */}
       {head.meta.map((meta) => (
@@ -65,12 +68,24 @@ export const DocumentRouterHead = component$(() => {
 
       {/* Embedded styles */}
       {head.styles.map((style) => (
-        <style key={style.key} {...style.props} dangerouslySetInnerHTML={style.style} />
+        <style key={style.key} media={style.props?.media} dangerouslySetInnerHTML={style.style} />
       ))}
 
       {/* Structured data and other scripts */}
       {head.scripts.map((script) => (
-        <script key={script.key} {...script.props} dangerouslySetInnerHTML={script.script} />
+        <script
+          key={script.key}
+          id={script.props?.id}
+          type={script.props?.type}
+          src={script.props?.src}
+          nonce={script.props?.nonce}
+          async={script.props?.async}
+          defer={script.props?.defer}
+          integrity={script.props?.integrity}
+          crossOrigin={script.props?.crossOrigin}
+          referrerPolicy={script.props?.referrerPolicy}
+          dangerouslySetInnerHTML={script.script}
+        />
       ))}
 
       {/* Plausible Analytics - Privacy-focused analytics */}

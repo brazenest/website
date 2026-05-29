@@ -36,7 +36,7 @@ export const head = ({ params }: DocumentHeadProps) => {
   });
 
   const metadata = buildMetadata({
-    title: project.seo?.title ?? project.title,
+    title: `${project.seo?.title ?? project.title} — Engineering Case Study | Alden Gillespy`,
     description: project.seo?.description ?? project.description,
     pathname: `/engineering/projects/${params.slug}`,
     image: project.image,
@@ -109,26 +109,28 @@ export default component$(() => {
                 </div>
               ) : null}
 
-              <p class="ui-meta-label">Engineering Case Study</p>
+              <div class="flex flex-col gap-4 md:gap-5">
+                <p class="ui-meta-label">Engineering Case Study</p>
 
-              <h1 class="max-w-[14ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-                {project.title}
-              </h1>
+                <h1 class="max-w-[14ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
+                  {project.title}
+                </h1>
 
-              <p class="max-w-[62ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                {project.description}
-              </p>
+                <p class="max-w-[65ch] text-base leading-7 text-[var(--muted)] md:text-lg">
+                  {project.description}
+                </p>
 
-              <ul class="flex flex-wrap gap-2 pt-2">
-                {project.techStack.map((tech) => (
-                  <li
-                    key={tech}
-                    class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-elevated)] px-2.5 py-1 text-xs font-medium text-[var(--fg)] md:text-sm"
-                  >
-                    {tech}
-                  </li>
-                ))}
-              </ul>
+                <ul class="flex flex-wrap gap-2 pt-2">
+                  {project.techStack.map((tech) => (
+                    <li
+                      key={tech}
+                      class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-elevated)] px-2.5 py-1 text-xs font-medium text-[var(--fg)] md:text-sm"
+                    >
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </Container>
         </Section>
@@ -149,9 +151,36 @@ export default component$(() => {
                   <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                     {section.title}
                   </h2>
-                  <p class="max-w-[62ch] text-lg leading-8 text-[var(--muted)]">
-                    {section.content}
-                  </p>
+
+                  {section.content ? (
+                    <p class="max-w-[62ch] text-lg leading-8 text-[var(--muted)]">
+                      {section.content}
+                    </p>
+                  ) : null}
+
+                  {section.paragraphs?.length ? (
+                    <div class="max-w-[62ch] flex flex-col gap-4">
+                      {section.paragraphs.map((paragraph) => (
+                        <p
+                          key={paragraph}
+                          class="text-lg leading-8 text-[var(--muted)]"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  {section.items?.length ? (
+                    <ul class="max-w-[62ch] flex flex-col gap-2 text-lg leading-8 text-[var(--muted)]">
+                      {section.items.map((item) => (
+                        <li key={item} class="flex gap-3">
+                          <span class="flex-shrink-0 text-[var(--fg)]">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
                 </div>
 
                 {section.media?.[0] ? (
@@ -172,15 +201,19 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <section id="engineering-project-cta" class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5">
+            <section
+              id="engineering-project-cta"
+              class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
+            >
               <div class="ui-cta-layout">
                 <div class="flex flex-col gap-4 md:gap-5">
                   <p class="ui-meta-label">Next</p>
-                  <h2 class="ui-cta-title">
-                    Build systems like this.
-                  </h2>
+                  <h2 class="ui-cta-title">Build systems like this.</h2>
                   <p class="ui-cta-text max-w-[42ch]">
-                    This case study demonstrates architectural discipline, strategic decision-making under complexity, and long-term maintainability thinking. If you want this level of system clarity, let&apos;s talk.
+                    This case study demonstrates architectural discipline,
+                    strategic decision-making under complexity, and long-term
+                    maintainability thinking. If you want this level of system
+                    clarity, let&apos;s talk.
                   </p>
                   <div class="ui-cta-group ui-cta-actions">
                     <ButtonLink

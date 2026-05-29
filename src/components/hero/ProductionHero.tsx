@@ -35,7 +35,7 @@ export const ProductionHero = component$(
             </div>
 
             {visual ? (
-              <div class="lg:pt-2">
+              <div class="hidden lg:block lg:pt-2">
                 <div class="ui-editorial-frame aspect-[6/5]">
                   <img
                     src={visual.src}
