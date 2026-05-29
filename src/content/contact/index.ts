@@ -15,8 +15,8 @@ export const contactPageContent: ContactPageContent = {
     methods: [
       {
         label: "Email",
-        value: "ag@aldengillespy.com",
-        href: "mailto:ag@aldengillespy.com?subject=Website%20Project%20Inquiry",
+        value: "contact@aldengillespy.com",
+        href: "mailto:contact@aldengillespy.com?subject=Website%20Project%20Inquiry",
         description:
           "Best for project briefs, website analysis requests, and collaboration notes.",
       },
@@ -127,7 +127,7 @@ export const contactPageContent: ContactPageContent = {
     buttons: [
       {
         label: "Email Your Inquiry",
-        href: "mailto:ag@aldengillespy.com?subject=Website%20Project%20Inquiry",
+        href: "mailto:contact@aldengillespy.com?subject=Website%20Project%20Inquiry",
         variant: "primary",
       },
       {

@@ -1,6 +1,7 @@
 import { component$ } from '@builder.io/qwik'
 import { routeLoader$, type DocumentHead, type DocumentHeadProps, type DocumentMeta, type DocumentLink } from '@builder.io/qwik-city'
 import { ButtonLink } from '~/components/ui/ButtonLink'
+import { ArticleProse } from '~/components/content/ArticleProse'
 import { Footer } from '~/components/footer/Footer'
 import { PageShell } from '~/components/layout/PageShell'
 import { Header } from '~/components/nav/Header'
@@ -13,7 +14,7 @@ import { buildMetadata } from '~/fns/seo/buildMetadata'
 import { buildArticleStructuredData } from '~/fns/seo/buildStructuredData'
 import { metadataToDocumentHead } from '~/fns/seo/metadataToDocumentHead'
 import { getBlogPostBySlug } from '~/lib/blog/getBlogPostBySlug'
-import { getMarkdownParagraphs } from '~/lib/blog/markdown'
+import { renderMarkdownToHtml } from '~/lib/blog/markdown'
 import { formatBlogDate, getBlogSideLabel } from '~/lib/blog/presentation'
 
 function toHeadValue(metadata: ReturnType<typeof buildMetadata>) {
@@ -105,7 +106,7 @@ export default component$(() => {
     )
   }
 
-  const bodyParagraphs = getMarkdownParagraphs(post.value.bodyMarkdown)
+  const bodyHtml = renderMarkdownToHtml(post.value.bodyMarkdown)
 
   return (
     <PageShell theme="neutral">
@@ -149,16 +150,7 @@ export default component$(() => {
 
         <Section spacing="compact">
           <Container width="content">
-            <article class="flex flex-col gap-4 md:gap-5">
-              {bodyParagraphs.map((paragraph) => (
-                <p
-                  key={paragraph}
-                  class="max-w-[65ch] whitespace-pre-wrap text-base leading-7 text-[var(--muted)] md:text-lg"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </article>
+            <ArticleProse tag="article" html={bodyHtml} />
           </Container>
         </Section>
 

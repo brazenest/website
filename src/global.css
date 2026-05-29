@@ -265,6 +265,10 @@ main {
   font-size: 0 !important;
 }
 
+.resume-page.resume-mode-ats .resume-contact-icon {
+  display: none !important;
+}
+
 .resume-page.resume-mode-ats .resume-contact a::after,
 .resume-page.resume-mode-ats .resume-print-project-list a::after {
   font-size: 0.95rem !important;
@@ -927,6 +931,10 @@ main {
   .resume-page.resume-mode-ats .resume-contact a,
   .resume-page.resume-mode-ats .resume-print-project-list a {
     font-size: 0 !important;
+  }
+
+  .resume-page.resume-mode-ats .resume-contact-icon {
+    display: none !important;
   }
 
   .resume-page.resume-mode-ats .resume-contact a::after,
