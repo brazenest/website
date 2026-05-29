@@ -1,5 +1,6 @@
 import { $, Slot, component$, useSignal, useTask$ } from '@builder.io/qwik'
 import { Form, globalAction$ } from '@builder.io/qwik-city'
+import { SiteMark } from '~/components/brand/SiteMark'
 import { Container } from '~/components/ui/Container'
 import {
   CONTACT_INQUIRY_TYPES,
@@ -314,7 +315,13 @@ export const Footer = component$(() => {
       <Container>
         <div class="grid gap-8 py-10 md:grid-cols-3 md:gap-10 md:py-14">
           <div class="flex flex-col gap-3">
-            <p class="text-base font-semibold tracking-tight">Alden Gillespy</p>
+            <a
+              href="/"
+              class="inline-flex w-fit items-center gap-2 text-base font-semibold tracking-tight transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--muted)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
+            >
+              <SiteMark class="h-7 w-7 shrink-0" />
+              <span>Alden Gillespy</span>
+            </a>
             <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)]">
               Software engineering and cinematic production, structured as one practice.
             </p>
@@ -357,7 +364,7 @@ export const Footer = component$(() => {
         </div>
 
         <div class="border-t border-[var(--border)] py-5 text-sm text-[var(--muted)]">
-          <p>© 2025 Alden Gillespy</p>
+          <p>© {new Date().getFullYear()} Alden Gillespy</p>
         </div>
       </Container>
     </footer>

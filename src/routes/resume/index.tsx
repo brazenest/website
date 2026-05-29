@@ -12,6 +12,104 @@ import { staticHeads } from "~/fns/seo/staticHeads";
 
 export const head: DocumentHead = staticHeads.resume;
 
+type ResumeContactItem = (typeof resumePageContent.header.contactItems)[number];
+type ResumeContactIconName =
+  | "email"
+  | "github"
+  | "linkedin"
+  | "location"
+  | "phone"
+  | "website"
+  | "youtube";
+
+function getResumeContactIconName(item: ResumeContactItem): ResumeContactIconName {
+  const href = "href" in item ? item.href : "";
+  const label = item.label.toLowerCase();
+
+  if (href.startsWith("mailto:")) return "email";
+  if (href.startsWith("tel:")) return "phone";
+  if (href.includes("linkedin.com")) return "linkedin";
+  if (href.includes("github.com")) return "github";
+  if (href.includes("youtube.com")) return "youtube";
+  if (href.startsWith("http")) return "website";
+  if (label.includes("united states")) return "location";
+
+  return "website";
+}
+
+const ResumeContactIcon = component$(({ name }: { name: ResumeContactIconName }) => {
+  return (
+    <svg
+      aria-hidden="true"
+      class="resume-contact-icon h-4 w-4 shrink-0 text-[var(--muted)]"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {name === "website" && (
+        <>
+          <circle cx="12" cy="12" r="8.25" stroke="currentColor" stroke-width="1.75" />
+          <path d="M3.75 12h16.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+          <path
+            d="M12 3.75c2.25 2.4 3.4 5.15 3.4 8.25S14.25 17.85 12 20.25C9.75 17.85 8.6 15.1 8.6 12S9.75 6.15 12 3.75Z"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linejoin="round"
+          />
+        </>
+      )}
+      {name === "email" && (
+        <>
+          <rect x="4" y="6" width="16" height="12" rx="2" stroke="currentColor" stroke-width="1.75" />
+          <path d="m5 7 7 6 7-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+        </>
+      )}
+      {name === "phone" && (
+        <path
+          d="M8.1 4.75 10 8.9l-1.55 1.2c1.05 2.15 2.75 3.85 5 4.95L14.7 13.5l4.05 1.85-.6 3.25c-.15.8-.85 1.35-1.65 1.25C9.75 19 5 14.25 4.15 7.5c-.1-.8.45-1.5 1.25-1.65l2.7-.6Z"
+          stroke="currentColor"
+          stroke-width="1.75"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      )}
+      {name === "location" && (
+        <>
+          <path
+            d="M12 20.25s6-5.1 6-10.15a6 6 0 0 0-12 0c0 5.05 6 10.15 6 10.15Z"
+            stroke="currentColor"
+            stroke-width="1.75"
+            stroke-linejoin="round"
+          />
+          <circle cx="12" cy="10.1" r="2" stroke="currentColor" stroke-width="1.75" />
+        </>
+      )}
+      {name === "linkedin" && (
+        <>
+          <rect x="4.5" y="4.5" width="15" height="15" rx="2.25" stroke="currentColor" stroke-width="1.75" />
+          <path d="M8 10.75v5.25M8 8v.05M11.25 16v-5.25M11.25 13.25c0-1.65.95-2.65 2.35-2.65 1.35 0 2.4.85 2.4 2.75V16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+        </>
+      )}
+      {name === "github" && (
+        <>
+          <path
+            d="M12 3.9a8.1 8.1 0 0 0-2.55 15.8c.4.08.55-.17.55-.38v-1.45c-2.25.5-2.72-.95-2.72-.95-.37-.92-.9-1.17-.9-1.17-.73-.5.06-.5.06-.5.8.06 1.23.84 1.23.84.72 1.22 1.88.87 2.33.67.07-.52.28-.87.5-1.08-1.8-.2-3.68-.9-3.68-4 0-.88.32-1.6.84-2.17-.08-.2-.36-1.02.08-2.13 0 0 .68-.22 2.24.83A7.65 7.65 0 0 1 12 7.95c.7 0 1.38.1 2.03.27 1.55-1.05 2.23-.83 2.23-.83.45 1.11.17 1.93.08 2.13.53.57.84 1.29.84 2.17 0 3.1-1.88 3.8-3.68 4 .3.25.55.75.55 1.5v2.13c0 .21.15.46.56.38A8.1 8.1 0 0 0 12 3.9Z"
+            stroke="currentColor"
+            stroke-width="1.35"
+            stroke-linejoin="round"
+          />
+        </>
+      )}
+      {name === "youtube" && (
+        <>
+          <rect x="3.75" y="6.5" width="16.5" height="11" rx="3" stroke="currentColor" stroke-width="1.75" />
+          <path d="m10.75 9.75 4 2.25-4 2.25v-4.5Z" fill="currentColor" />
+        </>
+      )}
+    </svg>
+  );
+});
+
 export default component$(() => {
   const location = useLocation();
   const printModeParam = location.url.searchParams.get("print");
@@ -43,13 +141,13 @@ export default component$(() => {
 
               <div class="flex flex-col gap-2 sm:flex-row">
                 <ButtonLink
-                  href="/resume?print=human"
+                  href="https://aldengillespy.com/resume?print=human"
                   label="Human-Friendly Print"
                   variant={printMode === "human" ? "primary" : "secondary"}
                   class="w-full sm:w-auto"
                 />
                 <ButtonLink
-                  href="/resume?print=ats"
+                  href="https://aldengillespy.com/resume?print=ats"
                   label="ATS-Compatible Print"
                   variant={printMode === "ats" ? "primary" : "secondary"}
                   class="w-full sm:w-auto"
@@ -64,7 +162,7 @@ export default component$(() => {
                       Print This Version
                     </button>
                     <ButtonLink
-                      href="/resume"
+                      href="https://aldengillespy.com/resume"
                       label="Back to Browser View"
                       variant="ghost"
                       class="w-full sm:w-auto"
@@ -123,7 +221,7 @@ export default component$(() => {
                     {resumePageContent.header.contactItems.map((item) => (
                       <li
                         key={`${item.label}-${"href" in item ? item.href : "text"}`}
-                      class="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-2"
+                        class="rounded-[var(--radius-card)] border border-[var(--border)] bg-[var(--surface-elevated)] px-3 py-2"
                       >
                         {"href" in item ? (
                           <a
@@ -138,13 +236,16 @@ export default component$(() => {
                                 ? "noreferrer"
                                 : undefined
                             }
-                            class="rounded-[var(--radius-lg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
+                            class="flex items-center gap-2 rounded-[var(--radius-lg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
                           >
-                            {item.label}
-                            {item.href.startsWith("http") ? " 🔗" : ""}
+                            <ResumeContactIcon name={getResumeContactIconName(item)} />
+                            <span>{item.label}</span>
                           </a>
                         ) : (
-                          <span>{item.label}</span>
+                          <span class="flex items-center gap-2">
+                            <ResumeContactIcon name={getResumeContactIconName(item)} />
+                            <span>{item.label}</span>
+                          </span>
                         )}
                       </li>
                     ))}
@@ -405,18 +506,18 @@ export default component$(() => {
 
                   <div class="ui-cta-group ui-cta-actions">
                     <ButtonLink
-                      href="/engineering#selected-work"
+                      href="https://aldengillespy.com/engineering#selected-work"
                       label="Browse Engineering Case Studies"
                       variant="primary"
                     />
                     <ButtonLink
-                      href="/production#selected-work"
+                      href="https://aldengillespy.com/production#selected-work"
                       label="Browse Production Projects"
                       variant="secondary"
                     />
                     <ButtonLink
-                      href="/contact"
-                      label="Start a Conversation"
+                      href="mailto:contact@aldengillespy.com"
+                      label="contact@aldengillespy.com"
                       variant="ghost"
                     />
                   </div>

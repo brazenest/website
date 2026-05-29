@@ -1,14 +1,22 @@
 import { component$, useStyles$ } from "@builder.io/qwik";
-import { QwikCityProvider, RouterOutlet, useDocumentHead } from "@builder.io/qwik-city";
+import {
+  QwikCityProvider,
+  RouterOutlet,
+  useDocumentHead,
+} from "@builder.io/qwik-city";
 import "./global.css";
 
 import fontInterStyles from "@fontsource-variable/inter?inline";
-import { buildPersonStructuredData, buildWebSiteStructuredData } from "~/fns/seo/buildStructuredData";
+import {
+  buildPersonStructuredData,
+  buildWebSiteStructuredData,
+} from "~/fns/seo/buildStructuredData";
 import { StructuredData } from "~/components/seo/StructuredData";
 import { releaseInfo, releaseLabel } from "~/config/site";
 
-export default component$(() => {
+const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var query=window.matchMedia('(prefers-color-scheme: dark)');var apply=function(){var stored=window.localStorage.getItem(key);var system=query.matches?'dark':'light';var mode=stored==='dark'||stored==='light'?stored:system;document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();query.addEventListener('change',apply);window.addEventListener('storage',function(event){if(event.key===key){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
 
+export default component$(() => {
   useStyles$(fontInterStyles);
 
   return (
@@ -18,6 +26,8 @@ export default component$(() => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="release-version" content={releaseLabel} />
         <meta name="release-date" content={releaseInfo.releasedOn} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <script dangerouslySetInnerHTML={colorModeScript} />
         <DocumentRouterHead />
       </head>
       <body>
@@ -54,7 +64,7 @@ export const DocumentRouterHead = component$(() => {
   return (
     <>
       {/* Title from route metadata (includes template formatting) */}
-      <title>{head.title || 'Personal Site v3.0.0'}</title>
+      <title>{head.title || "Personal Site v3.0.0"}</title>
 
       {/* Meta tags: description, canonical, OG, Twitter, article metadata */}
       {head.meta.map((meta) => (
@@ -68,7 +78,11 @@ export const DocumentRouterHead = component$(() => {
 
       {/* Embedded styles */}
       {head.styles.map((style) => (
-        <style key={style.key} media={style.props?.media} dangerouslySetInnerHTML={style.style} />
+        <style
+          key={style.key}
+          media={style.props?.media}
+          dangerouslySetInnerHTML={style.style}
+        />
       ))}
 
       {/* Structured data and other scripts */}
@@ -90,7 +104,11 @@ export const DocumentRouterHead = component$(() => {
 
       {/* Plausible Analytics - Privacy-focused analytics */}
       {/* Configure PLAUSIBLE_DOMAIN in environment variables */}
-      <script defer data-domain="aldengillespy.com" src="https://plausible.io/js/script.js" />
+      <script
+        defer
+        data-domain="aldengillespy.com"
+        src="https://plausible.io/js/script.js"
+      />
 
       {/* Global structured data: Person and WebSite schemas */}
       {/* These are emitted site-wide for SEO and schema.org indexing */}
