@@ -1,4 +1,5 @@
 import { component$ } from "@builder.io/qwik";
+import { SiteMark } from "~/components/brand/SiteMark";
 import { Container } from "~/components/ui/Container";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { MobileMenu } from "~/components/nav/MobileMenu";
@@ -17,9 +18,10 @@ export const Header = component$(() => {
         <div class="relative flex h-16 items-center justify-between gap-6">
           <a
             href="/"
-            class="text-sm font-semibold tracking-tight transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--muted)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
+            class="inline-flex items-center gap-2 text-sm font-semibold tracking-tight transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--muted)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
           >
-            Alden Gillespy
+            <SiteMark class="h-7 w-7 shrink-0" />
+            <span>Alden Gillespy</span>
           </a>
 
           <nav aria-label="Primary" class="hidden items-center gap-5 md:flex">

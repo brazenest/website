@@ -9,15 +9,15 @@ export const resumePageContent = {
         href: 'https://aldengillespy.com',
       },
       {
-        label: 'Contact form',
-        href: '/contact',
+        label: 'contact@aldengillespy.com',
+        href: 'mailto:contact@aldengillespy.com',
       },
       {
         label: '(702) 670-2251',
         href: 'tel:+17026702251',
       },
       {
-        label: 'Orlando, FL',
+        label: 'United States',
       },
       {
         label: 'LinkedIn',
@@ -92,7 +92,7 @@ export const resumePageContent = {
       role: 'Lead full-stack engineer',
       description:
         'Built a booking platform around a canonical search contract and normalized data model so new inventory integrations and feature work stayed dependable as the product expanded.',
-      href: '/engineering/projects/andacity-booking-system',
+      href: 'https://aldengillespy.com/engineering/projects/andacity-booking-system',
     },
     {
       discipline: 'Engineering',
@@ -100,7 +100,7 @@ export const resumePageContent = {
       role: 'Senior software engineer',
       description:
         'Led the redesign of a sensitive, high-trust activation flow around clearer state, calmer validation behavior, and more dependable completion at scale.',
-      href: '/engineering/projects/ancestry-dna-kit-activation',
+      href: 'https://aldengillespy.com/engineering/projects/ancestry-dna-kit-activation',
     },
     {
       discipline: 'Production',
@@ -108,7 +108,7 @@ export const resumePageContent = {
       role: 'Direction, capture, and edit',
       description:
         'Shaped unpredictable live-performance footage into a coherent cinematic sequence through disciplined framing, adaptive coverage, and editorial pacing.',
-      href: '/production/projects/bellagio-fountain-film',
+      href: 'https://aldengillespy.com/production/projects/bellagio-fountain-film',
     },
   ],
   skills: [

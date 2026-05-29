@@ -11,13 +11,29 @@ export const MobileMenu = component$(() => {
         type="button"
         aria-controls="mobile-navigation"
         aria-expanded={isOpen.value ? "true" : "false"}
-        aria-label="Toggle navigation menu"
-        class="inline-flex h-10 items-center justify-center rounded-[var(--radius-lg)] border border-[var(--border)] px-3 text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:bg-[var(--surface-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
+        aria-label={
+          isOpen.value ? "Close navigation menu" : "Open navigation menu"
+        }
+        class="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-lg)] border border-[var(--border)] text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:bg-[var(--surface-subtle)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2"
         onClick$={() => {
           isOpen.value = !isOpen.value;
         }}
       >
-        Menu
+        <span class="sr-only">{isOpen.value ? "Close menu" : "Open menu"}</span>
+        <span aria-hidden="true" class="relative h-4 w-5">
+          <span
+            class={cn(
+              "absolute left-0 top-1 block h-0.5 w-5 rounded-full bg-current transition-transform duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)]",
+              isOpen.value ? "translate-y-[5px] rotate-45" : "",
+            )}
+          />
+          <span
+            class={cn(
+              "absolute bottom-1 left-0 block h-0.5 w-5 rounded-full bg-current transition-transform duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)]",
+              isOpen.value ? "-translate-y-[5px] -rotate-45" : "",
+            )}
+          />
+        </span>
       </button>
 
       <div
