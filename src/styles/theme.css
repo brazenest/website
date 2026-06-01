@@ -1478,7 +1478,7 @@ a {
   }
 
   .page-home .ui-home-hero-title {
-    font-size: 4.35rem;
+    font-size: 3.9rem;
     line-height: 0.95;
   }
 
@@ -1722,11 +1722,11 @@ a {
   > section:first-of-type
   p.text-\[var\(--muted\)\],
 [data-theme="neutral"] .page-packages > section:first-of-type .ui-text--muted {
-  color: color-mix(in srgb, white 88%, var(--inversion-bg));
+  color: color-mix(in srgb, var(--inversion-fg) 78%, var(--inversion-bg));
 }
 
 [data-theme="neutral"] .page-packages > section:first-of-type .ui-meta-label {
-  color: color-mix(in srgb, white 86%, var(--impact));
+  color: color-mix(in srgb, var(--inversion-fg) 68%, var(--impact));
 }
 
 [data-theme="neutral"]
@@ -1765,7 +1765,7 @@ a {
   padding: 1rem 1.1rem;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-card);
-  background: color-mix(in srgb, var(--surface-2) 56%, #ffffff);
+  background: transparent;
 }
 
 [data-theme="neutral"] .ui-package-value-card {
@@ -2134,37 +2134,88 @@ a {
   color: color-mix(in srgb, var(--fg) 82%, var(--bg));
 }
 
-[data-theme="neutral"] .page-packages > section:first-of-type .ui-hero-copy {
+/* Dark-mode tuning: keep /packages cards cohesive with dark neutral surfaces. */
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages > section:first-of-type .ui-hero-title {
   color: var(--inversion-fg);
 }
 
-[data-theme="neutral"]
-  .page-packages
-  > section:first-of-type
-  .ui-hero-copy
-  :is(h1, h2, h3) {
-  color: #ffffff;
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages > section:first-of-type .ui-hero-text {
+  color: color-mix(in srgb, var(--inversion-fg) 78%, var(--inversion-bg));
 }
 
-[data-theme="neutral"]
-  .page-packages
-  > section:first-of-type
-  .ui-hero-copy
-  :is(p, li, .ui-text--muted),
-[data-theme="neutral"]
-  .page-packages
-  > section:first-of-type
-  :is(p, li).text-\[var\(--muted\)\],
-[data-theme="neutral"]
-  .page-packages
-  > section:first-of-type
-  p.text-\[var\(--muted\)\],
-[data-theme="neutral"] .page-packages > section:first-of-type .ui-text--muted {
-  color: #8f97a5;
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages > section:first-of-type .ui-meta-label {
+  color: color-mix(in srgb, var(--inversion-fg) 68%, var(--impact));
 }
 
-[data-theme="neutral"] .page-packages > section:first-of-type .ui-meta-label {
-  color: #7b8493;
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages .ui-package-value-intro {
+  background: transparent;
+  border-color: var(--border-default);
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages .ui-package-value-card {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--surface-2) 92%, var(--bg)) 0%,
+    color-mix(in srgb, var(--surface-3) 90%, var(--bg)) 100%
+  );
+  border-color: color-mix(in srgb, var(--inversion-fg) 20%, var(--bg));
+  box-shadow: 0 16px 30px -24px color-mix(in srgb, #000000 72%, transparent);
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages :is(.ui-card, .ui-package-value-card, .ui-package-value-intro) {
+  color: var(--fg);
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages :is(.ui-card, .ui-package-value-card, .ui-package-value-intro) :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--heading-fg);
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages :is(.ui-card, .ui-package-value-card, .ui-package-value-intro) :is(p, li, .ui-text--muted) {
+  color: color-mix(in srgb, var(--fg) 78%, var(--bg));
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages :is(.ui-card, .ui-package-value-card, .ui-package-value-intro) .text-xs.font-medium.uppercase.tracking-\[0\.12em\].text-\[var\(--muted\)\] {
+  color: color-mix(in srgb, var(--fg) 64%, var(--bg));
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages #package-tiers .ui-card a {
+  color: color-mix(in srgb, var(--fg) 74%, var(--impact));
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages .ui-package-card--tone-1 {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--surface-2) 94%, var(--bg)) 0%,
+    color-mix(in srgb, var(--surface-3) 88%, var(--bg)) 100%
+  );
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages .ui-package-card--tone-2 {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--surface-3) 92%, var(--bg)) 0%,
+    color-mix(in srgb, var(--surface-2) 86%, var(--bg)) 100%
+  );
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages .ui-package-card--tone-3 {
+  background: linear-gradient(
+    150deg,
+    color-mix(in srgb, var(--surface-3) 94%, var(--bg)) 0%,
+    color-mix(in srgb, var(--surface-2) 84%, var(--bg)) 100%
+  );
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages .ui-package-value-graphic span:nth-child(1) {
+  background: color-mix(in srgb, var(--fg) 92%, var(--bg));
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages .ui-package-value-graphic span:nth-child(2) {
+  background: color-mix(in srgb, var(--fg) 54%, var(--bg));
+}
+
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages .ui-package-value-graphic span:nth-child(3) {
+  background: color-mix(in srgb, var(--fg) 28%, var(--bg));
 }
 
 [data-theme="engineering"]
