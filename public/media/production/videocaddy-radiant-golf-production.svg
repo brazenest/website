@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-labelledby="title desc">
+  <title id="title">VideoCaddy Golf Production</title>
+  <desc id="desc">Golf video production and Radiant media venture development</desc>
+  <defs>
+    <linearGradient id="videocaddy-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10130f" />
+      <stop offset="50%" stop-color="#1f3322" />
+      <stop offset="100%" stop-color="#40251a" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#videocaddy-bg)" />
+  <rect x="82" y="74" width="300" height="42" rx="21" fill="#17110e" opacity="0.88" />
+  <text x="232" y="101" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#fff7ed" opacity="0.9">Production Case Study</text>
+  <g opacity="0.94">
+    <path d="M92 430C276 360 424 342 612 384C790 424 946 402 1108 324V675H92Z" fill="#86efac" opacity="0.16" />
+    <path d="M188 382C362 316 516 310 692 350C846 386 966 360 1074 304" stroke="#86efac" stroke-width="10" fill="none" opacity="0.5" />
+    <circle cx="520" cy="294" r="16" fill="#fff7ed" opacity="0.86" />
+    <path d="M704 188L760 446" stroke="#fbbf24" stroke-width="9" stroke-linecap="round" opacity="0.82" />
+    <path d="M750 438L830 468" stroke="#fbbf24" stroke-width="9" stroke-linecap="round" opacity="0.82" />
+    <rect x="178" y="172" width="330" height="188" rx="24" fill="#1c1917" opacity="0.78" />
+    <rect x="218" y="210" width="158" height="18" rx="9" fill="#fbbf24" opacity="0.65" />
+    <rect x="218" y="258" width="238" height="12" rx="6" fill="#fff7ed" opacity="0.22" />
+    <rect x="218" y="292" width="192" height="12" rx="6" fill="#fff7ed" opacity="0.22" />
+    <circle cx="920" cy="210" r="56" fill="#fbbf24" opacity="0.2" />
+    <path d="M880 210H960M920 170V250" stroke="#fff7ed" stroke-width="8" stroke-linecap="round" opacity="0.34" />
+  </g>
+  <text x="82" y="520" font-family="system-ui, -apple-system, sans-serif" font-size="58" font-weight="800" fill="#fff7ed">VideoCaddy Golf Production</text>
+  <text x="82" y="590" font-family="system-ui, -apple-system, sans-serif" font-size="27" font-weight="500" fill="#fff7ed" opacity="0.82">Radiant media venture, repeatable capture, and editorial clarity</text>
+</svg>

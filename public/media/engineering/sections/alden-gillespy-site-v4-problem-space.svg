@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1120" role="img" aria-labelledby="title desc">
+  <title id="title">AldenGillespy.com v4 Problem Space</title>
+  <desc id="desc">Original editorial graphic showing fragmented disciplines becoming a coherent site system.</desc>
+  <rect width="1400" height="1120" fill="#08121d"/>
+  <g fill="#0b1220" stroke="#264159" stroke-width="4">
+    <rect x="120" y="150" width="300" height="250" rx="34"/>
+    <rect x="540" y="90" width="290" height="300" rx="34"/>
+    <rect x="980" y="160" width="280" height="235" rx="34"/>
+    <rect x="225" y="600" width="340" height="250" rx="34"/>
+    <rect x="790" y="585" width="360" height="285" rx="34"/>
+  </g>
+  <path d="M420 275c130 28 170-24 240-42M830 240c62 6 94 20 150 54M560 708c100-80 160-92 250 20" stroke="#38bdf8" stroke-width="9" stroke-dasharray="18 18" fill="none" opacity=".7"/>
+  <path d="M204 280h140M610 230h158M1040 276h140M300 704h188M865 708h204" stroke="#e2e8f0" stroke-width="16" stroke-linecap="round" opacity=".22"/>
+  <circle cx="700" cy="515" r="96" fill="#22c55e" opacity=".18"/>
+  <path d="M640 515h120M700 455v120" stroke="#22c55e" stroke-width="14" stroke-linecap="round" opacity=".8"/>
+  <text x="120" y="1010" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="58" font-weight="800">From split signals to one system</text>
+</svg>
