@@ -1,9 +1,19 @@
 import type { EngineeringProject } from "~/types/content";
+import { aldenGillespySiteV4Project } from "./alden-gillespy-site-v4";
 import { andacityBookingSystemProject } from "./andacity-booking-system";
 import { ancestryDnaKitActivationProject } from "./ancestry-dna-kit-activation";
 import { timeshareSearchRentalsProject } from "./timeshare-search-rentals";
 
 export const engineeringProjects: EngineeringProject[] = [
+  {
+    ...aldenGillespySiteV4Project,
+    description:
+      "Version 4.0 turned this site into a full work platform: structured case studies, blog and admin infrastructure, service pages, SEO metadata, contact handling, Docker deployment, and branch-aware release operations in one maintainable system.",
+    cardDescriptor:
+      "Full-stack engineer · Product, content, and deployment system",
+    cardHighlight:
+      "Typed content and reusable route patterns keep the site easy to extend. Deployment automation makes releases repeatable. The site now demonstrates the same system clarity it sells.",
+  },
   {
     ...andacityBookingSystemProject,
     description:

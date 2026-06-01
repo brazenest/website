@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1120" role="img" aria-labelledby="title desc">
+  <title id="title">VideoCaddy Context</title>
+  <desc id="desc">Original editorial graphic showing golf movement, course rhythm, and production constraints.</desc>
+  <rect width="1400" height="1120" fill="#12140f"/>
+  <path d="M160 690C355 540 580 520 780 610s335 30 480-120" stroke="#86efac" stroke-width="16" fill="none" opacity=".42"/>
+  <path d="M330 250c125 70 240 74 345 12s212-66 340 16" stroke="#fbbf24" stroke-width="12" fill="none" opacity=".7"/>
+  <rect x="150" y="420" width="310" height="240" rx="32" fill="#1c1917" stroke="#4a3829" stroke-width="5"/>
+  <rect x="940" y="410" width="300" height="250" rx="32" fill="#1c1917" stroke="#4a3829" stroke-width="5"/>
+  <path d="M215 520h180M1005 505h168M1005 575h110" stroke="#fff7ed" stroke-width="16" stroke-linecap="round" opacity=".2"/>
+  <circle cx="700" cy="525" r="20" fill="#fff7ed"/>
+  <path d="M700 525l130-210" stroke="#fbbf24" stroke-width="8" stroke-linecap="round"/>
+  <text x="120" y="1010" fill="#fff7ed" font-family="system-ui, sans-serif" font-size="58" font-weight="800">Make small motion legible</text>
+</svg>
