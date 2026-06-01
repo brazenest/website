@@ -102,12 +102,23 @@ export const DocumentRouterHead = component$(() => {
         />
       ))}
 
-      {/* Plausible Analytics - Privacy-focused analytics */}
-      {/* Configure PLAUSIBLE_DOMAIN in environment variables */}
+      {/* Google Analytics */}
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-DGCKGYKJK8"
+      />
+      <script
+        dangerouslySetInnerHTML={`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-DGCKGYKJK8', { send_page_view: true });`}
+      />
+
+      {/* Cloudflare Web Analytics */}
       <script
         defer
-        data-domain="aldengillespy.com"
-        src="https://plausible.io/js/script.js"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token":"6697037d4f18409a80738a3f551bc5db"}'
       />
 
       {/* Global structured data: Person and WebSite schemas */}
