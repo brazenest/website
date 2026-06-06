@@ -33,6 +33,12 @@ export default component$(() => {
               aria-labelledby="package-tiers-title"
               class="scroll-mt-24 flex flex-col gap-6 md:gap-8"
             >
+              {/* Pride Month accent */}
+              <div
+                class="h-1 w-32 rounded-full"
+                style="background: linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #004dff, #750787);"
+                aria-hidden="true"
+              />
               <div class="flex flex-col gap-2">
                 <h2
                   id="package-tiers-title"

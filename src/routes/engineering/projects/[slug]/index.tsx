@@ -147,7 +147,7 @@ export default component$(() => {
                   index % 2 === 1 && "ui-case-study-section--reverse",
                 )}
               >
-                <div class="ui-case-study-copy flex flex-col gap-3 md:gap-4">
+                <div class={`ui-case-study-copy flex flex-col gap-3 md:gap-4${index === 0 ? " border-l-2 border-[var(--accent)] pl-5" : ""}`}>
                   <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                     {section.title}
                   </h2>

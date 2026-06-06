@@ -12,6 +12,8 @@ import { aboutPreviewContent } from "~/content/identity/about-preview";
 import { heroContent } from "~/content/identity/hero";
 import { homeProofStrip } from "~/content/identity/proof-strip";
 import { sideLinkCards } from "~/content/identity/side-links";
+import { Container } from "~/components/ui/Container";
+import { Section } from "~/components/ui/Section";
 import { staticHeads } from "~/fns/seo/staticHeads";
 
 export const head: DocumentHead = staticHeads.home;
@@ -19,6 +21,8 @@ export const head: DocumentHead = staticHeads.home;
 export default component$(() => {
   return (
     <PageShell theme="neutral">
+      {/* Pride Month 2026 — rainbow accent bar */}
+      <div class="pride-rainbow-bar" aria-hidden="true" />
       <Header />
 
       <main id="main-content" class="page-home flex-1 scroll-mt-24 p-0">
@@ -55,6 +59,22 @@ export default component$(() => {
         </HomeHero>
 
         <ProofStrip items={homeProofStrip} />
+
+        {/* Pride: Values statement */}
+        <Section spacing="compact">
+          <Container width="content">
+            <div class="pride-values-section">
+              <p class="text-base leading-7 text-[var(--muted)] md:text-lg">
+                I design and build with inclusion in mind — not as a policy,
+                but as a practice. Good work is for everyone.{" "}
+                <a href="/about" class="ui-link-inline font-medium">
+                  About me
+                </a>
+                .
+              </p>
+            </div>
+          </Container>
+        </Section>
 
         <AboutPreview {...aboutPreviewContent} />
 

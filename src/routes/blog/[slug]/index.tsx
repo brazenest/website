@@ -121,7 +121,16 @@ export default component$(() => {
               </div>
 
               <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
+                <span
+                  class="rounded-[var(--radius-pill)] px-2.5 py-1 font-semibold"
+                  style={
+                    post.value.side === "engineering"
+                      ? "background: rgba(124,60,255,0.1); color: #7c3cff; border: 1px solid rgba(124,60,255,0.22);"
+                      : post.value.side === "production"
+                        ? "background: rgba(255,61,113,0.1); color: #ff3d71; border: 1px solid rgba(255,61,113,0.22);"
+                        : "background: rgba(0,141,200,0.1); color: #0078b8; border: 1px solid rgba(0,141,200,0.22);"
+                  }
+                >
                   {getBlogSideLabel(post.value.side)}
                 </span>
                 <span>{formatBlogDate(post.value.publishedAt ?? post.value.createdAt)}</span>
@@ -157,7 +166,7 @@ export default component$(() => {
         <Section spacing="compact" surface="subtle">
           <Container width="content">
             <section class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8">
-              <p class="ui-meta-label">Next</p>
+              <p class="ui-meta-label">Keep Reading</p>
 
               <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                 Follow the writing back into the work.
