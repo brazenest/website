@@ -39,18 +39,18 @@ export default component$(() => {
                 style="background: linear-gradient(90deg, #e40303, #ff8c00, #ffed00, #008026, #004dff, #750787);"
                 aria-hidden="true"
               />
-              <div class="flex flex-col gap-2">
+              <div class="flex flex-col gap-3">
+                <p class="ui-meta-label">Service Packages</p>
                 <h2
                   id="package-tiers-title"
-                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                  class="text-2xl font-extrabold tracking-tight text-[var(--heading-fg)] md:text-3xl"
                 >
-                  Three Entry Points, One Thoughtful Build Standard
+                  Three tiers, one performance standard.
                 </h2>
                 <p class="max-w-[60ch] text-base leading-7 text-[var(--muted)]">
-                  Every package starts with a performance-first foundation,
-                  clear positioning, and a practical path for visitors. The
-                  difference is depth: how much strategy, content structure,
-                  media, and ongoing support the project needs.
+                  Foundation ships fast. Growth adds depth and conversion architecture.
+                  Authority builds the long-term platform. All three share the same
+                  performance-first core.
                 </p>
               </div>
 
