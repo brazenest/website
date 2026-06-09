@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here.
 
+## v4.2.0 - 2026-06-09
+
+### Changed
+- Prepared public release metadata, package labels, README copy, and admin launch copy for v4.2.0.
+- Refined the active Bento Grid/Pride visual system release with updated layout and theme treatment.
+- Improved inverted CTA meta-label contrast so the “Next” label remains visible on case-study entry panels.
+
 ## v0.1.1 - 2026-05-26
 
 ### Added
