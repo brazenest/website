@@ -1,6 +1,6 @@
-# Personal Site v3.0.0
+# Personal Site v4.2.0
 
-Full-featured Qwik + Fastify production site for alden.dev.
+Full-featured Qwik + Fastify production site for aldengillespy.com.
 
 ### Implementation Complete
 
@@ -104,7 +104,7 @@ Then visit [http://localhost:3000/](http://localhost:3000/)
 - **Minification**: Currently disabled in production build
   - Reason: Workaround for Qwik SSG initialization incompatibility with esbuild
   - Impact: ~2-3x larger pre-gzip bundles; ~15-30 KB increase post-gzip
-  - Status: Stable and acceptable for v3.0.0; see [Performance Audit](./docs/performance-audit.md#18-task-138) for details
+  - Status: Stable and acceptable for v4.2.0; see [Performance Audit](./docs/performance-audit.md#18-task-138) for details
   - Future: Re-enable after investigating esbuild/Qwik root cause
 
 ### Blog Database Integration

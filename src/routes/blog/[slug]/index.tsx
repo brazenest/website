@@ -120,11 +120,11 @@ export default component$(() => {
                 <TextLink href="/blog" label="Back to blog" />
               </div>
 
-              <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                <span class="rounded-[var(--radius-pill)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2.5 py-1">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="ui-meta-label">
                   {getBlogSideLabel(post.value.side)}
                 </span>
-                <span>{formatBlogDate(post.value.publishedAt ?? post.value.createdAt)}</span>
+                <span class="text-xs text-[var(--muted)]">{formatBlogDate(post.value.publishedAt ?? post.value.createdAt)}</span>
               </div>
 
               <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
@@ -157,7 +157,7 @@ export default component$(() => {
         <Section spacing="compact" surface="subtle">
           <Container width="content">
             <section class="flex flex-col gap-4 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-6 md:gap-5 md:p-8">
-              <p class="ui-meta-label">Next</p>
+              <p class="ui-meta-label">Keep Reading</p>
 
               <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                 Follow the writing back into the work.

@@ -120,11 +120,12 @@ export default component$(() => {
                   {project.description}
                 </p>
 
-                <ul class="flex flex-wrap gap-2 pt-2">
-                  {project.techStack.map((tech) => (
+                <ul class="flex flex-wrap gap-2 pt-2" aria-label="Tech stack">
+                  {project.techStack.map((tech, i) => (
                     <li
                       key={tech}
-                      class="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-elevated)] px-2.5 py-1 text-xs font-medium text-[var(--fg)] md:text-sm"
+                      class="rounded-[var(--radius-pill)] border border-[var(--border-interactive)] bg-[var(--accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent)]"
+                      style={i % 3 === 2 ? "background: var(--surface-tint);" : ""}
                     >
                       {tech}
                     </li>
@@ -147,7 +148,7 @@ export default component$(() => {
                   index % 2 === 1 && "ui-case-study-section--reverse",
                 )}
               >
-                <div class="ui-case-study-copy flex flex-col gap-3 md:gap-4">
+                <div class={`ui-case-study-copy flex flex-col gap-3 md:gap-4${index === 0 ? " border-l-2 border-[var(--accent)] pl-5" : ""}`}>
                   <h2 class="text-2xl font-semibold tracking-tight md:text-3xl">
                     {section.title}
                   </h2>

@@ -4283,3 +4283,200 @@ a {
     will-change: auto;
   }
 }
+
+/* ==============================================
+   VARIANT 6: Pride — violet/rose/rainbow
+   ============================================== */
+[data-brand-theme="electric-graphite"] {
+  --mode-color-scheme: light;
+  --bg: #ffffff;
+  --fg: #0f0a1a;
+  --muted: #5e4a7a;
+  --border-subtle: rgba(15, 10, 26, 0.07);
+  --border-default: rgba(15, 10, 26, 0.13);
+  --border-strong: rgba(15, 10, 26, 0.32);
+  --surface-1: #ffffff;
+  --surface-2: #faf6ff;
+  --surface-3: #ffffff;
+  --surface-tint: #f0e8ff;
+  --surface-tint-strong: #e2d2ff;
+  --accent: #7c3cff;
+  --impact: #ff3d71;
+  --impact-fg: #ffffff;
+  --inversion-bg: #0f0a1a;
+  --inversion-fg: #ffffff;
+  --inversion-muted: #9d86c0;
+  --heading-fg: #0f0a1a;
+  --focus: #7c3cff;
+  --card-glow: rgba(124, 60, 255, 0.16);
+  --interactive-ring: var(--focus);
+  --primary: var(--accent);
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(124, 60, 255, 0.08);
+  --accent-soft-fg: #7c3cff;
+  --accent-hover: color-mix(in srgb, #7c3cff 88%, black);
+  --accent-active: color-mix(in srgb, #7c3cff 72%, black);
+  --accent-focus-ring: var(--focus);
+  --border-interactive: rgba(124, 60, 255, 0.22);
+  --border-interactive-hover: rgba(124, 60, 255, 0.42);
+  --link-color: #7c3cff;
+  --link-color-hover: #5720d4;
+  --link-color-visited: #9060ff;
+  --button-bg-primary: #7c3cff;
+  --button-fg-primary: #ffffff;
+  --button-bg-secondary: #ffffff;
+  --button-fg-secondary: #0f0a1a;
+  --button-bg-ghost: transparent;
+  --button-fg-ghost: #0f0a1a;
+  --tag-border: rgba(124, 60, 255, 0.2);
+  --tag-bg: rgba(124, 60, 255, 0.08);
+  --tag-fg: #7c3cff;
+  --meta-fg: var(--muted);
+  --card-surface: #ffffff;
+  --card-shadow: 0 1px 3px rgba(15,10,26,0.05), 8px 8px 0 rgba(124,60,255,0.1);
+  --card-shadow-hover: 0 2px 8px rgba(15,10,26,0.08), 10px 10px 0 rgba(124,60,255,0.18);
+  --rainbow-gradient: linear-gradient(90deg, #e40303 0%, #ff8c00 16.66%, #ffed00 33.33%, #008026 50%, #004dff 66.66%, #750787 83.33%, #e40303 100%);
+  --pride-pink: #ff3d71;
+  --pride-violet: #7c3cff;
+}
+
+[data-brand-theme="electric-graphite"] .ui-home-hero-points li::before {
+  background: var(--impact);
+}
+
+/* Pride: rainbow banner bar */
+.pride-rainbow-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--rainbow-gradient, linear-gradient(90deg, #e40303 0%, #ff8c00 16.66%, #ffed00 33.33%, #008026 50%, #004dff 66.66%, #750787 83.33%));
+}
+
+/* Pride: values section */
+.pride-values-section {
+  border-left: 3px solid transparent;
+  border-image: var(--rainbow-gradient) 1;
+  padding-left: 1.25rem;
+}
+
+/* ==============================================
+   VARIANT 4: Bento Grid — violet/white modular
+   ============================================== */
+[data-brand-theme="electric-graphite"] {
+  --mode-color-scheme: light;
+  --bg: #fafaff;
+  --fg: #0f0c20;
+  --muted: #5e5880;
+  --border-subtle: rgba(15, 12, 32, 0.06);
+  --border-default: rgba(15, 12, 32, 0.11);
+  --border-strong: rgba(15, 12, 32, 0.28);
+  --surface-1: #fafaff;
+  --surface-2: #f2eeff;
+  --surface-3: #ffffff;
+  --surface-tint: #e8deff;
+  --surface-tint-strong: #d8cbff;
+  --accent: #6c47ff;
+  --impact: #ff3d71;
+  --impact-fg: #ffffff;
+  --inversion-bg: #0f0c20;
+  --inversion-fg: #fafaff;
+  --inversion-muted: #9d96b8;
+  --heading-fg: #0f0c20;
+  --focus: #6c47ff;
+  --hero-gradient: linear-gradient(135deg, #f2eeff 0%, #fafaff 60%);
+  --card-glow: rgba(108, 71, 255, 0.16);
+  --interactive-ring: var(--focus);
+  --primary: var(--accent);
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(108, 71, 255, 0.1);
+  --accent-soft-fg: #6c47ff;
+  --accent-hover: color-mix(in srgb, #6c47ff 88%, black);
+  --accent-active: color-mix(in srgb, #6c47ff 72%, black);
+  --accent-focus-ring: var(--focus);
+  --border-interactive: rgba(108, 71, 255, 0.22);
+  --border-interactive-hover: rgba(108, 71, 255, 0.42);
+  --link-color: #6c47ff;
+  --link-color-hover: #4a2fe0;
+  --link-color-visited: #9060ff;
+  --button-bg-primary: #6c47ff;
+  --button-fg-primary: #ffffff;
+  --button-bg-secondary: #ffffff;
+  --button-fg-secondary: #0f0c20;
+  --tag-border: rgba(108, 71, 255, 0.2);
+  --tag-bg: rgba(108, 71, 255, 0.08);
+  --tag-fg: #6c47ff;
+  --meta-fg: var(--muted);
+  --card-surface: #ffffff;
+  --card-shadow: 0 1px 3px rgba(15,12,32,0.05), 0 4px 12px rgba(15,12,32,0.06);
+  --card-shadow-hover: 0 2px 6px rgba(15,12,32,0.08), 0 8px 24px rgba(108,71,255,0.12);
+  --radius-card: 1rem;
+  --radius-button: 0.75rem;
+  --radius-input: 0.625rem;
+}
+
+[data-brand-theme="electric-graphite"] .ui-hero-title,
+[data-brand-theme="electric-graphite"] .ui-home-hero-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  font-weight: 860;
+  letter-spacing: -0.02em;
+  line-height: 1.06;
+}
+
+[data-brand-theme="electric-graphite"] .ui-meta-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 0.2em 0.6em;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+[data-brand-theme="electric-graphite"]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-meta-label {
+  background: color-mix(in srgb, var(--inversion-fg) 12%, transparent);
+  color: var(--inversion-fg);
+}
+
+[data-brand-theme="electric-graphite"] .ui-editorial-frame {
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+[data-brand-theme="electric-graphite"] .ui-editorial-frame::after {
+  border-radius: var(--radius-card);
+  box-shadow: 0 4px 16px rgba(108, 71, 255, 0.14);
+}
+
+/* Bento: tile cards */
+.bento-tile {
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border-default);
+  background: var(--card-surface);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+.bento-tile--accent {
+  background: linear-gradient(135deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 70%, #8060ff) 100%);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.bento-tile--subtle {
+  background: var(--surface-2);
+  border-color: var(--border-subtle);
+}
