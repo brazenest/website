@@ -120,20 +120,11 @@ export default component$(() => {
                 <TextLink href="/blog" label="Back to blog" />
               </div>
 
-              <div class="flex flex-wrap items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
-                <span
-                  class="rounded-[var(--radius-pill)] px-2.5 py-1 font-semibold"
-                  style={
-                    post.value.side === "engineering"
-                      ? "background: rgba(124,60,255,0.1); color: #7c3cff; border: 1px solid rgba(124,60,255,0.22);"
-                      : post.value.side === "production"
-                        ? "background: rgba(255,61,113,0.1); color: #ff3d71; border: 1px solid rgba(255,61,113,0.22);"
-                        : "background: rgba(0,141,200,0.1); color: #0078b8; border: 1px solid rgba(0,141,200,0.22);"
-                  }
-                >
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="ui-meta-label">
                   {getBlogSideLabel(post.value.side)}
                 </span>
-                <span>{formatBlogDate(post.value.publishedAt ?? post.value.createdAt)}</span>
+                <span class="text-xs text-[var(--muted)]">{formatBlogDate(post.value.publishedAt ?? post.value.createdAt)}</span>
               </div>
 
               <h1 class="max-w-[16ch] text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
