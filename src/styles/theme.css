@@ -4382,6 +4382,24 @@ a {
   display: inline-block;
 }
 
+[data-brand-theme="electric-graphite"]
+  :is(
+    #about-next,
+    #resume-cta,
+    #package-cta,
+    #package-mid-cta,
+    #engineering-cta,
+    #production-cta,
+    #contact-cta,
+    #engineering-project-cta,
+    #production-project-cta,
+    #work-cta
+  ).ui-cta-panel
+  .ui-meta-label {
+  background: color-mix(in srgb, var(--inversion-fg) 12%, transparent);
+  color: var(--inversion-fg);
+}
+
 [data-brand-theme="electric-graphite"] .ui-editorial-frame {
   border-radius: var(--radius-card);
   overflow: hidden;
