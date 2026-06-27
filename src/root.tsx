@@ -14,7 +14,9 @@ import {
 import { StructuredData } from "~/components/seo/StructuredData";
 import { releaseInfo, releaseLabel } from "~/config/site";
 
-const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var query=window.matchMedia('(prefers-color-scheme: dark)');var apply=function(){var stored=window.localStorage.getItem(key);var system=query.matches?'dark':'light';var mode=stored==='dark'||stored==='light'?stored:system;document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();query.addEventListener('change',apply);window.addEventListener('storage',function(event){if(event.key===key){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
+// Light is the default for everyone; visitors only get dark by explicitly
+// choosing it (stored under `key`). We no longer silently follow the OS theme.
+const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var apply=function(){var stored=window.localStorage.getItem(key);var mode=stored==='dark'||stored==='light'?stored:'light';document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();window.addEventListener('storage',function(event){if(event.key===key){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
 
 export default component$(() => {
   useStyles$(fontInterStyles);

@@ -2,9 +2,7 @@ import { component$ } from '@builder.io/qwik'
 import { routeLoader$, type DocumentHead, type DocumentHeadProps, type DocumentMeta, type DocumentLink } from '@builder.io/qwik-city'
 import { ButtonLink } from '~/components/ui/ButtonLink'
 import { ArticleProse } from '~/components/content/ArticleProse'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
+import { AppShell } from '~/components/layout/AppShell'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { TextLink } from '~/components/ui/TextLink'
@@ -79,9 +77,7 @@ export default component$(() => {
 
   if (!post.value) {
     return (
-      <PageShell theme="neutral">
-        <Header />
-
+      <AppShell>
         <main id="main-content" class="flex-1">
           <Section spacing="spacious">
             <Container width="content">
@@ -100,17 +96,14 @@ export default component$(() => {
             </Container>
           </Section>
         </main>
-
-        <Footer />
-      </PageShell>
+      </AppShell>
     )
   }
 
   const bodyHtml = renderMarkdownToHtml(post.value.bodyMarkdown)
 
   return (
-    <PageShell theme="neutral">
-      <Header />
+    <AppShell>
 
       <main id="main-content" class="flex-1">
         <Section spacing="spacious">
@@ -188,7 +181,6 @@ export default component$(() => {
         </Section>
       </main>
 
-      <Footer />
-    </PageShell>
+    </AppShell>
   )
 })

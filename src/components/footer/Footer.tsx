@@ -323,7 +323,7 @@ export const Footer = component$(() => {
               <span>Alden Gillespy</span>
             </a>
             <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)]">
-              Software engineering and cinematic production, structured as one practice.
+              Builder, producer, and founder. Products, client work, and writing.
             </p>
           </div>
 
@@ -332,12 +332,12 @@ export const Footer = component$(() => {
             <nav aria-label="Footer" class="flex flex-col gap-2">
               {[
                 { href: '/', label: 'Home' },
-                { href: '/about', label: 'About' },
-                { href: '/work', label: 'Work' },
-                { href: '/blog', label: 'Blog' },
+                { href: '/for-hire', label: 'For Hire' },
                 { href: '/engineering', label: 'Engineering' },
                 { href: '/production', label: 'Production' },
                 { href: '/packages', label: 'Packages' },
+                { href: '/blog', label: 'Blog' },
+                { href: '/about', label: 'About' },
                 { href: '/contact', label: 'Contact' },
                 { href: '/resume', label: 'Resume' },
               ].map(({ href, label }) => (
@@ -355,7 +355,7 @@ export const Footer = component$(() => {
           <div class="flex flex-col gap-3">
             <p class="text-sm font-semibold tracking-tight">Contact</p>
             <p class="max-w-[30ch] text-sm leading-6 text-[var(--muted)]">
-              Engineering work, production inquiries, and selected opportunities.
+              Client projects, independent collaborations, and selected opportunities.
             </p>
             <div>
               <ContactInquiryModal triggerLabel="Start a project conversation" triggerVariant="text-link" />

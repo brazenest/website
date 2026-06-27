@@ -33,10 +33,10 @@ export const siteConfig: SiteConfig = {
   siteName: 'Alden Gillespy',
   siteUrl: 'https://aldengillespy.com', // Production domain
   defaultTitle:
-    'Alden Gillespy — Senior Software Engineer and Production Storyteller',
+    'Alden Gillespy — Builder, Producer, and Founder',
   titleTemplate: (title: string) => `${title} — Alden Gillespy`,
   defaultDescription:
-    'Senior software engineer and production storyteller building maintainable systems and grounded narrative work.',
+    'Software engineer, media producer, and independent founder building products, websites, and stories.',
   defaultOGImage: {
     url: '/assets/og-image.jpg',
     width: 1200,
@@ -50,11 +50,11 @@ export const siteConfig: SiteConfig = {
   personFullName: 'Alden Gillespy',
   personGivenName: 'Alden',
   personFamilyName: 'Gillespy',
-  canonicalIdentity: 'Alden Gillespy is a senior software engineer and production storyteller working across system design, implementation, and narrative production.',
-  canonicalRole: 'Senior software engineer and production storyteller',
+  canonicalIdentity: 'Alden Gillespy is a software engineer, media producer, and independent founder building products, websites, and stories.',
+  canonicalRole: 'Software engineer, media producer, and independent founder',
   personDescription:
-    'Senior software engineer and production storyteller connecting technical systems with disciplined creative execution.',
-  personJobTitle: 'Senior Software Engineer and Production Storyteller',
+    'Software engineer, media producer, and independent founder working across product development, web engineering, and narrative production.',
+  personJobTitle: 'Software Engineer, Media Producer, and Independent Founder',
   personImage: '/assets/og-image.jpg',
   personSameAs: [
     'https://www.linkedin.com/in/alden-gillespy/',

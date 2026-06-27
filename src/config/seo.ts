@@ -10,6 +10,7 @@ export const routePathnames: Record<SEOPageKey, string> = {
   about: "/about",
   resume: "/resume",
   work: "/work",
+  "for-hire": "/for-hire",
   blog: "/blog",
   contact: "/contact",
   packages: "/packages",
@@ -32,9 +33,9 @@ export const routePathnames: Record<SEOPageKey, string> = {
  */
 export const seoPresets: SEOPresetMap = {
   home: {
-    title: "Alden Gillespy — Websites, Web Systems & Video Production",
+    title: "Alden Gillespy — Builder, Producer, and Founder",
     description:
-      "Personal portfolio and professional services site for Alden Gillespy, a software engineer and video producer building websites, web systems, and visual stories.",
+      "Home base for Alden Gillespy — software engineer, media producer, and independent founder building products, websites, and stories.",
     type: "website",
     includeSitemap: true,
     changefreq: "weekly",
@@ -101,6 +102,16 @@ export const seoPresets: SEOPresetMap = {
       "Work — Web Systems, Engineering & Production Case Studies | Alden Gillespy",
     description:
       "Selected case studies across web systems, software engineering, and production, including project context, roles, and decisions behind the work.",
+    type: "website",
+    includeSitemap: false,
+    changefreq: "monthly",
+    priority: 0.9,
+  },
+  "for-hire": {
+    title:
+      "For Hire — Engineering & Production Client Work | Alden Gillespy",
+    description:
+      "Client work across web engineering and media production. Case studies, services, and how to start a project with Alden Gillespy.",
     type: "website",
     includeSitemap: true,
     changefreq: "monthly",

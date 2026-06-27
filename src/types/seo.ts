@@ -77,6 +77,7 @@ export type SEOPageKey =
   | 'about'
   | 'resume'
   | 'work'
+  | 'for-hire'
   | 'blog'
   | 'contact'
   | 'packages'

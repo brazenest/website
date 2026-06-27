@@ -2,9 +2,8 @@ import { component$, useVisibleTask$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { RequestTeardownForm } from "~/components/contact/RequestTeardownForm";
-import { ContactInquiryModal, Footer } from "~/components/footer/Footer";
-import { PageShell } from "~/components/layout/PageShell";
-import { Header } from "~/components/nav/Header";
+import { ContactInquiryModal } from "~/components/footer/Footer";
+import { AppShell } from "~/components/layout/AppShell";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
 import { contactPageContent } from "~/content/contact";
@@ -20,9 +19,7 @@ export default component$(() => {
   });
 
   return (
-    <PageShell theme="neutral">
-      <Header />
-
+    <AppShell>
       <main id="main-content" class="page-contact flex-1 scroll-mt-24">
         <Section spacing="spacious">
           <Container width="wide">
@@ -305,8 +302,6 @@ export default component$(() => {
           </Container>
         </Section>
       </main>
-
-      <Footer />
-    </PageShell>
+    </AppShell>
   );
 });

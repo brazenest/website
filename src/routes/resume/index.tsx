@@ -1,8 +1,6 @@
 import { $, component$ } from "@builder.io/qwik";
 import { useLocation, type DocumentHead } from "@builder.io/qwik-city";
-import { Footer } from "~/components/footer/Footer";
-import { PageShell } from "~/components/layout/PageShell";
-import { Header } from "~/components/nav/Header";
+import { AppShell } from "~/components/layout/AppShell";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
@@ -121,9 +119,7 @@ export default component$(() => {
   };
 
   return (
-    <PageShell theme="neutral" enableScrollReveal>
-      <Header />
-
+    <AppShell animateSections>
       <main id="main-content" class={`page-resume resume-page resume-mode-${printMode} flex-1 scroll-mt-24`}>
         <Section spacing="compact">
           <Container width="wide">
@@ -538,8 +534,6 @@ export default component$(() => {
           </Container>
         </Section>
       </main>
-
-      <Footer />
-    </PageShell>
+    </AppShell>
   );
 });
