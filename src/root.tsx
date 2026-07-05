@@ -15,12 +15,14 @@ import { StructuredData } from "~/components/seo/StructuredData";
 import { releaseInfo, releaseLabel } from "~/config/site";
 
 // The site follows the visitor's OS color scheme by default. An explicit choice
-// (stored under `key` as 'light' | 'dark') overrides it; 'system' or an absent
-// value falls back to `prefers-color-scheme`. This runs inline before paint to
-// avoid a flash of the wrong theme, and stays live if the OS theme or the stored
-// preference changes. Keep this logic in sync with ColorModeToggle /
-// ColorModeDevSetting.
-const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var mq=window.matchMedia('(prefers-color-scheme: dark)');var apply=function(){var stored=window.localStorage.getItem(key);var setting=stored==='dark'||stored==='light'||stored==='system'?stored:'system';var mode=setting==='system'?(mq.matches?'dark':'light'):setting;document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();mq.addEventListener('change',apply);window.addEventListener('storage',function(event){if(event.key===key){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
+// (stored under `key` as 'light' | 'dark', with the set-time under `tsKey`)
+// overrides it — but only for 24h: an explicit choice older than that is cleared
+// so the site returns to `prefers-color-scheme`. 'system' or an absent value
+// always follows the OS. Runs inline before paint to avoid a flash of the wrong
+// theme, and stays live on OS/storage changes. Keep this logic in sync with
+// ColorModeToggle / ColorModeDevSetting (COLOR_MODE_STORAGE_KEY / _SET_AT_KEY /
+// _MAX_AGE_MS).
+const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var tsKey='color-mode-dev-setting-set-at';var maxAge=86400000;var mq=window.matchMedia('(prefers-color-scheme: dark)');var apply=function(){var stored=window.localStorage.getItem(key);if(stored==='light'||stored==='dark'){var setAt=parseInt(window.localStorage.getItem(tsKey)||'0',10);if(setAt&&(Date.now()-setAt)>maxAge){window.localStorage.removeItem(key);window.localStorage.removeItem(tsKey);stored=null;}}var setting=stored==='dark'||stored==='light'||stored==='system'?stored:'system';var mode=setting==='system'?(mq.matches?'dark':'light'):setting;document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();mq.addEventListener('change',apply);window.addEventListener('storage',function(event){if(event.key===key||event.key===tsKey){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
 
 export default component$(() => {
   useStyles$(fontInterStyles);
@@ -70,7 +72,7 @@ export const DocumentRouterHead = component$(() => {
   return (
     <>
       {/* Title from route metadata (includes template formatting) */}
-      <title>{head.title || "Personal Site v4.3.0"}</title>
+      <title>{head.title || "Personal Site v4.3.1"}</title>
 
       {/* Meta tags: description, canonical, OG, Twitter, article metadata */}
       {head.meta.map((meta) => (
