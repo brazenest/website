@@ -1,0 +1,29 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	// Cloudflare Pages project name. Must match the project you create with
+	// `wrangler pages project create <name>` (or in the Cloudflare dashboard).
+	"name": "aldengillespy-website",
+	// A recent date is required for `nodejs_compat` (Node.js built-in polyfills
+	// used by `pg`). Keep this at or after 2024-09-23.
+	"compatibility_date": "2025-04-01",
+	// nodejs_compat gives the Workers runtime Node built-ins (net/tls/crypto/etc.)
+	// needed by `pg` (Postgres over cloudflare:sockets). Bindings/secrets reach
+	// server code via getRuntimeEnv() (see src/lib/server/runtimeEnv.ts), not
+	// process.env, so no process-env population flag is required.
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	// The client + `_worker.js` produced by `npm run build.cloudflare`.
+	"pages_build_output_dir": "./dist",
+	// Hyperdrive pools + caches connections to your Postgres from the edge.
+	// Create it once with:
+	//   wrangler hyperdrive create aldengillespy-db --connection-string="postgres://USER:PASS@HOST:5432/DB"
+	// then paste the returned id below. For local `wrangler pages dev`, set
+	// WRANGLER_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE in .dev.vars.
+	"hyperdrive": [
+		{
+			"binding": "HYPERDRIVE",
+			"id": "cde19f696c6f495bacc0d1af8217d112"
+		}
+	]
+}

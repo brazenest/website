@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@11.10.0",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -12,6 +12,11 @@
     "build.client": "vite build",
     "build.preview": "vite build --ssr src/entry.preview.tsx",
     "build.server": "qwik check-client src dist && vite build -c adapters/fastify/vite.config.ts",
+    "build.cloudflare": "npm run build.cloudflare.client && npm run build.cloudflare.server",
+    "build.cloudflare.client": "node scripts/with-env.mjs .env.production -- vite build",
+    "build.cloudflare.server": "node scripts/with-env.mjs .env.production -- vite build -c adapters/cloudflare-pages/vite.config.ts && node scripts/fix-cloudflare-worker.mjs",
+    "deploy.cloudflare": "wrangler pages deploy dist",
+    "preview.cloudflare": "wrangler pages dev dist",
     "build.types": "tsc --noEmit",
     "dev": "node scripts/with-env.mjs .env.development -- vite --mode ssr",
     "fmt": "prettier --write .",
@@ -44,11 +49,10 @@
     "typescript": "5.4.5",
     "typescript-eslint": "8.38.0",
     "vite": "7.3.1",
-    "vite-tsconfig-paths": "^4.2.1"
+    "vite-tsconfig-paths": "^4.2.1",
+    "wrangler": "^4.42.0"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.1053.0",
-    "@aws-sdk/client-sesv2": "^3.1054.0",
     "@fastify/compress": "^8.3.1",
     "@fastify/static": "^9.1.3",
     "@fontsource-variable/inter": "^5.2.8",

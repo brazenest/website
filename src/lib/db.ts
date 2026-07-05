@@ -1,8 +1,18 @@
-import { Pool, type PoolConfig, type QueryResultRow } from 'pg'
+import { Client, Pool, type PoolConfig, type QueryResultRow } from 'pg'
+import { getRuntimeEnv } from '~/lib/server/runtimeEnv'
 
 export type QueryValue = string | number | boolean | Date | null
 
 let pool: Pool | undefined
+
+/**
+ * On the Cloudflare Workers runtime, sockets cannot be reused across requests,
+ * so a long-lived module-scoped `Pool` is invalid. Detect Workers and open a
+ * short-lived `Client` per query instead (connections are pooled upstream by
+ * Hyperdrive). The Node.js/Fastify path keeps the shared `Pool`.
+ */
+const isCloudflareWorkers =
+  typeof navigator !== 'undefined' && navigator.userAgent === 'Cloudflare-Workers'
 
 function assertServerSide() {
   if (!import.meta.env.SSR) {
@@ -11,7 +21,7 @@ function assertServerSide() {
 }
 
 function getDatabaseUrl() {
-  const databaseUrl = process.env.DATABASE_URL?.trim()
+  const databaseUrl = getRuntimeEnv('DATABASE_URL')?.trim()
 
   if (!databaseUrl) {
     throw new Error('DATABASE_URL must be set before using PostgreSQL blog helpers.')
@@ -21,7 +31,7 @@ function getDatabaseUrl() {
 }
 
 function getSslMode(databaseUrl: string) {
-  const envSslMode = process.env.PGSSLMODE?.trim().toLowerCase()
+  const envSslMode = getRuntimeEnv('PGSSLMODE')?.trim().toLowerCase()
 
   if (envSslMode) {
     return envSslMode
@@ -52,7 +62,7 @@ function getPoolConfig(): PoolConfig {
   const databaseUrl = getDatabaseUrl()
   const sslMode = getSslMode(databaseUrl)
   const rejectUnauthorized =
-    process.env.PGSSLREJECTUNAUTHORIZED?.trim().toLowerCase() === 'true'
+    getRuntimeEnv('PGSSLREJECTUNAUTHORIZED')?.trim().toLowerCase() === 'true'
 
   return {
     connectionString: getConnectionString(databaseUrl, sslMode),
@@ -65,7 +75,7 @@ function getPoolConfig(): PoolConfig {
       : (sslMode === 'verify-ca' || sslMode === 'verify-full')
         ? {
           ssl: {
-            rejectUnauthorized: process.env.PGSSLREJECTUNAUTHORIZED !== 'false',
+            rejectUnauthorized: getRuntimeEnv('PGSSLREJECTUNAUTHORIZED') !== 'false',
           },
         }
         : {}),
@@ -83,5 +93,17 @@ function getPool() {
 }
 
 export async function query<T extends QueryResultRow>(text: string, values: QueryValue[] = []) {
+  assertServerSide()
+
+  if (isCloudflareWorkers) {
+    const client = new Client(getPoolConfig())
+    await client.connect()
+    try {
+      return await client.query<T>(text, values)
+    } finally {
+      await client.end()
+    }
+  }
+
   return getPool().query<T>(text, values)
 }

@@ -1,69 +1,29 @@
-import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2'
 import { siteConfig } from '~/config/site'
+import { sendEmail } from '~/lib/server/email/sendEmail'
+import { getRuntimeEnv } from '~/lib/server/runtimeEnv'
 import type { ContactFormInput } from './contactForm'
 
 const CONTACT_FORM_TO_EMAIL_ENV = 'CONTACT_FORM_TO_EMAIL'
 const CONTACT_FORM_FROM_EMAIL_ENV = 'CONTACT_FORM_FROM_EMAIL'
 const CONTACT_FORM_SUBJECT_PREFIX_ENV = 'CONTACT_FORM_SUBJECT_PREFIX'
 
-let client: SESv2Client | undefined
-
 export async function sendContactInquiry(input: ContactFormInput) {
   const toEmail = getRequiredEnvValue(CONTACT_FORM_TO_EMAIL_ENV)
   const fromEmail = getRequiredEnvValue(CONTACT_FORM_FROM_EMAIL_ENV)
-  const subjectPrefix = process.env[CONTACT_FORM_SUBJECT_PREFIX_ENV]?.trim() || siteConfig.siteName
+  const subjectPrefix = getRuntimeEnv(CONTACT_FORM_SUBJECT_PREFIX_ENV)?.trim() || siteConfig.siteName
 
-  await getClient().send(
-    new SendEmailCommand({
-      FromEmailAddress: fromEmail,
-      Destination: {
-        ToAddresses: [toEmail],
-      },
-      ReplyToAddresses: [input.email],
-      Content: {
-        Simple: {
-          Subject: {
-            Data: `${subjectPrefix}: ${input.inquiryType} from ${input.name}`,
-            Charset: 'UTF-8',
-          },
-          Body: {
-            Text: {
-              Data: buildTextBody(input),
-              Charset: 'UTF-8',
-            },
-            Html: {
-              Data: buildHtmlBody(input),
-              Charset: 'UTF-8',
-            },
-          },
-        },
-      },
-    }),
-  )
-}
-
-function getClient() {
-  if (!client) {
-    client = new SESv2Client({
-      region: getAwsRegion(),
-    })
-  }
-
-  return client
-}
-
-function getAwsRegion() {
-  const region = process.env.AWS_REGION?.trim() || process.env.AWS_DEFAULT_REGION?.trim()
-
-  if (!region) {
-    throw new Error('AWS_REGION or AWS_DEFAULT_REGION must be set for the contact form.')
-  }
-
-  return region
+  await sendEmail({
+    from: fromEmail,
+    to: [toEmail],
+    replyTo: [input.email],
+    subject: `${subjectPrefix}: ${input.inquiryType} from ${input.name}`,
+    text: buildTextBody(input),
+    html: buildHtmlBody(input),
+  })
 }
 
 function getRequiredEnvValue(name: string) {
-  const value = process.env[name]?.trim()
+  const value = getRuntimeEnv(name)?.trim()
 
   if (!value) {
     throw new Error(`${name} must be set for the contact form.`)
