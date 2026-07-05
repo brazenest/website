@@ -5,7 +5,6 @@ type ColorMode = "light" | "dark";
 type ColorModeSetting = "system" | ColorMode;
 
 const STORAGE_KEY = "color-mode-dev-setting";
-const SET_AT_KEY = "color-mode-dev-setting-set-at";
 
 const getSystemColorMode = (): ColorMode => {
   return window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -106,13 +105,10 @@ export const ColorModeDevSetting = component$(() => {
                 setting.value = option.value;
                 if (option.value === "system") {
                   window.localStorage.removeItem(STORAGE_KEY);
-                  window.localStorage.removeItem(SET_AT_KEY);
                   effectiveMode.value = getSystemColorMode();
                 } else {
-                  // Time-stamp the explicit choice; the boot script expires it
-                  // after 24h so the site returns to following the OS.
+                  // Explicit choice; persists indefinitely until changed.
                   window.localStorage.setItem(STORAGE_KEY, option.value);
-                  window.localStorage.setItem(SET_AT_KEY, String(Date.now()));
                   effectiveMode.value = option.value;
                 }
                 applyColorMode(effectiveMode.value);
