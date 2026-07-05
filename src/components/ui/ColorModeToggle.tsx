@@ -12,18 +12,34 @@ type ColorModeToggleProps = {
 }
 
 /**
- * Visible light/dark switch. Defaults to light (see root.tsx color-mode
- * script); choosing dark persists to localStorage under STORAGE_KEY, which the
- * inline boot script reads on every load to avoid a flash of the wrong theme.
+ * Visible light/dark switch. By default the site follows the OS color scheme
+ * (see the root.tsx boot script); clicking this sets an explicit override that
+ * persists to localStorage under STORAGE_KEY, which the boot script reads on
+ * every load to avoid a flash of the wrong theme. (To return to "follow system"
+ * use the System control on the admin display-mode panel.)
  */
 export const ColorModeToggle = component$(
   ({ compact = false, class: className }: ColorModeToggleProps) => {
     const mode = useSignal<ColorMode>('light')
 
     // eslint-disable-next-line qwik/no-use-visible-task
-    useVisibleTask$(() => {
-      mode.value =
-        document.documentElement.dataset.colorMode === 'dark' ? 'dark' : 'light'
+    useVisibleTask$(({ cleanup }) => {
+      const syncFromDocument = () => {
+        mode.value =
+          document.documentElement.dataset.colorMode === 'dark' ? 'dark' : 'light'
+      }
+
+      syncFromDocument()
+
+      // Keep the icon in sync when the boot script updates the effective mode —
+      // e.g. the OS theme changes while following system, or another tab
+      // changes the stored preference.
+      const observer = new MutationObserver(syncFromDocument)
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-color-mode'],
+      })
+      cleanup(() => observer.disconnect())
     })
 
     const toggle = $(() => {

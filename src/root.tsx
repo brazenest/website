@@ -14,9 +14,13 @@ import {
 import { StructuredData } from "~/components/seo/StructuredData";
 import { releaseInfo, releaseLabel } from "~/config/site";
 
-// Light is the default for everyone; visitors only get dark by explicitly
-// choosing it (stored under `key`). We no longer silently follow the OS theme.
-const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var apply=function(){var stored=window.localStorage.getItem(key);var mode=stored==='dark'||stored==='light'?stored:'light';document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();window.addEventListener('storage',function(event){if(event.key===key){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
+// The site follows the visitor's OS color scheme by default. An explicit choice
+// (stored under `key` as 'light' | 'dark') overrides it; 'system' or an absent
+// value falls back to `prefers-color-scheme`. This runs inline before paint to
+// avoid a flash of the wrong theme, and stays live if the OS theme or the stored
+// preference changes. Keep this logic in sync with ColorModeToggle /
+// ColorModeDevSetting.
+const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var mq=window.matchMedia('(prefers-color-scheme: dark)');var apply=function(){var stored=window.localStorage.getItem(key);var setting=stored==='dark'||stored==='light'||stored==='system'?stored:'system';var mode=setting==='system'?(mq.matches?'dark':'light'):setting;document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();mq.addEventListener('change',apply);window.addEventListener('storage',function(event){if(event.key===key){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
 
 export default component$(() => {
   useStyles$(fontInterStyles);
