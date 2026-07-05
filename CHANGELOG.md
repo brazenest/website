@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented here.
 
+## v4.3.3 - 2026-07-05
+
+### Fixed
+- Sitemap discovery: `/sitemap.xml` served an empty `<urlset>` in production
+  (Google reported a missing `url` tag). Qwik City's SSG was auto-generating an
+  empty `sitemap.xml` (this SSR-only site prerenders no pages) that shadowed the
+  dynamic sitemap route on Cloudflare Pages. Disabled the SSG sitemap
+  (`ssg.sitemapOutFile: null`) so the route owns `/sitemap.xml`.
+- `/robots.txt`: removed an empty static `public/robots.txt` that could shadow
+  the dynamic robots route, which meant crawlers could receive a blank file with
+  no `Sitemap:` directive.
+
+### Added
+- Sitemap now includes engineering and production project case-study pages and
+  published blog posts (with `lastmod`), in addition to the core pages. Blog
+  entries degrade gracefully if the database is unavailable.
+
+### Internal
+- Removed the deprecated `baseUrl` from `tsconfig.json` (removed in TypeScript
+  7.0); path aliases now resolve via relative `paths` under
+  `moduleResolution: "Bundler"`.
+
 ## v4.3.2 - 2026-07-05
 
 ### Added

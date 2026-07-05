@@ -49,6 +49,19 @@ export default extendConfig(baseConfig, () => {
         },
       },
     },
-    plugins: [cloudflarePagesAdapter()],
+    plugins: [
+      cloudflarePagesAdapter({
+        // This site is SSR-only (no pages are statically prerendered), so keep
+        // SSG from generating anything. Critically, `sitemapOutFile: null`
+        // disables Qwik's built-in SSG sitemap generator, which otherwise
+        // writes an EMPTY dist/sitemap.xml (it lists only prerendered pages, of
+        // which there are none) that shadows our dynamic /sitemap.xml route on
+        // Cloudflare Pages — static assets are served before Functions run.
+        ssg: {
+          include: [],
+          sitemapOutFile: null,
+        },
+      }),
+    ],
   };
 });
