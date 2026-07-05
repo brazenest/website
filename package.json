@@ -26,6 +26,7 @@
     "serve:production": "node scripts/with-env.mjs .env.production -- node scripts/serve-built.mjs",
     "start": "node scripts/with-env.mjs .env.development -- vite --mode ssr",
     "test:visual": "node scripts/visual-smoke.mjs",
+    "setup:blog-db": "tsx scripts/setup-blog-db.ts",
     "qwik": "qwik"
   },
   "devDependencies": {
