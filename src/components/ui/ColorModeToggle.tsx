@@ -2,9 +2,9 @@ import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { cn } from '~/fns/cn'
 
 const STORAGE_KEY = 'color-mode-dev-setting'
-const SET_AT_KEY = 'color-mode-dev-setting-set-at'
 
 type ColorMode = 'light' | 'dark'
+type ColorModeSetting = 'system' | ColorMode
 
 type ColorModeToggleProps = {
   /** Icon-only rendering for tight spaces (e.g. the mobile topbar). */
@@ -12,73 +12,137 @@ type ColorModeToggleProps = {
   class?: string
 }
 
+const SETTINGS: ReadonlyArray<{
+  value: ColorModeSetting
+  label: string
+  icon: string
+}> = [
+  { value: 'system', label: 'System', icon: '◐' },
+  { value: 'light', label: 'Light', icon: '☀' },
+  { value: 'dark', label: 'Dark', icon: '☾' },
+]
+
+const getSystemMode = (): ColorMode =>
+  window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+
+const readSetting = (): ColorModeSetting => {
+  const stored = window.localStorage.getItem(STORAGE_KEY)
+  return stored === 'light' || stored === 'dark' || stored === 'system'
+    ? stored
+    : 'system'
+}
+
+const persistSetting = (setting: ColorModeSetting) => {
+  try {
+    if (setting === 'system') {
+      window.localStorage.removeItem(STORAGE_KEY)
+    } else {
+      window.localStorage.setItem(STORAGE_KEY, setting)
+    }
+  } catch {
+    /* localStorage unavailable (private mode) — runtime switch still works */
+  }
+}
+
+const applySetting = (setting: ColorModeSetting) => {
+  const mode: ColorMode = setting === 'system' ? getSystemMode() : setting
+  document.documentElement.dataset.colorMode = mode
+  document.documentElement.style.colorScheme = mode
+}
+
 /**
- * Visible light/dark switch. By default the site follows the OS color scheme
- * (see the root.tsx boot script); clicking this sets an explicit override that
- * persists to localStorage under STORAGE_KEY, which the boot script reads on
- * every load to avoid a flash of the wrong theme. The override is time-stamped
- * (SET_AT_KEY) and the boot script expires it after 24h so the site returns to
- * following the OS. (To return to "follow system" immediately, use the System
- * control on the admin display-mode panel.)
+ * Visible color-mode control offering three choices: System, Light, and Dark.
+ * By default (and whenever "System" is chosen) the site follows the OS color
+ * scheme via the root.tsx boot script; picking Light or Dark writes an explicit,
+ * indefinitely-persisted override to localStorage under STORAGE_KEY, which the
+ * boot script reads on every load to avoid a flash of the wrong theme. Choosing
+ * "System" clears the override and returns to following the OS.
+ *
+ * - Full form (`compact` off): a segmented three-option control.
+ * - Compact form (`compact` on): a single icon button that cycles
+ *   System → Light → Dark → System, for tight spaces like the mobile topbar.
  */
 export const ColorModeToggle = component$(
   ({ compact = false, class: className }: ColorModeToggleProps) => {
-    const mode = useSignal<ColorMode>('light')
+    const setting = useSignal<ColorModeSetting>('system')
 
     // eslint-disable-next-line qwik/no-use-visible-task
     useVisibleTask$(({ cleanup }) => {
-      const syncFromDocument = () => {
-        mode.value =
-          document.documentElement.dataset.colorMode === 'dark' ? 'dark' : 'light'
+      setting.value = readSetting()
+
+      // Keep the control in sync when another tab changes the stored preference.
+      const onStorage = (event: StorageEvent) => {
+        if (event.key === STORAGE_KEY || event.key === null) {
+          setting.value = readSetting()
+        }
       }
-
-      syncFromDocument()
-
-      // Keep the icon in sync when the boot script updates the effective mode —
-      // e.g. the OS theme changes while following system, or another tab
-      // changes the stored preference.
-      const observer = new MutationObserver(syncFromDocument)
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['data-color-mode'],
-      })
-      cleanup(() => observer.disconnect())
+      window.addEventListener('storage', onStorage)
+      cleanup(() => window.removeEventListener('storage', onStorage))
     })
 
-    const toggle = $(() => {
-      const next: ColorMode = mode.value === 'dark' ? 'light' : 'dark'
-      mode.value = next
-      try {
-        window.localStorage.setItem(STORAGE_KEY, next)
-        window.localStorage.setItem(SET_AT_KEY, String(Date.now()))
-      } catch {
-        /* localStorage unavailable (private mode) — runtime toggle still works */
-      }
-      document.documentElement.dataset.colorMode = next
-      document.documentElement.style.colorScheme = next
+    const select = $((next: ColorModeSetting) => {
+      setting.value = next
+      persistSetting(next)
+      applySetting(next)
     })
 
-    const isDark = mode.value === 'dark'
-    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode'
+    if (compact) {
+      const current = SETTINGS.find((s) => s.value === setting.value) ?? SETTINGS[0]
+      const nextIndex = (SETTINGS.indexOf(current) + 1) % SETTINGS.length
+      const next = SETTINGS[nextIndex]
+      const label = `Color mode: ${current.label}. Switch to ${next.label}.`
+
+      return (
+        <button
+          type="button"
+          onClick$={() => select(next.value)}
+          aria-label={label}
+          title={label}
+          class={cn(
+            'inline-flex h-9 w-9 items-center justify-center rounded-[var(--radius-button)] border border-[var(--border)] bg-[var(--surface-elevated)] text-base font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:bg-[var(--surface-interactive)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2',
+            className,
+          )}
+        >
+          <span aria-hidden="true" class="leading-none">
+            {current.icon}
+          </span>
+        </button>
+      )
+    }
 
     return (
-      <button
-        type="button"
-        onClick$={toggle}
-        aria-label={label}
-        aria-pressed={isDark}
-        title={label}
+      <div
+        role="group"
+        aria-label="Color mode"
         class={cn(
-          'inline-flex items-center justify-center gap-2 rounded-[var(--radius-button)] border border-[var(--border)] bg-[var(--surface-elevated)] text-sm font-medium text-[var(--fg)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:bg-[var(--surface-interactive)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2',
-          compact ? 'h-9 w-9' : 'w-full px-3 py-2',
+          'grid grid-cols-3 gap-1 rounded-[var(--radius-button)] border border-[var(--border)] bg-[var(--surface-elevated)] p-1',
           className,
         )}
       >
-        <span aria-hidden="true" class="text-base leading-none">
-          {isDark ? '☀' : '☾'}
-        </span>
-        {!compact && <span>{isDark ? 'Light mode' : 'Dark mode'}</span>}
-      </button>
+        {SETTINGS.map((option) => {
+          const isSelected = setting.value === option.value
+          return (
+            <button
+              key={option.value}
+              type="button"
+              onClick$={() => select(option.value)}
+              aria-pressed={isSelected}
+              title={`${option.label} mode`}
+              class={cn(
+                'inline-flex items-center justify-center gap-1.5 rounded-[calc(var(--radius-button)-0.25rem)] px-2 py-1.5 text-xs font-medium transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2',
+                isSelected
+                  ? 'bg-[var(--accent)] text-[var(--accent-fg)]'
+                  : 'text-[var(--muted)] hover:bg-[var(--surface-interactive)] hover:text-[var(--fg)]',
+              )}
+            >
+              <span aria-hidden="true" class="text-sm leading-none">
+                {option.icon}
+              </span>
+              <span>{option.label}</span>
+            </button>
+          )
+        })}
+      </div>
     )
   },
 )

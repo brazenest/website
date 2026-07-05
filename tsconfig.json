@@ -14,10 +14,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "types": ["node"],
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "~/*": ["src/*"]
+      "@/*": ["./src/*"],
+      "~/*": ["./src/*"]
     }
   },
   "include": ["src", "*.d.ts", "*.config.ts"]

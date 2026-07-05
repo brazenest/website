@@ -199,13 +199,13 @@ export default component$(() => {
                 <div class="flex flex-col gap-3 md:gap-4">
                   <div class="resume-print-portrait ui-editorial-frame aspect-[4/5] w-full max-w-[13rem]">
                     <img
-                      src="/media/about/alden-portrait.jpg"
+                      src="/media/about/alden-portrait-aspens.jpg"
                       alt="Portrait of Alden Gillespy."
                       width={720}
                       height={900}
                       loading="lazy"
                       class="h-full w-full object-cover"
-                      style={{ objectPosition: "52% 34%" }}
+                      style={{ objectPosition: "50% 30%" }}
                     />
                   </div>
                 </div>

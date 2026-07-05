@@ -65,7 +65,7 @@ export default component$(() => {
                           height={900}
                           loading="lazy"
                           class="h-full w-full object-cover"
-                          style={{ objectPosition: '52% 34%' }}
+                          style={{ objectPosition: '50% 30%' }}
                         />
                       </div>
                     ) : null}
