@@ -101,8 +101,9 @@ export default component$(() => {
                   Things I'm building.
                 </h2>
                 <p class="max-w-[56ch] text-base leading-7 text-[var(--muted)]">
-                  Products, platforms, and experiments I'm developing
-                  independently. Each lives on its own domain — this is the map.
+                  Products, platforms, and experiments I'm building under Radiant
+                  Ventures, my holding company for independent work. Each lives on
+                  its own domain — this is the map.
                 </p>
               </div>
               <IndependentProjectGrid projects={independentProjects} />
