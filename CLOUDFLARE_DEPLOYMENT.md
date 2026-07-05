@@ -69,22 +69,21 @@ this repo. Set:
 After this, pushes to `main` build production and pushes to `dev` build a preview
 automatically.
 
-**2. Environment variables & secrets — set for BOTH environments.**
-Project → Settings → Environment variables & secrets. There are separate
-**Production** and **Preview** columns — add the values to each (mark the
-sensitive ones as *Secret*):
+**2. Environment variables & secrets.**
+IMPORTANT: because this repo has a `wrangler.jsonc`, Pages treats it as the source
+of truth for **plain variables** and *wipes any plain variables set in the
+dashboard* — only **Secrets** (encrypted) survive there. So config is split:
 
-| Variable | Production | Preview |
-| --- | --- | --- |
-| `ORIGIN` | `https://aldengillespy.com` | `https://dev.aldengillespy.com` |
-| `RESEND_API_KEY` | secret | secret |
-| `CONTACT_FORM_FROM_EMAIL` | verified sender | verified sender |
-| `CONTACT_FORM_TO_EMAIL` | inbox | inbox |
-| `CONTACT_FORM_SUBJECT_PREFIX` | e.g. `Website contact` | e.g. `[dev] contact` |
-| `ADMIN_BASIC_AUTH_USERNAME` | secret | secret |
-| `ADMIN_BASIC_AUTH_PASSWORD` | secret | secret |
+- **Non-secret vars → `wrangler.jsonc` `vars`** (already committed, version-
+  controlled, per-environment): `ORIGIN`, `CONTACT_FORM_TO_EMAIL`,
+  `CONTACT_FORM_FROM_EMAIL`, `CONTACT_FORM_SUBJECT_PREFIX`. Edit them there.
+- **Secrets → dashboard** (Settings → Environment variables and secrets → add as
+  *Secret*, for **both** Production and Preview): `RESEND_API_KEY`,
+  `ADMIN_BASIC_AUTH_USERNAME`, `ADMIN_BASIC_AUTH_PASSWORD`.
 
-`DATABASE_URL` is NOT set here — it comes from the Hyperdrive binding.
+Do NOT set the non-secret keys as dashboard variables — they'll be wiped. Do not
+duplicate a key in both places. `DATABASE_URL` is NOT set anywhere — it comes
+from the Hyperdrive binding.
 
 **3. Hyperdrive (production + a separate free dev database).** `wrangler.jsonc`
 is already set up for two databases: the top-level `HYPERDRIVE` binding →
