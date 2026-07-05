@@ -2,6 +2,9 @@ import { component$, useSignal } from "@builder.io/qwik";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { cn } from "~/fns/cn";
 
+const MOBILE_LINK_CLASS =
+  "rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]";
+
 export const MobileMenu = component$(() => {
   const isOpen = useSignal(false);
 
@@ -48,58 +51,17 @@ export const MobileMenu = component$(() => {
           aria-label="Mobile"
           class="mx-auto flex max-w-[80rem] flex-col px-4 py-4 md:px-8"
         >
-          <a
-            href="/"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            Home
-          </a>
-          <a
-            href="/about"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            About
-          </a>
-          <a
-            href="/work"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            Work
-          </a>
-          <a
-            href="/blog"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            Blog
-          </a>
-          <a
-            href="/packages"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            Packages
-          </a>
-          <a
-            href="/contact"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            Contact
-          </a>
-          <a
-            href="/engineering"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            Engineering
-          </a>
-          <a
-            href="/production"
-            class="rounded-[var(--radius-lg)] py-3 text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-          >
-            Production
-          </a>
+          <a href="/" class={MOBILE_LINK_CLASS}>Home</a>
+          <a href="/for-hire" class={MOBILE_LINK_CLASS}>For Hire</a>
+          <a href="/engineering" class={MOBILE_LINK_CLASS}>Engineering</a>
+          <a href="/production" class={MOBILE_LINK_CLASS}>Production</a>
+          <a href="/blog" class={MOBILE_LINK_CLASS}>Blog</a>
+          <a href="/about" class={MOBILE_LINK_CLASS}>About</a>
+          <a href="/contact" class={MOBILE_LINK_CLASS}>Contact</a>
           <div class="border-t border-[var(--border)] pt-4">
             <ButtonLink
               href="/contact"
-              label="Start a Project"
+              label="Work With Me"
               variant="primary"
               class="w-full"
             />

@@ -10,7 +10,7 @@ import { engineeringProjects } from "~/content/engineering/projects";
 import { productionProjects } from "~/content/production/projects";
 import { staticHeads } from "~/fns/seo/staticHeads";
 
-export const head: DocumentHead = staticHeads.work;
+export const head: DocumentHead = staticHeads["for-hire"];
 
 export default component$(() => {
   return (
@@ -19,16 +19,21 @@ export default component$(() => {
         <Section spacing="spacious">
           <Container width="wide">
             <div class="flex flex-col gap-3 md:gap-4">
-              <p class="ui-meta-label">Selected Work</p>
+              <p class="ui-meta-label">For Hire</p>
               <h1 class="text-4xl font-semibold tracking-tight leading-tight md:text-5xl">
-                A few projects across web systems, software, and media.
+                Client work across web engineering and media production.
               </h1>
               <p class="max-w-[56ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                These case studies show the context, the role I held, and the
-                decisions behind the work. Some are technical systems. Some are
-                production pieces. The common thread is careful structure and a
-                bias toward work that stays useful after the first handoff.
+                I work with independent professionals, small teams, and
+                founder-led projects. These case studies show the context, the
+                role I held, and the decisions that shaped the outcome. A
+                careful structure and a bias toward work that stays useful after
+                the first handoff.
               </p>
+              <div class="flex flex-wrap gap-3 pt-2">
+                <ButtonLink href="/contact" label="Start a Project" variant="primary" />
+                <ButtonLink href="/packages" label="Compare Packages" variant="secondary" />
+              </div>
             </div>
           </Container>
         </Section>
@@ -106,7 +111,7 @@ export default component$(() => {
         <Section spacing="compact">
           <Container width="content">
             <section
-              id="work-cta"
+              id="for-hire-cta"
               class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
               data-scroll-reveal
             >

@@ -3,10 +3,8 @@ import type { DocumentHead } from "@builder.io/qwik-city";
 import { ProjectGrid } from "~/components/engineering/ProjectGrid";
 import { EngineeringCTASection } from "~/components/engineering/EngineeringCTASection";
 import { SystemThinkingSection } from "~/components/engineering/SystemThinkingSection";
-import { Footer } from "~/components/footer/Footer";
 import { EngineeringHero } from "~/components/hero/EngineeringHero";
-import { PageShell } from "~/components/layout/PageShell";
-import { Header } from "~/components/nav/Header";
+import { AppShell } from "~/components/layout/AppShell";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
 import { engineeringHeroContent } from "~/content/engineering/hero";
@@ -17,8 +15,7 @@ export const head: DocumentHead = staticHeads.engineering;
 
 export default component$(() => {
   return (
-    <PageShell theme="engineering">
-      <Header />
+    <AppShell>
       <main id="main-content" class="flex-1 p-0">
         <EngineeringHero {...engineeringHeroContent} />
 
@@ -59,7 +56,6 @@ export default component$(() => {
         <SystemThinkingSection />
         <EngineeringCTASection />
       </main>
-      <Footer />
-    </PageShell>
+    </AppShell>
   );
 });

@@ -225,6 +225,17 @@ export type PackageHeroContent = {
   visual?: MediaAsset;
 };
 
+export type IndependentProject = {
+  id: string;
+  name: string;
+  tagline: string;
+  description?: string;
+  href: string;
+  image?: string;
+  category?: string;
+  status?: 'active' | 'beta' | 'building' | 'paused';
+};
+
 export type ContactMethod = {
   label: string;
   value: string;

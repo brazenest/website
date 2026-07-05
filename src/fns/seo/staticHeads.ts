@@ -59,6 +59,13 @@ export const staticHeads = {
     })
   ),
 
+  "for-hire": metadataToDocumentHead(
+    buildMetadata({
+      ...seoPresets["for-hire"],
+      pathname: '/for-hire',
+    })
+  ),
+
   engineering: metadataToDocumentHead(
     buildMetadata({
       ...seoPresets.engineering,

@@ -1,9 +1,7 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHeadProps } from "@builder.io/qwik-city";
 import { useLocation } from "@builder.io/qwik-city";
-import { Footer } from "~/components/footer/Footer";
-import { PageShell } from "~/components/layout/PageShell";
-import { Header } from "~/components/nav/Header";
+import { AppShell } from "~/components/layout/AppShell";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
@@ -65,9 +63,7 @@ export default component$(() => {
 
   if (!project) {
     return (
-      <PageShell theme="production">
-        <Header />
-
+      <AppShell>
         <main id="main-content" class="page-production-project flex-1">
           <Section spacing="spacious">
             <Container width="content">
@@ -83,17 +79,14 @@ export default component$(() => {
             </Container>
           </Section>
         </main>
-
-        <Footer />
-      </PageShell>
+      </AppShell>
     );
   }
 
   const heroMedia = project.media[0];
 
   return (
-    <PageShell theme="production">
-      <Header />
+    <AppShell>
 
       <main id="main-content" class="page-production-project flex-1">
         <Section spacing="spacious">
@@ -247,7 +240,6 @@ export default component$(() => {
         </Section>
       </main>
 
-      <Footer />
-    </PageShell>
+    </AppShell>
   );
 });
