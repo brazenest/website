@@ -18,6 +18,11 @@ node_modules
 .rollup.cache
 tsconfig.tsbuildinfo
 
+# Cloudflare / Wrangler
+.wrangler
+.dev.vars
+!.dev.vars.example
+
 # Logs
 logs
 *.log

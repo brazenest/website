@@ -14,7 +14,13 @@ import {
 import { StructuredData } from "~/components/seo/StructuredData";
 import { releaseInfo, releaseLabel } from "~/config/site";
 
-const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var query=window.matchMedia('(prefers-color-scheme: dark)');var apply=function(){var stored=window.localStorage.getItem(key);var system=query.matches?'dark':'light';var mode=stored==='dark'||stored==='light'?stored:system;document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();query.addEventListener('change',apply);window.addEventListener('storage',function(event){if(event.key===key){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
+// The site follows the visitor's OS color scheme by default. An explicit choice
+// (stored under `key` as 'light' | 'dark') overrides it; 'system' or an absent
+// value falls back to `prefers-color-scheme`. This runs inline before paint to
+// avoid a flash of the wrong theme, and stays live if the OS theme or the stored
+// preference changes. Keep this logic in sync with ColorModeToggle /
+// ColorModeDevSetting.
+const colorModeScript = `(function(){try{var key='color-mode-dev-setting';var mq=window.matchMedia('(prefers-color-scheme: dark)');var apply=function(){var stored=window.localStorage.getItem(key);var setting=stored==='dark'||stored==='light'||stored==='system'?stored:'system';var mode=setting==='system'?(mq.matches?'dark':'light'):setting;document.documentElement.dataset.colorMode=mode;document.documentElement.style.colorScheme=mode;};apply();mq.addEventListener('change',apply);window.addEventListener('storage',function(event){if(event.key===key){apply();}});}catch(error){document.documentElement.dataset.colorMode='light';document.documentElement.style.colorScheme='light';}})();`;
 
 export default component$(() => {
   useStyles$(fontInterStyles);
@@ -64,7 +70,7 @@ export const DocumentRouterHead = component$(() => {
   return (
     <>
       {/* Title from route metadata (includes template formatting) */}
-      <title>{head.title || "Personal Site v4.2.0"}</title>
+      <title>{head.title || "Personal Site v4.3.0"}</title>
 
       {/* Meta tags: description, canonical, OG, Twitter, article metadata */}
       {head.meta.map((meta) => (
@@ -102,19 +108,8 @@ export const DocumentRouterHead = component$(() => {
         />
       ))}
 
-      {/* Google Analytics */}
-      <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-DGCKGYKJK8"
-      />
-      <script
-        dangerouslySetInnerHTML={`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-DGCKGYKJK8', { send_page_view: true });`}
-      />
-
-      {/* Cloudflare Web Analytics */}
+      {/* Cloudflare Web Analytics — privacy-first, cookieless. Sole site
+          analytics; Google Analytics was removed as redundant. */}
       <script
         defer
         src="https://static.cloudflareinsights.com/beacon.min.js"

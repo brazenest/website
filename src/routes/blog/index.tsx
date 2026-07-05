@@ -3,9 +3,7 @@ import { routeLoader$, type DocumentHead } from '@builder.io/qwik-city'
 import { ButtonLink } from '~/components/ui/ButtonLink'
 import { DraftBlogList } from '~/components/blog/DraftBlogList'
 import { PublishedBlogList } from '~/components/blog/PublishedBlogList'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
+import { AppShell } from '~/components/layout/AppShell'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { blogPageContent } from '~/content/blog'
@@ -25,9 +23,7 @@ export default component$(() => {
   const publishedBlogPosts = usePublishedBlogPosts()
 
   return (
-    <PageShell theme="neutral">
-      <Header />
-
+    <AppShell>
       <main id="main-content" class="flex-1 scroll-mt-24">
         <Section spacing="spacious">
           <Container width="wide">
@@ -126,8 +122,6 @@ export default component$(() => {
           </Container>
         </Section>
       </main>
-
-      <Footer />
-    </PageShell>
+    </AppShell>
   )
 })

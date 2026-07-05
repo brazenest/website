@@ -1,6 +1,6 @@
-# Personal Site v4.2.0
+# Personal Site v3.0.0
 
-Full-featured Qwik + Fastify production site for aldengillespy.com.
+Full-featured Qwik + Fastify production site for alden.dev.
 
 ### Implementation Complete
 
@@ -43,8 +43,8 @@ DATABASE_URL=postgresql://user:password@host:port/database  # Optional; falls ba
 ADMIN_BASIC_AUTH_USERNAME=admin
 ADMIN_BASIC_AUTH_PASSWORD=change-me
 
-# Contact form delivery (Amazon SES)
-AWS_REGION=us-east-1
+# Contact form delivery (Resend — https://resend.com)
+RESEND_API_KEY=re_your_api_key
 CONTACT_FORM_FROM_EMAIL=no-reply@example.com
 CONTACT_FORM_TO_EMAIL=you@example.com
 CONTACT_FORM_SUBJECT_PREFIX=Alden Gillespy Website
@@ -53,16 +53,12 @@ CONTACT_FORM_SUBJECT_PREFIX=Alden Gillespy Website
 The admin credentials are server-only values for the `/admin` route group. Do not expose them as
 client-side environment variables or commit production secrets.
 
-The contact form sends through Amazon SES on the server.
+The contact form sends through [Resend](https://resend.com) on the server via its HTTP API.
 
-- `AWS_REGION`: SES region for the verified sender identity.
-- `CONTACT_FORM_FROM_EMAIL`: verified SES sender address or domain-backed mailbox used as the `From` address.
-- `CONTACT_FORM_TO_EMAIL`: mailbox where inquiries should be delivered.
+- `RESEND_API_KEY`: API key from the Resend dashboard (server-only secret).
+- `CONTACT_FORM_FROM_EMAIL`: the `From` address; its domain must be verified in Resend.
+- `CONTACT_FORM_TO_EMAIL`: mailbox where inquiries should be delivered (comma-separated for multiple).
 - `CONTACT_FORM_SUBJECT_PREFIX`: optional prefix for inbound subject lines.
-
-AWS credentials are normally supplied by your deployment platform, IAM role, container task role,
-or local AWS profile rather than hard-coded in `.env`. For local manual testing, you can also set
-`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, and optionally `AWS_SESSION_TOKEN`.
 
 ### Running Locally
 
@@ -104,7 +100,7 @@ Then visit [http://localhost:3000/](http://localhost:3000/)
 - **Minification**: Currently disabled in production build
   - Reason: Workaround for Qwik SSG initialization incompatibility with esbuild
   - Impact: ~2-3x larger pre-gzip bundles; ~15-30 KB increase post-gzip
-  - Status: Stable and acceptable for v4.2.0; see [Performance Audit](./docs/performance-audit.md#18-task-138) for details
+  - Status: Stable and acceptable for v3.0.0; see [Performance Audit](./docs/performance-audit.md#18-task-138) for details
   - Future: Re-enable after investigating esbuild/Qwik root cause
 
 ### Blog Database Integration

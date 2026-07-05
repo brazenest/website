@@ -1,50 +1,45 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { HomeCTASection } from "~/components/home/HomeCTASection";
 import { ProofStrip } from "~/components/home/ProofStrip";
-import { PageShell } from "~/components/layout/PageShell";
-import { Footer } from "~/components/footer/Footer";
-import { Header } from "~/components/nav/Header";
-import { SideSelector } from "~/components/side/SideSelector";
+import { AppShell } from "~/components/layout/AppShell";
+import { IndependentProjectGrid } from "~/components/projects/IndependentProjectGrid";
+import { ButtonLink } from "~/components/ui/ButtonLink";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
-import { ButtonLink } from "~/components/ui/ButtonLink";
 import { homeProofStrip } from "~/content/identity/proof-strip";
-import { sideLinkCards } from "~/content/identity/side-links";
+import { independentProjects } from "~/content/projects";
 import { staticHeads } from "~/fns/seo/staticHeads";
 
 export const head: DocumentHead = staticHeads.home;
 
 export default component$(() => {
   return (
-    <PageShell theme="neutral">
-      {/* Pride Month 2026 — rainbow accent bar */}
-      <div class="pride-rainbow-bar" aria-hidden="true" />
-      <Header />
-
+    <AppShell>
       <main id="main-content" class="page-home flex-1 scroll-mt-24 p-0">
+        {/* Pride Month 2026 — rainbow accent bar */}
+        <div class="pride-rainbow-bar" aria-hidden="true" />
 
         {/* BENTO GRID HERO */}
         <Section spacing="default">
           <Container width="wide">
             <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-[auto_auto]">
 
-              {/* Tile 1: Intro — spans 2 cols on large screens */}
+              {/* Tile 1: Identity — spans 2 cols on large screens */}
               <div class="bento-tile flex flex-col justify-between gap-6 p-6 md:p-8 lg:col-span-2">
                 <div class="flex flex-col gap-4">
                   <p class="ui-meta-label">Alden Gillespy</p>
                   <h1 class="text-3xl font-extrabold leading-tight tracking-tight text-[var(--heading-fg)] md:text-4xl lg:text-5xl">
-                    Websites, stories, and useful systems for people building things.
+                    I build products, websites, and stories.
                   </h1>
                   <p class="max-w-[52ch] text-base leading-7 text-[var(--muted)]">
-                    Software engineer and video producer. I help independent professionals
-                    and small teams build a web presence that explains their work clearly
-                    and earns the next conversation.
+                    Software engineer, media producer, and independent founder.
+                    This is my home base — a portal to the products I'm building,
+                    the client work I take on, and the writing I publish.
                   </p>
                 </div>
                 <div class="flex flex-wrap gap-3">
-                  <ButtonLink href="/contact" label="Start a Project" variant="primary" />
-                  <ButtonLink href="/work" label="View Work" variant="secondary" />
+                  <ButtonLink href="/for-hire" label="For-Hire Work" variant="primary" />
+                  <ButtonLink href="/blog" label="My Writing" variant="secondary" />
                 </div>
               </div>
 
@@ -59,36 +54,36 @@ export default component$(() => {
                   class="h-full min-h-[280px] w-full object-cover lg:min-h-[500px]"
                 />
                 <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-4">
-                  <p class="text-sm font-semibold text-white">Engineering + Production</p>
+                  <p class="text-sm font-semibold text-white">Builder · Producer · Founder</p>
                   <p class="text-xs text-white/70">San Francisco, CA</p>
                 </div>
               </div>
 
-              {/* Tile 3: Engineering path */}
+              {/* Tile 3: For-hire path */}
               <div class="bento-tile flex flex-col gap-3 p-5">
                 <div class="flex items-center gap-2">
                   <div class="h-2 w-2 rounded-full bg-[var(--accent)]" />
-                  <p class="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">Engineering</p>
+                  <p class="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">For Hire</p>
                 </div>
                 <p class="text-sm font-semibold leading-snug text-[var(--heading-fg)]">
-                  Web architecture, performance audits, and scalable systems.
+                  Web engineering, video production, and cross-disciplinary client work.
                 </p>
-                <a href="/engineering" class="mt-auto text-xs font-semibold text-[var(--accent)] underline underline-offset-2">
-                  View engineering work →
+                <a href="/for-hire" class="mt-auto text-xs font-semibold text-[var(--accent)] underline underline-offset-2">
+                  See client work →
                 </a>
               </div>
 
-              {/* Tile 4: Production path */}
+              {/* Tile 4: Writing path */}
               <div class="bento-tile flex flex-col gap-3 p-5" style="border-color: var(--impact); border-opacity: 0.3;">
                 <div class="flex items-center gap-2">
                   <div class="h-2 w-2 rounded-full bg-[var(--impact)]" />
-                  <p class="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">Production</p>
+                  <p class="text-xs font-bold uppercase tracking-widest text-[var(--muted)]">Writing</p>
                 </div>
                 <p class="text-sm font-semibold leading-snug text-[var(--heading-fg)]">
-                  Founder profiles, campaign films, and visual storytelling.
+                  Essays and process notes on systems, stories, and craft.
                 </p>
-                <a href="/production" class="mt-auto text-xs font-semibold text-[var(--impact)] underline underline-offset-2">
-                  View production work →
+                <a href="/blog" class="mt-auto text-xs font-semibold text-[var(--impact)] underline underline-offset-2">
+                  Read the blog →
                 </a>
               </div>
 
@@ -96,29 +91,30 @@ export default component$(() => {
           </Container>
         </Section>
 
-        {/* Stats band — horizontal tiles */}
-        <Section spacing="compact">
-          <Container>
-            <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {[
-                { value: "7+", label: "Projects shipped" },
-                { value: "3", label: "Active clients" },
-                { value: "5+", label: "Years building" },
-                { value: "2", label: "Disciplines" },
-              ].map((stat) => (
-                <div key={stat.label} class="bento-tile--subtle rounded-[var(--radius-card)] p-4 text-center">
-                  <p class="text-3xl font-black tracking-tight text-[var(--accent)]">{stat.value}</p>
-                  <p class="text-xs font-medium text-[var(--muted)]">{stat.label}</p>
-                </div>
-              ))}
+        {/* INDEPENDENT PROJECTS */}
+        <Section spacing="default">
+          <Container width="wide">
+            <div class="flex flex-col gap-6 md:gap-8">
+              <div class="flex flex-col gap-2">
+                <p class="ui-meta-label">Independent Projects</p>
+                <h2 class="text-2xl font-extrabold tracking-tight text-[var(--heading-fg)] md:text-3xl">
+                  Things I'm building.
+                </h2>
+                <p class="max-w-[56ch] text-base leading-7 text-[var(--muted)]">
+                  Products, platforms, and experiments I'm building under Radiant
+                  Ventures, my holding company for independent work. Each lives on
+                  its own domain — this is the map.
+                </p>
+              </div>
+              <IndependentProjectGrid projects={independentProjects} />
             </div>
           </Container>
         </Section>
 
-        {/* Testimonials */}
+        {/* PROOF STRIP — social proof carries across positioning */}
         <ProofStrip items={homeProofStrip} />
 
-        {/* Pride: Values statement */}
+        {/* PRIDE: Values statement */}
         <Section spacing="compact">
           <Container width="content">
             <div class="pride-values-section">
@@ -134,25 +130,58 @@ export default component$(() => {
           </Container>
         </Section>
 
-        {/* Full path selector */}
-        <Section spacing="default">
-          <Container width="wide">
-            <div class="flex flex-col gap-5">
-              <div class="flex flex-col gap-2">
-                <p class="ui-meta-label">Choose a path</p>
-                <h2 class="text-2xl font-extrabold tracking-tight text-[var(--heading-fg)] md:text-3xl">
-                  One practice, two entry points.
-                </h2>
+        {/* BOTTOM CTA */}
+        <Section spacing="compact">
+          <Container width="content">
+            <section
+              id="home-cta"
+              aria-labelledby="home-cta-title"
+              class="ui-bottom-cta ui-cta-panel flex flex-col gap-4 md:gap-5"
+            >
+              <div class="ui-cta-layout">
+                <div class="flex flex-col gap-4 md:gap-5">
+                  <p class="ui-meta-label">Work Together</p>
+
+                  <h2 id="home-cta-title" class="ui-cta-title">
+                    Have a project that needs engineering or production?
+                  </h2>
+
+                  <p class="ui-cta-text max-w-[42ch]">
+                    I take on client work across web engineering and media
+                    production. A short note with your context is enough to
+                    start a useful conversation.
+                  </p>
+
+                  <div class="ui-cta-group ui-cta-actions">
+                    <ButtonLink
+                      href="/for-hire"
+                      label="See Client Work"
+                      variant="primary"
+                    />
+                    <ButtonLink
+                      href="/contact"
+                      label="Get in Touch"
+                      variant="secondary"
+                    />
+                  </div>
+                </div>
+
+                <div class="ui-cta-image ui-editorial-frame aspect-[5/4]">
+                  <img
+                    src="/media/generated/home-hero-studio.png"
+                    alt="Alden Gillespy studio."
+                    width={1536}
+                    height={1024}
+                    loading="lazy"
+                    class="h-full w-full object-cover"
+                  />
+                </div>
               </div>
-              <SideSelector items={sideLinkCards} />
-            </div>
+            </section>
           </Container>
         </Section>
 
-        <HomeCTASection />
       </main>
-
-      <Footer />
-    </PageShell>
+    </AppShell>
   );
 });

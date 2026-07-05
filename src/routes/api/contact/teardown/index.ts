@@ -1,10 +1,11 @@
 import type { RequestHandler } from '@builder.io/qwik-city'
-import { SESv2Client, SendEmailCommand } from '@aws-sdk/client-sesv2'
+import { sendEmail } from '~/lib/server/email/sendEmail'
+import { getRuntimeEnv } from '~/lib/server/runtimeEnv'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function getRequiredEnv(name: string) {
-  const value = process.env[name]?.trim()
+  const value = getRuntimeEnv(name)?.trim()
 
   if (!value) {
     throw new Error(`${name} must be set before sending contact form email.`)
@@ -45,10 +46,9 @@ async function sendContactEmail({
   phone?: string
   context?: string
 }) {
-  const region = getRequiredEnv('AWS_REGION')
   const fromEmail = getRequiredEnv('CONTACT_FORM_FROM_EMAIL')
   const toEmails = getRecipientEmails()
-  const subjectPrefix = process.env.CONTACT_FORM_SUBJECT_PREFIX?.trim() || 'Website contact'
+  const subjectPrefix = getRuntimeEnv('CONTACT_FORM_SUBJECT_PREFIX')?.trim() || 'Website contact'
   const submittedAt = new Date().toISOString()
 
   if (toEmails.length === 0) {
@@ -68,31 +68,13 @@ async function sendContactEmail({
     `Submitted at: ${submittedAt}`,
   ].join('\n')
 
-  const ses = new SESv2Client({ region })
-
-  await ses.send(
-    new SendEmailCommand({
-      FromEmailAddress: fromEmail,
-      Destination: {
-        ToAddresses: toEmails,
-      },
-      ReplyToAddresses: email ? [email] : undefined,
-      Content: {
-        Simple: {
-          Subject: {
-            Charset: 'UTF-8',
-            Data: `${subjectPrefix}: ${intentLabel}`,
-          },
-          Body: {
-            Text: {
-              Charset: 'UTF-8',
-              Data: emailBody,
-            },
-          },
-        },
-      },
-    }),
-  )
+  await sendEmail({
+    from: fromEmail,
+    to: toEmails,
+    replyTo: email ? [email] : undefined,
+    subject: `${subjectPrefix}: ${intentLabel}`,
+    text: emailBody,
+  })
 }
 
 /**

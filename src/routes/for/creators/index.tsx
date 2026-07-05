@@ -1,9 +1,7 @@
 import { component$, useVisibleTask$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
 import { PackageGrid } from '~/components/packages/PackageGrid'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
+import { AppShell } from '~/components/layout/AppShell'
 import { Container } from '~/components/ui/Container'
 import { Section } from '~/components/ui/Section'
 import { ButtonLink } from '~/components/ui/ButtonLink'
@@ -29,9 +27,7 @@ export default component$(() => {
   })
 
   return (
-    <PageShell theme="neutral">
-      <Header />
-
+    <AppShell>
       <main id="main-content" class="flex-1 scroll-mt-24 p-0">
         {/* Hero Section */}
         <Section spacing="spacious">
@@ -171,8 +167,6 @@ export default component$(() => {
           </Container>
         </Section>
       </main>
-
-      <Footer />
-    </PageShell>
+    </AppShell>
   )
 })

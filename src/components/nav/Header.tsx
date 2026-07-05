@@ -4,6 +4,9 @@ import { Container } from "~/components/ui/Container";
 import { ButtonLink } from "~/components/ui/ButtonLink";
 import { MobileMenu } from "~/components/nav/MobileMenu";
 
+const NAV_LINK_CLASS =
+  "text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]";
+
 export const Header = component$(() => {
   return (
     <header class="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--bg)]/90 backdrop-blur-sm">
@@ -25,48 +28,17 @@ export const Header = component$(() => {
           </a>
 
           <nav aria-label="Primary" class="hidden items-center gap-5 md:flex">
-            <a
-              href="/"
-              class="text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-            >
-              Home
-            </a>
-            <a
-              href="/about"
-              class="text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-            >
-              About
-            </a>
-            <a
-              href="/work"
-              class="text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-            >
-              Work
-            </a>
-            <a
-              href="/blog"
-              class="text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-            >
-              Blog
-            </a>
-            <a
-              href="/packages"
-              class="text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-            >
-              Packages
-            </a>
-            <a
-              href="/contact"
-              class="text-sm font-medium text-[var(--muted)] transition-colors duration-[var(--motion-duration-quick)] ease-[var(--motion-easing-quick)] hover:text-[var(--fg)] focus-visible:rounded-[var(--radius-lg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:text-[var(--fg)]"
-            >
-              Contact
-            </a>
+            <a href="/" class={NAV_LINK_CLASS}>Home</a>
+            <a href="/for-hire" class={NAV_LINK_CLASS}>For Hire</a>
+            <a href="/blog" class={NAV_LINK_CLASS}>Blog</a>
+            <a href="/about" class={NAV_LINK_CLASS}>About</a>
+            <a href="/contact" class={NAV_LINK_CLASS}>Contact</a>
           </nav>
 
           <div class="hidden items-center gap-3 md:flex">
             <ButtonLink
               href="/contact"
-              label="Start a Project"
+              label="Work With Me"
               variant="primary"
               size="sm"
               class="shadow-[0_14px_30px_-20px_var(--card-glow)]"

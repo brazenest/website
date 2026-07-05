@@ -25,6 +25,12 @@ export type LegacyRouteAuditRow = {
 export const redirectMap: RedirectRule[] = [
   {
     type: 'exact',
+    from: '/work',
+    to: '/for-hire',
+    permanent: true,
+  },
+  {
+    type: 'exact',
     from: '/blog/articles',
     to: '/blog',
     permanent: true,

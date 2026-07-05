@@ -1,8 +1,6 @@
 import { component$ } from '@builder.io/qwik'
 import type { DocumentHead } from '@builder.io/qwik-city'
-import { Footer } from '~/components/footer/Footer'
-import { PageShell } from '~/components/layout/PageShell'
-import { Header } from '~/components/nav/Header'
+import { AppShell } from '~/components/layout/AppShell'
 import { MarketingCtaZone } from '~/components/zones/marketing/cta/MarketingCtaZone'
 import { MarketingHeroZone } from '~/components/zones/marketing/hero/MarketingHeroZone'
 import { MarketingProofZone } from '~/components/zones/marketing/proof/MarketingProofZone'
@@ -48,14 +46,10 @@ export default component$(() => {
   const composition = getDefaultHomePageComposition()
 
   return (
-    <PageShell theme="neutral">
-      <Header />
-
+    <AppShell>
       <main id="main-content" class="flex-1 scroll-mt-24 p-0">
         {composition.zones.map((zone) => renderResolvedZone(zone))}
       </main>
-
-      <Footer />
-    </PageShell>
+    </AppShell>
   )
 })

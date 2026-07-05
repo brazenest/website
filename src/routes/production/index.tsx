@@ -1,11 +1,9 @@
 import { component$ } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
-import { Footer } from "~/components/footer/Footer";
 import { ProductionHero } from "~/components/hero/ProductionHero";
 import { ProductionCTASection } from "~/components/production/ProductionCTASection";
 import { ProductionStorySection } from "~/components/production/ProductionStorySection";
-import { PageShell } from "~/components/layout/PageShell";
-import { Header } from "~/components/nav/Header";
+import { AppShell } from "~/components/layout/AppShell";
 import { MediaGrid } from "~/components/production/MediaGrid";
 import { Container } from "~/components/ui/Container";
 import { Section } from "~/components/ui/Section";
@@ -22,9 +20,7 @@ export default component$(() => {
     : "/production";
 
   return (
-    <PageShell theme="production">
-      <Header />
-
+    <AppShell>
       <main id="main-content" class="flex-1 p-0">
         <ProductionHero {...productionHeroContent} />
 
@@ -65,8 +61,6 @@ export default component$(() => {
         <ProductionStorySection />
         <ProductionCTASection caseStudyHref={caseStudyHref} />
       </main>
-
-      <Footer />
-    </PageShell>
+    </AppShell>
   );
 });
