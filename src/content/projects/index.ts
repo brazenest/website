@@ -77,4 +77,15 @@ export const independentProjects: IndependentProject[] = [
     category: 'Memory',
     status: 'building',
   },
+  {
+    id: 'soldera',
+    name: 'Soldera',
+    tagline:
+      'AI agents that help sellers and buyers operate across API-connected marketplaces — Poshmark, eBay, Amazon, and more.',
+    description:
+      'An agentic SaaS that assists selling and buying across marketplace platforms with API integrations — Depop, Poshmark, eBay, Amazon — automating listings, interactions, and transactions on your behalf.',
+    href: 'https://soldera.app',
+    category: 'Commerce',
+    status: 'building',
+  },
 ]
