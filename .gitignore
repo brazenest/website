@@ -48,3 +48,6 @@ lerna-debug.log*
 # Yarn
 .yarn/*
 !.yarn/releases
+
+# Raw photo originals — kept locally, never served/deployed
+/photo-sources/
