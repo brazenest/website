@@ -19,5 +19,7 @@ ADMIN_BASIC_AUTH_USERNAME=
 ADMIN_BASIC_AUTH_PASSWORD=
 
 # Local Postgres for the Hyperdrive binding during `wrangler pages dev`.
-# Wrangler reads this env var to back the HYPERDRIVE binding locally.
-WRANGLER_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE=postgres://user:password@localhost:5432/dbname
+# Wrangler reads this env var (export it in your shell, or set it here) to back
+# the HYPERDRIVE binding locally. `wrangler pages dev` runs the PREVIEW config,
+# so this stands in for the dev database.
+CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE=postgres://user:password@localhost:5432/dbname

@@ -86,12 +86,26 @@ sensitive ones as *Secret*):
 
 `DATABASE_URL` is NOT set here — it comes from the Hyperdrive binding.
 
-**3. Hyperdrive.** The binding in `wrangler.jsonc` applies to both environments,
-so `main` and `dev` share one Postgres by default. To give `dev` a separate
-database, create a second Hyperdrive and add a per-environment override in
-`wrangler.jsonc` (`env.preview` / `env.production`) — note Pages requires you to
-re-declare *all* bindings/vars inside an env block once you override any one of
-them.
+**3. Hyperdrive (production + a separate free dev database).** `wrangler.jsonc`
+is already set up for two databases: the top-level `HYPERDRIVE` binding →
+production, and an `env.preview` override → the `dev` branch. This is zero-cost —
+Hyperdrive is free (up to 10 configs/account) and the dev database lives on your
+**existing** Postgres server, so no new server is provisioned. To finish it:
+
+```bash
+# 1. On your existing Postgres server, create a separate dev database:
+#    (psql)  CREATE DATABASE aldengillespy_dev;
+# 2. Create the dev Hyperdrive config (free):
+npx wrangler hyperdrive create aldengillespy-db-dev \
+  --connection-string="postgres://USER:PASS@HOST:5432/aldengillespy_dev"
+# 3. Paste the returned id into wrangler.jsonc -> env.preview.hyperdrive[0].id
+#    (replacing REPLACE_WITH_YOUR_DEV_HYPERDRIVE_ID).
+```
+
+Production keeps using the top-level Hyperdrive id. Until the real dev id is set,
+`dev` previews can't reach a database. (Pages rule: because `env.preview`
+overrides a binding, that env block must declare every binding it needs — here
+just `hyperdrive`; production still inherits the top-level config.)
 
 **4. Custom domains** — see "Branch → domain mapping" below for the `dev`
 subdomain (the non-obvious CNAME step).

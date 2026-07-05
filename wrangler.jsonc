@@ -19,11 +19,33 @@
 	// Create it once with:
 	//   wrangler hyperdrive create aldengillespy-db --connection-string="postgres://USER:PASS@HOST:5432/DB"
 	// then paste the returned id below. For local `wrangler pages dev`, set
-	// WRANGLER_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE in .dev.vars.
+	// CLOUDFLARE_HYPERDRIVE_LOCAL_CONNECTION_STRING_HYPERDRIVE in .dev.vars.
+	//
+	// This top-level binding applies to PRODUCTION (the `main` branch). The
+	// `dev` branch (preview) uses the override in `env.preview` below.
 	"hyperdrive": [
 		{
 			"binding": "HYPERDRIVE",
 			"id": "cde19f696c6f495bacc0d1af8217d112"
 		}
-	]
+	],
+	// Preview deployments (the `dev` branch) point HYPERDRIVE at a SEPARATE dev
+	// database, so dev writes never touch production data. This costs nothing:
+	// Hyperdrive is free (up to 10 configs/account), and the dev database lives on
+	// your EXISTING Postgres server — no new server is provisioned. Set it up once:
+	//   1. On your existing Postgres server:  CREATE DATABASE aldengillespy_dev;
+	//   2. wrangler hyperdrive create aldengillespy-db-dev \
+	//        --connection-string="postgres://USER:PASS@HOST:5432/aldengillespy_dev"
+	//   3. Paste the returned id below (replacing the placeholder).
+	// Until this real id is set, `dev` previews cannot reach a database.
+	"env": {
+		"preview": {
+			"hyperdrive": [
+				{
+					"binding": "HYPERDRIVE",
+					"id": "REPLACE_WITH_YOUR_DEV_HYPERDRIVE_ID"
+				}
+			]
+		}
+	}
 }
