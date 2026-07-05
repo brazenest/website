@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here.
 
+## v4.3.1 - 2026-07-05
+
+### Fixed
+- Dark mode on `/packages`: the hero, the three tier cards, the "Not ready for a
+  full build" cards, and the "Productized enough" band/cards no longer render
+  light-on-light — they now use the semantic dark surface/text tokens.
+
+### Changed
+- An explicit light/dark theme choice now expires after 24h, so the site returns
+  to following the visitor's system preference.
+
 ## v4.3.0 - 2026-07-05
 
 ### Added
