@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here.
 
+## v4.3.2 - 2026-07-05
+
+### Changed
+- The color-mode toggle now offers three choices — System, Light, and Dark —
+  so visitors can explicitly return to following their OS preference (the
+  default when unset). The full control is a segmented three-option switch; the
+  compact mobile control cycles System → Light → Dark.
+- An explicit light/dark choice now persists indefinitely again; the 24h expiry
+  introduced in v4.3.1 has been removed.
+
 ## v4.3.1 - 2026-07-05
 
 ### Fixed
