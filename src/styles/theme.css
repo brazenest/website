@@ -1826,6 +1826,102 @@ a {
   background: #d1d5db;
 }
 
+/* ----------------------------------------------------------------------------
+   Packages page — DARK MODE.
+   The rules above build a light "inverted" hero and hardcoded-light card
+   backgrounds. In dark mode those stayed light, leaving text light-on-light.
+   Re-map hero + cards to the semantic dark surface/text tokens.
+   ---------------------------------------------------------------------------- */
+[data-color-mode="dark"] [data-theme="neutral"] .page-packages > section:first-of-type {
+  background: var(--surface-2);
+  color: var(--fg);
+  border-bottom-color: var(--border);
+}
+
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  :is(h1, h2, h3) {
+  color: var(--heading-fg);
+}
+
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  :is(p, li).text-\[var\(--muted\)\],
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  p.text-\[var\(--muted\)\],
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  .ui-text--muted {
+  color: var(--muted);
+}
+
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  .ui-meta-label {
+  color: var(--muted);
+}
+
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .page-packages
+  > section:first-of-type
+  .ui-editorial-frame {
+  border-color: var(--border);
+  box-shadow: 6px 6px 0 color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* Tier cards (Foundation / Growth / Authority) */
+[data-color-mode="dark"] [data-theme="neutral"] .ui-package-card--tone-1,
+[data-color-mode="dark"] [data-theme="neutral"] .ui-package-card--tone-2,
+[data-color-mode="dark"] [data-theme="neutral"] .ui-package-card--tone-3 {
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+}
+
+/* "Not ready for a full build?" value cards */
+[data-color-mode="dark"] [data-theme="neutral"] .ui-package-value-card {
+  background: var(--surface-elevated);
+  border-color: var(--border);
+  box-shadow: none;
+}
+
+/* "Productized enough…" intro band */
+[data-color-mode="dark"] [data-theme="neutral"] .ui-package-value-intro {
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+
+/* Value graphic bars — hardcoded dark grays are invisible on dark cards. */
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .ui-package-value-graphic
+  span:nth-child(1) {
+  background: color-mix(in srgb, var(--fg) 90%, var(--bg));
+}
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .ui-package-value-graphic
+  span:nth-child(2) {
+  background: color-mix(in srgb, var(--fg) 55%, var(--bg));
+}
+[data-color-mode="dark"]
+  [data-theme="neutral"]
+  .ui-package-value-graphic
+  span:nth-child(3) {
+  background: color-mix(in srgb, var(--fg) 30%, var(--bg));
+}
+
 [data-theme="neutral"] .page-home .ui-proof-card--engineering {
   background: var(--surface-elevated);
   border-color: var(--border-default);
