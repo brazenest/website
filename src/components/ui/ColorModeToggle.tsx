@@ -2,6 +2,7 @@ import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik'
 import { cn } from '~/fns/cn'
 
 const STORAGE_KEY = 'color-mode-dev-setting'
+const SET_AT_KEY = 'color-mode-dev-setting-set-at'
 
 type ColorMode = 'light' | 'dark'
 
@@ -15,8 +16,10 @@ type ColorModeToggleProps = {
  * Visible light/dark switch. By default the site follows the OS color scheme
  * (see the root.tsx boot script); clicking this sets an explicit override that
  * persists to localStorage under STORAGE_KEY, which the boot script reads on
- * every load to avoid a flash of the wrong theme. (To return to "follow system"
- * use the System control on the admin display-mode panel.)
+ * every load to avoid a flash of the wrong theme. The override is time-stamped
+ * (SET_AT_KEY) and the boot script expires it after 24h so the site returns to
+ * following the OS. (To return to "follow system" immediately, use the System
+ * control on the admin display-mode panel.)
  */
 export const ColorModeToggle = component$(
   ({ compact = false, class: className }: ColorModeToggleProps) => {
@@ -47,6 +50,7 @@ export const ColorModeToggle = component$(
       mode.value = next
       try {
         window.localStorage.setItem(STORAGE_KEY, next)
+        window.localStorage.setItem(SET_AT_KEY, String(Date.now()))
       } catch {
         /* localStorage unavailable (private mode) — runtime toggle still works */
       }
