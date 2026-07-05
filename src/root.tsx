@@ -108,19 +108,8 @@ export const DocumentRouterHead = component$(() => {
         />
       ))}
 
-      {/* Google Analytics */}
-      <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-DGCKGYKJK8"
-      />
-      <script
-        dangerouslySetInnerHTML={`window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-DGCKGYKJK8', { send_page_view: true });`}
-      />
-
-      {/* Cloudflare Web Analytics */}
+      {/* Cloudflare Web Analytics — privacy-first, cookieless. Sole site
+          analytics; Google Analytics was removed as redundant. */}
       <script
         defer
         src="https://static.cloudflareinsights.com/beacon.min.js"

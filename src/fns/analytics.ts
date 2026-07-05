@@ -1,6 +1,11 @@
 /**
- * Analytics utility for tracking events via Plausible
- * Lightweight, privacy-focused analytics
+ * Custom-event analytics wire-point.
+ *
+ * Site traffic is measured by Cloudflare Web Analytics (automatic, cookieless,
+ * configured in root.tsx). Cloudflare has no custom-event JS API, so these calls
+ * are currently no-ops unless a provider that exposes `window.plausible` (or a
+ * compatible shim) is loaded. This is the single place to wire product analytics
+ * (e.g. PostHog or Plausible) when one is added.
  */
 
 export const trackEvent = (eventName: string, props?: Record<string, string | number>) => {
@@ -8,14 +13,16 @@ export const trackEvent = (eventName: string, props?: Record<string, string | nu
     return
   }
 
-  // Check if Plausible is available
-  const plausible = (window as any).plausible
-  if (!plausible) {
-    console.debug(`Analytics not ready: ${eventName}`)
+  // No custom-event provider loaded yet — no-op (keeps call sites stable).
+  const provider = (window as any).plausible
+  if (!provider) {
+    if (import.meta.env.DEV) {
+      console.debug(`Analytics event (no provider): ${eventName}`)
+    }
     return
   }
 
-  plausible(eventName, { props })
+  provider(eventName, { props })
 }
 
 /**
