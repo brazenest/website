@@ -23,6 +23,23 @@
 
 const RUNTIME_ENV_STORE_KEY = '__RUNTIME_ENV__'
 
+/**
+ * Every non-binding env var / secret this app reads at runtime. Bridged by
+ * direct property access so non-enumerable Cloudflare secrets are not missed.
+ */
+const KNOWN_ENV_KEYS = [
+  'ORIGIN',
+  'DATABASE_URL',
+  'PGSSLMODE',
+  'PGSSLREJECTUNAUTHORIZED',
+  'RESEND_API_KEY',
+  'CONTACT_FORM_FROM_EMAIL',
+  'CONTACT_FORM_TO_EMAIL',
+  'CONTACT_FORM_SUBJECT_PREFIX',
+  'ADMIN_BASIC_AUTH_USERNAME',
+  'ADMIN_BASIC_AUTH_PASSWORD',
+] as const
+
 interface HyperdriveBinding {
   connectionString?: string
 }
@@ -55,19 +72,32 @@ export function bridgePlatformEnv(platform: unknown): void {
   }
 
   const store = getStore()
+  const source = env as Record<string, unknown>
 
-  // Hyperdrive exposes a pooled connection string that `pg` should use.
-  const hyperdrive = env.HYPERDRIVE
-  if (hyperdrive && typeof hyperdrive.connectionString === 'string') {
-    store.DATABASE_URL = hyperdrive.connectionString
+  // Copy every string binding this app reads. We do this by DIRECT property
+  // access (not Object.entries), because Cloudflare Pages secrets can be exposed
+  // as non-enumerable bindings — Object.entries/keys silently skips them, which
+  // left ADMIN_BASIC_AUTH_* / RESEND_API_KEY / CONTACT_FORM_* unresolved in
+  // production even when set. Direct access works whether or not they enumerate.
+  for (const key of KNOWN_ENV_KEYS) {
+    const value = source[key]
+    if (typeof value === 'string') {
+      store[key] = value
+    }
   }
 
-  // Copy string-valued vars/secrets (RESEND_API_KEY, CONTACT_FORM_*,
-  // ADMIN_BASIC_AUTH_*, ORIGIN, PGSSL*, …).
+  // Belt-and-suspenders: also copy any other enumerable string vars.
   for (const [key, value] of Object.entries(env)) {
     if (typeof value === 'string') {
       store[key] = value
     }
+  }
+
+  // Hyperdrive exposes a pooled connection string that `pg` should use — apply
+  // last so it wins over any plain DATABASE_URL binding.
+  const hyperdrive = env.HYPERDRIVE
+  if (hyperdrive && typeof hyperdrive.connectionString === 'string') {
+    store.DATABASE_URL = hyperdrive.connectionString
   }
 }
 
