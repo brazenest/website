@@ -1,6 +1,7 @@
 import { Slot, component$, useVisibleTask$ } from '@builder.io/qwik'
 import { activeBrandTheme } from '~/config/brand-theme'
 import { SideNav } from '~/components/nav/SideNav'
+import { releaseLabel } from '~/config/site'
 
 export const AppShell = component$(({ animateSections = false }: AppShellProps) => {
   // eslint-disable-next-line qwik/no-use-visible-task
@@ -59,7 +60,10 @@ export const AppShell = component$(({ animateSections = false }: AppShellProps) 
 
         <footer class="v5-app-footer" aria-label="Site footer">
           <div class="v5-app-footer-inner">
-            <p>© {new Date().getFullYear()} Alden Gillespy</p>
+            <p>
+              © {new Date().getFullYear()} Alden Gillespy
+              <span class="v5-footer-version"> · {releaseLabel}</span>
+            </p>
             <nav aria-label="Footer links" class="v5-app-footer-nav">
               <a href="/about">About</a>
               <a href="/resume">Resume</a>
