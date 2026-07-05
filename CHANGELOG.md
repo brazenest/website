@@ -2,6 +2,18 @@
 
 All notable changes to this project are documented here.
 
+## v4.3.0 - 2026-07-05
+
+### Added
+- Cloudflare Pages deployment (SSR on Workers) with a Hyperdrive-backed Postgres
+  binding, a separate dev/preview database, and GitHub auto-deploy docs.
+- System-preference dark mode with an explicit light/dark toggle override.
+
+### Changed
+- Rebrand to "Builder, Producer, and Founder" identity and the calmer neutral
+  palette (`--impact` demoted to a neutral; red reserved for high-intent CTAs).
+- Email delivery moved from Amazon SES to Resend (dependency-free HTTP client).
+
 ## v0.1.1 - 2026-05-26
 
 ### Added
