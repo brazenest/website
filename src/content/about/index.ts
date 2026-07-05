@@ -4,8 +4,8 @@ export const aboutPageContent = {
   intro:
     "I am Alden Gillespy, a software engineer and video producer. I build websites, web systems, and visual material for people whose work is already real, but needs a clearer shape online.",
   portrait: {
-    src: "/media/about/alden-portrait.jpg",
-    alt: "Portrait of Alden Gillespy",
+    src: "/media/about/alden-portrait-aspens.jpg",
+    alt: "Portrait of Alden Gillespy outdoors, smiling in a leather jacket against golden autumn aspen leaves.",
     eyebrow: "Alden Gillespy",
     caption: "Software engineer and video producer.",
   },
