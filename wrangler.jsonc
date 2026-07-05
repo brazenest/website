@@ -40,7 +40,7 @@
 		"CONTACT_FORM_TO_EMAIL": "contact@aldengillespy.com",
 		// Must be a sender on a domain verified in Resend — confirm this matches
 		// the CONTACT_FORM_FROM_EMAIL you had set as a secret before removing it.
-		"CONTACT_FORM_FROM_EMAIL": "no-reply@aldengillespy.com",
+		"CONTACT_FORM_FROM_EMAIL": "contact.form@mailer.aldengillespy.com",
 		"CONTACT_FORM_SUBJECT_PREFIX": "Website contact"
 	},
 	// Preview deployments (the `dev` branch) point HYPERDRIVE at a SEPARATE dev
@@ -66,7 +66,7 @@
 			"vars": {
 				"ORIGIN": "https://dev.aldengillespy.com",
 				"CONTACT_FORM_TO_EMAIL": "contact@aldengillespy.com",
-				"CONTACT_FORM_FROM_EMAIL": "no-reply@aldengillespy.com",
+				"CONTACT_FORM_FROM_EMAIL": "contact.form@mailer.aldengillespy.com",
 				"CONTACT_FORM_SUBJECT_PREFIX": "[dev] Website contact"
 			}
 		}
