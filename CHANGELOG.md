@@ -2,6 +2,36 @@
 
 All notable changes to this project are documented here.
 
+## v4.4.0 - 2026-07-11
+
+### Added
+- Resume now reflects the Radiant Ventures rename (replacing SERP Solutions)
+  with a Founder & CEO / Principal Engineer entry, plus an AI Trainer & Data
+  Annotator role (Mercor, micro1, Alignerr). A new "Ventures & Products"
+  section highlights Rotavox, The BOLT (ClubFM), Memrey, and Wardroab, and
+  Selected Projects now features three of those in new case studies.
+- New engineering case studies for Rotavox (radio scheduling/automation SaaS)
+  and Memrey (memory reconstruction platform), and a new production case
+  study for The BOLT (ClubFM), the Internet radio station that doubles as
+  Rotavox's live proving ground.
+- `AI and applied ML` skills group added to the resume (LLM training and
+  evaluation, RLHF, data annotation, prompt engineering, agentic systems).
+
+### Fixed
+- Blog, engineering, production, and default OG cover images now rasterize to
+  `.jpg` instead of `.svg`. Facebook, LinkedIn, and most social scrapers
+  reject SVG for `og:image`, so shares of these pages previously rendered
+  without a preview image.
+
+### Internal
+- Added an idempotent `migrate:blog-covers-jpg` script to repoint existing
+  database rows still referencing `/media/blog/*-cover.svg` to their `.jpg`
+  twins.
+- The resume's print/ATS views now share the Selected Projects layout classes
+  for the new Ventures & Products section, so it inherits full print styling
+  instead of falling back to browser card chrome; the ATS view strips the
+  decorative status-pill styling down to plain text.
+
 ## v4.3.3 - 2026-07-05
 
 ### Fixed

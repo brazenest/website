@@ -14,8 +14,8 @@ const releaseDateFormatter = new Intl.DateTimeFormat('en-US', {
  * - `releasedOn` must stay in ISO 8601 `YYYY-MM-DD` form so it can be reused in metadata.
  */
 export const releaseInfo = {
-  version: '4.3.3',
-  releasedOn: '2026-07-05',
+  version: '4.4.0',
+  releasedOn: '2026-07-11',
 } as const
 
 export function formatReleaseDate(isoDate: string): string {

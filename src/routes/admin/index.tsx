@@ -49,7 +49,7 @@ export default component$(() => {
                 </h1>
 
                 <p class="max-w-[64ch] text-base leading-7 text-[var(--muted)] md:text-lg">
-                  This surface is intentionally small for v4.3.3. It exists only
+                  This surface is intentionally small for v4.4.0. It exists only
                   for blog authoring and is protected at the server layer with
                   HTTP Basic Auth.
                 </p>
