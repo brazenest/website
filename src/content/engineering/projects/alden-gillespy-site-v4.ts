@@ -88,7 +88,7 @@ export const aldenGillespySiteV4Project: EngineeringProject = {
       ],
     },
   ],
-  image: "/media/engineering/alden-gillespy-site-v4.svg",
+  image: "/media/engineering/alden-gillespy-site-v4.jpg",
   seo: {
     title: "AldenGillespy.com v4.0",
     description:

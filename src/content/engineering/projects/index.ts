@@ -2,9 +2,25 @@ import type { EngineeringProject } from "~/types/content";
 import { aldenGillespySiteV4Project } from "./alden-gillespy-site-v4";
 import { andacityBookingSystemProject } from "./andacity-booking-system";
 import { ancestryDnaKitActivationProject } from "./ancestry-dna-kit-activation";
+import { memreyProject } from "./memrey";
+import { rotavoxProject } from "./rotavox";
 import { timeshareSearchRentalsProject } from "./timeshare-search-rentals";
 
 export const engineeringProjects: EngineeringProject[] = [
+  {
+    ...rotavoxProject,
+    cardDescriptor:
+      "Founder & principal engineer · Music scheduling and radio automation",
+    cardHighlight:
+      "An explicit, tunable scheduling engine makes disciplined radio programming affordable for stations legacy tools ignore. Running The BOLT on it keeps the automation honest — the logs have to sound good on air.",
+  },
+  {
+    ...memreyProject,
+    cardDescriptor:
+      "Founder & principal engineer · Memory reconstruction platform",
+    cardHighlight:
+      "A clear ingest-relate-present pipeline turns inconsistent personal archives into moments people can revisit. Trust and restraint drive the architecture, because the material is deeply personal.",
+  },
   {
     ...aldenGillespySiteV4Project,
     description:

@@ -344,7 +344,7 @@ async function upsertPosts(client: Client, posts: LegacyBlogSourcePost[]) {
         status,
         status === 'published' ? timestamp : null,
         timestamp,
-        `/media/blog/${slug}-cover.svg`,
+        `/media/blog/${slug}-cover.jpg`,
         post.title.trim(),
         post.category,
         post.category_name,

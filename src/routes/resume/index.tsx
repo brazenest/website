@@ -327,6 +327,64 @@ export default component$(() => {
         <Section spacing="compact">
           <Container width="wide">
             <section
+              class="resume-print-section resume-print-projects resume-print-ventures ui-context-panel ui-resume-projects-panel ui-resume-cue--mixed grid gap-6 p-5 md:p-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10 lg:p-8"
+              aria-labelledby="resume-ventures"
+            >
+              <div class="resume-print-projects-heading flex flex-col gap-2">
+                <h2
+                  id="resume-ventures"
+                  class="text-2xl font-semibold tracking-tight md:text-3xl"
+                >
+                  Ventures & Products
+                </h2>
+
+                <p class="max-w-[28ch] text-sm leading-6 text-[var(--muted)] md:text-base">
+                  {resumePageContent.ventures.intro}
+                </p>
+              </div>
+
+              <div class="resume-print-project-list grid gap-4 md:grid-cols-2">
+                {resumePageContent.ventures.items.map((venture) => (
+                  <article
+                    key={venture.name}
+                    class="resume-print-card ui-resume-unit ui-resume-cue--engineering flex h-full flex-col gap-3 rounded-[var(--radius-xl)] border border-[var(--border)] bg-[var(--surface)] p-5"
+                  >
+                    <div class="flex flex-col gap-2">
+                      <div class="resume-venture-meta flex items-center justify-between gap-3">
+                        <p class="resume-venture-category text-xs font-medium uppercase tracking-[0.12em] text-[var(--muted)]">
+                          {venture.category}
+                        </p>
+
+                        <span class="resume-venture-status rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-subtle)] px-2 py-1 text-xs font-medium text-[var(--muted)]">
+                          {venture.status}
+                        </span>
+                      </div>
+
+                      <h3 class="text-lg font-semibold tracking-tight md:text-xl">
+                        {venture.name}
+                      </h3>
+                    </div>
+
+                    <p class="text-sm leading-6 text-[var(--muted)] md:text-base">
+                      {venture.tagline}
+                    </p>
+
+                    <div class="resume-print-project-link mt-auto pt-1">
+                      <TextLink
+                        href={venture.href}
+                        label={`Visit ${venture.name}`}
+                      />
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </Container>
+        </Section>
+
+        <Section spacing="compact">
+          <Container width="wide">
+            <section
               class="resume-print-section resume-print-projects ui-context-panel ui-resume-projects-panel ui-resume-cue--mixed grid gap-6 p-5 md:p-6 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10 lg:p-8"
               aria-labelledby="resume-selected-projects"
             >

@@ -61,7 +61,7 @@ export const timeshareSearchRentalsProject: EngineeringProject = {
       ],
     },
   ],
-  image: '/media/engineering/timeshare-search-rentals.svg',
+  image: '/media/engineering/timeshare-search-rentals.jpg',
   seo: {
     title: 'Timeshare Search & Rentals',
     description:

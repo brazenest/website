@@ -2,9 +2,17 @@ import type { ProductionProject } from "~/types/content";
 import { bellagioFountainFilmProject } from "./bellagio-fountain-film";
 import { founderProfileLaunchFilmProject } from "./founder-profile-launch-film";
 import { nightMarketSocialCampaignProject } from "./night-market-social-campaign";
+import { theBoltClubfmProject } from "./the-bolt-clubfm";
 import { videocaddyRadiantGolfProductionProject } from "./videocaddy-radiant-golf-production";
 
 export const productionProjects: ProductionProject[] = [
+  {
+    ...theBoltClubfmProject,
+    cardContext:
+      "Internet radio · Founder/programmer · Format, curation, and automation",
+    cardDemonstrates:
+      "Format and rotation design that makes a station feel programmed, not shuffled. Brand and on-air identity built from scratch. A real, listenable product that doubles as the live proving ground for Rotavox.",
+  },
   {
     ...videocaddyRadiantGolfProductionProject,
     description:

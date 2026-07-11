@@ -14,8 +14,8 @@ const releaseDateFormatter = new Intl.DateTimeFormat('en-US', {
  * - `releasedOn` must stay in ISO 8601 `YYYY-MM-DD` form so it can be reused in metadata.
  */
 export const releaseInfo = {
-  version: '4.3.3',
-  releasedOn: '2026-07-05',
+  version: '4.4.0',
+  releasedOn: '2026-07-11',
 } as const
 
 export function formatReleaseDate(isoDate: string): string {
@@ -38,7 +38,7 @@ export const siteConfig: SiteConfig = {
   defaultDescription:
     'Software engineer, media producer, and independent founder building products, websites, and stories.',
   defaultOGImage: {
-    url: '/assets/og-image.jpg',
+    url: '/media/og/og-default.jpg',
     width: 1200,
     height: 630,
     alt: 'Alden Gillespy',
@@ -55,7 +55,7 @@ export const siteConfig: SiteConfig = {
   personDescription:
     'Software engineer, media producer, and independent founder working across product development, web engineering, and narrative production.',
   personJobTitle: 'Software Engineer, Media Producer, and Independent Founder',
-  personImage: '/assets/og-image.jpg',
+  personImage: '/media/og/og-default.jpg',
   personSameAs: [
     'https://www.linkedin.com/in/alden-gillespy/',
     'https://github.com/brazenest',

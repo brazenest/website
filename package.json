@@ -1,6 +1,6 @@
 {
   "name": "personal-site-v3",
-  "version": "4.3.3",
+  "version": "4.4.0",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.10.0",
@@ -27,6 +27,7 @@
     "start": "node scripts/with-env.mjs .env.development -- vite --mode ssr",
     "test:visual": "node scripts/visual-smoke.mjs",
     "setup:blog-db": "tsx scripts/setup-blog-db.ts",
+    "migrate:blog-covers-jpg": "tsx scripts/migrate-blog-covers-to-jpg.ts",
     "qwik": "qwik"
   },
   "devDependencies": {
