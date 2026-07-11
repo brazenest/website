@@ -341,6 +341,29 @@ main {
   white-space: normal;
 }
 
+/* Ventures & Products reuses the Selected Projects print layout. For the ATS
+   view, drop the status pill chrome and render category · status as plain,
+   parser-friendly text on one line. */
+.resume-page.resume-mode-ats .resume-venture-meta {
+  display: block;
+}
+
+.resume-page.resume-mode-ats .resume-venture-category,
+.resume-page.resume-mode-ats .resume-venture-status {
+  display: inline;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  font-size: 0.8rem !important;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.resume-page.resume-mode-ats .resume-venture-status::before {
+  content: " · ";
+}
+
 @page {
   margin: 0.5in;
 }

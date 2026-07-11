@@ -34,18 +34,31 @@ export const resumePageContent = {
     ],
   }, intro:
     'Below is my complete professional background across software engineering, product work, and production roles. Each section highlights scope, operating context, measurable impact, and the decision patterns I used to move work from concept to durable delivery.', summary:
-    'Full-stack software engineer with a production background, working at the overlap of systems and storytelling. I build scalable web applications across frontend, backend, and cloud infrastructure while bringing narrative clarity, usability judgment, and cross-disciplinary execution to product and platform work.',
+    'Full-stack software engineer with a production background, now founder of Radiant Ventures, where I build and operate an independent portfolio of web and AI products. I ship scalable applications across frontend, backend, and cloud infrastructure, train and evaluate large language models for leading AI platforms, and bring narrative clarity and cross-disciplinary execution to product and platform work.',
   experience: [
     {
-      title: 'Senior Software Engineer',
-      organization: 'SERP Solutions',
+      title: 'Founder & CEO / Principal Engineer',
+      organization: 'Radiant Ventures',
       timeframe: 'Jul 2024 - Present',
-      context: 'Salt Lake City, UT · On-site, Freelance',
+      context: 'United States · Founder-owned venture',
       bullets: [
-        'Design and deliver cloud-native solutions for small businesses, improving reliability and scalability across multiple client platforms.',
-        'Architect full-stack systems with WordPress backends and React frontends on AWS, improving deployment efficiency and maintainability.',
-        'Write unit tests and QA automation with Mocha.js and Chai.js to catch regressions early and reduce maintenance risk.',
-        'Build automation around Amazon EC2 lifecycle operations to speed environment setup and future development workflows.',
+        'Founded and lead an independent product studio, owning strategy, engineering, and delivery across a portfolio of SaaS, marketplace, media, and AI-agent products.',
+        'Architect and ship full-stack applications end to end with TypeScript, React, Qwik, and Node.js, deployed on Cloudflare and AWS.',
+        'Build agentic and AI-driven systems, including identity and payments infrastructure for agentic commerce and AI-assisted marketplace automation.',
+        'Deliver freelance engineering and cloud consulting for external clients — WordPress and React platforms on AWS with Mocha.js and Chai.js QA automation and Amazon EC2 lifecycle tooling.',
+        'Own product design, infrastructure, SEO, web performance, and accessibility across every brand in the portfolio.',
+      ],
+    },
+    {
+      title: 'AI Trainer & Data Annotator',
+      organization: 'Mercor · micro1 · Alignerr',
+      timeframe: 'Jan 2026 - Present',
+      context: 'Remote · Contract',
+      bullets: [
+        'Train and evaluate large language models across coding, reasoning, and domain-expert tasks for leading AI data platforms.',
+        'Author, annotate, and rank model responses and training data against detailed rubrics to improve model quality, safety, and alignment.',
+        'Produce high-quality code samples and technical evaluations used in RLHF and supervised fine-tuning pipelines.',
+        'Apply senior software-engineering judgment to specialized annotation projects requiring expert-level technical review.',
       ],
     },
     {
@@ -88,29 +101,67 @@ export const resumePageContent = {
   selectedProjects: [
     {
       discipline: 'Engineering',
-      title: 'Andacity Booking System',
-      role: 'Lead full-stack engineer',
+      title: 'Rotavox',
+      role: 'Founder & principal engineer',
       description:
-        'Built a booking platform around a canonical search contract and normalized data model so new inventory integrations and feature work stayed dependable as the product expanded.',
-      href: 'https://aldengillespy.com/engineering/projects/andacity-booking-system',
+        'Built a rules-driven music scheduling and automation platform for radio, making disciplined programming affordable for the independent and Internet stations legacy broadcast tools ignore.',
+      href: 'https://aldengillespy.com/engineering/projects/rotavox',
     },
     {
       discipline: 'Engineering',
-      title: 'Ancestry DNA Kit Activation',
-      role: 'Senior software engineer',
+      title: 'Memrey',
+      role: 'Founder & principal engineer',
       description:
-        'Led the redesign of a sensitive, high-trust activation flow around clearer state, calmer validation behavior, and more dependable completion at scale.',
-      href: 'https://aldengillespy.com/engineering/projects/ancestry-dna-kit-activation',
+        'Designed a memory reconstruction platform that turns scattered personal media into coherent moments people can revisit, with trust and restraint driving the architecture.',
+      href: 'https://aldengillespy.com/engineering/projects/memrey',
     },
     {
       discipline: 'Production',
-      title: 'Bellagio Fountain Film',
-      role: 'Direction, capture, and edit',
+      title: 'The BOLT (ClubFM)',
+      role: 'Founder, programmer, and operator',
       description:
-        'Shaped unpredictable live-performance footage into a coherent cinematic sequence through disciplined framing, adaptive coverage, and editorial pacing.',
-      href: 'https://aldengillespy.com/production/projects/bellagio-fountain-film',
+        'Launched an active-rock Internet radio station and flagship of the ClubFM network — a real, listenable product that doubles as the live proving ground for Rotavox.',
+      href: 'https://aldengillespy.com/production/projects/the-bolt-clubfm',
     },
   ],
+  ventures: {
+    intro:
+      'Independent products I build and operate through Radiant Ventures.',
+    items: [
+      {
+        name: 'Rotavox',
+        category: 'Radio SaaS',
+        status: 'In development',
+        tagline:
+          'Music scheduling and automation SaaS for radio, built to undercut and outclass legacy broadcast tools.',
+        href: 'https://rotavox.com',
+      },
+      {
+        name: 'The BOLT',
+        category: 'Internet Radio',
+        status: 'Live',
+        tagline:
+          'An active-rock Internet radio station and the flagship of ClubFM, my growing Internet radio network.',
+        href: 'https://thebolt.stream',
+      },
+      {
+        name: 'Memrey',
+        category: 'Consumer',
+        status: 'In development',
+        tagline:
+          'A platform that reconstructs meaningful moments from your own digitized media so you can step back into them.',
+        href: 'https://memrey.ai',
+      },
+      {
+        name: 'Wardroab',
+        category: 'Fashion Tech',
+        status: 'In development',
+        tagline:
+          '3D body modeling paired with an AI stylist for apparel and jewelry, aimed first at luxury fashion.',
+        href: 'https://wardroab.app',
+      },
+    ],
+  },
   skills: [
     {
       title: 'Engineering',
@@ -128,6 +179,17 @@ export const resumePageContent = {
       ],
     },
     {
+      title: 'AI and applied ML',
+      items: [
+        'LLM training and evaluation',
+        'RLHF',
+        'Data annotation',
+        'Prompt engineering',
+        'Agentic systems',
+        'AI-assisted development',
+      ],
+    },
+    {
       title: 'Systems and product',
       items: [
         'REST API design',
@@ -136,6 +198,7 @@ export const resumePageContent = {
         'Elasticsearch',
         'Apache Solr',
         'AWS',
+        'Cloudflare',
         'Docker',
         'Kubernetes',
         'CI/CD',
