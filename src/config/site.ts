@@ -38,7 +38,7 @@ export const siteConfig: SiteConfig = {
   defaultDescription:
     'Software engineer, media producer, and independent founder building products, websites, and stories.',
   defaultOGImage: {
-    url: '/assets/og-image.jpg',
+    url: '/media/og/og-default.jpg',
     width: 1200,
     height: 630,
     alt: 'Alden Gillespy',
@@ -55,7 +55,7 @@ export const siteConfig: SiteConfig = {
   personDescription:
     'Software engineer, media producer, and independent founder working across product development, web engineering, and narrative production.',
   personJobTitle: 'Software Engineer, Media Producer, and Independent Founder',
-  personImage: '/assets/og-image.jpg',
+  personImage: '/media/og/og-default.jpg',
   personSameAs: [
     'https://www.linkedin.com/in/alden-gillespy/',
     'https://github.com/brazenest',

@@ -61,7 +61,7 @@ export const ancestryDnaKitActivationProject: EngineeringProject = {
       ],
     },
   ],
-  image: '/media/engineering/ancestry-dna-kit-activation.svg',
+  image: '/media/engineering/ancestry-dna-kit-activation.jpg',
   seo: {
     title: 'Ancestry DNA Kit Activation',
     description:

@@ -100,7 +100,7 @@ export const bellagioFountainFilmProject: ProductionProject = {
       ],
     },
   ],
-  image: '/media/production/bellagio-fountain-film.svg',
+  image: '/media/production/bellagio-fountain-film.jpg',
   seo: {
     title: 'Bellagio Fountain Film',
     description:

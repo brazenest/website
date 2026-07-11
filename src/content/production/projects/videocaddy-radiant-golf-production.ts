@@ -87,7 +87,7 @@ export const videocaddyRadiantGolfProductionProject: ProductionProject = {
       ],
     },
   ],
-  image: "/media/production/videocaddy-radiant-golf-production.svg",
+  image: "/media/production/videocaddy-radiant-golf-production.jpg",
   seo: {
     title: "VideoCaddy Golf Production",
     description:
