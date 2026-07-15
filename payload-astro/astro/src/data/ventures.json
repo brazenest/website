@@ -1,0 +1,121 @@
+[
+  {
+    "id": 1,
+    "name": "House",
+    "slug": "house",
+    "zone": "neutral",
+    "order": 0,
+    "tagline": null,
+    "palette": {
+      "key": "#6A7688",
+      "hi": "#8CA0FF",
+      "deep": "#161B23",
+      "lift": "#F1F4F7",
+      "on": "#FFFFFF"
+    },
+    "links": [],
+    "proposed": false
+  },
+  {
+    "id": 2,
+    "name": "Memrey",
+    "slug": "memrey",
+    "zone": "engineering",
+    "order": 1,
+    "tagline": null,
+    "palette": {
+      "key": "#5B2470",
+      "hi": "#FF8A3D",
+      "deep": "#2A0F3A",
+      "lift": "#F4ECF8",
+      "on": "#FFFFFF"
+    },
+    "links": [],
+    "proposed": false
+  },
+  {
+    "id": 3,
+    "name": "Rotavox",
+    "slug": "rotavox",
+    "zone": "engineering",
+    "order": 2,
+    "tagline": null,
+    "palette": {
+      "key": "#0F7A52",
+      "hi": "#38D08C",
+      "deep": "#05261A",
+      "lift": "#E9F7F0",
+      "on": "#FFFFFF"
+    },
+    "links": [],
+    "proposed": true
+  },
+  {
+    "id": 4,
+    "name": "Soldera",
+    "slug": "soldera",
+    "zone": "engineering",
+    "order": 3,
+    "tagline": null,
+    "palette": {
+      "key": "#C81B7A",
+      "hi": "#FF6CB6",
+      "deep": "#2A0620",
+      "lift": "#FDE9F4",
+      "on": "#FFFFFF"
+    },
+    "links": [],
+    "proposed": true
+  },
+  {
+    "id": 5,
+    "name": "Bolt",
+    "slug": "bolt",
+    "zone": "media",
+    "order": 4,
+    "tagline": null,
+    "palette": {
+      "key": "#FF3B1E",
+      "hi": "#FF7A45",
+      "deep": "#1A0904",
+      "lift": "#FFEDE9",
+      "on": "#1A0904"
+    },
+    "links": [],
+    "proposed": false
+  },
+  {
+    "id": 6,
+    "name": "Signal",
+    "slug": "signal",
+    "zone": "media",
+    "order": 5,
+    "tagline": null,
+    "palette": {
+      "key": "#00E8D0",
+      "hi": "#7DF7EA",
+      "deep": "#04201E",
+      "lift": "#E4FBF8",
+      "on": "#04211E"
+    },
+    "links": [],
+    "proposed": false
+  },
+  {
+    "id": 7,
+    "name": "Shadowcat",
+    "slug": "shadowcat",
+    "zone": "media",
+    "order": 6,
+    "tagline": null,
+    "palette": {
+      "key": "#E2A03C",
+      "hi": "#FFD08A",
+      "deep": "#120C04",
+      "lift": "#FBF3E5",
+      "on": "#241703"
+    },
+    "links": [],
+    "proposed": true
+  }
+]

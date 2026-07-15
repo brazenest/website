@@ -31,8 +31,11 @@ export function contrastRatio(hexA: string, hexB: string): number {
   return (lighter + 0.05) / (darker + 0.05)
 }
 
+/** The fixed light-mode ink token from v6-engine-r2.html's [data-mode="light"] grounds ([[data-mode="light"] --ink]). */
+export const DEEP_INK = '#0B0E13'
+
 /** Snap to whichever of white / deep ink clears 4.5:1 against `key`; never interpolates. */
-export function pickOnColor(key: string, deep: string): string {
+export function pickOnColor(key: string): string {
   const white = '#FFFFFF'
-  return contrastRatio(key, white) >= 4.5 ? white : deep
+  return contrastRatio(key, white) >= 4.5 ? white : DEEP_INK
 }
