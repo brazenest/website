@@ -43,17 +43,25 @@ export function caseStudyHref(ventureSlug: string): string | null {
   return caseStudiesByVentureSlug[ventureSlug] ? `/engineering/${ventureSlug}` : null
 }
 
+export const filmsByVentureSlug: Record<string, Film> = Object.fromEntries(
+  films.filter((f) => f.venture).map((f) => [f.venture as string, f]),
+)
+
+export function filmHref(ventureSlug: string): string | null {
+  return filmsByVentureSlug[ventureSlug] ? `/media/${ventureSlug}` : null
+}
+
 /**
  * Where a rail/spectrum segment points. A venture with a real case study or film page gets
  * that page automatically; everything else falls back to its home-page anchor — so a new
- * venture gets a sensible link with no code change, and adding its case study later
+ * venture gets a sensible link with no code change, and adding its case study/film later
  * re-points the rail with no code change either.
  */
 export function ventureHref(slug: string): string {
   if (slug === 'house') return '/'
-  const caseStudy = caseStudyHref(slug)
-  if (caseStudy) return caseStudy
-  const specialAnchors: Record<string, string> = { signal: '/#bolt', shadowcat: '/#media' }
+  const dest = caseStudyHref(slug) ?? filmHref(slug)
+  if (dest) return dest
+  const specialAnchors: Record<string, string> = { signal: '/#bolt' }
   return specialAnchors[slug] ?? `/#${slug}`
 }
 

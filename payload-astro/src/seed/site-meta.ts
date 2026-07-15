@@ -13,10 +13,13 @@ export const siteMetaSeed = {
   ],
   contactEmail: 'ag@aldengillespy.com',
   ctaText: "Let's build something that lasts.",
+  // In the source SPA, "Engineering"/"Media" route straight to the flagship case study/film
+  // (that page IS the zone route) — not to a same-page anchor. Matches that once
+  // /engineering/memrey (step 5) and /media/shadowcat (step 6) exist.
   nav: [
     { label: 'Home', href: '/' },
-    { label: 'Engineering', href: '/#engineering' },
-    { label: 'Media', href: '/#media' },
+    { label: 'Engineering', href: '/engineering/memrey' },
+    { label: 'Media', href: '/media/shadowcat' },
   ],
   social: [
     { label: 'Résumé (PDF)', url: '#' },

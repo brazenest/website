@@ -1,0 +1,138 @@
+---
+/**
+ * FILM PAGE (BUILD.md §9.6) — ported from v6-engine-r2.html lines 963-1074
+ * (data-page="/media", Shadowcat / Fault Lines). One static page per row in the films
+ * collection, keyed by the related venture's slug — mirrors /engineering/[slug].astro.
+ *
+ * The chain SVG is a bespoke component (§4), sharing ArchitectureSVG's grammar on purpose.
+ * The grade hover (graded↔raw) is pure CSS (:hover, engine.css .grade rules) — no script.
+ * Video is a click-to-load YouTube facade (§5) — never self-hosted.
+ *
+ * The contact section reuses siteMeta.social/contactEmail rather than a page-specific link
+ * set (the source's film-page contact has different link labels than home's — Instagram/
+ * YouTube vs Résumé/LinkedIn/GitHub — but BUILD.md §2 defines only one siteMeta.social
+ * array, so both pages draw from the same authored list per the step 4 convention).
+ */
+import Base from '../../layouts/Base.astro'
+import ChainSVG from '../../components/ChainSVG.astro'
+import YouTubeFacade from '../../components/YouTubeFacade.astro'
+import { films, venturesBySlug, siteMeta } from '../../lib/content'
+
+export function getStaticPaths() {
+  return films
+    .filter((f) => f.venture)
+    .map((f) => ({ params: { slug: f.venture }, props: { film: f } }))
+}
+
+const { film } = Astro.props
+const venture = venturesBySlug[film.venture!]
+const { key, hi, deep, on } = venture.palette
+---
+
+<Base title={`${film.title} — Alden Gillespy`} zone="media" work={venture.slug}>
+  <section class="z-media" data-zone="media" data-work={venture.slug} style="--fx:44%;--fy:32%;--fw:96%;--fh:80%">
+    <div class="flood" aria-hidden="true"></div>
+
+    <div class="reel">
+      <div class="shot"><div class="lab"><b>{film.title}</b> <span>2.39:1 · hero frame or 6s loop · replace</span></div></div>
+      <div class="cap">
+        <div class="col">
+          <span class="mono">Shadowcat Pictures · Short · {film.year} · {film.runtime}</span>
+          <h1 class="halo" style="margin-top:20px">{film.title}</h1>
+          <p class="logline">{film.logline}</p>
+          <YouTubeFacade youtubeId={film.youtubeId} title={film.title} />
+        </div>
+      </div>
+    </div>
+
+    <!-- in the gallery the colour still has to be PRESENT. so it becomes a band. -->
+    <div class="band">
+      <div class="col">
+        <div><span class="t">Written &amp; directed</span> <span class="v">{film.credits.find((c: any) => c.role === 'Director')?.name}</span></div>
+        <div><span class="t">Camera</span> <span class="v">{film.camera}</span></div>
+        <div><span class="t">Runtime</span> <span class="v">{film.runtime}</span></div>
+        <div><span class="t">Year</span> <span class="v">{film.year}</span></div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="zonehead">
+        <h3 class="halo">I write it, shoot it, cut it, grade it, and score it. Then I build the site it lives on.</h3>
+        <p>Shadowcat Pictures is the part of my work you can watch. It isn't a side hobby that happens next to the engineering — it's the same instinct pointed at a different surface. Both are about controlling the whole chain, and both are judged the same way.</p>
+      </div>
+
+      <!-- THE CHAIN — deliberately the SAME diagram grammar as Memrey's architecture. -->
+      <figure class="figure">
+        <div class="arch">
+          <ChainSVG keyColor={key} onColor={on} title={film.title} meta={`${film.runtime} · ${film.year}`} />
+        </div>
+        <figcaption>Fig. 1 — Different pipeline, same grammar as the engineering. One operator in every box. The difference: that one forks; this one doesn't — if any link in a film breaks, there is no film.</figcaption>
+      </figure>
+
+      <!-- THE GRADE — hover drops back to the raw log. pure CSS; the only motion this zone permits is a colour change. -->
+      <div class="grade">
+        <div class="shot r-239" style={`--a:${deep};--b:${key};--c2:#05070a`} />
+        <div class="shot r-239 raw" style="--a:#2b2f2c;--b:#8f8a7e;--c2:#1a1c1a" />
+        <span class="tag"><span class="g1">Graded</span><span class="g2">Raw · Log</span></span>
+        <div class="lab" style="position:absolute;left:0;right:0;bottom:0;z-index:5"><b>{film.title}</b> <span>Grade · hover to compare · replace with a real frame</span></div>
+      </div>
+      <p class="grade__cap">Log in, look out. Same frame, same camera — forty minutes of decisions in between.</p>
+
+      <div class="stills">
+        {
+          film.stills.length > 0 ? (
+            film.stills.map((s: any, i: number) => (
+              <div class="shot r-16x9" style={`--a:${deep};--b:${hi};--c2:#06080b`}>
+                <div class="lab"><b>{s?.alt || `Still ${String(i + 1).padStart(2, '0')}`}</b> <span>16:9 · {film.year}</span></div>
+              </div>
+            ))
+          ) : (
+            [
+              { a: '#1b2f36', b: '#a5813f', c2: '#06080b' },
+              { a: '#2c1e28', b: '#96606a', c2: '#080609' },
+              { a: '#122028', b: '#5f8290', c2: '#05080a' },
+              { a: '#3a2a18', b: '#c79a4c', c2: '#0a0805' },
+            ].map((g, i) => (
+              <div class="shot r-16x9" style={`--a:${g.a};--b:${g.b};--c2:${g.c2}`}>
+                <div class="lab"><b>Still {String(i + 1).padStart(2, '0')}</b> <span>16:9 · {film.year}</span></div>
+              </div>
+            ))
+          )
+        }
+      </div>
+
+      <div class="credits">
+        <dl>
+          {
+            film.credits.map((c: { role: string; name: string }) => (
+              <>
+                <dt>{c.role}</dt><dd>{c.name}</dd>
+              </>
+            ))
+          }
+        </dl>
+        <p class="note">Yes, it's the same name six times. <b>That's the point.</b> I learned to do every job on a set because I could never afford to hire anyone to do them, and it turned out to be the most useful thing that ever happened to me. It's the same reason I can take a product from an empty repository to a running business without a team.</p>
+      </div>
+
+      <div class="makes">
+        {
+          film.services.map((s: { title: string; note: string }, i: number) => (
+            <div class="row"><span class="idx">{String(i + 1).padStart(2, '0')}</span><span class="nm">{s.title}</span><span class="dt">{s.note}</span></div>
+          ))
+        }
+      </div>
+      <div style="height:clamp(30px,3.4vw,56px)"></div>
+    </div>
+  </section>
+
+  <section class="contact z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <h3>Got something you want made?</h3>
+      <p>Commissions, collaborations, or a role where you need someone who can do all of it. Either way, start here.</p>
+      <div class="contact__row">
+        <a class="big" href={`mailto:${siteMeta.contactEmail}`}>{siteMeta.contactEmail} <span>→</span></a>
+        {siteMeta.social.map((s) => <a class="alt" href={s.url}>{s.label}</a>)}
+      </div>
+    </div>
+  </section>
+</Base>

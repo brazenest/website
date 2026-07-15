@@ -3,6 +3,7 @@ loadEnv()
 
 import { venturesSeed } from './ventures'
 import { memreyCaseStudySeed } from './memrey'
+import { faultLinesSeed } from './films'
 import { siteMetaSeed } from './site-meta'
 
 async function run() {
@@ -42,23 +43,26 @@ async function run() {
     }
   }
 
-  const existingCaseStudy = await payload.find({
-    collection: 'case-studies',
-    where: { venture: { equals: ventureIds.memrey } },
-    limit: 1,
-  })
-  const caseStudyData = { venture: ventureIds.memrey, ...memreyCaseStudySeed }
-  if (existingCaseStudy.docs.length > 0) {
-    await payload.update({
-      collection: 'case-studies',
-      id: existingCaseStudy.docs[0].id,
-      data: caseStudyData,
+  /** Upserts a single doc in `collection` keyed by its `venture` relationship. */
+  async function upsertByVenture(collection: 'case-studies' | 'films', ventureSlug: string, data: Record<string, unknown>) {
+    const ventureId = ventureIds[ventureSlug]
+    const existing = await payload.find({
+      collection,
+      where: { venture: { equals: ventureId } },
+      limit: 1,
     })
-    payload.logger.info('Updated Memrey case study.')
-  } else {
-    await payload.create({ collection: 'case-studies', data: caseStudyData })
-    payload.logger.info('Created Memrey case study.')
+    const docData = { venture: ventureId, ...data }
+    if (existing.docs.length > 0) {
+      await payload.update({ collection, id: existing.docs[0].id, data: docData })
+      payload.logger.info(`Updated ${collection}: ${ventureSlug}`)
+    } else {
+      await payload.create({ collection, data: docData })
+      payload.logger.info(`Created ${collection}: ${ventureSlug}`)
+    }
   }
+
+  await upsertByVenture('case-studies', 'memrey', memreyCaseStudySeed)
+  await upsertByVenture('films', 'shadowcat', faultLinesSeed)
 
   await payload.updateGlobal({ slug: 'site-meta', data: siteMetaSeed })
   payload.logger.info('Seeded siteMeta global.')

@@ -1,1 +1,60 @@
-[]
+[
+  {
+    "id": 1,
+    "venture": "shadowcat",
+    "title": "Fault Lines",
+    "logline": "A father and a son drive four hundred miles of empty highway to sell a house neither of them wants to let go of.",
+    "year": "2026",
+    "runtime": "18 min",
+    "camera": "Sony FX3",
+    "youtubeId": null,
+    "credits": [
+      {
+        "role": "Director",
+        "name": "Alden Gillespy"
+      },
+      {
+        "role": "Writer",
+        "name": "Alden Gillespy"
+      },
+      {
+        "role": "Cinematography",
+        "name": "Alden Gillespy"
+      },
+      {
+        "role": "Editor",
+        "name": "Alden Gillespy"
+      },
+      {
+        "role": "Colour",
+        "name": "Alden Gillespy"
+      },
+      {
+        "role": "Score",
+        "name": "Alden Gillespy"
+      }
+    ],
+    "heroImage": null,
+    "gradeGraded": null,
+    "gradeRaw": null,
+    "stills": [],
+    "services": [
+      {
+        "title": "Narrative short film",
+        "note": "Script through delivery, including the score"
+      },
+      {
+        "title": "Portrait & documentary photography",
+        "note": "Available for commission"
+      },
+      {
+        "title": "Brand films for founders",
+        "note": "The kind that don't look like brand films"
+      },
+      {
+        "title": "Broadcast identity & sound",
+        "note": "Three stations, all of it made in-house"
+      }
+    ]
+  }
+]

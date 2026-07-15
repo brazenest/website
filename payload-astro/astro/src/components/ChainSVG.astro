@@ -1,0 +1,50 @@
+---
+/**
+ * The Fault Lines production chain (BUILD.md §4). Bespoke component, NOT a CMS field —
+ * ported verbatim from v6-engine-r2.html lines 1000-1020. Deliberately rhymes with
+ * ArchitectureSVG.astro (same stroke weight, box size, mono sub-labels, arrow markers,
+ * coloured terminal box) — "same instinct, different surface." The one structural
+ * difference from Memrey's diagram, preserved on purpose: this chain has a single spine
+ * with no fork (if any link in a film breaks, there is no film).
+ */
+interface Props {
+  /** The venture's palette.key hex — fills the terminal box. */
+  keyColor: string
+  /** The venture's palette.on hex — the terminal box's text colour (snaps per §3b). */
+  onColor: string
+  title: string
+  meta: string
+}
+
+const { keyColor, onColor, title, meta } = Astro.props
+---
+
+<svg
+  viewBox="0 0 900 190"
+  role="img"
+  aria-label={`The ${title} production chain: write, shoot, cut, grade, score, film`}
+>
+  <defs>
+    <marker id="arf" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" opacity=".5"></path>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1" opacity=".35" marker-end="url(#arf)">
+    <line x1="150" y1="60" x2="188" y2="60"></line><line x1="316" y1="60" x2="354" y2="60"></line>
+    <line x1="482" y1="60" x2="520" y2="60"></line><line x1="648" y1="60" x2="686" y2="60"></line>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.25" opacity=".85">
+    <rect x="24" y="34" width="126" height="52"></rect><rect x="190" y="34" width="126" height="52"></rect>
+    <rect x="356" y="34" width="126" height="52"></rect><rect x="522" y="34" width="126" height="52"></rect>
+    <rect x="688" y="34" width="126" height="52"></rect>
+  </g>
+  <rect x="330" y="120" width="240" height="48" fill={keyColor}></rect>
+  <line x1="450" y1="86" x2="450" y2="120" stroke="currentColor" stroke-width="1" opacity=".35" marker-end="url(#arf)"></line>
+  <text class="lbl" x="87" y="58" text-anchor="middle">WRITE</text><text x="87" y="74" text-anchor="middle">screenplay</text>
+  <text class="lbl" x="253" y="58" text-anchor="middle">SHOOT</text><text x="253" y="74" text-anchor="middle">FX3 · 2.39:1</text>
+  <text class="lbl" x="419" y="58" text-anchor="middle">CUT</text><text x="419" y="74" text-anchor="middle">assembly · lock</text>
+  <text class="lbl" x="585" y="58" text-anchor="middle">GRADE</text><text x="585" y="74" text-anchor="middle">the look</text>
+  <text class="lbl" x="751" y="58" text-anchor="middle">SCORE</text><text x="751" y="74" text-anchor="middle">the cues</text>
+  <text x="450" y="149" text-anchor="middle" fill={onColor} style="font-family:'Zodiak',serif;font-size:14px;letter-spacing:.02em">{title}</text>
+  <text x="450" y="162" text-anchor="middle" fill={onColor} opacity=".82">{meta}</text>
+</svg>

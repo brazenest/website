@@ -89,6 +89,27 @@ const zones = [
       <slot />
     </main>
 
+    <!-- FOOTER — global chrome (source lines 1078-1090), missed in the step 4 port; the mini
+         swatch groups are generated from the ventures collection, mirroring the rail. -->
+    <footer class="foot">
+      <div class="col">
+        <div><span class="num">© {new Date().getFullYear()}</span> &nbsp;Alden Gillespy · Radiant Ventures</div>
+        <div class="mini" aria-hidden="true">
+          {
+            zones.map((group) => (
+              <b>
+                {group.items.map((v) => <i style={`--s:${v.palette.key}`} />)}
+              </b>
+            ))
+          }
+        </div>
+        <div class="links">
+          <a href={`mailto:${siteMeta.contactEmail}`}>Email</a>
+          {siteMeta.social.map((s) => <a href={s.url}>{s.label}</a>)}
+        </div>
+      </div>
+    </footer>
+
     <script>
       import { initEngine } from '../scripts/engine.ts'
       initEngine()

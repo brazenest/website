@@ -8,10 +8,11 @@
  * carries data-work so the runtime engine retints on hover and scroll.
  */
 import Base from '../layouts/Base.astro'
-import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref } from '../lib/content'
+import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, filmHref } from '../lib/content'
 
 const chips = spectrumVentures()
 const memreyHref = caseStudyHref('memrey') ?? '/#engineering'
+const shadowcatHref = filmHref('shadowcat') ?? '/#media'
 ---
 
 <Base title="Alden Gillespy" zone="neutral" work="house">
@@ -184,7 +185,7 @@ const memreyHref = caseStudyHref('memrey') ?? '/#engineering'
           <div class="work__meta"><span class="wchip">Shadowcat Pictures</span><span class="work__yr">2019 — NOW</span></div>
           <h4 class="halo">I write it, shoot it, cut it, grade it and score it.</h4>
           <p>Then I build the site it lives on. Both halves of my work are judged the same way: does it hold your attention, and does it hold up on a second pass.</p>
-          <a class="go" href="/#media">Open the film page <span>→</span></a>
+          <a class="go" href={shadowcatHref}>Open the film page <span>→</span></a>
         </div>
         <div class="work__a">
           <div class="shot" style="--a:#16323a;--b:#a67b3a;--c2:#05070a">
