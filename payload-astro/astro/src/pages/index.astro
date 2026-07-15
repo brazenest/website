@@ -1,165 +1,210 @@
 ---
 /**
- * STEP 3 PROOF PAGE (BUILD.md §9.3) — "prove the engine reads from data".
- *
- * Every swatch below is rendered from src/data/ventures.json (exported from the Payload
- * `ventures` collection). Hovering one sets data-work / data-zone on <html>, and the whole
- * chrome — rail, wordmark square, CTA, links, selection — retints via the GENERATED token
- * stylesheet and the html{transition} in engine.css. Nothing here is hardcoded per venture:
- * add a venture in the CMS, run `pnpm run export`, and a new swatch + colour world appears.
- *
- * This is scaffolding, not the final home page (that's step 4). It exists to validate the
- * data→engine contract before any page content is ported.
+ * HOME (BUILD.md §9.4) — ported from v6-engine-r2.html's data-page="/".
+ * Rail + header come from Base.astro. Data-driven here: the SPECTRUM (6 ventures),
+ * the PROOF numbers (siteMeta), and CONTACT (siteMeta). The hero, "how I work", and the
+ * engineering/media teaser cards are faithful editorial ports — their images are the
+ * placeholder gradients from the source (§8.3: real assets pending). Every work/chip/row
+ * carries data-work so the runtime engine retints on hover and scroll.
  */
 import Base from '../layouts/Base.astro'
-import { ventures } from '../lib/content'
+import { spectrumVentures, siteMeta, ventureHref, zoneLabel } from '../lib/content'
+
+const chips = spectrumVentures()
 ---
 
-<Base title="Engine proof — Alden Gillespy" zone="neutral" work="house">
+<Base title="Alden Gillespy" zone="neutral" work="house">
+  <!-- THE HERO — the claim -->
   <section class="hero z-neutral" data-zone="neutral" data-work="house">
     <div class="col">
-      <p class="mono">BUILD.md §9.3 · data → engine proof</p>
-      <h1 style="margin-top:18px">The colour is data.</h1>
-      <p class="lead">
-        Each swatch is one row of <code>ventures.json</code>, exported from the Payload CMS. Hover
-        one and the whole site adopts that venture's colour — rail, wordmark, the “Hire me” button,
-        links, selection. No colour is hardcoded per venture; the engine's blocks are generated from
-        the collection.
-      </p>
+      <span class="mono">Salt Lake City · Available</span>
+      <h1 style="margin-top:22px">I build the whole thing.</h1>
+      <p class="lead">Architecture, interface, infrastructure, brand. I don't hand work off — I finish it, ship it, and then keep it running.</p>
+    </div>
+  </section>
 
-      <div class="proofgrid" role="list">
+  <!-- THE SPECTRUM — the proof of the claim, in colour. hover one. (data-driven) -->
+  <div class="spectrum" data-zone="neutral" data-work="house">
+    {
+      chips.map((v) => (
+        <a class="chip" href={ventureHref(v.slug)} data-w={v.slug} style={`--c:${v.palette.key};--o:${v.palette.on}`}>
+          <span class="hex">{v.palette.key}</span>
+          <span class="zn">{zoneLabel(v.zone)}</span>
+          <span class="n">{v.name}</span>
+          <span class="d">{v.tagline}</span>
+        </a>
+      ))
+    }
+  </div>
+  <p class="spectrum__note z-neutral">Every colour on this site comes from something I made. Hover one.</p>
+
+  <!-- PROOF (data-driven from siteMeta.proofNumbers) -->
+  <section class="proof z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <div class="grid">
         {
-          ventures.map((v) => (
-            <button
-              class="vsw"
-              role="listitem"
-              data-w={v.slug}
-              data-z={v.zone}
-              style={`--k:${v.palette.key};--hi:${v.palette.hi};--deep:${v.palette.deep};--lift:${v.palette.lift};--on:${v.palette.on}`}
-              aria-label={`Retint site with ${v.name}`}
-            >
-              <span class="vsw__key" />
-              <span class="vsw__body">
-                <span class="vsw__name">
-                  {v.name}
-                  {v.proposed && <span class="vsw__flag">proposed</span>}
-                </span>
-                <span class="vsw__meta">{v.zone} · {v.palette.key}</span>
-                <span class="vsw__ramp">
-                  <i style={`background:${v.palette.key}`} />
-                  <i style={`background:${v.palette.hi}`} />
-                  <i style={`background:${v.palette.deep}`} />
-                  <i style={`background:${v.palette.lift}`} />
-                </span>
-              </span>
-            </button>
+          siteMeta.proofNumbers.map((n) => (
+            <div>
+              <span class="n num">{n.value}</span>
+              <span class="l">{n.label}</span>
+            </div>
           ))
         }
       </div>
+    </div>
+  </section>
 
-      <p class="mono proofcount">{ventures.length} ventures loaded from data · reset by moving the mouse away</p>
+  <!-- HOW I WORK -->
+  <section class="how z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <div class="sechead"><h3>How I work</h3><span class="mono">2020 — 2026</span></div>
+      <div class="three">
+        <div>
+          <div class="bar" style="background:#6A7688"></div>
+          <h5>I own the whole surface.</h5>
+          <p>Most engineers stop at the API. Most designers stop at the mockup. I take a product from the first sketch to the thing running in production with real users, and I don't need a team to do it.</p>
+        </div>
+        <div>
+          <div class="bar" style="background:#2F4BFF"></div>
+          <h5>I build systems, not screens.</h5>
+          <p>Design tokens, scheduling engines, ingest pipelines, brand kits. If it has to hold up under load — technical or visual — I'd rather build the system that makes a thousand of them than hand-make one.</p>
+        </div>
+        <div>
+          <div class="bar" style="background:#E2A03C"></div>
+          <h5>I know what good looks like.</h5>
+          <p>Two years leading engineering at a national broadcaster, two and a half shipping to millions at Ancestry, and a film school habit of not letting anything out that isn't finished.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGINEERING — the ground becomes the work's ground -->
+  <section class="z-eng" data-zone="engineering" data-work="memrey" id="engineering">
+    <div class="col">
+      <div class="zonehead">
+        <div class="kick"><i></i><span class="mono">Engineering</span></div>
+        <h3>Nine products. All of them mine, from the architecture to the wordmark.</h3>
+        <p>Everything here runs in production. The colour of this room is the colour of whatever you're standing in front of.</p>
+      </div>
+
+      <div class="work" data-work="memrey">
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">Memrey</span><span class="work__yr">2025 — NOW</span></div>
+          <h4>An AI archive that gives a lifetime of photographs its memory back.</h4>
+          <p>Ingest, understand and retrieve decades of images by the thing you actually remember about them — not by a tag nobody wrote.</p>
+          <a class="go" href="/#engineering">Read the case study <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#2A0F3A;--b:#C7513F;--c2:#150720">
+            <span class="wm" style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(28px,3vw,52px);letter-spacing:-.02em">Memrey</span>
+            <div class="lab"><b>Memrey</b> <span>Interface · 2025</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work" id="rotavox" data-work="rotavox">
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">Rotavox</span><span class="work__yr">2024 — NOW</span></div>
+          <h4>Scheduling software for radio, rebuilt from nothing.</h4>
+          <p>The planner, the engine, the library, the reporting. One system, one person, and a real network running on it every day.</p>
+          <a class="go" href="/#engineering">Read the case study <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#05261A;--b:#38D08C;--c2:#03150F">
+            <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="lab"><b>Rotavox</b> <span>Hard crop · the planner · 2024</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work" id="soldera" data-work="soldera">
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">Soldera</span><span class="work__yr">2025 — NOW</span></div>
+          <h4>Photograph the thing. It writes the listing and prices it.</h4>
+          <p>An AI listing assistant for people who have too much to sell and no patience for marketplaces.</p>
+          <a class="go" href="/#engineering">Read the case study <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#2A0620;--b:#FF6CB6;--c2:#170312">
+            <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="lab"><b>Soldera</b> <span>Hard crop · UI · 2025</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="index">
+        <div class="row" data-work="house">
+          <span class="nm"><i style="--c:#6A7688"></i> Andacity</span>
+          <span class="ds">Trip planning and booking over enterprise travel APIs.</span>
+          <span class="yr">2024 —</span>
+        </div>
+        <div class="row" data-work="house">
+          <span class="nm"><i style="--c:#6A7688"></i> Wardroab</span>
+          <span class="ds">Body modelling and apparel recommendation.</span>
+          <span class="yr">2025 —</span>
+        </div>
+        <div class="row" data-work="house">
+          <span class="nm"><i style="--c:#6A7688"></i> Blossum</span>
+          <span class="ds">Early stage, in build. Not ready to be talked about yet.</span>
+          <span class="yr">2026 —</span>
+        </div>
+      </div>
+      <div style="height:clamp(30px,3.4vw,56px)"></div>
+    </div>
+  </section>
+
+  <!-- MEDIA — the flood, delivered as light -->
+  <section class="z-media" data-zone="media" data-work="bolt" id="bolt" style="--fx:64%;--fy:38%;--fw:88%;--fh:82%">
+    <div class="flood" aria-hidden="true"></div>
+    <div class="col">
+      <div class="zonehead">
+        <div class="kick"><i></i><span class="mono">Media</span></div>
+        <h3 class="halo">The part you can watch.</h3>
+        <p>Shadowcat isn't a hobby sitting next to the engineering. It's the same instinct pointed at a different surface — control the whole chain, and don't let anything out that isn't finished.</p>
+      </div>
+
+      <div class="work" data-work="bolt">
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">The Bolt · Night Signal</span><span class="work__yr">2024 — NOW</span></div>
+          <h4 class="halo">A radio network built end to end.</h4>
+          <p>Three stations. The software that runs them, the sound that comes out of them, and the brand wrapped around them. This is the one that lives in both halves of my work.</p>
+          <a class="go" href="/#bolt">See the network <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#1a0a06;--b:#FF3B1E;--c2:#0a0503">
+            <span class="wm" style="font-family:'Geist',sans-serif;font-weight:800;font-style:italic;font-size:clamp(26px,2.8vw,48px);letter-spacing:-.03em">THE BOLT</span>
+            <div class="lab"><b>The Bolt</b> <span>Brand · 2025</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work" data-work="shadowcat">
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">Shadowcat Pictures</span><span class="work__yr">2019 — NOW</span></div>
+          <h4 class="halo">I write it, shoot it, cut it, grade it and score it.</h4>
+          <p>Then I build the site it lives on. Both halves of my work are judged the same way: does it hold your attention, and does it hold up on a second pass.</p>
+          <a class="go" href="/#media">Open the film page <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#16323a;--b:#a67b3a;--c2:#05070a">
+            <span class="wm" style="font-family:'Zodiak',serif;font-weight:400;font-size:clamp(22px,2.4vw,42px);letter-spacing:.24em;text-transform:uppercase">Shadowcat</span>
+            <div class="lab"><b>Fault Lines</b> <span>2.39:1 · 2026</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="height:clamp(36px,4.4vw,72px)"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT — back to the house colour. (data-driven from siteMeta) -->
+  <section class="contact z-neutral" data-zone="neutral" data-work="house" id="contact">
+    <div class="col">
+      <h3>{siteMeta.ctaText}</h3>
+      <p>I'm open to senior and staff full-stack roles, and to the occasional contract that's actually interesting. Tell me what you're building. I answer everything.</p>
+      <div class="contact__row">
+        <a class="big" href={`mailto:${siteMeta.contactEmail}`}>{siteMeta.contactEmail} <span>→</span></a>
+        {siteMeta.social.map((s) => <a class="alt" href={s.url}>{s.label}</a>)}
+      </div>
     </div>
   </section>
 </Base>
-
-<style>
-  .proofgrid {
-    margin-top: clamp(28px, 3vw, 48px);
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 14px;
-  }
-  .vsw {
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-    text-align: left;
-    border: 1px solid var(--line);
-    background: var(--card);
-    overflow: hidden;
-    transition: border-color 160ms var(--ease), transform 160ms var(--ease);
-  }
-  .vsw:hover,
-  .vsw:focus-visible {
-    border-color: var(--k);
-    transform: translateY(-2px);
-  }
-  .vsw__key {
-    flex: none;
-    width: 46px;
-    background: var(--k);
-  }
-  .vsw__body {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 14px 16px;
-  }
-  .vsw__name {
-    font-family: var(--f-d-neutral);
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .vsw__flag {
-    font-family: var(--f-m);
-    font-weight: 600;
-    font-size: 8.5px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    padding: 2px 6px;
-    color: var(--k);
-    box-shadow: inset 0 0 0 1px currentColor;
-  }
-  .vsw__meta {
-    font-family: var(--f-m);
-    font-size: 10.5px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .vsw__ramp {
-    display: flex;
-    height: 10px;
-    margin-top: 4px;
-  }
-  .vsw__ramp i {
-    flex: 1;
-    display: block;
-  }
-  .proofcount {
-    margin-top: 22px;
-  }
-  code {
-    font-family: var(--f-m);
-    font-size: 0.85em;
-    background: var(--card);
-    padding: 1px 6px;
-  }
-</style>
-
-<script>
-  // §3e: the runtime engine stays a small plain client script (no framework island).
-  // Here it only does the hover-to-retint that proves the data→engine wiring.
-  const root = document.documentElement
-  const initialWork = root.dataset.work
-  const initialZone = root.dataset.zone
-
-  for (const btn of document.querySelectorAll<HTMLElement>('.vsw')) {
-    const retint = () => {
-      root.dataset.work = btn.dataset.w ?? 'house'
-      root.dataset.zone = btn.dataset.z ?? 'neutral'
-    }
-    const reset = () => {
-      root.dataset.work = initialWork ?? 'house'
-      root.dataset.zone = initialZone ?? 'neutral'
-    }
-    btn.addEventListener('mouseenter', retint)
-    btn.addEventListener('focus', retint)
-    btn.addEventListener('mouseleave', reset)
-    btn.addEventListener('blur', reset)
-  }
-</script>

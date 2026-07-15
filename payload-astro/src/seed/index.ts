@@ -3,6 +3,7 @@ loadEnv()
 
 import { venturesSeed } from './ventures'
 import { memreyCaseStudySeed } from './memrey'
+import { siteMetaSeed } from './site-meta'
 
 async function run() {
   const { getPayload } = await import('payload')
@@ -58,6 +59,9 @@ async function run() {
     await payload.create({ collection: 'case-studies', data: caseStudyData })
     payload.logger.info('Created Memrey case study.')
   }
+
+  await payload.updateGlobal({ slug: 'site-meta', data: siteMetaSeed })
+  payload.logger.info('Seeded siteMeta global.')
 
   payload.logger.info('Seed complete.')
   process.exit(0)

@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "House",
+    "name": "Alden",
     "slug": "house",
     "zone": "neutral",
     "order": 0,
@@ -22,7 +22,7 @@
     "slug": "memrey",
     "zone": "engineering",
     "order": 1,
-    "tagline": null,
+    "tagline": "AI photo archive. Plum ground, rising sun.",
     "palette": {
       "key": "#5B2470",
       "hi": "#FF8A3D",
@@ -39,7 +39,7 @@
     "slug": "rotavox",
     "zone": "engineering",
     "order": 2,
-    "tagline": null,
+    "tagline": "Scheduling software for radio.",
     "palette": {
       "key": "#0F7A52",
       "hi": "#38D08C",
@@ -56,7 +56,7 @@
     "slug": "soldera",
     "zone": "engineering",
     "order": 3,
-    "tagline": null,
+    "tagline": "An AI listing assistant.",
     "palette": {
       "key": "#C81B7A",
       "hi": "#FF6CB6",
@@ -69,11 +69,11 @@
   },
   {
     "id": 5,
-    "name": "Bolt",
+    "name": "The Bolt",
     "slug": "bolt",
     "zone": "media",
     "order": 4,
-    "tagline": null,
+    "tagline": "Molten orange. A station, built end to end.",
     "palette": {
       "key": "#FF3B1E",
       "hi": "#FF7A45",
@@ -86,11 +86,11 @@
   },
   {
     "id": 6,
-    "name": "Signal",
+    "name": "Night Signal",
     "slug": "signal",
     "zone": "media",
     "order": 5,
-    "tagline": null,
+    "tagline": "The network the stations sit inside.",
     "palette": {
       "key": "#00E8D0",
       "hi": "#7DF7EA",
@@ -107,7 +107,7 @@
     "slug": "shadowcat",
     "zone": "media",
     "order": 6,
-    "tagline": null,
+    "tagline": "Films and photography.",
     "palette": {
       "key": "#E2A03C",
       "hi": "#FFD08A",
