@@ -1,0 +1,51 @@
+---
+/**
+ * The Memrey architecture diagram (BUILD.md §4). Bespoke component, NOT a CMS field —
+ * ported verbatim from v6-engine-r2.html lines 839-862. Deliberately shares its grammar
+ * (stroke weight, box size, mono sub-labels, arrow markers, coloured terminal box) with
+ * ChainSVG.astro (the film page's chain diagram, step 6) — "same instinct, different
+ * surface." Only the terminal box fill and its label are parameterized per venture; the
+ * geometry is identical on purpose.
+ */
+interface Props {
+  /** The venture's palette.key hex — fills the terminal box. */
+  keyColor: string
+  terminalLabel?: string
+  terminalSub?: string
+}
+
+const { keyColor, terminalLabel = 'INTERFACE', terminalSub = 'one sentence in' } = Astro.props
+---
+
+<svg
+  viewBox="0 0 900 250"
+  role="img"
+  aria-label="Memrey architecture: ingest, normalise, enrich, embed, memory graph, grounding, retrieval, interface"
+>
+  <defs>
+    <marker id="ar" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <path d="M0,0 L7,3.5 L0,7 z" fill="currentColor" opacity=".5"></path>
+    </marker>
+  </defs>
+  <g stroke="currentColor" stroke-width="1" opacity=".35" marker-end="url(#ar)">
+    <line x1="152" y1="66" x2="196" y2="66"></line><line x1="330" y1="66" x2="374" y2="66"></line><line x1="508" y1="66" x2="552" y2="66"></line>
+    <line x1="440" y1="108" x2="440" y2="156"></line><line x1="618" y1="108" x2="618" y2="156"></line>
+    <line x1="330" y1="186" x2="374" y2="186"></line><line x1="508" y1="186" x2="552" y2="186"></line>
+  </g>
+  <g fill="none" stroke="currentColor" stroke-width="1.25" opacity=".85">
+    <rect x="24" y="36" width="128" height="60"></rect><rect x="202" y="36" width="128" height="60"></rect>
+    <rect x="380" y="36" width="128" height="60"></rect><rect x="558" y="36" width="128" height="60"></rect>
+    <rect x="202" y="156" width="128" height="60"></rect><rect x="380" y="156" width="128" height="60"></rect>
+    <rect x="558" y="156" width="128" height="60"></rect>
+  </g>
+  <rect x="736" y="96" width="140" height="60" fill={keyColor}></rect>
+  <text class="lbl" x="88" y="62" text-anchor="middle">INGEST</text><text x="88" y="78" text-anchor="middle">phone · scans · tape</text>
+  <text class="lbl" x="266" y="62" text-anchor="middle">NORMALISE</text><text x="266" y="78" text-anchor="middle">exif · dedupe · derive</text>
+  <text class="lbl" x="444" y="62" text-anchor="middle">ENRICH</text><text x="444" y="78" text-anchor="middle">faces · scenes · speech</text>
+  <text class="lbl" x="622" y="62" text-anchor="middle">EMBED</text><text x="622" y="78" text-anchor="middle">clip · pgvector</text>
+  <text class="lbl" x="266" y="182" text-anchor="middle">MEMORY GRAPH</text><text x="266" y="198" text-anchor="middle">people · place · event</text>
+  <text class="lbl" x="444" y="182" text-anchor="middle">GROUNDING</text><text x="444" y="198" text-anchor="middle">graph + vector rerank</text>
+  <text class="lbl" x="622" y="182" text-anchor="middle">RETRIEVAL</text><text x="622" y="198" text-anchor="middle">natural language</text>
+  <text x="806" y="123" text-anchor="middle" fill="#fff" style="font-family:'Geist';font-size:12px;font-weight:700;letter-spacing:0">{terminalLabel}</text>
+  <text x="806" y="139" text-anchor="middle" fill="#fff" opacity=".78">{terminalSub}</text>
+</svg>

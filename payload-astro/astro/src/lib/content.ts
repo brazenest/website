@@ -35,19 +35,26 @@ export function spectrumVentures() {
   return [...ventures].filter((v) => v.slug !== 'house').sort((a, b) => a.order - b.order)
 }
 
+export const caseStudiesByVentureSlug: Record<string, CaseStudy> = Object.fromEntries(
+  caseStudies.filter((c) => c.venture).map((c) => [c.venture as string, c]),
+)
+
+export function caseStudyHref(ventureSlug: string): string | null {
+  return caseStudiesByVentureSlug[ventureSlug] ? `/engineering/${ventureSlug}` : null
+}
+
 /**
- * Where a rail/spectrum segment points. Mostly derivable (`/#<slug>`) so a new venture gets
- * a sensible anchor with no code change; a few slugs map onto shared home sections.
- * memrey/shadowcat will re-point to their own pages (/memrey, /media) in steps 5–6.
+ * Where a rail/spectrum segment points. A venture with a real case study or film page gets
+ * that page automatically; everything else falls back to its home-page anchor — so a new
+ * venture gets a sensible link with no code change, and adding its case study later
+ * re-points the rail with no code change either.
  */
 export function ventureHref(slug: string): string {
-  const special: Record<string, string> = {
-    house: '/',
-    memrey: '/#engineering',
-    signal: '/#bolt',
-    shadowcat: '/#media',
-  }
-  return special[slug] ?? `/#${slug}`
+  if (slug === 'house') return '/'
+  const caseStudy = caseStudyHref(slug)
+  if (caseStudy) return caseStudy
+  const specialAnchors: Record<string, string> = { signal: '/#bolt', shadowcat: '/#media' }
+  return specialAnchors[slug] ?? `/#${slug}`
 }
 
 /** Title-case the zone for a chip's corner label. */

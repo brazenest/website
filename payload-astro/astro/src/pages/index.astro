@@ -8,9 +8,10 @@
  * carries data-work so the runtime engine retints on hover and scroll.
  */
 import Base from '../layouts/Base.astro'
-import { spectrumVentures, siteMeta, ventureHref, zoneLabel } from '../lib/content'
+import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref } from '../lib/content'
 
 const chips = spectrumVentures()
+const memreyHref = caseStudyHref('memrey') ?? '/#engineering'
 ---
 
 <Base title="Alden Gillespy" zone="neutral" work="house">
@@ -92,7 +93,7 @@ const chips = spectrumVentures()
           <div class="work__meta"><span class="wchip">Memrey</span><span class="work__yr">2025 — NOW</span></div>
           <h4>An AI archive that gives a lifetime of photographs its memory back.</h4>
           <p>Ingest, understand and retrieve decades of images by the thing you actually remember about them — not by a tag nobody wrote.</p>
-          <a class="go" href="/#engineering">Read the case study <span>→</span></a>
+          <a class="go" href={memreyHref}>Read the case study <span>→</span></a>
         </div>
         <div class="work__a">
           <div class="shot" style="--a:#2A0F3A;--b:#C7513F;--c2:#150720">
