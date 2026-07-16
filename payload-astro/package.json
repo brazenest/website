@@ -15,7 +15,9 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/index.ts",
     "export": "cross-env NODE_OPTIONS=--no-deprecation tsx src/export/index.ts",
-    "deploy": "pnpm run export && pnpm --dir astro run build && wrangler pages deploy astro/dist --project-name=aldengillespy-v6"
+    "predeploy": "pnpm run export && pnpm --dir astro run build",
+    "deploy:preview": "pnpm run predeploy && wrangler pages deploy astro/dist --project-name=aldengillespy-v6 --branch=preview",
+    "deploy:production": "pnpm run predeploy && wrangler pages deploy astro/dist --project-name=aldengillespy-v6 --branch=main"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.86.0",
