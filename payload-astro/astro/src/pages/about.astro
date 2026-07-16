@@ -1,0 +1,35 @@
+---
+/**
+ * ABOUT (BUILD.md §7 — deferred design pass). Minimal stub.
+ * Renders in the house/neutral identity. TODO: design pass.
+ */
+import Base from '../layouts/Base.astro'
+
+const content = `
+About this site and Radiant Ventures.
+
+(This is a stub. Design pass to follow.)
+`.trim()
+---
+
+<Base title="About — Alden Gillespy" zone="neutral" work="house">
+  <section class="z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <div class="crumb"><span>About</span></div>
+      <article style="margin-block: clamp(30px, 3.4vw, 56px); max-width: 70ch;">
+        <h1 class="halo">About Alden Gillespy</h1>
+        <div class="dim" style="margin-top: clamp(20px, 2vw, 32px);">
+          <p>{content}</p>
+          <p style="margin-top: 1em; font-size: 13px; color: var(--muted);">
+            <strong>TODO: design pass</strong> — This page will be properly designed once the pipeline is live.
+          </p>
+        </div>
+      </article>
+
+      <div class="nextup">
+        <div><span class="mono">Back to</span><h4>Home</h4></div>
+        <a class="go" href="/">Go back <span>→</span></a>
+      </div>
+    </div>
+  </section>
+</Base>
