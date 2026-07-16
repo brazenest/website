@@ -14,7 +14,8 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/index.ts",
-    "export": "cross-env NODE_OPTIONS=--no-deprecation tsx src/export/index.ts"
+    "export": "cross-env NODE_OPTIONS=--no-deprecation tsx src/export/index.ts",
+    "deploy": "pnpm run export && pnpm --dir astro run build && wrangler pages deploy astro/dist --project-name=aldengillespy-v6"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.86.0",
@@ -38,7 +39,8 @@
     "eslint-config-next": "16.2.7",
     "prettier": "^3.4.2",
     "tsx": "4.22.4",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "wrangler": "^4.107.0"
   },
   "engines": {
     "node": ">=20.0.0",
