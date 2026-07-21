@@ -1,0 +1,425 @@
+---
+/**
+ * ContactForm — the shared inquiry form (BUILD.md §7, the deferred contact handler,
+ * now built). Used in two places from the SAME markup:
+ *   - inline on /contact
+ *   - inside ContactModal (opened from every mailto/CTA site-wide)
+ *
+ * It POSTs to the contact Worker, which verifies Turnstile server-side and sends the
+ * email. Turnstile renders lazily (on visibility) so it works both inline and inside a
+ * dialog that starts hidden. The client script is hoisted once and wires every instance.
+ */
+import { CONTACT_CATEGORIES } from '../config/contact'
+
+interface Props {
+  /** Unique per instance (there can be two on /contact: inline + modal). */
+  id: string
+  /** Optional heading rendered above the fields. */
+  heading?: string
+  /** Optional supporting line under the heading. */
+  intro?: string
+}
+
+const { id, heading, intro } = Astro.props
+const fieldId = (name: string) => `${id}-${name}`
+---
+
+<form class="cform" id={id} novalidate data-contact-form>
+  {heading && <h3 class="cform__heading">{heading}</h3>}
+  {intro && <p class="cform__intro">{intro}</p>}
+
+  <div class="cform__body">
+    <div class="cform__field">
+      <label for={fieldId('name')}>Name</label>
+      <input id={fieldId('name')} name="name" type="text" autocomplete="name" required maxlength="200" />
+      <span class="cform__err" data-err="name"></span>
+    </div>
+
+    <div class="cform__field">
+      <label for={fieldId('email')}>Email</label>
+      <input id={fieldId('email')} name="email" type="email" autocomplete="email" required maxlength="320" />
+      <span class="cform__err" data-err="email"></span>
+    </div>
+
+    <div class="cform__field">
+      <label for={fieldId('category')}>What's this about?</label>
+      <select id={fieldId('category')} name="category" required>
+        {CONTACT_CATEGORIES.map((c) => <option value={c.value}>{c.label}</option>)}
+      </select>
+      <span class="cform__err" data-err="category"></span>
+    </div>
+
+    <div class="cform__field">
+      <label for={fieldId('message')}>Message</label>
+      <textarea id={fieldId('message')} name="message" rows="5" required maxlength="5000"></textarea>
+      <span class="cform__err" data-err="message"></span>
+    </div>
+
+    {/* Honeypot — hidden from humans, catnip for bots. Must stay empty. */}
+    <div class="cform__hp" aria-hidden="true">
+      <label for={fieldId('company')}>Company (leave blank)</label>
+      <input id={fieldId('company')} name="company" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <div class="cform__turnstile" data-turnstile></div>
+
+    <button type="submit" class="cform__submit">
+      <span class="cform__submit-label">Send message</span>
+      <span class="cform__submit-spinner" aria-hidden="true"></span>
+    </button>
+
+    <p class="cform__status" role="status" aria-live="polite" data-status></p>
+  </div>
+
+  <div class="cform__done" data-done hidden>
+    <p class="cform__done-mark" aria-hidden="true">✓</p>
+    <h3>Message sent.</h3>
+    <p>Thanks — it's landed in my inbox. I read everything and reply personally, usually within a day or two.</p>
+    <button type="button" class="cform__again" data-again>Send another</button>
+  </div>
+</form>
+
+<style>
+  .cform {
+    --cf-gap: clamp(14px, 1.6vw, 18px);
+  }
+  .cform__heading {
+    font-size: clamp(20px, 2.4vw, 26px);
+    margin: 0 0 6px;
+  }
+  .cform__intro {
+    color: var(--muted);
+    margin: 0 0 var(--cf-gap);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .cform__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cf-gap);
+  }
+  .cform__field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .cform__field label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cform input,
+  .cform select,
+  .cform textarea {
+    width: 100%;
+    padding: 12px 13px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 0;
+    transition: border-color 160ms var(--ease), box-shadow 160ms var(--ease);
+  }
+  .cform textarea {
+    resize: vertical;
+    min-height: 116px;
+  }
+  .cform input:focus,
+  .cform select:focus,
+  .cform textarea:focus {
+    outline: none;
+    border-color: var(--w-key);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--w-key) 22%, transparent);
+  }
+  .cform__field[data-invalid] input,
+  .cform__field[data-invalid] select,
+  .cform__field[data-invalid] textarea {
+    border-color: #d3452f;
+  }
+  .cform__err {
+    font-size: 12px;
+    color: #d3452f;
+    min-height: 0;
+  }
+  .cform__err:empty {
+    display: none;
+  }
+  /* Honeypot: removed from layout + a11y tree, still submitted if a bot fills it. */
+  .cform__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+  .cform__turnstile:empty {
+    min-height: 65px;
+  }
+  .cform__submit {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 22px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--w-on);
+    background: var(--w-key);
+    border: none;
+    cursor: pointer;
+    transition: opacity 160ms var(--ease), transform 160ms var(--ease);
+  }
+  .cform__submit:hover {
+    opacity: 0.92;
+  }
+  .cform__submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+  .cform__submit-spinner {
+    display: none;
+    width: 15px;
+    height: 15px;
+    border: 2px solid color-mix(in srgb, var(--w-on) 40%, transparent);
+    border-top-color: var(--w-on);
+    border-radius: 50%;
+    animation: cform-spin 0.7s linear infinite;
+  }
+  .cform[data-loading] .cform__submit-spinner {
+    display: inline-block;
+  }
+  .cform[data-loading] .cform__submit {
+    cursor: default;
+    opacity: 0.7;
+  }
+  @keyframes cform-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .cform__status {
+    margin: 0;
+    font-size: 13px;
+    color: #d3452f;
+    min-height: 0;
+  }
+  .cform__status:empty {
+    display: none;
+  }
+  .cform__done {
+    text-align: center;
+    padding: clamp(20px, 4vw, 40px) 0;
+  }
+  .cform__done-mark {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 16px;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    color: var(--w-on);
+    background: var(--w-key);
+    border-radius: 50%;
+  }
+  .cform__done h3 {
+    margin: 0 0 8px;
+    font-size: clamp(20px, 2.4vw, 26px);
+  }
+  .cform__done p {
+    color: var(--muted);
+    margin: 0 auto;
+    max-width: 40ch;
+    line-height: 1.6;
+    font-size: 14px;
+  }
+  .cform__again {
+    margin-top: 20px;
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: border-color 160ms var(--ease);
+  }
+  .cform__again:hover {
+    border-color: var(--w-key);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cform__submit-spinner {
+      animation-duration: 1.4s;
+    }
+    .cform input,
+    .cform select,
+    .cform textarea,
+    .cform__submit {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  import { CONTACT_ENDPOINT, TURNSTILE_SITEKEY } from '../config/contact'
+
+  // Cloudflare Turnstile, loaded once, explicit-render mode.
+  interface TurnstileAPI {
+    render: (el: HTMLElement, opts: Record<string, unknown>) => string
+    reset: (id?: string) => void
+    getResponse: (id?: string) => string | undefined
+  }
+  declare global {
+    interface Window {
+      turnstile?: TurnstileAPI
+    }
+  }
+
+  let turnstileLoader: Promise<void> | null = null
+  function loadTurnstile(): Promise<void> {
+    if (window.turnstile) return Promise.resolve()
+    if (turnstileLoader) return turnstileLoader
+    turnstileLoader = new Promise<void>((resolve, reject) => {
+      const s = document.createElement('script')
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+      s.async = true
+      s.defer = true
+      s.onload = () => resolve()
+      s.onerror = () => reject(new Error('turnstile-load-failed'))
+      document.head.appendChild(s)
+    })
+    return turnstileLoader
+  }
+
+  const ERROR_COPY: Record<string, string> = {
+    turnstile_failed: 'The anti-spam check failed. Please try again.',
+    send_failed: "Something went wrong sending your message. Please email me directly if it persists.",
+    forbidden_origin: 'Something went wrong. Please reload and try again.',
+    network: 'Network error — please check your connection and try again.',
+    turnstile_missing: 'Please complete the anti-spam check.',
+  }
+
+  function wireForm(form: HTMLFormElement) {
+    const tsContainer = form.querySelector<HTMLElement>('[data-turnstile]')!
+    const statusEl = form.querySelector<HTMLElement>('[data-status]')!
+    const submitBtn = form.querySelector<HTMLButtonElement>('.cform__submit')!
+    const doneEl = form.querySelector<HTMLElement>('[data-done]')!
+    const bodyEl = form.querySelector<HTMLElement>('.cform__body')!
+    let widgetId: string | null = null
+
+    async function ensureWidget() {
+      if (widgetId !== null) return
+      try {
+        await loadTurnstile()
+        widgetId = window.turnstile!.render(tsContainer, {
+          sitekey: TURNSTILE_SITEKEY,
+          action: 'contact',
+        })
+      } catch {
+        /* leave widgetId null; submit will surface the missing-check message */
+      }
+    }
+
+    // Render Turnstile as soon as the form is visible (covers inline + modal-open).
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            ensureWidget()
+            obs.disconnect()
+          }
+        }
+      },
+      { threshold: 0.01 },
+    )
+    io.observe(tsContainer)
+    // The modal dispatches this on open in case the IO hasn't fired yet.
+    form.addEventListener('contact:activate', ensureWidget)
+
+    function clearErrors() {
+      statusEl.textContent = ''
+      for (const f of form.querySelectorAll<HTMLElement>('.cform__field')) f.removeAttribute('data-invalid')
+      for (const s of form.querySelectorAll<HTMLElement>('[data-err]')) (s.textContent = '')
+    }
+
+    function fieldError(name: string, msg: string) {
+      const errEl = form.querySelector<HTMLElement>(`[data-err="${name}"]`)
+      if (errEl) errEl.textContent = msg
+      errEl?.closest('.cform__field')?.setAttribute('data-invalid', '')
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      clearErrors()
+
+      const token = widgetId !== null ? window.turnstile?.getResponse(widgetId) : undefined
+      if (!token) {
+        statusEl.textContent = ERROR_COPY.turnstile_missing
+        ensureWidget()
+        return
+      }
+
+      const fd = new FormData(form)
+      const payload = {
+        name: String(fd.get('name') ?? ''),
+        email: String(fd.get('email') ?? ''),
+        category: String(fd.get('category') ?? ''),
+        message: String(fd.get('message') ?? ''),
+        company: String(fd.get('company') ?? ''),
+        token,
+      }
+
+      form.setAttribute('data-loading', '')
+      submitBtn.disabled = true
+      try {
+        const res = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+        const data = (await res.json().catch(() => ({}))) as {
+          ok?: boolean
+          error?: string
+          fields?: Record<string, string>
+        }
+
+        if (data.ok) {
+          bodyEl.hidden = true
+          doneEl.hidden = false
+          return
+        }
+
+        if (data.error === 'validation' && data.fields) {
+          for (const [name, kind] of Object.entries(data.fields)) {
+            fieldError(name, kind === 'required' ? 'Required.' : kind === 'too_long' ? 'Too long.' : 'Please check this.')
+          }
+          statusEl.textContent = 'Please fix the highlighted fields.'
+        } else {
+          statusEl.textContent = ERROR_COPY[data.error ?? ''] ?? ERROR_COPY.send_failed
+        }
+      } catch {
+        statusEl.textContent = ERROR_COPY.network
+      } finally {
+        form.removeAttribute('data-loading')
+        submitBtn.disabled = false
+        if (widgetId !== null) window.turnstile?.reset(widgetId) // tokens are single-use
+      }
+    })
+
+    // "Send another" resets the form back to its initial state.
+    form.querySelector<HTMLButtonElement>('[data-again]')?.addEventListener('click', () => {
+      form.reset()
+      clearErrors()
+      doneEl.hidden = true
+      bodyEl.hidden = false
+      if (widgetId !== null) window.turnstile?.reset(widgetId)
+    })
+  }
+
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-contact-form]')) wireForm(form)
+</script>

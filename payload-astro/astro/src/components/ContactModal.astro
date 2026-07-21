@@ -1,0 +1,180 @@
+---
+/**
+ * ContactModal — site-wide contact dialog. Included once in Base.astro, so every page
+ * has it. Any element with [data-contact-open] opens it (the header CTA, footer link,
+ * and the former mailto CTAs are all wired to it).
+ *
+ * Built on the native <dialog> element: showModal() gives us focus-trapping, ESC-to-close,
+ * and top-layer rendering for free. We add backdrop-click close, body scroll-lock, and a
+ * reduced-motion-aware transition. The form inside is the shared ContactForm.
+ */
+import ContactForm from './ContactForm.astro'
+---
+
+<dialog class="cmodal" aria-labelledby="cmodal-title" data-contact-modal>
+  <div class="cmodal__card">
+    <button type="button" class="cmodal__close" aria-label="Close contact form" data-contact-close>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <div class="cmodal__scroll">
+      <p class="cmodal__kicker" id="cmodal-title">Let's talk</p>
+      <ContactForm
+        id="contact-modal"
+        heading="Start a conversation"
+        intro="Tell me what you're after — a build, a film, a role, or something else entirely. Everything comes straight to me."
+      />
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .cmodal {
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100dvh;
+    color: var(--ink);
+    /* The site's global reset (*{margin:0}) nukes the UA dialog's margin:auto,
+       so restore centering explicitly. inset:0 comes from the UA modal style. */
+    margin: auto;
+  }
+  .cmodal::backdrop {
+    background: color-mix(in srgb, var(--deep, #0b0e13) 66%, transparent);
+    backdrop-filter: blur(3px);
+  }
+  .cmodal__card {
+    position: relative;
+    width: min(560px, 100vw);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.5);
+  }
+  .cmodal__scroll {
+    max-height: 88dvh;
+    overflow-y: auto;
+    padding: clamp(22px, 4vw, 40px);
+  }
+  .cmodal__kicker {
+    font-family: var(--f-m, monospace);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--w-key);
+    margin: 0 0 14px;
+  }
+  .cmodal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 160ms var(--ease), background 160ms var(--ease);
+  }
+  .cmodal__close:hover {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--ink) 8%, transparent);
+  }
+
+  /* Entrance animation (desktop: rise + fade). */
+  .cmodal[open] {
+    animation: cmodal-in 220ms var(--ease, ease);
+  }
+  .cmodal[open]::backdrop {
+    animation: cmodal-fade 220ms var(--ease, ease);
+  }
+  @keyframes cmodal-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+  @keyframes cmodal-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* Mobile: dock to the bottom as a sheet. */
+  @media (max-width: 560px) {
+    .cmodal {
+      /* Dock to the bottom edge as a sheet (override the centered inset). */
+      inset: auto 0 0 0;
+      margin: 0;
+      width: 100vw;
+    }
+    .cmodal__card {
+      width: 100vw;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+    }
+    .cmodal__scroll {
+      max-height: 92dvh;
+    }
+    .cmodal[open] {
+      animation: cmodal-sheet-in 260ms var(--ease, ease);
+    }
+    @keyframes cmodal-sheet-in {
+      from {
+        transform: translateY(100%);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cmodal[open],
+    .cmodal[open]::backdrop {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('[data-contact-modal]')
+  if (dialog) {
+    const form = dialog.querySelector<HTMLFormElement>('[data-contact-form]')
+
+    function open() {
+      if (dialog!.open) return
+      dialog!.showModal()
+      document.body.style.overflow = 'hidden'
+      // Nudge Turnstile to render now that the dialog is visible.
+      form?.dispatchEvent(new CustomEvent('contact:activate'))
+    }
+    function close() {
+      if (!dialog!.open) return
+      dialog!.close()
+    }
+
+    // Any [data-contact-open] anywhere opens the modal.
+    document.addEventListener('click', (e) => {
+      const trigger = (e.target as HTMLElement).closest('[data-contact-open]')
+      if (trigger) {
+        e.preventDefault()
+        open()
+      }
+    })
+
+    dialog.querySelector('[data-contact-close]')?.addEventListener('click', close)
+
+    // Click on the backdrop (outside the card) closes.
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) close()
+    })
+
+    // Restore scroll on any close (button, ESC, backdrop).
+    dialog.addEventListener('close', () => {
+      document.body.style.overflow = ''
+    })
+  }
+</script>

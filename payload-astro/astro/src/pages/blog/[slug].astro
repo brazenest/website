@@ -47,7 +47,7 @@ const venture = post.relatedVenture ? venturesBySlug[post.relatedVenture as stri
       <h3>Got a response?</h3>
       <p>Find me at the email below or on the socials — I read everything.</p>
       <div class="contact__row">
-        <a class="big" href={`mailto:${siteMeta.contactEmail}`}>{siteMeta.contactEmail} <span>→</span></a>
+        <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
         {siteMeta.social.map((s) => <a class="alt" href={s.url}>{s.label}</a>)}
       </div>
     </div>

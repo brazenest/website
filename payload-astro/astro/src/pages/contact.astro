@@ -1,9 +1,12 @@
 ---
 /**
- * CONTACT (BUILD.md §7 — deferred design pass). Minimal stub.
- * Renders in the house/neutral identity with a form skeleton. Submission handler is TODO.
+ * CONTACT — the dedicated contact page. Renders the shared ContactForm inline (same
+ * component the site-wide modal uses, same Worker endpoint). This page is also the
+ * no-JS fallback target for every [data-contact-open] trigger, so it must stand on its
+ * own without the modal.
  */
 import Base from '../layouts/Base.astro'
+import ContactForm from '../components/ContactForm.astro'
 import { siteMeta } from '../lib/content'
 ---
 
@@ -11,42 +14,30 @@ import { siteMeta } from '../lib/content'
   <section class="z-neutral" data-zone="neutral" data-work="house">
     <div class="col">
       <div class="crumb"><span>Contact</span></div>
-      <article style="margin-block: clamp(30px, 3.4vw, 56px); max-width: 70ch;">
-        <h1 class="halo">Get in touch</h1>
-        <p class="dim" style="margin-top: clamp(20px, 2vw, 32px);">
-          I build products from the ground up — engineering, design, infrastructure, ops. If you have a problem that needs solving or a product that needs shipping, let's talk.
-        </p>
 
-        <!-- FORM STUB — §7 TODO: wire to mail handler (Resend was the plan) -->
-        <form class="contact__form" style="margin-top: clamp(30px, 3.4vw, 56px);">
-          <fieldset style="border: none; padding: 0; margin: 0;">
-            <div class="form__field" style="margin-bottom: 20px;">
-              <label for="name" style="display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px;">Name</label>
-              <input id="name" type="text" name="name" required style="width: 100%; padding: 12px; font-family: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink);" />
-            </div>
-            <div class="form__field" style="margin-bottom: 20px;">
-              <label for="email" style="display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px;">Email</label>
-              <input id="email" type="email" name="email" required style="width: 100%; padding: 12px; font-family: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink);" />
-            </div>
-            <div class="form__field" style="margin-bottom: 20px;">
-              <label for="message" style="display: block; font-size: 13px; font-weight: 500; margin-bottom: 8px;">Message</label>
-              <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 12px; font-family: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); resize: vertical;" />
-            </div>
-            <button type="submit" style="padding: 12px 20px; background: var(--w-key); color: var(--w-on); border: none; font-weight: 500; cursor: pointer;">Send message</button>
-            <p style="margin-top: 12px; font-size: 12px; color: var(--muted);">
-              <strong>TODO: form handler</strong> — This form does not yet submit. Will be wired to Resend or equivalent.
-            </p>
-          </fieldset>
-        </form>
-
-        <div style="margin-top: clamp(30px, 3.4vw, 56px); padding-top: clamp(30px, 3.4vw, 56px); border-top: 1px solid var(--line);">
-          <p class="dim" style="font-size: 13px; margin-bottom: 12px;">Or reach out directly:</p>
-          <div class="contact__row">
-            <a class="big" href={`mailto:${siteMeta.contactEmail}`}>{siteMeta.contactEmail} <span>→</span></a>
-            {siteMeta.social.map((s) => <a class="alt" href={s.url}>{s.label}</a>)}
-          </div>
+      <div class="contactpage">
+        <div class="contactpage__lede">
+          <h1 class="halo">Get in touch</h1>
+          <p class="dim">
+            I build products from the ground up — engineering, design, infrastructure, film. If
+            you have something to make, a role to fill, or just want to talk shop, this comes
+            straight to me.
+          </p>
+          {
+            siteMeta.social.length > 0 && (
+              <div class="contactpage__social">
+                {siteMeta.social.map((s) => (
+                  <a href={s.url}>{s.label}</a>
+                ))}
+              </div>
+            )
+          }
         </div>
-      </article>
+
+        <div class="contactpage__form">
+          <ContactForm id="contact-inline" />
+        </div>
+      </div>
 
       <div class="nextup">
         <div><span class="mono">Back to</span><h4>Home</h4></div>
@@ -55,3 +46,43 @@ import { siteMeta } from '../lib/content'
     </div>
   </section>
 </Base>
+
+<style>
+  .contactpage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vw, 64px);
+    margin-block: clamp(30px, 3.4vw, 56px);
+  }
+  @media (min-width: 860px) {
+    .contactpage {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+  .contactpage__lede h1 {
+    margin-bottom: clamp(16px, 2vw, 24px);
+  }
+  .contactpage__lede .dim {
+    max-width: 46ch;
+    line-height: 1.7;
+  }
+  .contactpage__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: clamp(20px, 3vw, 32px);
+    font-family: var(--f-m, monospace);
+    font-size: 13px;
+  }
+  .contactpage__social a {
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: color 160ms var(--ease), border-color 160ms var(--ease);
+  }
+  .contactpage__social a:hover {
+    color: var(--w-key);
+    border-color: var(--w-key);
+  }
+</style>

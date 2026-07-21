@@ -204,7 +204,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
       <h3>{siteMeta.ctaText}</h3>
       <p>I'm open to senior and staff full-stack roles, and to the occasional contract that's actually interesting. Tell me what you're building. I answer everything.</p>
       <div class="contact__row">
-        <a class="big" href={`mailto:${siteMeta.contactEmail}`}>{siteMeta.contactEmail} <span>→</span></a>
+        <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
         {siteMeta.social.map((s) => <a class="alt" href={s.url}>{s.label}</a>)}
       </div>
     </div>
