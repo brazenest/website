@@ -1,22 +1,24 @@
 [
   {
     "id": 3,
-    "venture": "soldera",
+    "venture": "andacity",
     "role": "Founder, architect, designer, sole engineer",
-    "timeline": "2025 — present",
-    "status": "In build",
-    "hook": "Selling something online is ten minutes of writing nobody wants to do. Soldera does it from a photo.",
+    "timeline": "2024 — present",
+    "status": "Live — andacity.com",
+    "hook": "Booking a flight is easy. Deciding what the trip should be is the part every travel site leaves to you.",
     "stack": [
       "TypeScript",
-      "React",
-      "Node",
+      "Qwik",
+      "QwikCity",
+      "Fastify",
+      "Drizzle",
       "Postgres",
-      "Vision model",
-      "LLM"
+      "Zod",
+      "Cloudflare"
     ],
-    "identityNote": "Deep magenta ground, a hot-pink signal, Geist. The colour of this page.",
+    "identityNote": "Deep navy ground, an azure signal, Geist. The colour of this page.",
     "problem": {
-      "drop": "Everyone has a closet, a garage, a shelf of things worth money — and no patience for writing the listings.",
+      "drop": "Flights, hotels, cars and destinations each live behind their own search box — and the traveller is left to be the integration layer.",
       "body": {
         "root": {
           "type": "root",
@@ -39,7 +41,7 @@
                   "mode": "normal",
                   "detail": 0,
                   "version": 1,
-                  "text": "Every marketplace wants the same tax up front: a title, a description, the right category, a condition, and a price you had to go and research yourself. It's enough friction that most people never bother, and the thing just sits there. Soldera removes the writing entirely — photograph the item and it produces a listing that's ready to post."
+                  "text": "Planning a trip means twelve tabs, a spreadsheet, and a lot of copy-paste, because no tool treats the trip itself as the thing you're building — only the individual bookings. Andacity is discovery-first: you plan the trip, and the destinations, hotels, flights and cars assemble around it, as one object you can save, share and come back to."
                 }
               ]
             }
@@ -49,20 +51,28 @@
     },
     "built": [
       {
-        "lead": "A vision pipeline",
-        "body": "that identifies the item, its brand and its condition from a photo, without the seller typing a word."
+        "lead": "A search mode per vertical",
+        "body": "destinations, hotels, flights and cars — each tuned to how you actually shop for it, but sharing one result / entity / trip grammar so nothing feels bolted on."
       },
       {
-        "lead": "A listing writer",
-        "body": "that turns that into a real title, description and category — in the voice a marketplace rewards, not a wall of keywords."
+        "lead": "The trip as a first-class object",
+        "body": "add-to-trip from anywhere; the trip persists, revalidates, and holds the whole plan together instead of scattering it across bookings."
       },
       {
-        "lead": "A pricing model",
-        "body": "that reads comparable sales and the item’s condition and proposes a price you can accept or nudge."
+        "lead": "Shareable, canonical routes",
+        "body": "every search, place and trip has a clean URL that survives being sent to someone — the plan travels with the link."
       },
       {
-        "lead": "One-tap publish",
-        "body": "so the finished listing goes where the buyers are, instead of into a draft folder you never return to."
+        "lead": "Entity resolution across verticals",
+        "body": "one canonical identity for a place, hotel or airport everywhere in the app, so results line up instead of contradicting each other."
+      },
+      {
+        "lead": "Guided booking with a trust panel",
+        "body": "a booking surface that shows what is happening and why, rather than a black-box checkout."
+      },
+      {
+        "lead": "Edge-rendered, run by one person",
+        "body": "Qwik/QwikCity on Cloudflare over a Fastify + Postgres core — fast enough to feel instant, small enough to operate solo."
       }
     ],
     "queryTrace": null,
@@ -70,19 +80,19 @@
     "screens": [],
     "results": [
       {
-        "value": "1",
-        "label": "photo in — title, copy and price out"
+        "value": "4",
+        "label": "travel verticals unified — destinations, hotels, flights, cars"
       },
       {
         "value": "0",
-        "label": "listings a seller has to write by hand"
+        "label": "tabs and spreadsheets to plan a trip"
       },
       {
         "value": "1",
-        "label": "engineer, from vision pipeline to interface"
+        "label": "engineer, from the edge render to the database"
       }
     ],
-    "resultsCaveat": "Soldera is still in build, so these describe the shape of the product rather than production metrics. Real numbers replace them as it ships."
+    "resultsCaveat": "Andacity is live at andacity.com (v0.6.0) and still moving fast — real usage and conversion numbers replace these as it grows."
   },
   {
     "id": 2,

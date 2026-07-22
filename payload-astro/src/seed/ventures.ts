@@ -35,13 +35,15 @@ export const venturesSeed = [
     proposed: false,
   },
   {
-    name: 'Soldera',
-    slug: 'soldera',
+    name: 'Andacity',
+    slug: 'andacity',
     zone: 'engineering' as const,
     order: 3,
-    tagline: 'An AI listing assistant.',
-    palette: { key: '#C81B7A', hi: '#FF6CB6', deep: '#2A0620', lift: '#FDE9F4', on: '#FFFFFF' },
-    proposed: true,
+    tagline: 'Discovery-first travel planning.',
+    // Brand blue from andacity.com's theme-color (#2563EB).
+    palette: { key: '#2563EB', hi: '#4F86FF', deep: '#0A1A3A', lift: '#EAF1FE', on: '#FFFFFF' },
+    links: [{ label: 'andacity.com', url: 'https://andacity.com' }],
+    proposed: false,
   },
   {
     name: 'The Bolt',

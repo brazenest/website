@@ -56,21 +56,26 @@
     "proposed": false
   },
   {
-    "id": 4,
-    "name": "Soldera",
-    "slug": "soldera",
+    "id": 8,
+    "name": "Andacity",
+    "slug": "andacity",
     "zone": "engineering",
     "order": 3,
-    "tagline": "An AI listing assistant.",
+    "tagline": "Discovery-first travel planning.",
     "palette": {
-      "key": "#C81B7A",
-      "hi": "#FF6CB6",
-      "deep": "#2A0620",
-      "lift": "#FDE9F4",
+      "key": "#2563EB",
+      "hi": "#4F86FF",
+      "deep": "#0A1A3A",
+      "lift": "#EAF1FE",
       "on": "#FFFFFF"
     },
-    "links": [],
-    "proposed": true
+    "links": [
+      {
+        "label": "andacity.com",
+        "url": "https://andacity.com"
+      }
+    ],
+    "proposed": false
   },
   {
     "id": 5,

@@ -4,7 +4,7 @@ loadEnv()
 import { venturesSeed } from './ventures'
 import { memreyCaseStudySeed } from './memrey'
 import { rotavoxCaseStudySeed } from './rotavox'
-import { solderaCaseStudySeed } from './soldera'
+import { andacityCaseStudySeed } from './andacity'
 import { faultLinesSeed } from './films'
 import { siteMetaSeed } from './site-meta'
 
@@ -63,9 +63,22 @@ async function run() {
     }
   }
 
+  // Soldera was demoted from a spectrum venture to the "in build" list — remove its
+  // orphaned venture + case study so it drops out of the spectrum/rail and no page builds.
+  // (Upserts don't delete; this keeps the DB in sync with the seed.)
+  for (const slug of ['soldera']) {
+    const v = await payload.find({ collection: 'ventures', where: { slug: { equals: slug } }, limit: 1 })
+    if (v.docs.length) {
+      const cs = await payload.find({ collection: 'case-studies', where: { venture: { equals: v.docs[0].id } }, limit: 1 })
+      if (cs.docs.length) await payload.delete({ collection: 'case-studies', id: cs.docs[0].id })
+      await payload.delete({ collection: 'ventures', id: v.docs[0].id })
+      payload.logger.info(`Removed demoted venture: ${slug}`)
+    }
+  }
+
   await upsertByVenture('case-studies', 'memrey', memreyCaseStudySeed)
   await upsertByVenture('case-studies', 'rotavox', rotavoxCaseStudySeed)
-  await upsertByVenture('case-studies', 'soldera', solderaCaseStudySeed)
+  await upsertByVenture('case-studies', 'andacity', andacityCaseStudySeed)
   await upsertByVenture('films', 'shadowcat', faultLinesSeed)
 
   // siteMeta is ADMIN-OWNED: nav/social/contact are edited in Payload, then `pnpm run

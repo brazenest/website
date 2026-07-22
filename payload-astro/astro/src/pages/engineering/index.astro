@@ -23,11 +23,11 @@ const COPY: Record<string, { meta: string; headline: string; blurb: string }> = 
     blurb:
       'The planner, the engine, the library, the reporting. One system, one person, and a real network running on it every day.',
   },
-  soldera: {
-    meta: '2025 — NOW',
-    headline: 'Photograph the thing. It writes the listing and prices it.',
+  andacity: {
+    meta: '2024 — NOW',
+    headline: 'Plan the whole trip, not just book a flight.',
     blurb:
-      'An AI listing assistant for people who have too much to sell and no patience for marketplaces.',
+      'Discovery-first travel across destinations, hotels, flights and cars — one planner and one shareable trip, instead of twelve tabs and a spreadsheet.',
   },
 }
 
@@ -35,7 +35,7 @@ const projects = venturesByZone().engineering.filter((v) => COPY[v.slug])
 
 // The smaller products — in build, not yet their own page (mirrors the home index list).
 const secondary = [
-  { name: 'Andacity', ds: 'Trip planning and booking over enterprise travel APIs.', yr: '2024 —' },
+  { name: 'Soldera', ds: 'An AI listing assistant — photograph the thing, it writes the listing and prices it.', yr: '2025 —' },
   { name: 'Wardroab', ds: 'Body modelling and apparel recommendation.', yr: '2025 —' },
   { name: 'Blossum', ds: 'Early stage, in build. Not ready to be talked about yet.', yr: '2026 —' },
 ]
