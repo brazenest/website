@@ -68,29 +68,25 @@ const zones = [
       })
     </script>
     <script is:inline>
-      // Entrance choreography, decided before the body paints:
-      //  - FIRST page of a visit  → play the reveal choreography (.anim hides [data-reveal]
-      //    until the reveal script fades them in).
-      //  - later navigation, browser WITHOUT native cross-document view transitions (e.g.
-      //    Firefox) → simulate the page transition with a fade-in (.page-enter).
-      //  - later navigation, browser WITH native view transitions (Chromium) → do nothing;
-      //    the @view-transition cross-fade handles it.
+      // Entrance choreography, decided before the body paints (motion allowed only):
+      //  - .anim plays the reveal "swipe" on EVERY page load (hides [data-reveal] until the
+      //    reveal script fades them up). This is the signature motion — always on.
+      //  - .page-enter additionally fades the whole page in on a NAVIGATION in browsers
+      //    without native cross-document view transitions (Firefox), simulating the page
+      //    transition. Chromium uses the native @view-transition cross-fade instead.
       try {
-        var d = document.documentElement
-        var entered = sessionStorage.getItem('ag-entered')
-        var motionOk = !matchMedia('(prefers-reduced-motion: reduce)').matches
-        var hasNativeVT = false
-        try {
-          hasNativeVT = window.CSS && CSS.supports('view-transition-name', 'none')
-        } catch (e) {}
-        if (motionOk && !entered) {
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          var d = document.documentElement
           d.classList.add('anim')
           // Failsafe: if the reveal module never initializes, un-hide everything.
           setTimeout(function () {
             if (!window.__revealReady) d.classList.remove('anim')
           }, 4000)
-        } else if (motionOk && entered && !hasNativeVT) {
-          d.classList.add('page-enter')
+          var hasNativeVT = false
+          try {
+            hasNativeVT = window.CSS && CSS.supports('view-transition-name', 'none')
+          } catch (e) {}
+          if (sessionStorage.getItem('ag-entered') && !hasNativeVT) d.classList.add('page-enter')
         }
         sessionStorage.setItem('ag-entered', '1')
       } catch (e) {}
