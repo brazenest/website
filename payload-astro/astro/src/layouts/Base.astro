@@ -33,6 +33,21 @@ const zones = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <script is:inline>
+      // Enable entrance motion only when JS runs and motion is allowed. Set before the
+      // body paints so revealed content never flashes in first, then hides.
+      try {
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          var d = document.documentElement
+          d.classList.add('anim')
+          // Failsafe: if the reveal module never initializes (e.g. bundle error),
+          // un-hide everything so content is never stranded invisible.
+          setTimeout(function () {
+            if (!window.__revealReady) d.classList.remove('anim')
+          }, 4000)
+        }
+      } catch (e) {}
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
@@ -115,7 +130,15 @@ const zones = [
 
     <script>
       import { initEngine } from '../scripts/engine.ts'
-      initEngine()
+      import { initReveal } from '../scripts/reveal.ts'
+      // initReveal must run even if the colour engine throws, or [data-reveal]
+      // content (hidden by the .anim gate) would be stranded invisible.
+      try {
+        initEngine()
+      } catch (e) {
+        console.error(e)
+      }
+      initReveal()
     </script>
   </body>
 </html>

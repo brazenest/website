@@ -522,7 +522,21 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   .contact__row{flex-direction:column;align-items:flex-start}
   .trace__r{flex-direction:column;align-items:flex-start;gap:16px}
 }
+/* ---------- ENTRANCE MOTION (restrained; progressive-enhancement gated) ---------- */
+/* Active only under <html class="anim">, set by a head inline script when JS runs AND
+   prefers-reduced-motion is unset. No JS / reduced motion → [data-reveal] is untouched
+   and fully visible. A subtle fade + 14px rise, on the engine's own easing; grouped
+   items stagger via --reveal-i. */
+.anim [data-reveal]{
+  opacity:0; transform:translateY(14px);
+  transition:opacity .6s var(--ease), transform .6s var(--ease);
+  transition-delay:calc(var(--reveal-i, 0) * 70ms);
+}
+.anim [data-reveal].is-in{opacity:1; transform:none}
+
 @media (prefers-reduced-motion:reduce){
   *{transition-duration:.01ms !important}
   .flood{opacity:1 !important}
+  /* Belt-and-suspenders: if motion pref flips at runtime, reveal instantly. */
+  .anim [data-reveal]{opacity:1 !important; transform:none !important}
 }

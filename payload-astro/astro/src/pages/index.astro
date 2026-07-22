@@ -19,17 +19,17 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
   <!-- THE HERO — the claim -->
   <section class="hero z-neutral" data-zone="neutral" data-work="house">
     <div class="col">
-      <span class="mono">Salt Lake City · Available</span>
-      <h1 style="margin-top:22px">I build the whole thing.</h1>
-      <p class="lead">Architecture, interface, infrastructure, brand. I don't hand work off — I finish it, ship it, and then keep it running.</p>
+      <span class="mono" data-reveal>Salt Lake City · Available</span>
+      <h1 style="margin-top:22px;--reveal-i:1" data-reveal>I build the whole thing.</h1>
+      <p class="lead" data-reveal style="--reveal-i:2">Architecture, interface, infrastructure, brand. I don't hand work off — I finish it, ship it, and then keep it running.</p>
     </div>
   </section>
 
   <!-- THE SPECTRUM — the proof of the claim, in colour. hover one. (data-driven) -->
   <div class="spectrum" data-zone="neutral" data-work="house">
     {
-      chips.map((v) => (
-        <a class="chip" href={ventureHref(v.slug)} data-w={v.slug} style={`--c:${v.palette.key};--o:${v.palette.on}`}>
+      chips.map((v, i) => (
+        <a class="chip" href={ventureHref(v.slug)} data-w={v.slug} data-reveal style={`--c:${v.palette.key};--o:${v.palette.on};--reveal-i:${i}`}>
           <span class="hex">{v.palette.key}</span>
           <span class="zn">{zoneLabel(v.zone)}</span>
           <span class="n">{v.name}</span>
@@ -38,16 +38,16 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
       ))
     }
   </div>
-  <p class="spectrum__note z-neutral">Every colour on this site comes from something I made. Hover one.</p>
+  <p class="spectrum__note z-neutral" data-reveal>Every colour on this site comes from something I made. Hover one.</p>
 
   <!-- PROOF (data-driven from siteMeta.proofNumbers) -->
   <section class="proof z-neutral" data-zone="neutral" data-work="house">
     <div class="col">
       <div class="grid">
         {
-          siteMeta.proofNumbers.map((n) => (
-            <div>
-              <span class="n num">{n.value}</span>
+          siteMeta.proofNumbers.map((n, i) => (
+            <div data-reveal style={`--reveal-i:${i}`}>
+              <span class="n num" data-countup>{n.value}</span>
               <span class="l">{n.label}</span>
             </div>
           ))
@@ -59,19 +59,19 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
   <!-- HOW I WORK -->
   <section class="how z-neutral" data-zone="neutral" data-work="house">
     <div class="col">
-      <div class="sechead"><h3>How I work</h3><span class="mono">2020 — 2026</span></div>
+      <div class="sechead" data-reveal><h3>How I work</h3><span class="mono">2020 — 2026</span></div>
       <div class="three">
-        <div>
+        <div data-reveal style="--reveal-i:0">
           <div class="bar" style="background:#6A7688"></div>
           <h5>I own the whole surface.</h5>
           <p>Most engineers stop at the API. Most designers stop at the mockup. I take a product from the first sketch to the thing running in production with real users, and I don't need a team to do it.</p>
         </div>
-        <div>
+        <div data-reveal style="--reveal-i:1">
           <div class="bar" style="background:#2F4BFF"></div>
           <h5>I build systems, not screens.</h5>
           <p>Design tokens, scheduling engines, ingest pipelines, brand kits. If it has to hold up under load — technical or visual — I'd rather build the system that makes a thousand of them than hand-make one.</p>
         </div>
-        <div>
+        <div data-reveal style="--reveal-i:2">
           <div class="bar" style="background:#E2A03C"></div>
           <h5>I know what good looks like.</h5>
           <p>Two years leading engineering at a national broadcaster, two and a half shipping to millions at Ancestry, and a film school habit of not letting anything out that isn't finished.</p>
@@ -83,13 +83,13 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
   <!-- ENGINEERING — the ground becomes the work's ground -->
   <section class="z-eng" data-zone="engineering" data-work="memrey" id="engineering">
     <div class="col">
-      <div class="zonehead">
+      <div class="zonehead" data-reveal>
         <div class="kick"><i></i><span class="mono">Engineering</span></div>
         <h3>Nine products. All of them mine, from the architecture to the wordmark.</h3>
         <p>Everything here runs in production. The colour of this room is the colour of whatever you're standing in front of.</p>
       </div>
 
-      <div class="work" data-work="memrey">
+      <div class="work" data-work="memrey" data-reveal>
         <div class="work__t">
           <div class="work__meta"><span class="wchip">Memrey</span><span class="work__yr">2025 — NOW</span></div>
           <h4>An AI archive that gives a lifetime of photographs its memory back.</h4>
@@ -104,7 +104,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
         </div>
       </div>
 
-      <div class="work" id="rotavox" data-work="rotavox">
+      <div class="work" id="rotavox" data-work="rotavox" data-reveal>
         <div class="work__t">
           <div class="work__meta"><span class="wchip">Rotavox</span><span class="work__yr">2024 — NOW</span></div>
           <h4>Scheduling software for radio, rebuilt from nothing.</h4>
@@ -119,7 +119,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
         </div>
       </div>
 
-      <div class="work" id="soldera" data-work="soldera">
+      <div class="work" id="soldera" data-work="soldera" data-reveal>
         <div class="work__t">
           <div class="work__meta"><span class="wchip">Soldera</span><span class="work__yr">2025 — NOW</span></div>
           <h4>Photograph the thing. It writes the listing and prices it.</h4>
@@ -134,7 +134,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
         </div>
       </div>
 
-      <div class="index">
+      <div class="index" data-reveal>
         <div class="row" data-work="house">
           <span class="nm"><i style="--c:#6A7688"></i> Andacity</span>
           <span class="ds">Trip planning and booking over enterprise travel APIs.</span>
@@ -159,13 +159,13 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
   <section class="z-media" data-zone="media" data-work="bolt" id="bolt" style="--fx:64%;--fy:38%;--fw:88%;--fh:82%">
     <div class="flood" aria-hidden="true"></div>
     <div class="col">
-      <div class="zonehead">
+      <div class="zonehead" data-reveal>
         <div class="kick"><i></i><span class="mono">Media</span></div>
         <h3 class="halo">The part you can watch.</h3>
         <p>Shadowcat isn't a hobby sitting next to the engineering. It's the same instinct pointed at a different surface — control the whole chain, and don't let anything out that isn't finished.</p>
       </div>
 
-      <div class="work" data-work="bolt">
+      <div class="work" data-work="bolt" data-reveal>
         <div class="work__t">
           <div class="work__meta"><span class="wchip">The Bolt · Night Signal</span><span class="work__yr">2024 — NOW</span></div>
           <h4 class="halo">A radio network built end to end.</h4>
@@ -180,7 +180,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
         </div>
       </div>
 
-      <div class="work" data-work="shadowcat">
+      <div class="work" data-work="shadowcat" data-reveal>
         <div class="work__t">
           <div class="work__meta"><span class="wchip">Shadowcat Pictures</span><span class="work__yr">2019 — NOW</span></div>
           <h4 class="halo">I write it, shoot it, cut it, grade it and score it.</h4>
@@ -201,9 +201,9 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
   <!-- CONTACT — back to the house colour. (data-driven from siteMeta) -->
   <section class="contact z-neutral" data-zone="neutral" data-work="house" id="contact">
     <div class="col">
-      <h3>{siteMeta.ctaText}</h3>
-      <p>I'm open to senior and staff full-stack roles, and to the occasional contract that's actually interesting. Tell me what you're building. I answer everything.</p>
-      <div class="contact__row">
+      <h3 data-reveal>{siteMeta.ctaText}</h3>
+      <p data-reveal style="--reveal-i:1">I'm open to senior and staff full-stack roles, and to the occasional contract that's actually interesting. Tell me what you're building. I answer everything.</p>
+      <div class="contact__row" data-reveal style="--reveal-i:2">
         <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
         {siteMeta.social.map((s) => <a class="alt" href={s.url}>{s.label}</a>)}
       </div>

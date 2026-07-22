@@ -37,7 +37,7 @@ const HIGHLIGHTED_STEP_INDEX = 1
   <section class="z-eng" data-zone="engineering" data-work={venture.slug}>
     <div class="col">
       <div class="crumb"><span>Engineering</span><span>/</span><span class="on">{venture.name}</span></div>
-      <div class="daybreak">
+      <div class="daybreak" data-reveal>
         <div class="kick">Case study · {caseStudy.timeline}</div>
         <div class="wm">{venture.name}</div>
         <div class="tl">Forty years of photographs, and no way to find the one you're thinking of. I built the thing that fixes that.</div>
@@ -80,7 +80,7 @@ const HIGHLIGHTED_STEP_INDEX = 1
           </ul>
 
           <h3>Architecture</h3>
-          <figure class="figure">
+          <figure class="figure" data-reveal>
             <div class="arch">
               <ArchitectureSVG keyColor={key} />
             </div>

@@ -36,7 +36,7 @@ const { key, hi, deep, on } = venture.palette
     <div class="reel">
       <div class="shot"><div class="lab"><b>{film.title}</b> <span>2.39:1 · hero frame or 6s loop · replace</span></div></div>
       <div class="cap">
-        <div class="col">
+        <div class="col" data-reveal>
           <span class="mono">Shadowcat Pictures · Short · {film.year} · {film.runtime}</span>
           <h1 class="halo" style="margin-top:20px">{film.title}</h1>
           <p class="logline">{film.logline}</p>
@@ -62,7 +62,7 @@ const { key, hi, deep, on } = venture.palette
       </div>
 
       <!-- THE CHAIN — deliberately the SAME diagram grammar as Memrey's architecture. -->
-      <figure class="figure">
+      <figure class="figure" data-reveal>
         <div class="arch">
           <ChainSVG keyColor={key} onColor={on} title={film.title} meta={`${film.runtime} · ${film.year}`} />
         </div>
