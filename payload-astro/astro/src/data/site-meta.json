@@ -21,7 +21,7 @@
       "label": "national platforms — Ancestry, NBCUniversal"
     }
   ],
-  "contactEmail": "ag@aldengillespy.com",
+  "contactEmail": "website.inquiries@aldengillespy.com",
   "ctaText": "Let's build something that lasts.",
   "nav": [
     {
@@ -44,15 +44,15 @@
   "social": [
     {
       "label": "Résumé (PDF)",
-      "url": "#"
+      "url": "/resume.pdf"
     },
     {
       "label": "LinkedIn",
-      "url": "#"
+      "url": "https://www.linkedin.com/in/alden-gillespy"
     },
     {
       "label": "GitHub",
-      "url": "#"
+      "url": "https://github.com/brazenest"
     }
   ]
 }

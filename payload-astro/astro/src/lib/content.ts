@@ -69,3 +69,8 @@ export function ventureHref(slug: string): string {
 export function zoneLabel(zone: string): string {
   return zone.charAt(0).toUpperCase() + zone.slice(1)
 }
+
+/** A link that should open in a new tab: off-site, or a downloadable doc (résumé PDF). */
+export function isExternalHref(href: string): boolean {
+  return /^https?:\/\//.test(href) || /\.(pdf|docx?)$/i.test(href)
+}

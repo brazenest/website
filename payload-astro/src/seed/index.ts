@@ -68,8 +68,17 @@ async function run() {
   await upsertByVenture('case-studies', 'soldera', solderaCaseStudySeed)
   await upsertByVenture('films', 'shadowcat', faultLinesSeed)
 
-  await payload.updateGlobal({ slug: 'site-meta', data: siteMetaSeed })
-  payload.logger.info('Seeded siteMeta global.')
+  // siteMeta is ADMIN-OWNED: nav/social/contact are edited in Payload, then `pnpm run
+  // export` pulls them into the static build. So only seed it on a fresh/empty DB — never
+  // overwrite existing values (that would silently clobber admin edits on every re-seed,
+  // which is exactly what used to wipe the social links). Force with SEED_SITEMETA=1.
+  const existingMeta = await payload.findGlobal({ slug: 'site-meta' })
+  if (process.env.SEED_SITEMETA === '1' || !(existingMeta?.nav && existingMeta.nav.length)) {
+    await payload.updateGlobal({ slug: 'site-meta', data: siteMetaSeed })
+    payload.logger.info('Seeded siteMeta global.')
+  } else {
+    payload.logger.info('siteMeta already populated — preserved (SEED_SITEMETA=1 to overwrite).')
+  }
 
   payload.logger.info('Seed complete.')
   process.exit(0)

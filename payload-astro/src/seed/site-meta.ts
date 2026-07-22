@@ -23,9 +23,12 @@ export const siteMetaSeed = {
     { label: 'Media', href: '/media' },
     { label: 'Résumé', href: '/resume.pdf' },
   ],
+  // NOTE: siteMeta is admin-owned — the seed only populates it on a FRESH/empty DB and
+  // never overwrites afterward (see seed/index.ts). Keep these in sync with Payload as the
+  // version-controlled default for a clean setup.
   social: [
-    { label: 'Résumé (PDF)', url: '#' },
-    { label: 'LinkedIn', url: '#' },
-    { label: 'GitHub', url: '#' },
+    { label: 'Résumé (PDF)', url: '/resume.pdf' },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/alden-gillespy' },
+    { label: 'GitHub', url: 'https://github.com/brazenest' },
   ],
 }

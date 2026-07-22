@@ -8,7 +8,7 @@
  * carries data-work so the runtime engine retints on hover and scroll.
  */
 import Base from '../layouts/Base.astro'
-import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, filmHref } from '../lib/content'
+import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, filmHref, isExternalHref } from '../lib/content'
 
 const chips = spectrumVentures()
 const memreyHref = caseStudyHref('memrey') ?? '/#engineering'
@@ -207,7 +207,18 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
       <p data-reveal style="--reveal-i:1">I'm open to senior and staff full-stack roles, and to the occasional contract that's actually interesting. Tell me what you're building. I answer everything.</p>
       <div class="contact__row" data-reveal style="--reveal-i:2">
         <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
-        {siteMeta.social.map((s) => <a class="alt" href={s.url}>{s.label}</a>)}
+        {
+          siteMeta.social.map((s) => (
+            <a
+              class="alt"
+              href={s.url}
+              target={isExternalHref(s.url) ? '_blank' : undefined}
+              rel={isExternalHref(s.url) ? 'noopener noreferrer' : undefined}
+            >
+              {s.label}
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>

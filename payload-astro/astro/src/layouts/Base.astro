@@ -8,7 +8,7 @@
  */
 import '../styles/engine.css'
 import '../styles/venture-tokens.generated.css'
-import { venturesByZone, ventureHref, siteMeta } from '../lib/content'
+import { venturesByZone, ventureHref, siteMeta, isExternalHref } from '../lib/content'
 import ContactModal from '../components/ContactModal.astro'
 
 interface Props {
@@ -112,7 +112,7 @@ const zones = [
         <nav class="menu">
           {
             siteMeta.nav.map((item) => {
-              const external = /^https?:\/\//.test(item.href) || /\.(pdf|docx?)$/i.test(item.href)
+              const external = isExternalHref(item.href)
               return (
                 <a
                   href={item.href}
@@ -154,7 +154,17 @@ const zones = [
         </div>
         <div class="links">
           <a href="/contact" data-contact-open>Contact</a>
-          {siteMeta.social.map((s) => <a href={s.url}>{s.label}</a>)}
+          {
+            siteMeta.social.map((s) => (
+              <a
+                href={s.url}
+                target={isExternalHref(s.url) ? '_blank' : undefined}
+                rel={isExternalHref(s.url) ? 'noopener noreferrer' : undefined}
+              >
+                {s.label}
+              </a>
+            ))
+          }
         </div>
       </div>
     </footer>
