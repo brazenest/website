@@ -56,10 +56,21 @@ const fieldId = (name: string) => `${id}-${name}`
       <span class="cform__err" data-err="message"></span>
     </div>
 
-    {/* Honeypot — hidden from humans, catnip for bots. Must stay empty. */}
+    {/* Honeypot — hidden from humans; must stay empty. Deliberately NOT named a real
+        autofill field (a "company" field got filled by browser autofill and silently
+        tripped real submissions). Non-semantic name + autocomplete/password-manager
+        ignore hints keep it empty for people; bots that fill everything still get caught. */}
     <div class="cform__hp" aria-hidden="true">
-      <label for={fieldId('company')}>Company (leave blank)</label>
-      <input id={fieldId('company')} name="company" type="text" tabindex="-1" autocomplete="off" />
+      <label for={fieldId('hpot')}>Leave this field blank</label>
+      <input
+        id={fieldId('hpot')}
+        name="hpot"
+        type="text"
+        tabindex="-1"
+        autocomplete="off"
+        data-1p-ignore
+        data-lpignore="true"
+      />
     </div>
 
     <div class="cform__turnstile" data-turnstile></div>
@@ -328,7 +339,7 @@ const fieldId = (name: string) => `${id}-${name}`
         email: String(fd.get('email') ?? ''),
         category: String(fd.get('category') ?? ''),
         message: String(fd.get('message') ?? ''),
-        company: String(fd.get('company') ?? ''),
+        hpot: String(fd.get('hpot') ?? ''),
         token,
       }
 

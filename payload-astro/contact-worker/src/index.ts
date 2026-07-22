@@ -60,8 +60,10 @@ export default {
       return json({ ok: false, error: 'invalid_json' }, 400, cors);
     }
 
-    // Honeypot: a real, hidden field no human ever fills.
-    if (typeof body.company === 'string' && body.company.trim() !== '') {
+    // Honeypot: a hidden field no human fills. Named non-semantically ('hpot') on
+    // purpose — a field named 'company' got autofilled by browsers and silently ate
+    // real submissions.
+    if (typeof body.hpot === 'string' && body.hpot.trim() !== '') {
       // Pretend success so bots don't learn they were caught.
       return json({ ok: true }, 200, cors);
     }
