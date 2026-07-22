@@ -28,9 +28,11 @@ export const venturesSeed = [
     slug: 'rotavox',
     zone: 'engineering' as const,
     order: 2,
-    tagline: 'Scheduling software for radio.',
+    tagline: 'Music scheduling for radio.',
     palette: { key: '#0F7A52', hi: '#38D08C', deep: '#05261A', lift: '#E9F7F0', on: '#FFFFFF' },
-    proposed: true,
+    links: [{ label: 'rotavox.com', url: 'https://rotavox.com' }],
+    // Real product, live at rotavox.com — colour confirmed (⚠ verify #0F7A52 matches the brand).
+    proposed: false,
   },
   {
     name: 'Soldera',

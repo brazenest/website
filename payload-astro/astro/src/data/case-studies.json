@@ -89,8 +89,8 @@
     "venture": "rotavox",
     "role": "Founder, architect, designer, sole engineer",
     "timeline": "2024 — present",
-    "status": "In production — running a live network",
-    "hook": "Radio scheduling software is stuck in another decade. I rebuilt it from nothing, and a real network runs on it every day.",
+    "status": "Early access — rotavox.com",
+    "hook": "Most internet radio still runs on shuffle. Rotavox schedules it the way a real station does — deliberately.",
     "stack": [
       "TypeScript",
       "React",
@@ -99,7 +99,7 @@
     ],
     "identityNote": "Deep pine ground, a mint signal, Geist. The colour of this page.",
     "problem": {
-      "drop": "A radio station is a thousand scheduling decisions a day, and most stations still make them in software that feels like it was built in 2004.",
+      "drop": "AutoDJ isn't programming. It's shuffle with a nicer name — and it's what most internet radio is stuck running on.",
       "body": {
         "root": {
           "type": "root",
@@ -122,7 +122,7 @@
                   "mode": "normal",
                   "detail": 0,
                   "version": 1,
-                  "text": "The rotation, the separation rules, the dayparting, the library, the compliance logs — on most stations these live in a handful of aging, disconnected tools that barely talk to each other, and none of which anyone enjoys opening. I wanted one system that held the whole operation, was fast enough to plan a week in an afternoon, and could actually be run by the people who run a station — not just the person who wrote it."
+                  "text": "Real stations don't shuffle. They run format clocks, they keep the same artists and titles apart, they change the sound by daypart, and they rotate a library across gold, recurrent and current pools with intent. That kind of scheduling has always lived in expensive, aging desktop software. Rotavox brings it to the platforms independent broadcasters actually run — starting with RadioDJ — as software that feels like this decade."
                 }
               ]
             }
@@ -132,20 +132,28 @@
     },
     "built": [
       {
-        "lead": "A visual planner",
-        "body": "that lays out the schedule the way a programmer actually thinks about it — the week at a glance, drag to change, rules enforced as you go."
+        "lead": "Format clocks",
+        "body": "a visual hour layout — lay out exactly what airs, and when, for every hour of the week."
       },
       {
-        "lead": "A scheduling engine",
-        "body": "that handles rotations, separation and dayparting automatically, so the right thing plays at the right time without someone hand-placing every slot."
+        "lead": "Separation rules",
+        "body": "enforced artist, title and tempo separation, so nothing you care about repeats too soon."
       },
       {
-        "lead": "A media library",
-        "body": "the audio and its metadata in one place, searchable, versioned, and wired straight into the planner and the playout."
+        "lead": "Dayparting",
+        "body": "a distinct clock per time period, so the morning never sounds like the middle of the night."
       },
       {
-        "lead": "Reporting",
-        "body": "what aired, when, and for whom — the record you need for compliance and royalties, generated instead of assembled by hand."
+        "lead": "Category rotation",
+        "body": "gold, recurrent and current pools, rotated on purpose instead of left to random."
+      },
+      {
+        "lead": "History-aware scheduling",
+        "body": "every placement reads what already aired across the surrounding hours and days, and a dry-run preview lets you see the schedule before it airs."
+      },
+      {
+        "lead": "Platform integration",
+        "body": "works with RadioDJ today; LibreTime and more platforms are on the roadmap."
       }
     ],
     "queryTrace": null,
@@ -153,19 +161,19 @@
     "screens": [],
     "results": [
       {
-        "value": "1",
-        "label": "live network running on it, every day"
+        "value": "3",
+        "label": "rotation pools — gold, recurrent, current"
       },
       {
-        "value": "4",
-        "label": "systems in one — planner, engine, library, reporting"
+        "value": "0",
+        "label": "random shuffle in a Rotavox schedule"
       },
       {
         "value": "1",
-        "label": "engineer, from database schema to UI"
+        "label": "engineer, from the scheduler to rotavox.com"
       }
     ],
-    "resultsCaveat": "These are the facts I can point to today. The operational numbers — stations live, hours scheduled, uptime — land here as the page fills out."
+    "resultsCaveat": "Rotavox is in early access — sign up at rotavox.com. Real usage numbers replace these as it opens up."
   },
   {
     "id": 1,

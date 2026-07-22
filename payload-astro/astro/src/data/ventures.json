@@ -39,7 +39,7 @@
     "slug": "rotavox",
     "zone": "engineering",
     "order": 2,
-    "tagline": "Scheduling software for radio.",
+    "tagline": "Music scheduling for radio.",
     "palette": {
       "key": "#0F7A52",
       "hi": "#38D08C",
@@ -47,8 +47,13 @@
       "lift": "#E9F7F0",
       "on": "#FFFFFF"
     },
-    "links": [],
-    "proposed": true
+    "links": [
+      {
+        "label": "rotavox.com",
+        "url": "https://rotavox.com"
+      }
+    ],
+    "proposed": false
   },
   {
     "id": 4,

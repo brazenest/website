@@ -37,6 +37,9 @@ const HIGHLIGHTED_STEP_INDEX = 1
 // omit it cleanly. Add a slug here once its diagram component exists.
 const VENTURES_WITH_DIAGRAM = new Set(['memrey'])
 const hasDiagram = VENTURES_WITH_DIAGRAM.has(venture.slug)
+
+// A live/external link for the product (e.g. rotavox.com), if the venture has one.
+const ventureLink = venture.links?.[0] ?? null
 ---
 
 <Base title={`${venture.name} — Alden Gillespy`} zone="engineering" work={venture.slug}>
@@ -47,6 +50,9 @@ const hasDiagram = VENTURES_WITH_DIAGRAM.has(venture.slug)
         <div class="kick">Case study · {caseStudy.timeline}</div>
         <div class="wm">{venture.name}</div>
         {caseStudy.hook && <div class="tl">{caseStudy.hook}</div>}
+        {ventureLink && (
+          <a class="go" href={ventureLink.url} target="_blank" rel="noopener noreferrer" style="margin-top:18px">Visit {ventureLink.label} <span>→</span></a>
+        )}
       </div>
 
       <!-- IDENTITY STRIP — the values this page is literally built from (from venture.palette) -->
