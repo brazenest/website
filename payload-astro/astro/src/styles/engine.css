@@ -540,6 +540,15 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 }
 
+/* Fallback for browsers without native cross-document view transitions (Firefox):
+   the head script tags navigated pages with .page-enter, and we fade the incoming page
+   in — a simulation of the cross-fade so those browsers still get a page transition. */
+.page-enter body { animation: page-enter-fade .34s cubic-bezier(.3,.7,.25,1) both; }
+@keyframes page-enter-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .page-enter body { animation: none; }
+}
+
 /* ---------- ENTRANCE MOTION (restrained; progressive-enhancement gated) ---------- */
 /* Active only under <html class="anim">, set by a head inline script when JS runs AND
    prefers-reduced-motion is unset. No JS / reduced motion → [data-reveal] is untouched

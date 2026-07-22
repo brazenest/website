@@ -67,23 +67,30 @@ const zones = [
       })
     </script>
     <script is:inline>
-      // Enable entrance motion only when JS runs and motion is allowed. Set before the
-      // body paints so revealed content never flashes in first, then hides.
-      // Only on the FIRST page of a visit — on later navigations the view transition is
-      // the entrance and content shows immediately (which also lets the transition capture
-      // visible content rather than hidden, so the two motions don't fight).
+      // Entrance choreography, decided before the body paints:
+      //  - FIRST page of a visit  → play the reveal choreography (.anim hides [data-reveal]
+      //    until the reveal script fades them in).
+      //  - later navigation, browser WITHOUT native cross-document view transitions (e.g.
+      //    Firefox) → simulate the page transition with a fade-in (.page-enter).
+      //  - later navigation, browser WITH native view transitions (Chromium) → do nothing;
+      //    the @view-transition cross-fade handles it.
       try {
-        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('ag-entered')) {
-          var d = document.documentElement
+        var d = document.documentElement
+        var entered = sessionStorage.getItem('ag-entered')
+        var motionOk = !matchMedia('(prefers-reduced-motion: reduce)').matches
+        var hasNativeVT = false
+        try {
+          hasNativeVT = window.CSS && CSS.supports('view-transition-name', 'none')
+        } catch (e) {}
+        if (motionOk && !entered) {
           d.classList.add('anim')
-          // Failsafe: if the reveal module never initializes (e.g. bundle error),
-          // un-hide everything so content is never stranded invisible.
+          // Failsafe: if the reveal module never initializes, un-hide everything.
           setTimeout(function () {
             if (!window.__revealReady) d.classList.remove('anim')
           }, 4000)
+        } else if (motionOk && entered && !hasNativeVT) {
+          d.classList.add('page-enter')
         }
-      } catch (e) {}
-      try {
         sessionStorage.setItem('ag-entered', '1')
       } catch (e) {}
     </script>
