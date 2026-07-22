@@ -11,7 +11,7 @@
  *   3. Fields validate (present, sane lengths, real-looking email).
  *   4. The Turnstile token verifies against Cloudflare siteverify. The token is
  *      NEVER trusted client-side — the browser cannot fake success here.
- * Only then does the send_email binding deliver the message.
+ * Only then is the message sent, via Resend's HTTP API (sendViaResend).
  */
 
 // Keep in sync with the CATEGORIES map in the Astro ContactForm component.
@@ -23,22 +23,13 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 interface Env {
-  EMAIL: { send: (message: EmailSend) => Promise<{ messageId?: string }> };
+  RESEND_API_KEY: string;
   TURNSTILE_SECRET_KEY: string;
   ALLOWED_HOSTS: string;
   TO_ADDRESS: string;
   TO_NAME: string;
   FROM_ADDRESS: string;
   FROM_NAME: string;
-}
-
-interface EmailSend {
-  to: string | string[];
-  from: { email: string; name?: string };
-  replyTo?: string;
-  subject: string;
-  text: string;
-  html: string;
 }
 
 const MAX = { name: 200, email: 320, message: 5000 } as const;
@@ -103,24 +94,56 @@ export default {
 
     const label = CATEGORY_LABELS[category];
     const sentAt = new Date().toISOString();
-    try {
-      await env.EMAIL.send({
-        to: env.TO_ADDRESS,
-        from: { email: env.FROM_ADDRESS, name: env.FROM_NAME },
-        replyTo: email, // reply in your mail client goes straight to the sender
-        subject: `[${label}] ${name}`,
-        text: textBody({ name, email, label, message, ip, sentAt }),
-        html: htmlBody({ name, email, label, message, ip, sentAt }),
-      });
-    } catch (err) {
-      const code = (err as { code?: string })?.code ?? 'unknown';
-      console.error('send failed', code, (err as Error)?.message);
-      return json({ ok: false, error: 'send_failed', code }, 502, cors);
+    const sent = await sendViaResend(env, {
+      replyTo: email, // reply in your mail client goes straight to the sender
+      subject: `[${label}] ${name}`,
+      text: textBody({ name, email, label, message, ip, sentAt }),
+      html: htmlBody({ name, email, label, message, ip, sentAt }),
+    });
+    if (!sent.ok) {
+      console.error('resend send failed', sent.status ?? '-', sent.detail ?? '');
+      return json({ ok: false, error: 'send_failed' }, 502, cors);
     }
 
     return json({ ok: true }, 200, cors);
   },
 };
+
+/**
+ * Sends the inquiry through Resend's HTTP API (https://resend.com). The sending
+ * domain (mailer.aldengillespy.com) must be verified in Resend, and RESEND_API_KEY
+ * is an encrypted Worker secret. reply_to is set to the submitter so replying in the
+ * mail client goes straight back to them.
+ */
+async function sendViaResend(
+  env: Env,
+  msg: { replyTo: string; subject: string; text: string; html: string },
+): Promise<{ ok: boolean; status?: number; detail?: string }> {
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: `${env.FROM_NAME} <${env.FROM_ADDRESS}>`,
+        to: [`${env.TO_NAME} <${env.TO_ADDRESS}>`],
+        reply_to: msg.replyTo,
+        subject: msg.subject,
+        text: msg.text,
+        html: msg.html,
+      }),
+    });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => '');
+      return { ok: false, status: res.status, detail: detail.slice(0, 300) };
+    }
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, detail: (err as Error)?.message };
+  }
+}
 
 function isAllowedOrigin(origin: string, hosts: string[]): boolean {
   if (!origin) return false;

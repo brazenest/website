@@ -9,21 +9,12 @@
   //
   // Flow: browser modal --POST /contact--> this Worker
   //   1. verify the Cloudflare Turnstile token server-side (never in the browser)
-  //   2. send the inquiry via the send_email binding (no API keys)
+  //   2. send the inquiry via Resend's HTTP API (BUILD.md §7's original plan)
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "aldengillespy-contact",
   "main": "src/index.ts",
   "compatibility_date": "2026-07-01",
   "observability": { "enabled": true },
-
-  // Cloudflare Email Sending binding. from address is locked to the onboarded
-  // mailer subdomain so this Worker can never spoof another sender.
-  "send_email": [
-    {
-      "name": "EMAIL",
-      "allowed_sender_addresses": ["website.inquiries@mailer.aldengillespy.com"]
-    }
-  ],
 
   "vars": {
     // Origin allow-list is by HOST SUFFIX (see isAllowedOrigin): each entry
@@ -32,12 +23,13 @@
     // and "aldengillespy.com" covers the eventual production cutover + www.
     "ALLOWED_HOSTS": "aldengillespy.com,aldengillespy-v6.pages.dev,localhost,127.0.0.1",
     // Where inquiries land. A Worker var (not hardcoded) so it can be repointed
-    // — e.g. to the already-verified ag@aldengillespy.com — with no redeploy of code.
+    // — e.g. to ag@aldengillespy.com — with no redeploy of code.
     "TO_ADDRESS": "website.inquiries@aldengillespy.com",
     "TO_NAME": "Alden Gillespy",
+    // from must be on a domain verified in Resend (mailer.aldengillespy.com).
     "FROM_ADDRESS": "website.inquiries@mailer.aldengillespy.com",
     "FROM_NAME": "aldengillespy.com"
-    // TURNSTILE_SECRET_KEY is set as an encrypted secret, never committed:
-    //   echo "$SECRET" | wrangler secret put TURNSTILE_SECRET_KEY
+    // RESEND_API_KEY is set as an encrypted secret, never committed:
+    //   echo "$KEY" | wrangler secret put RESEND_API_KEY
   }
 }
