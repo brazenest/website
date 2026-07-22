@@ -59,10 +59,21 @@ const zones = [
       } catch (e) {}
     </script>
     <script is:inline>
+      // Swallow the benign "Transition was skipped" AbortError that a cross-document view
+      // transition emits when the browser skips it (fast nav / bg tab) — it falls back to
+      // an instant navigation, so it's noise, not a failure.
+      addEventListener('unhandledrejection', function (e) {
+        if (e.reason && e.reason.name === 'AbortError' && /transition/i.test(e.reason.message || '')) e.preventDefault()
+      })
+    </script>
+    <script is:inline>
       // Enable entrance motion only when JS runs and motion is allowed. Set before the
       // body paints so revealed content never flashes in first, then hides.
+      // Only on the FIRST page of a visit — on later navigations the view transition is
+      // the entrance and content shows immediately (which also lets the transition capture
+      // visible content rather than hidden, so the two motions don't fight).
       try {
-        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('ag-entered')) {
           var d = document.documentElement
           d.classList.add('anim')
           // Failsafe: if the reveal module never initializes (e.g. bundle error),
@@ -72,18 +83,38 @@ const zones = [
           }, 4000)
         }
       } catch (e) {}
+      try {
+        sessionStorage.setItem('ag-entered', '1')
+      } catch (e) {}
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    {/* Fonts load ASYNC (preload→stylesheet swap) so a slow font CDN never render-blocks
+        first paint — with font-display:swap, text shows immediately in the fallback stack
+        and swaps when the webfont arrives. The site's own CSS stays render-blocking. */}
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Spline+Sans+Mono:wght@400;500;600&family=Geist:wght@400..800&family=Fraunces:opsz,wght@9..144,600..800&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
     <link
+      rel="preload"
+      as="style"
       href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,900&f[]=zodiak@300,400,700&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Spline+Sans+Mono:wght@400;500;600&family=Geist:wght@400..800&family=Fraunces:opsz,wght@9..144,600..800&display=swap"
+      />
+      <link
+        rel="stylesheet"
+        href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,900&f[]=zodiak@300,400,700&display=swap"
+      />
+    </noscript>
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

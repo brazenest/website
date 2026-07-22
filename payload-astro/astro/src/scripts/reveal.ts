@@ -47,10 +47,18 @@ export function initReveal(): void {
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.1 },
   )
-  revealEls.forEach((el) => io.observe(el))
+  // Elements already in the viewport reveal immediately; only below-the-fold ones wait for
+  // the observer. This keeps the load entrance prompt AND correct through a cross-document
+  // view transition — an IntersectionObserver can miss its initial callback while the
+  // transition is animating, which would otherwise strand above-the-fold content hidden.
+  for (const el of revealEls) {
+    const r = el.getBoundingClientRect()
+    if (r.top < window.innerHeight && r.bottom > 0) reveal(el)
+    else io.observe(el)
+  }
 
   // Failsafe: never leave content hidden (IO quirks, bfcache restores, etc.).
-  window.setTimeout(() => revealEls.forEach((el) => el.classList.contains('is-in') || reveal(el)), 2600)
+  window.setTimeout(() => revealEls.forEach((el) => el.classList.contains('is-in') || reveal(el)), 1600)
 }
 
 /** Counts an integer stat from 0 → target once, easing out, preserving leading zeros. */

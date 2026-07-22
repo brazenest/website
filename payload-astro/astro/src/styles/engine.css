@@ -526,6 +526,20 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   .contact__row{flex-direction:column;align-items:flex-start}
   .trace__r{flex-direction:column;align-items:flex-start;gap:16px}
 }
+/* ---------- PAGE TRANSITIONS (native cross-document view transitions) ---------- */
+/* MPA view transitions: a restrained cross-fade between pages, on the site's own easing.
+   No client router — pages still load normally (every script re-runs fresh), this only
+   animates the old→new paint where the browser supports it (Chrome/Edge). Elsewhere it's
+   an ordinary navigation. The per-element rise still comes from the reveal system. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out .22s cubic-bezier(.3,.7,.25,1) both; }
+::view-transition-new(root) { animation: vt-in .34s cubic-bezier(.3,.7,.25,1) both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in  { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
 /* ---------- ENTRANCE MOTION (restrained; progressive-enhancement gated) ---------- */
 /* Active only under <html class="anim">, set by a head inline script when JS runs AND
    prefers-reduced-motion is unset. No JS / reduced motion → [data-reveal] is untouched
