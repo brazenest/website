@@ -2,19 +2,15 @@
   {
     "id": 1,
     "venture": "shadowcat",
-    "title": "Fault Lines",
-    "logline": "A father and a son drive four hundred miles of empty highway to sell a house neither of them wants to let go of.",
-    "year": "2026",
-    "runtime": "18 min",
-    "camera": "Sony FX3",
-    "youtubeId": null,
+    "title": "Con Te Partiro (Time To Say Goodbye)",
+    "logline": "1000s of rotating lights beneath moving streams of water perform to a timeless duet featuring Andrea Bocelli and Sarah Brightman.",
+    "year": "2024",
+    "runtime": "5 min",
+    "camera": "Canon EOS Rebel t7i",
+    "youtubeId": "7v3GNwprM8Q",
     "credits": [
       {
         "role": "Director",
-        "name": "Alden Gillespy"
-      },
-      {
-        "role": "Writer",
         "name": "Alden Gillespy"
       },
       {
@@ -28,13 +24,14 @@
       {
         "role": "Colour",
         "name": "Alden Gillespy"
-      },
-      {
-        "role": "Score",
-        "name": "Alden Gillespy"
       }
     ],
-    "heroImage": null,
+    "heroImage": {
+      "filename": "mqdefault.jpg",
+      "alt": "Thumbnail image of the YouTube video featured on this page.",
+      "width": 320,
+      "height": 180
+    },
     "gradeGraded": null,
     "gradeRaw": null,
     "stills": [],

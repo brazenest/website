@@ -5,7 +5,7 @@ import { venturesSeed } from './ventures'
 import { memreyCaseStudySeed } from './memrey'
 import { rotavoxCaseStudySeed } from './rotavox'
 import { andacityCaseStudySeed } from './andacity'
-import { faultLinesSeed } from './films'
+import { shadowcatFilmSeed } from './films'
 import { siteMetaSeed } from './site-meta'
 
 async function run() {
@@ -79,7 +79,7 @@ async function run() {
   await upsertByVenture('case-studies', 'memrey', memreyCaseStudySeed)
   await upsertByVenture('case-studies', 'rotavox', rotavoxCaseStudySeed)
   await upsertByVenture('case-studies', 'andacity', andacityCaseStudySeed)
-  await upsertByVenture('films', 'shadowcat', faultLinesSeed)
+  await upsertByVenture('films', 'shadowcat', shadowcatFilmSeed)
 
   // siteMeta is ADMIN-OWNED: nav/social/contact are edited in Payload, then `pnpm run
   // export` pulls them into the static build. So only seed it on a fresh/empty DB — never
