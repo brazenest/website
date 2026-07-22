@@ -6,6 +6,7 @@
  * here as a plain client script. Per-venture colour blocks come from the generated
  * token stylesheet — add a venture in the CMS and the chrome gains its colour world.
  */
+import '../styles/fonts.css'
 import '../styles/engine.css'
 import '../styles/venture-tokens.generated.css'
 import { venturesByZone, ventureHref, siteMeta, isExternalHref } from '../lib/content'
@@ -94,34 +95,13 @@ const zones = [
         sessionStorage.setItem('ag-entered', '1')
       } catch (e) {}
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-    {/* Fonts load ASYNC (preload→stylesheet swap) so a slow font CDN never render-blocks
-        first paint — with font-display:swap, text shows immediately in the fallback stack
-        and swaps when the webfont arrives. The site's own CSS stays render-blocking. */}
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Spline+Sans+Mono:wght@400;500;600&family=Geist:wght@400..800&family=Fraunces:opsz,wght@9..144,600..800&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <link
-      rel="preload"
-      as="style"
-      href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,900&f[]=zodiak@300,400,700&display=swap"
-      onload="this.onload=null;this.rel='stylesheet'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400..900&family=Spline+Sans+Mono:wght@400;500;600&family=Geist:wght@400..800&family=Fraunces:opsz,wght@9..144,600..800&display=swap"
-      />
-      <link
-        rel="stylesheet"
-        href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800,900&f[]=zodiak@300,400,700&display=swap"
-      />
-    </noscript>
+    {/* Self-hosted fonts (see fonts.css). Preload the above-the-fold faces so they're ready
+        at first paint — body (Schibsted), the neutral display headline (Cabinet Grotesk 900)
+        and the mono kicker (Spline Sans Mono). The rest load from the inlined @font-face as
+        each page needs them. crossorigin is required on font preloads even same-origin. */}
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/schibsted-grotesk.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cabinet-grotesk-900.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/spline-sans-mono.woff2" crossorigin />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
