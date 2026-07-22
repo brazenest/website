@@ -13,9 +13,7 @@ export function initEngine() {
   const segs = [...document.querySelectorAll<HTMLElement>('.rail a')]
   const groups = [...document.querySelectorAll<HTMLElement>('.rgroup')]
   const navs = [...document.querySelectorAll<HTMLElement>('.menu a[data-route]')]
-  const CANON: Record<string, string> = { neutral: 'light', engineering: 'light', media: 'dark' }
 
-  let userChose = false
   let hoverWork: string | null = null // the cursor outranks the scroll
   let scrollWork = 'house'
   let scrollZone = 'neutral'
@@ -47,7 +45,10 @@ export function initEngine() {
     }
     scrollZone = cur.zone
     root.setAttribute('data-zone', scrollZone)
-    if (!userChose) root.setAttribute('data-mode', CANON[scrollZone])
+    // NOTE: data-mode (light/dark) is a stable user/system theme now — set once before
+    // paint and only changed by the toggle. It is deliberately NOT driven by scroll zone,
+    // so dark theme keeps the hero and every zone dark. Only data-zone (colour/fonts/
+    // grounds) tracks the scroll here.
 
     // the innermost thing carrying a work, at the middle of the screen, wins
     const mid = window.scrollY + window.innerHeight * 0.45
@@ -110,13 +111,46 @@ export function initEngine() {
     sync()
   })
 
+  // THEME (light/dark) — a stable user/system preference, persisted with a 7-day
+  // expiry keyed off last interaction. The initial value was set pre-paint by the
+  // inline script in <head>; here we wire the toggle and OS-change following.
+  const THEME_KEY = 'ag-mode'
+  const THEME_MAXAGE = 7 * 24 * 3600 * 1000
+  function storedMode(): 'light' | 'dark' | null {
+    try {
+      const raw = localStorage.getItem(THEME_KEY)
+      if (!raw) return null
+      const o = JSON.parse(raw)
+      if ((o.mode === 'light' || o.mode === 'dark') && Date.now() - (+o.ts || 0) <= THEME_MAXAGE) return o.mode
+      localStorage.removeItem(THEME_KEY)
+    } catch {
+      /* ignore */
+    }
+    return null
+  }
+  function saveMode(mode: 'light' | 'dark') {
+    try {
+      localStorage.setItem(THEME_KEY, JSON.stringify({ mode, ts: Date.now() }))
+    } catch {
+      /* ignore */
+    }
+  }
+
   const modeBtn = document.getElementById('mode')
   if (modeBtn) {
     modeBtn.addEventListener('click', () => {
-      userChose = true
-      root.setAttribute('data-mode', root.getAttribute('data-mode') === 'light' ? 'dark' : 'light')
+      const next = root.getAttribute('data-mode') === 'dark' ? 'light' : 'dark'
+      root.setAttribute('data-mode', next)
+      saveMode(next)
     })
   }
+
+  // Follow the OS theme live, but only while the user has no active stored choice.
+  const mq = window.matchMedia('(prefers-color-scheme: dark)')
+  mq.addEventListener?.('change', (e) => {
+    if (storedMode()) return
+    root.setAttribute('data-mode', e.matches ? 'dark' : 'light')
+  })
 
   // multi-page nav highlight: mark the link whose route matches the current path.
   const path = window.location.pathname.replace(/\/$/, '') || '/'

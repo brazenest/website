@@ -13,13 +13,15 @@ export const siteMetaSeed = {
   ],
   contactEmail: 'ag@aldengillespy.com',
   ctaText: "Let's build something that lasts.",
-  // In the source SPA, "Engineering"/"Media" route straight to the flagship case study/film
-  // (that page IS the zone route) — not to a same-page anchor. Matches that once
-  // /engineering/memrey (step 5) and /media/shadowcat (step 6) exist.
+  // Header nav. "Engineering"/"Media" point at the category landing pages, which list
+  // every project in that zone and link out to each dedicated page. Résumé is just a nav
+  // link — editable here in Payload admin; point href at an uploaded/hosted PDF (or drop
+  // one at astro/public/resume.pdf). External/PDF hrefs open in a new tab (see Base.astro).
   nav: [
     { label: 'Home', href: '/' },
-    { label: 'Engineering', href: '/engineering/memrey' },
-    { label: 'Media', href: '/media/shadowcat' },
+    { label: 'Engineering', href: '/engineering' },
+    { label: 'Media', href: '/media' },
+    { label: 'Résumé', href: '/resume.pdf' },
   ],
   social: [
     { label: 'Résumé (PDF)', url: '#' },

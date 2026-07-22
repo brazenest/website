@@ -178,8 +178,12 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 /* ---------- HEADER — a consumer of the engine, not the engine ---------- */
 .top{
   position:sticky;top:0;z-index:150;
-  background:color-mix(in srgb, var(--bg) 86%, transparent);
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  /* --paper is defined globally by [data-mode]; --bg is only set inside zoned
+     sections, so the header (a body child) must key off --paper or the tint
+     silently drops to transparent. Translucent + blur keeps nav legible over
+     whatever scrolls beneath. */
+  background:color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);
   border-bottom:1px solid var(--line);
   transition:background-color var(--T) var(--ease), border-color var(--T) var(--ease);
 }

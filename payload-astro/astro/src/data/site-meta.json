@@ -30,11 +30,15 @@
     },
     {
       "label": "Engineering",
-      "href": "/engineering/memrey"
+      "href": "/engineering"
     },
     {
       "label": "Media",
-      "href": "/media/shadowcat"
+      "href": "/media"
+    },
+    {
+      "label": "Résumé",
+      "href": "/resume.pdf"
     }
   ],
   "social": [

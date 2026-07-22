@@ -120,13 +120,17 @@ async function run() {
     role: c.role || null,
     timeline: c.timeline || null,
     status: c.status || null,
+    hook: c.hook || null,
     stack: (c.stack || []).map((s: any) => s.value),
     identityNote: c.identityNote || null,
     problem: c.problem
       ? { drop: c.problem.drop || null, body: c.problem.body || null }
       : null,
     built: (c.built || []).map((b: any) => ({ lead: b.lead, body: b.body })),
-    queryTrace: c.queryTrace
+    // A Payload `group` always returns an object, so an unfilled queryTrace is a truthy
+    // empty shell. Only emit it when there's an actual query, else the page renders an
+    // empty "One query" section (case studies without a trace must omit it cleanly).
+    queryTrace: c.queryTrace && c.queryTrace.query
       ? {
           query: c.queryTrace.query || null,
           steps: (c.queryTrace.steps || []).map((s: any) => ({

@@ -34,6 +34,31 @@ const zones = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <script is:inline>
+      // Resolve the colour theme before first paint (no flash). Precedence:
+      //   1. a stored user choice, but only if within 7 days of last interaction
+      //      (the timestamp is refreshed on every visit — so it expires 7 days after
+      //      the last time the site was used, then falls back to system);
+      //   2. otherwise the OS prefers-color-scheme.
+      try {
+        var KEY = 'ag-mode',
+          MAXAGE = 6048e5, // 7 days in ms
+          now = Date.now(),
+          mode = null,
+          raw = localStorage.getItem(KEY)
+        if (raw) {
+          var o = JSON.parse(raw)
+          if (o && (o.mode === 'light' || o.mode === 'dark') && now - (+o.ts || 0) <= MAXAGE) {
+            mode = o.mode
+            localStorage.setItem(KEY, JSON.stringify({ mode: mode, ts: now })) // reset the 7-day clock
+          } else {
+            localStorage.removeItem(KEY)
+          }
+        }
+        if (!mode) mode = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-mode', mode)
+      } catch (e) {}
+    </script>
+    <script is:inline>
       // Enable entrance motion only when JS runs and motion is allowed. Set before the
       // body paints so revealed content never flashes in first, then hides.
       try {
@@ -86,11 +111,19 @@ const zones = [
         <a class="wordmark" href="/"><i></i> Alden Gillespy</a>
         <nav class="menu">
           {
-            siteMeta.nav.map((item) => (
-              <a href={item.href} data-route={item.href.includes('#') ? undefined : item.href}>
-                {item.label}
-              </a>
-            ))
+            siteMeta.nav.map((item) => {
+              const external = /^https?:\/\//.test(item.href) || /\.(pdf|docx?)$/i.test(item.href)
+              return (
+                <a
+                  href={item.href}
+                  data-route={external || item.href.includes('#') ? undefined : item.href}
+                  target={external ? '_blank' : undefined}
+                  rel={external ? 'noopener noreferrer' : undefined}
+                >
+                  {item.label}
+                </a>
+              )
+            })
           }
         </nav>
         <button class="tmode" id="mode" aria-label="Switch colour mode">

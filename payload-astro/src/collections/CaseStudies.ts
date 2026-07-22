@@ -16,6 +16,11 @@ export const CaseStudies: CollectionConfig = {
     { name: 'timeline', type: 'text' },
     { name: 'status', type: 'text' },
     {
+      name: 'hook',
+      type: 'text',
+      admin: { description: 'One line under the wordmark — the human stakes of the problem.' },
+    },
+    {
       name: 'stack',
       type: 'array',
       fields: [{ name: 'value', type: 'text' }],

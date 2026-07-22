@@ -3,6 +3,8 @@ loadEnv()
 
 import { venturesSeed } from './ventures'
 import { memreyCaseStudySeed } from './memrey'
+import { rotavoxCaseStudySeed } from './rotavox'
+import { solderaCaseStudySeed } from './soldera'
 import { faultLinesSeed } from './films'
 import { siteMetaSeed } from './site-meta'
 
@@ -62,6 +64,8 @@ async function run() {
   }
 
   await upsertByVenture('case-studies', 'memrey', memreyCaseStudySeed)
+  await upsertByVenture('case-studies', 'rotavox', rotavoxCaseStudySeed)
+  await upsertByVenture('case-studies', 'soldera', solderaCaseStudySeed)
   await upsertByVenture('films', 'shadowcat', faultLinesSeed)
 
   await payload.updateGlobal({ slug: 'site-meta', data: siteMetaSeed })

@@ -39,6 +39,7 @@ export interface CaseStudy {
   role: string | null
   timeline: string | null
   status: string | null
+  hook: string | null
   stack: string[]
   identityNote: string | null
   problem: { drop: string | null; body: RichText } | null

@@ -12,6 +12,8 @@ import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, film
 
 const chips = spectrumVentures()
 const memreyHref = caseStudyHref('memrey') ?? '/#engineering'
+const rotavoxHref = caseStudyHref('rotavox') ?? '/engineering'
+const solderaHref = caseStudyHref('soldera') ?? '/engineering'
 const shadowcatHref = filmHref('shadowcat') ?? '/#media'
 ---
 
@@ -109,7 +111,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
           <div class="work__meta"><span class="wchip">Rotavox</span><span class="work__yr">2024 — NOW</span></div>
           <h4>Scheduling software for radio, rebuilt from nothing.</h4>
           <p>The planner, the engine, the library, the reporting. One system, one person, and a real network running on it every day.</p>
-          <a class="go" href="/#engineering">Read the case study <span>→</span></a>
+          <a class="go" href={rotavoxHref}>Read the case study <span>→</span></a>
         </div>
         <div class="work__a">
           <div class="shot" style="--a:#05261A;--b:#38D08C;--c2:#03150F">
@@ -124,7 +126,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
           <div class="work__meta"><span class="wchip">Soldera</span><span class="work__yr">2025 — NOW</span></div>
           <h4>Photograph the thing. It writes the listing and prices it.</h4>
           <p>An AI listing assistant for people who have too much to sell and no patience for marketplaces.</p>
-          <a class="go" href="/#engineering">Read the case study <span>→</span></a>
+          <a class="go" href={solderaHref}>Read the case study <span>→</span></a>
         </div>
         <div class="work__a">
           <div class="shot" style="--a:#2A0620;--b:#FF6CB6;--c2:#170312">

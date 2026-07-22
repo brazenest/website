@@ -31,6 +31,12 @@ const { key, hi, deep, lift } = venture.palette
 // step every other photo tool skips. No per-step "highlighted" field in the schema (§2),
 // so this mirrors the source positionally rather than being CMS-authorable.
 const HIGHLIGHTED_STEP_INDEX = 1
+
+// The architecture diagram is a BESPOKE component per venture (BUILD.md §4 — not a CMS
+// field). Only ventures with a hand-built diagram get the Architecture section; others
+// omit it cleanly. Add a slug here once its diagram component exists.
+const VENTURES_WITH_DIAGRAM = new Set(['memrey'])
+const hasDiagram = VENTURES_WITH_DIAGRAM.has(venture.slug)
 ---
 
 <Base title={`${venture.name} — Alden Gillespy`} zone="engineering" work={venture.slug}>
@@ -40,7 +46,7 @@ const HIGHLIGHTED_STEP_INDEX = 1
       <div class="daybreak" data-reveal>
         <div class="kick">Case study · {caseStudy.timeline}</div>
         <div class="wm">{venture.name}</div>
-        <div class="tl">Forty years of photographs, and no way to find the one you're thinking of. I built the thing that fixes that.</div>
+        {caseStudy.hook && <div class="tl">{caseStudy.hook}</div>}
       </div>
 
       <!-- IDENTITY STRIP — the values this page is literally built from (from venture.palette) -->
@@ -49,7 +55,7 @@ const HIGHLIGHTED_STEP_INDEX = 1
         <div class="sw" style={`--swc:${hi};--swo:#241703`}><span class="role">Hi</span><span class="hex">{hi}</span></div>
         <div class="sw" style={`--swc:${deep};--swo:#fff`}><span class="role">Deep</span><span class="hex">{deep}</span></div>
         <div class="sw" style={`--swc:${lift};--swo:#2A0F3A`}><span class="role">Lift</span><span class="hex">{lift}</span></div>
-        <div class="idstrip__cap">The Daybreak identity, in <b>Fraunces</b>. I designed the brand and built the product — <b>this page is made out of these four values.</b></div>
+        <div class="idstrip__cap">I designed the brand and built the product — <b>this page is literally made out of these four values.</b></div>
       </div>
 
       <div class="case">
@@ -79,13 +85,17 @@ const HIGHLIGHTED_STEP_INDEX = 1
             }
           </ul>
 
-          <h3>Architecture</h3>
-          <figure class="figure" data-reveal>
-            <div class="arch">
-              <ArchitectureSVG keyColor={key} />
-            </div>
-            <figcaption>Fig. 1 — Ingest is dumb on purpose. Everything expensive happens once, on the way in.</figcaption>
-          </figure>
+          {hasDiagram && (
+            <>
+              <h3>Architecture</h3>
+              <figure class="figure" data-reveal>
+                <div class="arch">
+                  <ArchitectureSVG keyColor={key} />
+                </div>
+                <figcaption>Fig. 1 — Ingest is dumb on purpose. Everything expensive happens once, on the way in.</figcaption>
+              </figure>
+            </>
+          )}
 
           {caseStudy.queryTrace && (
             <>
@@ -143,18 +153,18 @@ const HIGHLIGHTED_STEP_INDEX = 1
           )}
 
           <h3>The interface</h3>
-          <p class="dim">Two hard crops of the real thing — plum ground, rising sun, the warmest surface in a category full of cold grey grids. This is a product about your life, not your storage.</p>
+          <p class="dim">Hard crops of the real thing at poster scale — the product as it actually looks, not a browser-chrome mockup.</p>
           <div class="screens">
             {caseStudy.screens.length > 0 ? (
               caseStudy.screens.map((s: any) => (
-                <div class="shot r-4x3" style={`--a:${deep};--b:#C7513F;--c2:#180a24`}>
+                <div class="shot r-4x3" style={`--a:${deep};--b:${hi};--c2:#0b0710`}>
                   <div class="lab"><b>{s?.alt || venture.name}</b> <span>Hard crop · UI</span></div>
                 </div>
               ))
             ) : (
               <>
-                <div class="shot r-4x3" style={`--a:${deep};--b:#C7513F;--c2:#180a24`}><div class="uicrop" aria-hidden="true"><i /><i /><i /><i /><i /></div><div class="lab"><b>Ask view</b> <span>Hard crop · UI</span></div></div>
-                <div class="shot r-4x3" style={`--a:${deep};--b:${hi};--c2:#180a24`}><div class="lab"><b>Memory detail</b> <span>Hard crop · UI</span></div></div>
+                <div class="shot r-4x3" style={`--a:${deep};--b:${hi};--c2:#0b0710`}><div class="uicrop" aria-hidden="true"><i /><i /><i /><i /><i /></div><div class="lab"><b>{venture.name}</b> <span>Hard crop · UI</span></div></div>
+                <div class="shot r-4x3" style={`--a:${deep};--b:${key};--c2:#0b0710`}><div class="lab"><b>{venture.name}</b> <span>Hard crop · UI</span></div></div>
               </>
             )}
           </div>
@@ -172,7 +182,7 @@ const HIGHLIGHTED_STEP_INDEX = 1
 
       <div class="nextup">
         <div><span class="mono">Back to</span><h4>Engineering</h4></div>
-        <a class="go" href="/#engineering" style="margin-top:0">See all the work <span>→</span></a>
+        <a class="go" href="/engineering" style="margin-top:0">See all the work <span>→</span></a>
       </div>
     </div>
   </section>

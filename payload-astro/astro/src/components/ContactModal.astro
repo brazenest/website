@@ -29,6 +29,25 @@ import ContactForm from './ContactForm.astro'
   </div>
 </dialog>
 
+<!-- Success confirmation — opened after a send succeeds; the contact dialog closes. -->
+<dialog class="cmodal cmodal--success" aria-labelledby="csuccess-title" data-contact-success>
+  <div class="cmodal__card">
+    <button type="button" class="cmodal__close" aria-label="Close" data-contact-success-close>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <div class="cmodal__scroll cmodal__done">
+      <p class="cmodal__done-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+      </p>
+      <h3 id="csuccess-title">Message sent.</h3>
+      <p>Thanks — it's landed in my inbox. I read everything and reply personally, usually within a day or two.</p>
+      <button type="button" class="cmodal__done-btn" data-contact-success-close>Done</button>
+    </div>
+  </div>
+</dialog>
+
 <style>
   .cmodal {
     padding: 0;
@@ -137,44 +156,96 @@ import ContactForm from './ContactForm.astro'
       animation: none;
     }
   }
+
+  /* Success confirmation */
+  .cmodal--success .cmodal__card {
+    width: min(460px, 100vw);
+  }
+  .cmodal__done {
+    text-align: center;
+  }
+  .cmodal__done-mark {
+    width: 56px;
+    height: 56px;
+    margin: 6px auto 20px;
+    display: grid;
+    place-items: center;
+    color: var(--w-on);
+    background: var(--w-key);
+    border-radius: 50%;
+  }
+  .cmodal__done h3 {
+    margin: 0 0 10px;
+    font-size: clamp(20px, 2.4vw, 26px);
+  }
+  .cmodal__done > p {
+    color: var(--muted);
+    margin: 0 auto;
+    max-width: 42ch;
+    line-height: 1.6;
+    font-size: 14.5px;
+  }
+  .cmodal__done-btn {
+    margin-top: 24px;
+    padding: 12px 28px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--w-on);
+    background: var(--w-key);
+    border: none;
+    cursor: pointer;
+    transition: opacity 160ms var(--ease);
+  }
+  .cmodal__done-btn:hover {
+    opacity: 0.92;
+  }
 </style>
 
 <script>
-  const dialog = document.querySelector<HTMLDialogElement>('[data-contact-modal]')
-  if (dialog) {
-    const form = dialog.querySelector<HTMLFormElement>('[data-contact-form]')
+  const contactDlg = document.querySelector<HTMLDialogElement>('[data-contact-modal]')
+  const successDlg = document.querySelector<HTMLDialogElement>('[data-contact-success]')
+  const form = contactDlg?.querySelector<HTMLFormElement>('[data-contact-form]')
 
-    function open() {
-      if (dialog!.open) return
-      dialog!.showModal()
-      document.body.style.overflow = 'hidden'
-      // Nudge Turnstile to render now that the dialog is visible.
-      form?.dispatchEvent(new CustomEvent('contact:activate'))
-    }
-    function close() {
-      if (!dialog!.open) return
-      dialog!.close()
-    }
+  const lockScroll = () => (document.body.style.overflow = 'hidden')
+  const unlockScroll = () => (document.body.style.overflow = '')
 
-    // Any [data-contact-open] anywhere opens the modal.
-    document.addEventListener('click', (e) => {
-      const trigger = (e.target as HTMLElement).closest('[data-contact-open]')
-      if (trigger) {
-        e.preventDefault()
-        open()
-      }
-    })
-
-    dialog.querySelector('[data-contact-close]')?.addEventListener('click', close)
-
-    // Click on the backdrop (outside the card) closes.
-    dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) close()
-    })
-
-    // Restore scroll on any close (button, ESC, backdrop).
-    dialog.addEventListener('close', () => {
-      document.body.style.overflow = ''
-    })
+  function openContact() {
+    if (!contactDlg || contactDlg.open) return
+    contactDlg.showModal()
+    lockScroll()
+    // Nudge Turnstile to render now that the dialog is visible.
+    form?.dispatchEvent(new CustomEvent('contact:activate'))
   }
+
+  // Any [data-contact-open] anywhere opens the contact modal.
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest('[data-contact-open]')
+    if (trigger) {
+      e.preventDefault()
+      openContact()
+    }
+  })
+
+  // Wire a dialog's close controls (buttons matching selector, backdrop click, ESC),
+  // restoring scroll whenever it closes.
+  function wireDialog(dlg: HTMLDialogElement | null, closeSelector: string) {
+    if (!dlg) return
+    dlg.querySelectorAll(closeSelector).forEach((btn) => btn.addEventListener('click', () => dlg.close()))
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) dlg.close()
+    })
+    dlg.addEventListener('close', unlockScroll)
+  }
+  wireDialog(contactDlg, '[data-contact-close]')
+  wireDialog(successDlg, '[data-contact-success-close]')
+
+  // On a successful send: close the contact modal, raise the confirmation.
+  document.addEventListener('contact:success', () => {
+    contactDlg?.close()
+    if (successDlg && !successDlg.open) {
+      successDlg.showModal()
+      lockScroll()
+    }
+  })
 </script>

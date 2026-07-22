@@ -233,6 +233,10 @@ export interface CaseStudy {
   role?: string | null;
   timeline?: string | null;
   status?: string | null;
+  /**
+   * One line under the wordmark — the human stakes of the problem.
+   */
+  hook?: string | null;
   stack?:
     | {
         value?: string | null;
@@ -613,6 +617,7 @@ export interface CaseStudiesSelect<T extends boolean = true> {
   role?: T;
   timeline?: T;
   status?: T;
+  hook?: T;
   stack?:
     | T
     | {

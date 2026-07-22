@@ -5,6 +5,7 @@ export const memreyCaseStudySeed = {
   role: 'Founder, architect, designer, sole engineer',
   timeline: '2025 — present',
   status: 'Investor demo shipped',
+  hook: "Forty years of photographs, and no way to find the one you're thinking of. I built the thing that fixes that.",
   stack: [
     { value: 'TypeScript' },
     { value: 'React' },
