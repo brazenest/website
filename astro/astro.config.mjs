@@ -7,6 +7,11 @@ export default defineConfig({
   site: 'https://aldengillespy.com',
   output: 'static',
   build: {
+    // Emit /engineering.html (not /engineering/index.html) so pages are served at their
+    // NO-trailing-slash path — matching every internal link/nav/redirect target in the site.
+    // Cloudflare Pages otherwise 308-redirects /engineering -> /engineering/, an extra hop on
+    // every internal navigation and redirect. 'file' makes the no-trailing URL canonical.
+    format: 'file',
     // Inline the CSS into each page's <head> instead of an external stylesheet, so there's
     // no render-blocking round-trip before styles apply — kills the flash of unstyled
     // content on first paint in every browser (Firefox was still showing it). ~8KB gzipped.

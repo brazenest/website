@@ -1,0 +1,28 @@
+# ── v5 → v6 URL migration (aldengillespy.com domain cutover) ──────────────────
+# Pages that MOVED get a 301 to their v6 home. Truly-gone/private paths — /admin/*
+# and /api/* — deliberately have NO rule: they fall through to 404.html (HTTP 404).
+# Exact rules first, splats last (Cloudflare matches exacts faster; first match wins).
+
+# Résumé is a PDF now
+/resume                                        /resume.pdf            301
+
+# Section rename: production → media
+/production                                    /media                 301
+
+# Engineering case studies moved to /engineering/<slug>; three carried over
+/engineering/projects/memrey                   /engineering/memrey    301
+/engineering/projects/rotavox                  /engineering/rotavox   301
+/engineering/projects/andacity-booking-system  /engineering/andacity  301
+/engineering/projects                          /engineering           301
+
+# Retired top-level pages
+/work                                          /                      301
+/for-hire                                      /contact               301
+/for/creators                                  /                      301
+/for/professionals                             /                      301
+/packages                                      /contact               301
+/packages/preview                              /contact               301
+
+# Wildcards last: any remaining old project URL → its section
+/production/*                                  /media                 301
+/engineering/projects/*                        /engineering           301
