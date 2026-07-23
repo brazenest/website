@@ -83,7 +83,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
   </section>
 
   <!-- ENGINEERING — the ground becomes the work's ground -->
-  <section class="z-eng" data-zone="engineering" data-work="memrey" id="engineering">
+  <section class="z-eng" data-zone="engineering" data-zwork="memrey" id="engineering">
     <div class="col">
       <div class="zonehead" data-reveal>
         <div class="kick"><i></i><span class="mono">Engineering</span></div>
@@ -136,18 +136,22 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
         </div>
       </div>
 
-      <div class="index" data-reveal>
-        <div class="row" data-work="house">
+      <!-- The "in build" list is the tail of the engineering room: hold the last venture's
+           colour across it (data-work=andacity) so the ground stays in the engineering
+           palette instead of dropping to neutral grey mid-section. The rows themselves carry
+           no data-work, so hovering them doesn't re-tint the site. -->
+      <div class="index" data-work="andacity" data-reveal>
+        <div class="row">
           <span class="nm"><i style="--c:#6A7688"></i> Soldera</span>
           <span class="ds">An AI listing assistant — photograph the thing, it writes the listing and prices it.</span>
           <span class="yr">2025 —</span>
         </div>
-        <div class="row" data-work="house">
+        <div class="row">
           <span class="nm"><i style="--c:#6A7688"></i> Wardroab</span>
           <span class="ds">Body modelling and apparel recommendation.</span>
           <span class="yr">2025 —</span>
         </div>
-        <div class="row" data-work="house">
+        <div class="row">
           <span class="nm"><i style="--c:#6A7688"></i> Blossum</span>
           <span class="ds">Early stage, in build. Not ready to be talked about yet.</span>
           <span class="yr">2026 —</span>
@@ -158,7 +162,7 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
   </section>
 
   <!-- MEDIA — the flood, delivered as light -->
-  <section class="z-media" data-zone="media" data-work="bolt" id="bolt" style="--fx:64%;--fy:38%;--fw:88%;--fh:82%">
+  <section class="z-media" data-zone="media" data-zwork="bolt" id="bolt" style="--fx:64%;--fy:38%;--fw:88%;--fh:82%">
     <div class="flood" aria-hidden="true"></div>
     <div class="col">
       <div class="zonehead" data-reveal>

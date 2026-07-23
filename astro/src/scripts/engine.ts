@@ -52,7 +52,10 @@ export function initEngine() {
 
     // the innermost thing carrying a work, at the middle of the screen, wins
     const mid = window.scrollY + window.innerHeight * 0.45
-    let w = cur.el.dataset.work || 'house'
+    // Zone fallback: a coloured section declares its DEFAULT work via data-zwork (not
+    // data-work) so it does NOT pin its own --w-deep — the ground then inherits the live,
+    // engine-driven value on <html> and transitions with the work as you scroll.
+    let w = cur.el.dataset.work || cur.el.dataset.zwork || 'house'
     document.querySelectorAll<HTMLElement>('[data-work]').forEach((el) => {
       const r = el.getBoundingClientRect()
       const t = r.top + window.scrollY
