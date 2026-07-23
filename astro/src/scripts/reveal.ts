@@ -47,17 +47,46 @@ export function initReveal(): void {
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.1 },
   )
-  // Elements already in the viewport reveal immediately; only below-the-fold ones wait for
-  // the observer. This keeps the load entrance prompt AND correct through a cross-document
-  // view transition — an IntersectionObserver can miss its initial callback while the
-  // transition is animating, which would otherwise strand above-the-fold content hidden.
+  // Split now: below-the-fold waits for the observer; above-the-fold is the load
+  // entrance. Snapshot which are in view BEFORE anything reveals.
+  const inView: HTMLElement[] = []
   for (const el of revealEls) {
     const r = el.getBoundingClientRect()
-    if (r.top < window.innerHeight && r.bottom > 0) reveal(el)
+    if (r.top < window.innerHeight && r.bottom > 0) inView.push(el)
     else io.observe(el)
   }
 
-  // Failsafe: never leave content hidden (IO quirks, bfcache restores, etc.).
+  let played = false
+  const playEntrance = () => {
+    if (played) return
+    played = true
+    inView.forEach(reveal)
+  }
+
+  // WHEN the entrance plays matters on Chromium. With native cross-document view
+  // transitions (@view-transition), a navigation/reload freezes the incoming page into
+  // a snapshot and cross-fades it; revealing synchronously bakes the rise INTO that
+  // snapshot, so the motion is never seen (Firefox has no such transition, so it always
+  // played there — hence "works on FF, not Chromium"). Fix: where the transition exists
+  // (feature-detected via the `pagereveal` event), play AFTER it finishes, on the live
+  // page. Elsewhere, play next frame — which also guarantees the hidden state paints once
+  // so the CSS transition actually fires.
+  if ('onpagereveal' in window) {
+    window.addEventListener(
+      'pagereveal',
+      (e) => {
+        const vt = (e as unknown as { viewTransition?: { finished: Promise<void> } }).viewTransition
+        if (vt) vt.finished.then(playEntrance, playEntrance)
+        else requestAnimationFrame(() => requestAnimationFrame(playEntrance))
+      },
+      { once: true },
+    )
+  } else {
+    requestAnimationFrame(() => requestAnimationFrame(playEntrance))
+  }
+
+  // Failsafe: never leave content hidden (IO quirks, bfcache, a pagereveal that never
+  // arrives, etc.). Reveals the entrance too if the paths above somehow didn't.
   window.setTimeout(() => revealEls.forEach((el) => el.classList.contains('is-in') || reveal(el)), 1600)
 }
 
