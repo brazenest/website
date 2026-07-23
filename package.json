@@ -1,6 +1,6 @@
 {
   "name": "aldengillespydotcom",
-  "version": "1.0.0",
+  "version": "6.0.0",
   "description": "aldengillespy.com — Payload CMS (local-only, build-time content authority) + Astro static front-end",
   "license": "MIT",
   "type": "module",
