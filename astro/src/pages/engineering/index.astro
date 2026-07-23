@@ -42,7 +42,7 @@ const secondary = [
 ---
 
 <Base title="Engineering — Alden Gillespy" zone="engineering" work={projects[0]?.slug ?? 'house'}>
-  <section class="z-eng catpage" data-zone="engineering" data-work={projects[0]?.slug ?? 'house'}>
+  <section class="z-eng catpage" data-zone="engineering" data-zwork={projects[0]?.slug ?? 'house'}>
     <div class="col">
       <div class="crumb" data-reveal><span class="on">Engineering</span></div>
       <div class="zonehead" data-reveal>
@@ -79,10 +79,13 @@ const secondary = [
         })
       }
 
-      <div class="index" data-reveal>
+      {/* Hold the last listed venture's colour across the "in build" list (like the home
+          page) so the ground stays in the engineering palette instead of dropping to grey;
+          rows carry no data-work, so hovering them doesn't retint the site. */}
+      <div class="index" data-work={projects.at(-1)?.slug ?? 'house'} data-reveal>
         {
           secondary.map((row) => (
-            <div class="row" data-work="house">
+            <div class="row">
               <span class="nm"><i style="--c:#6A7688"></i> {row.name}</span>
               <span class="ds">{row.ds}</span>
               <span class="yr">{row.yr}</span>
