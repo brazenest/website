@@ -89,19 +89,16 @@ html{transition:--w-key var(--T) var(--ease), --w-hi var(--T) var(--ease),
 /* ---------- THE GROUNDS (Triptych's rule, the engine's values) ---------- */
 /* they abut. hard edges. and the engineering ground is made of the work. */
 [data-mode="light"]{ --ink:#0B0E13; --muted:#5C6879; --line:#E2E6EB; --paper:#FFFFFF; }
-[data-mode="dark"] { --ink:#F1F4F7; --muted:#8B96A4; --line:rgba(255,255,255,.13); --paper:#0E1116; --room-l:.43; }
+[data-mode="dark"] { --ink:#F1F4F7; --muted:#8B96A4; --line:rgba(255,255,255,.13); --paper:#0E1116; }
 
 [data-mode="light"] .z-neutral{ --bg:#FFFFFF; --card:#F6F8FA; }
 [data-mode="dark"]  .z-neutral{ --bg:#0E1116; --card:#161B23; }
 
 [data-mode="light"] .z-eng{ --bg:var(--w-lift); --card:#FFFFFF; }
-/* The dark room is the property's HUE at a fixed PERCEPTUAL lightness (OKLCH), derived live
-   from the transitioning --w-key — so every room is equally, visibly coloured (the raw
-   --w-deep values were all ~black, L<0.02). Tune the one --room-l knob to taste. */
-[data-mode="dark"]  .z-eng{ --bg:oklch(from var(--w-key) var(--room-l) c h); --card:oklch(from var(--w-key) calc(var(--room-l) + .06) c h); --ink:#F2F5F8; --muted:#B7BEC8; }
+[data-mode="dark"]  .z-eng{ --bg:var(--w-deep); --card:color-mix(in srgb, var(--w-deep) 78%, #FFFFFF 8%); --ink:#F2F5F8; --muted:#A3ACB8; }
 
 /* media, dark — the flood, delivered as light */
-[data-mode="dark"]  .z-media{ --bg:oklch(from var(--w-key) var(--room-l) c h); --card:oklch(from var(--w-key) calc(var(--room-l) + .06) c h); --ink:#F8F3EA; --muted:#B3A99B; --line:rgba(255,255,255,.11); }
+[data-mode="dark"]  .z-media{ --bg:var(--w-deep); --card:color-mix(in srgb, var(--w-deep) 82%, #FFFFFF 6%); --ink:#F8F3EA; --muted:#948C80; --line:rgba(255,255,255,.11); }
 /* media, light — the gallery. the flood becomes a wash; the glow becomes a shadow. */
 [data-mode="light"] .z-media{ --bg:#FAFAF8; --card:#FFFFFF; --ink:#0F0E0C; --muted:#6E695F; --line:#E7E5E0; }
 
@@ -197,16 +194,18 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
    full strength. The favicon is the all-lit reference version of this same mark. */
 .wordmark .logo{width:21px;height:21px;flex:none;display:block}
 /* Muted = softened (desaturated + slightly dimmed), NOT faded to the background — so the
-   palette stays legible as real colours. The active wedge is the only fully-saturated,
-   full-opacity one, so it clearly reads as the "live" colour. */
-.wordmark .logo [data-seg]{opacity:.78;filter:saturate(.5);transition:opacity 320ms var(--ease), filter 320ms var(--ease)}
+   palette stays legible as real colours. The active wedge is the current property's hue
+   LIFTED to a bright, visible lightness (OKLCH; never darker than the true colour, so dark
+   keys like the plum stop disappearing while already-bright keys keep their own colour).
+   Derived from the live --w-key, so it transitions with the work. */
+.wordmark .logo [data-seg]{opacity:.78;filter:saturate(.5);transition:opacity 320ms var(--ease), filter 320ms var(--ease), fill 320ms var(--ease)}
 html[data-work="house"]     .wordmark .logo [data-seg="house"],
 html[data-work="memrey"]    .wordmark .logo [data-seg="memrey"],
 html[data-work="rotavox"]   .wordmark .logo [data-seg="rotavox"],
 html[data-work="andacity"]  .wordmark .logo [data-seg="andacity"],
 html[data-work="bolt"]      .wordmark .logo [data-seg="bolt"],
 html[data-work="signal"]    .wordmark .logo [data-seg="signal"],
-html[data-work="shadowcat"] .wordmark .logo [data-seg="shadowcat"]{opacity:1;filter:saturate(1.25)}
+html[data-work="shadowcat"] .wordmark .logo [data-seg="shadowcat"]{opacity:1;filter:none;fill:oklch(from var(--w-key) max(l, .62) c h)}
 .menu{display:flex;gap:26px;margin-left:auto;align-items:center}
 .menu a{font-size:14.5px;font-weight:500;color:var(--muted);padding-block:5px;position:relative}
 .menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--w-key);transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease),background-color var(--T) var(--ease)}
