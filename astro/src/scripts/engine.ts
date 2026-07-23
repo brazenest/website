@@ -51,8 +51,13 @@ export function initEngine() {
     // so dark theme keeps the hero and every zone dark. Only data-zone (colour/fonts/
     // grounds) tracks the scroll here.
 
-    // the innermost thing carrying a work, at the middle of the screen, wins
-    const mid = window.scrollY + window.innerHeight * 0.45
+    // Recolour as a work COMES INTO VIEW: the probe sits LOW in the viewport (content enters
+    // from the bottom), a set distance above the bottom edge — so the site retints as a
+    // section scrolls in, not once it's reached the middle. That distance scales with the
+    // viewport but is clamped, so the decision point is appropriate on short and tall screens
+    // alike: it never fires on a sliver, nor waits until the work is halfway up.
+    const vh = window.innerHeight
+    const workLine = window.scrollY + vh - Math.min(Math.max(vh * 0.3, 160), 380)
     // Zone fallback: a coloured section declares its DEFAULT work via data-zwork (not
     // data-work) so it does NOT pin its own --w-deep — the ground then inherits the live,
     // engine-driven value on <html> and transitions with the work as you scroll.
@@ -60,7 +65,7 @@ export function initEngine() {
     document.querySelectorAll<HTMLElement>('[data-work]').forEach((el) => {
       const r = el.getBoundingClientRect()
       const t = r.top + window.scrollY
-      if (mid >= t && mid < t + r.height) w = el.dataset.work as string
+      if (workLine >= t && workLine < t + r.height) w = el.dataset.work as string
     })
     scrollWork = w
     apply()
