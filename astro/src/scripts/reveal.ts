@@ -11,6 +11,19 @@ export function initReveal(): void {
   // everything. Set unconditionally, before any early return.
   ;(window as unknown as { __revealReady?: boolean }).__revealReady = true
 
+  // A RELOAD gets NO cross-document view transition. A reload "transitions" the page into a
+  // copy of itself: the browser freezes the old frame while the new document renders, which
+  // stalls the content by ~1s and reads as a broken load. Skip it so a reload paints straight
+  // away — genuine page-to-page navigations still transition. (Registered before the
+  // reduced-motion return so it always applies; `pageswap` fires on THIS page as it leaves.)
+  window.addEventListener('pageswap', (e) => {
+    const ev = e as unknown as {
+      viewTransition?: { skipTransition(): void }
+      activation?: { navigationType?: string }
+    }
+    if (ev.viewTransition && ev.activation?.navigationType === 'reload') ev.viewTransition.skipTransition()
+  })
+
   const root = document.documentElement
   if (!root.classList.contains('anim')) return
 
