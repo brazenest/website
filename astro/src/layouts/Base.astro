@@ -34,6 +34,7 @@ const zones = [
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script is:inline>
       // Resolve the colour theme before first paint (no flash). Precedence:
       //   1. a stored user choice, but only if within 7 days of last interaction
@@ -112,6 +113,7 @@ const zones = [
                 href={ventureHref(v.slug)}
                 data-w={v.slug}
                 data-name={v.name}
+                aria-label={v.name}
                 style={`--seg:${v.palette.key}`}
               />
             ))}
@@ -195,7 +197,15 @@ const zones = [
       } catch (e) {
         console.error(e)
       }
-      initReveal()
+      // initReveal is guarded separately: if it throws, drop `.anim` so [data-reveal]
+      // content can't be stranded invisible (the head failsafe is already disarmed once
+      // __revealReady is set at the top of initReveal).
+      try {
+        initReveal()
+      } catch (e) {
+        console.error(e)
+        document.documentElement.classList.remove('anim')
+      }
     </script>
   </body>
 </html>

@@ -21,6 +21,7 @@ const { youtubeId, title } = Astro.props
         src={`https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg`}
         alt=""
         loading="lazy"
+        onerror={`this.onerror=null;this.src='https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg'`}
       />
       <span class="yt-facade__play" aria-hidden="true">▶</span>
     </button>

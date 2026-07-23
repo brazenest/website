@@ -273,17 +273,30 @@ const fieldId = (name: string) => `${id}-${name}`
     const statusEl = form.querySelector<HTMLElement>('[data-status]')!
     const submitBtn = form.querySelector<HTMLButtonElement>('.cform__submit')!
     let widgetId: string | null = null
+    let rendering = false
 
     async function ensureWidget() {
-      if (widgetId !== null) return
+      // Guard BOTH the resolved state and an in-flight render: on first modal open the
+      // visibility IO and the contact:activate handler both call this before the widget
+      // exists; without the synchronous `rendering` latch both would pass a widgetId===null
+      // check, await the same loader, and render Turnstile twice into one container.
+      if (widgetId !== null || rendering) return
+      rendering = true
       try {
         await loadTurnstile()
-        widgetId = window.turnstile!.render(tsContainer, {
-          sitekey: TURNSTILE_SITEKEY,
-          action: 'contact',
-        })
+        if (widgetId === null) {
+          widgetId = window.turnstile!.render(tsContainer, {
+            sitekey: TURNSTILE_SITEKEY,
+            action: 'contact',
+            // Proactively clear an expired (~5 min) token so the next submit isn't a
+            // guaranteed server-side rejection.
+            'expired-callback': () => window.turnstile?.reset(widgetId ?? undefined),
+          })
+        }
       } catch {
         /* leave widgetId null; submit will surface the missing-check message */
+      } finally {
+        rendering = false
       }
     }
 
@@ -307,12 +320,27 @@ const fieldId = (name: string) => `${id}-${name}`
       statusEl.textContent = ''
       for (const f of form.querySelectorAll<HTMLElement>('.cform__field')) f.removeAttribute('data-invalid')
       for (const s of form.querySelectorAll<HTMLElement>('[data-err]')) (s.textContent = '')
+      for (const i of form.querySelectorAll('input, select, textarea')) {
+        i.removeAttribute('aria-invalid')
+        i.removeAttribute('aria-describedby')
+      }
     }
 
     function fieldError(name: string, msg: string) {
       const errEl = form.querySelector<HTMLElement>(`[data-err="${name}"]`)
-      if (errEl) errEl.textContent = msg
-      errEl?.closest('.cform__field')?.setAttribute('data-invalid', '')
+      const field = errEl?.closest('.cform__field')
+      const input = field?.querySelector<HTMLElement>('input, select, textarea')
+      if (errEl) {
+        errEl.textContent = msg
+        if (!errEl.id) errEl.id = `${form.id}-${name}-err`
+      }
+      field?.setAttribute('data-invalid', '')
+      // Wire the error to the input so assistive tech announces it (native validation
+      // already covers the required/email cases; this covers the Worker's field errors).
+      if (input && errEl) {
+        input.setAttribute('aria-invalid', 'true')
+        input.setAttribute('aria-describedby', errEl.id)
+      }
     }
 
     form.addEventListener('submit', async (e) => {

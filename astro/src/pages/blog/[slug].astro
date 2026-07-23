@@ -6,7 +6,7 @@
  * body in a clean reading style. The contact CTA at the bottom is house/neutral.
  */
 import Base from '../../layouts/Base.astro'
-import { posts, venturesBySlug, siteMeta } from '../../lib/content'
+import { posts, venturesBySlug, siteMeta, isExternalHref } from '../../lib/content'
 import { renderRichText } from '../../lib/richText'
 
 export function getStaticPaths() {
@@ -48,7 +48,7 @@ const venture = post.relatedVenture ? venturesBySlug[post.relatedVenture as stri
       <p>Find me at the email below or on the socials — I read everything.</p>
       <div class="contact__row">
         <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
-        {siteMeta.social.map((s) => <a class="alt" href={s.url}>{s.label}</a>)}
+        {siteMeta.social.map((s) => <a class="alt" href={s.url} target={isExternalHref(s.url) ? '_blank' : undefined} rel={isExternalHref(s.url) ? 'noopener noreferrer' : undefined}>{s.label}</a>)}
       </div>
     </div>
   </section>

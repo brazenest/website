@@ -280,7 +280,7 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 
 /* ---------- ENGINEERING — colour as DATA ---------- */
 .zonehead{padding-block:clamp(54px,6.4vw,104px) clamp(24px,2.6vw,40px)}
-.zonehead h3{font-size:clamp(28px,3.4vw,56px)}
+.zonehead :is(h1,h3){font-size:clamp(28px,3.4vw,56px)}
 .zonehead p{margin-top:16px;color:var(--muted);max-width:54ch}
 .zonehead .kick{display:flex;align-items:center;gap:12px;margin-bottom:18px}
 .zonehead .kick i{width:34px;height:4px;background:var(--w-key);transition:background-color var(--T) var(--ease)}
@@ -426,7 +426,7 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 .prose h3{font-size:clamp(23px,2.2vw,34px);margin-top:clamp(46px,5.4vw,86px);margin-bottom:22px;line-height:1.1}
 .prose h3:first-child{margin-top:0}
 .prose p{font-size:clamp(16px,1.15vw,18.5px);line-height:1.68;max-width:68ch;margin-bottom:20px}
-.prose p.dim{color:var(--muted)}
+.prose .dim{color:var(--muted)}
 .prose .drop{font-size:clamp(19px,1.6vw,26px);line-height:1.44;font-weight:800;max-width:28ch;letter-spacing:-.025em}
 .prose ul{list-style:none;max-width:68ch;margin-bottom:20px}
 .prose li{position:relative;padding-left:27px;margin-bottom:14px;font-size:16px;line-height:1.6;color:var(--muted)}

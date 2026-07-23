@@ -77,7 +77,10 @@ export function initReveal(): void {
   const inView: HTMLElement[] = []
   for (const el of revealEls) {
     const r = el.getBoundingClientRect()
-    if (r.top < window.innerHeight && r.bottom > 0) inView.push(el)
+    // In view OR already scrolled past (bottom <= 0 — e.g. a scroll-restored reload or a
+    // back-navigation): both count as the entrance / already "seen". Only genuinely
+    // below-the-fold content waits for the observer so it plays as you scroll to it.
+    if (r.top < window.innerHeight) inView.push(el)
     else io.observe(el)
   }
 
@@ -110,9 +113,13 @@ export function initReveal(): void {
     requestAnimationFrame(() => requestAnimationFrame(playEntrance))
   }
 
-  // Failsafe: never leave content hidden (IO quirks, bfcache, a pagereveal that never
-  // arrives, etc.). Reveals the entrance too if the paths above somehow didn't.
-  window.setTimeout(() => revealEls.forEach((el) => el.classList.contains('is-in') || reveal(el)), 1600)
+  // Failsafe: if the entrance never played (e.g. a `pagereveal` that never arrives), reveal
+  // the entrance set so nothing above the fold is stranded hidden. Scoped to `inView` on
+  // PURPOSE — below-the-fold elements must keep waiting for the observer, or this would fade
+  // them in off-screen and they'd never play their scroll reveal.
+  window.setTimeout(() => {
+    if (!played) inView.forEach(reveal)
+  }, 1600)
 }
 
 /** Counts an integer stat from 0 → target once, easing out, preserving leading zeros. */

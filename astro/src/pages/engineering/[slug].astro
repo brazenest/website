@@ -48,7 +48,7 @@ const ventureLink = venture.links?.[0] ?? null
       <div class="crumb"><span>Engineering</span><span>/</span><span class="on">{venture.name}</span></div>
       <div class="daybreak" data-reveal>
         <div class="kick">Case study · {caseStudy.timeline}</div>
-        <div class="wm">{venture.name}</div>
+        <h1 class="wm">{venture.name}</h1>
         {caseStudy.hook && <div class="tl">{caseStudy.hook}</div>}
         {ventureLink && (
           <a class="go" href={ventureLink.url} target="_blank" rel="noopener noreferrer" style="margin-top:18px">Visit {ventureLink.label} <span>→</span></a>
@@ -80,7 +80,7 @@ const ventureLink = venture.links?.[0] ?? null
         <div class="prose">
           <h3>The problem</h3>
           <p class="drop">{caseStudy.problem?.drop}</p>
-          <p class="dim" set:html={renderRichText(caseStudy.problem?.body)} />
+          <div class="dim" set:html={renderRichText(caseStudy.problem?.body)} />
 
           <h3>What I built</h3>
           <ul>
@@ -136,7 +136,7 @@ const ventureLink = venture.links?.[0] ?? null
               {caseStudy.queryTrace.failureNote && (
                 <div class="tracefail">
                   <div class="h">And where it breaks.</div>
-                  <p set:html={renderRichText(caseStudy.queryTrace.failureNote)} />
+                  <div set:html={renderRichText(caseStudy.queryTrace.failureNote)} />
                 </div>
               )}
             </>
@@ -150,7 +150,7 @@ const ventureLink = venture.links?.[0] ?? null
                   caseStudy.decisions.map((d: { question: string; answer: any }) => (
                     <div class="decision">
                       <div class="q">{d.question}</div>
-                      <p set:html={renderRichText(d.answer)} />
+                      <div set:html={renderRichText(d.answer)} />
                     </div>
                   ))
                 }

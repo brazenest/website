@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Alden Gillespy">
+  <defs><clipPath id="c"><rect width="32" height="32" rx="4"/></clipPath></defs>
+  <g clip-path="url(#c)">
+    <rect x="0"       width="4.58" height="32" fill="#FF3B1E"/>
+    <rect x="4.571"   width="4.58" height="32" fill="#E2A03C"/>
+    <rect x="9.143"   width="4.58" height="32" fill="#0F7A52"/>
+    <rect x="13.714"  width="4.58" height="32" fill="#00E8D0"/>
+    <rect x="18.286"  width="4.58" height="32" fill="#2563EB"/>
+    <rect x="22.857"  width="4.58" height="32" fill="#5B2470"/>
+    <rect x="27.429"  width="4.58" height="32" fill="#6A7688"/>
+  </g>
+</svg>

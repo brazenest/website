@@ -208,7 +208,13 @@ import ContactForm from './ContactForm.astro'
   const form = contactDlg?.querySelector<HTMLFormElement>('[data-contact-form]')
 
   const lockScroll = () => (document.body.style.overflow = 'hidden')
-  const unlockScroll = () => (document.body.style.overflow = '')
+  // Only release the lock when NO dialog remains open. During the success handoff the
+  // contact dialog's async `close` event fires AFTER the success dialog has already opened
+  // and re-locked — an unconditional unlock there would clobber the lock and leave the
+  // background scrollable behind the success sheet.
+  const unlockScroll = () => {
+    if (!contactDlg?.open && !successDlg?.open) document.body.style.overflow = ''
+  }
 
   function openContact() {
     if (!contactDlg || contactDlg.open) return
@@ -239,6 +245,13 @@ import ContactForm from './ContactForm.astro'
   }
   wireDialog(contactDlg, '[data-contact-close]')
   wireDialog(successDlg, '[data-contact-success-close]')
+
+  // The success dialog opens programmatically AFTER the contact dialog has closed, so native
+  // focus restoration would land on the now-hidden submit button (→ <body>). Send focus back
+  // to a stable, visible control instead.
+  successDlg?.addEventListener('close', () => {
+    document.querySelector<HTMLElement>('[data-contact-open]')?.focus()
+  })
 
   // On a successful send: close the contact modal, raise the confirmation.
   document.addEventListener('contact:success', () => {

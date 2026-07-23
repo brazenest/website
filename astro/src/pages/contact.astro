@@ -7,7 +7,7 @@
  */
 import Base from '../layouts/Base.astro'
 import ContactForm from '../components/ContactForm.astro'
-import { siteMeta } from '../lib/content'
+import { siteMeta, isExternalHref } from '../lib/content'
 ---
 
 <Base title="Contact — Alden Gillespy" zone="neutral" work="house">
@@ -27,7 +27,7 @@ import { siteMeta } from '../lib/content'
             siteMeta.social.length > 0 && (
               <div class="contactpage__social">
                 {siteMeta.social.map((s) => (
-                  <a href={s.url}>{s.label}</a>
+                  <a href={s.url} target={isExternalHref(s.url) ? '_blank' : undefined} rel={isExternalHref(s.url) ? 'noopener noreferrer' : undefined}>{s.label}</a>
                 ))}
               </div>
             )
