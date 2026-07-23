@@ -188,14 +188,17 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   transition:background-color var(--T) var(--ease), border-color var(--T) var(--ease);
 }
 .top__in{display:flex;align-items:center;gap:32px;height:66px;max-width:var(--colw);margin-inline:auto;padding-inline:var(--pad)}
-.wordmark{display:flex;align-items:center;gap:11px;font-family:var(--f-d-neutral);font-weight:900;font-size:16.5px;letter-spacing:-.03em;white-space:nowrap}
+.wordmark{display:flex;align-items:center;gap:12px;line-height:1;font-family:var(--f-d-neutral);font-weight:900;font-size:16.5px;letter-spacing:-.03em;white-space:nowrap}
 /* Logo mark: a small square in the CURRENT work's colour (the live --w-key), rotated 45° into
    a diamond. The colour is lifted to a visible lightness so dark keys (the plum) don't vanish
    on the header, and it transitions with the work as you scroll. */
 .wordmark i{
   width:11px; height:11px; flex:none;
   background:oklch(from var(--w-key) max(l, .62) c h);
-  transform:rotate(45deg);
+  /* rotate to a diamond and lift it to the wordmark's optical centre (its x-height/cap band),
+     off the descender-weighted glyph midline the flex would otherwise centre it on. */
+  rotate:45deg;
+  translate:0 -3px;
   transition:background-color var(--T) var(--ease);
 }
 .menu{display:flex;gap:26px;margin-left:auto;align-items:center}
