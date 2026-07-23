@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "name": "Alden",
     "slug": "house",
     "zone": "neutral",
@@ -17,7 +16,6 @@
     "proposed": false
   },
   {
-    "id": 2,
     "name": "Memrey",
     "slug": "memrey",
     "zone": "engineering",
@@ -34,7 +32,6 @@
     "proposed": false
   },
   {
-    "id": 3,
     "name": "Rotavox",
     "slug": "rotavox",
     "zone": "engineering",
@@ -56,7 +53,6 @@
     "proposed": false
   },
   {
-    "id": 8,
     "name": "Andacity",
     "slug": "andacity",
     "zone": "engineering",
@@ -78,7 +74,6 @@
     "proposed": false
   },
   {
-    "id": 5,
     "name": "The Bolt",
     "slug": "bolt",
     "zone": "media",
@@ -95,7 +90,6 @@
     "proposed": false
   },
   {
-    "id": 6,
     "name": "Night Signal",
     "slug": "signal",
     "zone": "media",
@@ -112,7 +106,6 @@
     "proposed": false
   },
   {
-    "id": 7,
     "name": "Shadowcat",
     "slug": "shadowcat",
     "zone": "media",

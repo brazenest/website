@@ -13,7 +13,6 @@ export interface MediaRef {
 }
 
 export interface Venture {
-  id: string | number
   name: string
   slug: string
   zone: Zone
@@ -34,7 +33,6 @@ export interface Venture {
 export type RichText = { root: unknown } | null
 
 export interface CaseStudy {
-  id: string | number
   venture: string | null // venture slug
   role: string | null
   timeline: string | null
@@ -58,7 +56,6 @@ export interface CaseStudy {
 }
 
 export interface Film {
-  id: string | number
   venture: string | null // venture slug
   title: string
   logline: string | null
@@ -75,7 +72,6 @@ export interface Film {
 }
 
 export interface Post {
-  id: string | number
   title: string
   slug: string
   publishedAt: string | null

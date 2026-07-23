@@ -95,13 +95,16 @@ async function run() {
   // ---- ventures ------------------------------------------------------------
   const ventures = (await payload.find({ collection: 'ventures', limit: 1000, sort: 'order' })).docs
   const ventureExport = ventures.map((v) => ({
-    id: v.id,
     name: v.name,
     slug: v.slug,
     zone: v.zone,
     order: v.order,
     tagline: v.tagline || null,
-    palette: v.palette,
+    // Resolve palette.on here (admin value, else computed) so ventures.json always carries a
+    // concrete `on`. The home spectrum chips (index.astro) and ChainSVG read it straight from
+    // this JSON, and the generated CSS below reads the same resolved value — no divergence if
+    // an admin uses the documented "leave on blank to compute at export" workflow.
+    palette: { ...v.palette, on: v.palette.on || pickOnColor(v.palette.key) },
     links: (v.links || []).map((l: any) => ({ label: l.label, url: l.url })),
     proposed: v.proposed,
   }))
@@ -112,10 +115,9 @@ async function run() {
 
   // ---- case studies ----------------------------------------------------------
   const caseStudies = (
-    await payload.find({ collection: 'case-studies', limit: 1000, depth: 2 })
+    await payload.find({ collection: 'case-studies', limit: 1000, depth: 2, sort: 'createdAt' })
   ).docs
   const caseStudyExport = caseStudies.map((c: any) => ({
-    id: c.id,
     venture: ventureSlug(c.venture),
     role: c.role || null,
     timeline: c.timeline || null,
@@ -155,9 +157,8 @@ async function run() {
   )
 
   // ---- films -----------------------------------------------------------------
-  const films = (await payload.find({ collection: 'films', limit: 1000, depth: 2 })).docs
+  const films = (await payload.find({ collection: 'films', limit: 1000, depth: 2, sort: 'createdAt' })).docs
   const filmExport = films.map((f: any) => ({
-    id: f.id,
     venture: ventureSlug(f.venture),
     title: f.title,
     logline: f.logline || null,
@@ -175,9 +176,8 @@ async function run() {
   await fs.writeFile(path.join(DATA_OUT_DIR, 'films.json'), JSON.stringify(filmExport, null, 2) + '\n')
 
   // ---- posts -------------------------------------------------------------------
-  const posts = (await payload.find({ collection: 'posts', limit: 1000, depth: 2 })).docs
+  const posts = (await payload.find({ collection: 'posts', limit: 1000, depth: 2, sort: 'createdAt' })).docs
   const postExport = posts.map((p: any) => ({
-    id: p.id,
     title: p.title,
     slug: p.slug,
     publishedAt: p.publishedAt || null,

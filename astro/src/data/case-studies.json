@@ -1,192 +1,5 @@
 [
   {
-    "id": 3,
-    "venture": "andacity",
-    "role": "Founder, architect, designer, sole engineer",
-    "timeline": "2024 — present",
-    "status": "Live — andacity.com",
-    "hook": "Booking a flight is easy. Deciding what the trip should be is the part every travel site leaves to you.",
-    "stack": [
-      "TypeScript",
-      "Qwik",
-      "QwikCity",
-      "Fastify",
-      "Drizzle",
-      "Postgres",
-      "Zod",
-      "Cloudflare"
-    ],
-    "identityNote": "Deep navy ground, an azure signal, Geist. The colour of this page.",
-    "problem": {
-      "drop": "Flights, hotels, cars and destinations each live behind their own search box — and the traveller is left to be the integration layer.",
-      "body": {
-        "root": {
-          "type": "root",
-          "format": "",
-          "indent": 0,
-          "version": 1,
-          "direction": "ltr",
-          "children": [
-            {
-              "type": "paragraph",
-              "format": "",
-              "indent": 0,
-              "version": 1,
-              "direction": "ltr",
-              "children": [
-                {
-                  "type": "text",
-                  "format": 0,
-                  "style": "",
-                  "mode": "normal",
-                  "detail": 0,
-                  "version": 1,
-                  "text": "Planning a trip means twelve tabs, a spreadsheet, and a lot of copy-paste, because no tool treats the trip itself as the thing you're building — only the individual bookings. Andacity is discovery-first: you plan the trip, and the destinations, hotels, flights and cars assemble around it, as one object you can save, share and come back to."
-                }
-              ]
-            }
-          ]
-        }
-      }
-    },
-    "built": [
-      {
-        "lead": "A search mode per vertical",
-        "body": "destinations, hotels, flights and cars — each tuned to how you actually shop for it, but sharing one result / entity / trip grammar so nothing feels bolted on."
-      },
-      {
-        "lead": "The trip as a first-class object",
-        "body": "add-to-trip from anywhere; the trip persists, revalidates, and holds the whole plan together instead of scattering it across bookings."
-      },
-      {
-        "lead": "Shareable, canonical routes",
-        "body": "every search, place and trip has a clean URL that survives being sent to someone — the plan travels with the link."
-      },
-      {
-        "lead": "Entity resolution across verticals",
-        "body": "one canonical identity for a place, hotel or airport everywhere in the app, so results line up instead of contradicting each other."
-      },
-      {
-        "lead": "Guided booking with a trust panel",
-        "body": "a booking surface that shows what is happening and why, rather than a black-box checkout."
-      },
-      {
-        "lead": "Edge-rendered, run by one person",
-        "body": "Qwik/QwikCity on Cloudflare over a Fastify + Postgres core — fast enough to feel instant, small enough to operate solo."
-      }
-    ],
-    "queryTrace": null,
-    "decisions": [],
-    "screens": [],
-    "results": [
-      {
-        "value": "4",
-        "label": "travel verticals unified — destinations, hotels, flights, cars"
-      },
-      {
-        "value": "0",
-        "label": "tabs and spreadsheets to plan a trip"
-      },
-      {
-        "value": "1",
-        "label": "engineer, from the edge render to the database"
-      }
-    ],
-    "resultsCaveat": "Andacity is live at andacity.com (v0.6.0) and still moving fast — real usage and conversion numbers replace these as it grows."
-  },
-  {
-    "id": 2,
-    "venture": "rotavox",
-    "role": "Founder, architect, designer, sole engineer",
-    "timeline": "2024 — present",
-    "status": "Early access — rotavox.com",
-    "hook": "Most internet radio still runs on shuffle. Rotavox schedules it the way a real station does — deliberately.",
-    "stack": [
-      "TypeScript",
-      "React",
-      "Node",
-      "Postgres"
-    ],
-    "identityNote": "Deep pine ground, a mint signal, Geist. The colour of this page.",
-    "problem": {
-      "drop": "AutoDJ isn't programming. It's shuffle with a nicer name — and it's what most internet radio is stuck running on.",
-      "body": {
-        "root": {
-          "type": "root",
-          "format": "",
-          "indent": 0,
-          "version": 1,
-          "direction": "ltr",
-          "children": [
-            {
-              "type": "paragraph",
-              "format": "",
-              "indent": 0,
-              "version": 1,
-              "direction": "ltr",
-              "children": [
-                {
-                  "type": "text",
-                  "format": 0,
-                  "style": "",
-                  "mode": "normal",
-                  "detail": 0,
-                  "version": 1,
-                  "text": "Real stations don't shuffle. They run format clocks, they keep the same artists and titles apart, they change the sound by daypart, and they rotate a library across gold, recurrent and current pools with intent. That kind of scheduling has always lived in expensive, aging desktop software. Rotavox brings it to the platforms independent broadcasters actually run — starting with RadioDJ — as software that feels like this decade."
-                }
-              ]
-            }
-          ]
-        }
-      }
-    },
-    "built": [
-      {
-        "lead": "Format clocks",
-        "body": "a visual hour layout — lay out exactly what airs, and when, for every hour of the week."
-      },
-      {
-        "lead": "Separation rules",
-        "body": "enforced artist, title and tempo separation, so nothing you care about repeats too soon."
-      },
-      {
-        "lead": "Dayparting",
-        "body": "a distinct clock per time period, so the morning never sounds like the middle of the night."
-      },
-      {
-        "lead": "Category rotation",
-        "body": "gold, recurrent and current pools, rotated on purpose instead of left to random."
-      },
-      {
-        "lead": "History-aware scheduling",
-        "body": "every placement reads what already aired across the surrounding hours and days, and a dry-run preview lets you see the schedule before it airs."
-      },
-      {
-        "lead": "Platform integration",
-        "body": "works with RadioDJ today; LibreTime and more platforms are on the roadmap."
-      }
-    ],
-    "queryTrace": null,
-    "decisions": [],
-    "screens": [],
-    "results": [
-      {
-        "value": "3",
-        "label": "rotation pools — gold, recurrent, current"
-      },
-      {
-        "value": "0",
-        "label": "random shuffle in a Rotavox schedule"
-      },
-      {
-        "value": "1",
-        "label": "engineer, from the scheduler to rotavox.com"
-      }
-    ],
-    "resultsCaveat": "Rotavox is in early access — sign up at rotavox.com. Real usage numbers replace these as it opens up."
-  },
-  {
-    "id": 1,
     "venture": "memrey",
     "role": "Founder, architect, designer, sole engineer",
     "timeline": "2025 — present",
@@ -544,5 +357,189 @@
       }
     ],
     "resultsCaveat": "These are the numbers I can stand behind today. When the beta opens I'll replace them with the ones that matter — corpus size, recall, and how often the first result is the right one."
+  },
+  {
+    "venture": "rotavox",
+    "role": "Founder, architect, designer, sole engineer",
+    "timeline": "2024 — present",
+    "status": "Early access — rotavox.com",
+    "hook": "Most internet radio still runs on shuffle. Rotavox schedules it the way a real station does — deliberately.",
+    "stack": [
+      "TypeScript",
+      "React",
+      "Node",
+      "Postgres"
+    ],
+    "identityNote": "Deep pine ground, a mint signal, Geist. The colour of this page.",
+    "problem": {
+      "drop": "AutoDJ isn't programming. It's shuffle with a nicer name — and it's what most internet radio is stuck running on.",
+      "body": {
+        "root": {
+          "type": "root",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "format": 0,
+                  "style": "",
+                  "mode": "normal",
+                  "detail": 0,
+                  "version": 1,
+                  "text": "Real stations don't shuffle. They run format clocks, they keep the same artists and titles apart, they change the sound by daypart, and they rotate a library across gold, recurrent and current pools with intent. That kind of scheduling has always lived in expensive, aging desktop software. Rotavox brings it to the platforms independent broadcasters actually run — starting with RadioDJ — as software that feels like this decade."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "built": [
+      {
+        "lead": "Format clocks",
+        "body": "a visual hour layout — lay out exactly what airs, and when, for every hour of the week."
+      },
+      {
+        "lead": "Separation rules",
+        "body": "enforced artist, title and tempo separation, so nothing you care about repeats too soon."
+      },
+      {
+        "lead": "Dayparting",
+        "body": "a distinct clock per time period, so the morning never sounds like the middle of the night."
+      },
+      {
+        "lead": "Category rotation",
+        "body": "gold, recurrent and current pools, rotated on purpose instead of left to random."
+      },
+      {
+        "lead": "History-aware scheduling",
+        "body": "every placement reads what already aired across the surrounding hours and days, and a dry-run preview lets you see the schedule before it airs."
+      },
+      {
+        "lead": "Platform integration",
+        "body": "works with RadioDJ today; LibreTime and more platforms are on the roadmap."
+      }
+    ],
+    "queryTrace": null,
+    "decisions": [],
+    "screens": [],
+    "results": [
+      {
+        "value": "3",
+        "label": "rotation pools — gold, recurrent, current"
+      },
+      {
+        "value": "0",
+        "label": "random shuffle in a Rotavox schedule"
+      },
+      {
+        "value": "1",
+        "label": "engineer, from the scheduler to rotavox.com"
+      }
+    ],
+    "resultsCaveat": "Rotavox is in early access — sign up at rotavox.com. Real usage numbers replace these as it opens up."
+  },
+  {
+    "venture": "andacity",
+    "role": "Founder, architect, designer, sole engineer",
+    "timeline": "2024 — present",
+    "status": "Live — andacity.com",
+    "hook": "Booking a flight is easy. Deciding what the trip should be is the part every travel site leaves to you.",
+    "stack": [
+      "TypeScript",
+      "Qwik",
+      "QwikCity",
+      "Fastify",
+      "Drizzle",
+      "Postgres",
+      "Zod",
+      "Cloudflare"
+    ],
+    "identityNote": "Deep navy ground, an azure signal, Geist. The colour of this page.",
+    "problem": {
+      "drop": "Flights, hotels, cars and destinations each live behind their own search box — and the traveller is left to be the integration layer.",
+      "body": {
+        "root": {
+          "type": "root",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "direction": "ltr",
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "direction": "ltr",
+              "children": [
+                {
+                  "type": "text",
+                  "format": 0,
+                  "style": "",
+                  "mode": "normal",
+                  "detail": 0,
+                  "version": 1,
+                  "text": "Planning a trip means twelve tabs, a spreadsheet, and a lot of copy-paste, because no tool treats the trip itself as the thing you're building — only the individual bookings. Andacity is discovery-first: you plan the trip, and the destinations, hotels, flights and cars assemble around it, as one object you can save, share and come back to."
+                }
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "built": [
+      {
+        "lead": "A search mode per vertical",
+        "body": "destinations, hotels, flights and cars — each tuned to how you actually shop for it, but sharing one result / entity / trip grammar so nothing feels bolted on."
+      },
+      {
+        "lead": "The trip as a first-class object",
+        "body": "add-to-trip from anywhere; the trip persists, revalidates, and holds the whole plan together instead of scattering it across bookings."
+      },
+      {
+        "lead": "Shareable, canonical routes",
+        "body": "every search, place and trip has a clean URL that survives being sent to someone — the plan travels with the link."
+      },
+      {
+        "lead": "Entity resolution across verticals",
+        "body": "one canonical identity for a place, hotel or airport everywhere in the app, so results line up instead of contradicting each other."
+      },
+      {
+        "lead": "Guided booking with a trust panel",
+        "body": "a booking surface that shows what is happening and why, rather than a black-box checkout."
+      },
+      {
+        "lead": "Edge-rendered, run by one person",
+        "body": "Qwik/QwikCity on Cloudflare over a Fastify + Postgres core — fast enough to feel instant, small enough to operate solo."
+      }
+    ],
+    "queryTrace": null,
+    "decisions": [],
+    "screens": [],
+    "results": [
+      {
+        "value": "4",
+        "label": "travel verticals unified — destinations, hotels, flights, cars"
+      },
+      {
+        "value": "0",
+        "label": "tabs and spreadsheets to plan a trip"
+      },
+      {
+        "value": "1",
+        "label": "engineer, from the edge render to the database"
+      }
+    ],
+    "resultsCaveat": "Andacity is live at andacity.com (v0.6.0) and still moving fast — real usage and conversion numbers replace these as it grows."
   }
 ]
