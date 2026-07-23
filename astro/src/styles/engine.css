@@ -548,8 +548,8 @@ html[data-work="shadowcat"] .wordmark .logo [data-seg="shadowcat"]{opacity:1;fil
    animates the old→new paint where the browser supports it (Chrome/Edge). Elsewhere it's
    an ordinary navigation. The per-element rise still comes from the reveal system. */
 @view-transition { navigation: auto; }
-::view-transition-old(root) { animation: vt-out .22s cubic-bezier(.3,.7,.25,1) both; }
-::view-transition-new(root) { animation: vt-in .34s cubic-bezier(.3,.7,.25,1) both; }
+::view-transition-old(root) { animation: vt-out .14s cubic-bezier(.3,.7,.25,1) both; }
+::view-transition-new(root) { animation: vt-in .2s cubic-bezier(.3,.7,.25,1) both; }
 @keyframes vt-out { to { opacity: 0; } }
 @keyframes vt-in  { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
@@ -559,7 +559,7 @@ html[data-work="shadowcat"] .wordmark .logo [data-seg="shadowcat"]{opacity:1;fil
 /* Fallback for browsers without native cross-document view transitions (Firefox):
    the head script tags navigated pages with .page-enter, and we fade the incoming page
    in — a simulation of the cross-fade so those browsers still get a page transition. */
-.page-enter body { animation: page-enter-fade .34s cubic-bezier(.3,.7,.25,1) both; }
+.page-enter body { animation: page-enter-fade .2s cubic-bezier(.3,.7,.25,1) both; }
 @keyframes page-enter-fade { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .page-enter body { animation: none; }
@@ -572,8 +572,8 @@ html[data-work="shadowcat"] .wordmark .logo [data-seg="shadowcat"]{opacity:1;fil
    items stagger via --reveal-i. */
 .anim [data-reveal]{
   opacity:0; transform:translateY(14px);
-  transition:opacity .6s var(--ease), transform .6s var(--ease);
-  transition-delay:calc(var(--reveal-i, 0) * 70ms);
+  transition:opacity .3s var(--ease), transform .3s var(--ease);
+  transition-delay:calc(var(--reveal-i, 0) * 30ms);
 }
 .anim [data-reveal].is-in{opacity:1; transform:none}
 

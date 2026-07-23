@@ -14,12 +14,13 @@ export function initEngine() {
   const groups = [...document.querySelectorAll<HTMLElement>('.rgroup')]
   const navs = [...document.querySelectorAll<HTMLElement>('.menu a[data-route]')]
 
-  let hoverWork: string | null = null // the cursor outranks the scroll
   let scrollWork = 'house'
   let scrollZone = 'neutral'
 
   function apply() {
-    const w = hoverWork || scrollWork
+    // Colour follows the SCROLL only — the work whose area has entered the viewport — never
+    // the cursor. Hovering a chip/work/rail no longer re-tints the site.
+    const w = scrollWork
     root.setAttribute('data-work', w)
     segs.forEach((a) => (a.dataset.w === w ? a.setAttribute('data-on', '') : a.removeAttribute('data-on')))
     groups.forEach((g) =>
@@ -63,22 +64,6 @@ export function initEngine() {
     })
     scrollWork = w
     apply()
-  }
-
-  // hover any work — a chip, a block, a row, a rail segment — and the WHOLE site re-tints.
-  function wire() {
-    document.querySelectorAll<HTMLElement>('.chip, .work, .index .row, .rail a').forEach((el) => {
-      const w = el.dataset.w || el.dataset.work
-      if (!w) return
-      el.addEventListener('mouseenter', () => {
-        hoverWork = w
-        apply()
-      })
-      el.addEventListener('mouseleave', () => {
-        hoverWork = null
-        apply()
-      })
-    })
   }
 
   // the one motion that isn't colour: the media zone's light coming up. light isn't movement.
@@ -163,7 +148,6 @@ export function initEngine() {
 
   measure()
   observe()
-  wire()
   sync()
   window.addEventListener('load', () => {
     measure()
