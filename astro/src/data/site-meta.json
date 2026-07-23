@@ -1,0 +1,58 @@
+{
+  "proofNumbers": [
+    {
+      "value": "09",
+      "label": "products I own and operate"
+    },
+    {
+      "value": "01",
+      "label": "engineer on all of them — start to finish"
+    },
+    {
+      "value": "06",
+      "label": "years shipping production software"
+    },
+    {
+      "value": "03",
+      "label": "radio stations built, brand through playout"
+    },
+    {
+      "value": "02",
+      "label": "national platforms — Ancestry, NBCUniversal"
+    }
+  ],
+  "contactEmail": "website.inquiries@aldengillespy.com",
+  "ctaText": "Let's build something that lasts.",
+  "nav": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Engineering",
+      "href": "/engineering"
+    },
+    {
+      "label": "Media",
+      "href": "/media"
+    },
+    {
+      "label": "Résumé",
+      "href": "/resume.pdf"
+    }
+  ],
+  "social": [
+    {
+      "label": "Résumé (PDF)",
+      "url": "/resume.pdf"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/alden-gillespy"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/brazenest"
+    }
+  ]
+}

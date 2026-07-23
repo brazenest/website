@@ -1,0 +1,264 @@
+---
+/**
+ * ContactModal — site-wide contact dialog. Included once in Base.astro, so every page
+ * has it. Any element with [data-contact-open] opens it (the header CTA, footer link,
+ * and the former mailto CTAs are all wired to it).
+ *
+ * Built on the native <dialog> element: showModal() gives us focus-trapping, ESC-to-close,
+ * and top-layer rendering for free. We add backdrop-click close, body scroll-lock, and a
+ * reduced-motion-aware transition. The form inside is the shared ContactForm.
+ */
+import ContactForm from './ContactForm.astro'
+---
+
+<dialog class="cmodal" aria-labelledby="cmodal-title" data-contact-modal>
+  <div class="cmodal__card">
+    <button type="button" class="cmodal__close" aria-label="Close contact form" data-contact-close>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <div class="cmodal__scroll">
+      <p class="cmodal__kicker" id="cmodal-title">Let's talk</p>
+      <ContactForm
+        id="contact-modal"
+        heading="Start a conversation"
+        intro="Tell me what you're after — a build, a film, a role, or something else entirely. Everything comes straight to me."
+      />
+    </div>
+  </div>
+</dialog>
+
+<!-- Success confirmation — opened after a send succeeds; the contact dialog closes. -->
+<dialog class="cmodal cmodal--success" aria-labelledby="csuccess-title" data-contact-success>
+  <div class="cmodal__card">
+    <button type="button" class="cmodal__close" aria-label="Close" data-contact-success-close>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M6 6l12 12M18 6L6 18" />
+      </svg>
+    </button>
+    <div class="cmodal__scroll cmodal__done">
+      <p class="cmodal__done-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
+      </p>
+      <h3 id="csuccess-title">Message sent.</h3>
+      <p>Thanks — it's landed in my inbox. I read everything and reply personally, usually within a day or two.</p>
+      <button type="button" class="cmodal__done-btn" data-contact-success-close>Done</button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .cmodal {
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: 100vw;
+    max-height: 100dvh;
+    color: var(--ink);
+    /* The site's global reset (*{margin:0}) nukes the UA dialog's margin:auto,
+       so restore centering explicitly. inset:0 comes from the UA modal style. */
+    margin: auto;
+  }
+  .cmodal::backdrop {
+    background: color-mix(in srgb, var(--deep, #0b0e13) 66%, transparent);
+    backdrop-filter: blur(3px);
+  }
+  .cmodal__card {
+    position: relative;
+    width: min(560px, 100vw);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.5);
+  }
+  .cmodal__scroll {
+    max-height: 88dvh;
+    overflow-y: auto;
+    padding: clamp(22px, 4vw, 40px);
+  }
+  .cmodal__kicker {
+    font-family: var(--f-m, monospace);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--w-key);
+    margin: 0 0 14px;
+  }
+  .cmodal__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 160ms var(--ease), background 160ms var(--ease);
+  }
+  .cmodal__close:hover {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--ink) 8%, transparent);
+  }
+
+  /* Entrance animation (desktop: rise + fade). */
+  .cmodal[open] {
+    animation: cmodal-in 220ms var(--ease, ease);
+  }
+  .cmodal[open]::backdrop {
+    animation: cmodal-fade 220ms var(--ease, ease);
+  }
+  @keyframes cmodal-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+  @keyframes cmodal-fade {
+    from {
+      opacity: 0;
+    }
+  }
+
+  /* Mobile: dock to the bottom as a sheet. */
+  @media (max-width: 560px) {
+    .cmodal {
+      /* Dock to the bottom edge as a sheet (override the centered inset). */
+      inset: auto 0 0 0;
+      margin: 0;
+      width: 100vw;
+    }
+    .cmodal__card {
+      width: 100vw;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+    }
+    .cmodal__scroll {
+      max-height: 92dvh;
+    }
+    .cmodal[open] {
+      animation: cmodal-sheet-in 260ms var(--ease, ease);
+    }
+    @keyframes cmodal-sheet-in {
+      from {
+        transform: translateY(100%);
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cmodal[open],
+    .cmodal[open]::backdrop {
+      animation: none;
+    }
+  }
+
+  /* Success confirmation */
+  .cmodal--success .cmodal__card {
+    width: min(460px, 100vw);
+  }
+  .cmodal__done {
+    text-align: center;
+  }
+  .cmodal__done-mark {
+    width: 56px;
+    height: 56px;
+    margin: 6px auto 20px;
+    display: grid;
+    place-items: center;
+    color: var(--w-on);
+    background: var(--w-key);
+    border-radius: 50%;
+  }
+  .cmodal__done h3 {
+    margin: 0 0 10px;
+    font-size: clamp(20px, 2.4vw, 26px);
+  }
+  .cmodal__done > p {
+    color: var(--muted);
+    margin: 0 auto;
+    max-width: 42ch;
+    line-height: 1.6;
+    font-size: 14.5px;
+  }
+  .cmodal__done-btn {
+    margin-top: 24px;
+    padding: 12px 28px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--w-on);
+    background: var(--w-key);
+    border: none;
+    cursor: pointer;
+    transition: opacity 160ms var(--ease);
+  }
+  .cmodal__done-btn:hover {
+    opacity: 0.92;
+  }
+</style>
+
+<script>
+  const contactDlg = document.querySelector<HTMLDialogElement>('[data-contact-modal]')
+  const successDlg = document.querySelector<HTMLDialogElement>('[data-contact-success]')
+  const form = contactDlg?.querySelector<HTMLFormElement>('[data-contact-form]')
+
+  const lockScroll = () => (document.body.style.overflow = 'hidden')
+  // Only release the lock when NO dialog remains open. During the success handoff the
+  // contact dialog's async `close` event fires AFTER the success dialog has already opened
+  // and re-locked — an unconditional unlock there would clobber the lock and leave the
+  // background scrollable behind the success sheet.
+  const unlockScroll = () => {
+    if (!contactDlg?.open && !successDlg?.open) document.body.style.overflow = ''
+  }
+
+  function openContact() {
+    if (!contactDlg || contactDlg.open) return
+    contactDlg.showModal()
+    lockScroll()
+    // Nudge Turnstile to render now that the dialog is visible.
+    form?.dispatchEvent(new CustomEvent('contact:activate'))
+  }
+
+  // Any [data-contact-open] anywhere opens the contact modal.
+  document.addEventListener('click', (e) => {
+    const trigger = (e.target as HTMLElement).closest('[data-contact-open]')
+    if (trigger) {
+      e.preventDefault()
+      openContact()
+    }
+  })
+
+  // Wire a dialog's close controls (buttons matching selector, backdrop click, ESC),
+  // restoring scroll whenever it closes.
+  function wireDialog(dlg: HTMLDialogElement | null, closeSelector: string) {
+    if (!dlg) return
+    dlg.querySelectorAll(closeSelector).forEach((btn) => btn.addEventListener('click', () => dlg.close()))
+    dlg.addEventListener('click', (e) => {
+      if (e.target === dlg) dlg.close()
+    })
+    dlg.addEventListener('close', unlockScroll)
+  }
+  wireDialog(contactDlg, '[data-contact-close]')
+  wireDialog(successDlg, '[data-contact-success-close]')
+
+  // The success dialog opens programmatically AFTER the contact dialog has closed, so native
+  // focus restoration would land on the now-hidden submit button (→ <body>). Send focus back
+  // to a stable, visible control instead.
+  successDlg?.addEventListener('close', () => {
+    document.querySelector<HTMLElement>('[data-contact-open]')?.focus()
+  })
+
+  // On a successful send: close the contact modal, raise the confirmation.
+  document.addEventListener('contact:success', () => {
+    contactDlg?.close()
+    if (successDlg && !successDlg.open) {
+      successDlg.showModal()
+      lockScroll()
+    }
+  })
+</script>

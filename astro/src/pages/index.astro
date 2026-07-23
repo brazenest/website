@@ -1,0 +1,229 @@
+---
+/**
+ * HOME (BUILD.md §9.4) — ported from v6-engine-r2.html's data-page="/".
+ * Rail + header come from Base.astro. Data-driven here: the SPECTRUM (6 ventures),
+ * the PROOF numbers (siteMeta), and CONTACT (siteMeta). The hero, "how I work", and the
+ * engineering/media teaser cards are faithful editorial ports — their images are the
+ * placeholder gradients from the source (§8.3: real assets pending). Every work/chip/row
+ * carries data-work so the runtime engine retints on hover and scroll.
+ */
+import Base from '../layouts/Base.astro'
+import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, filmHref, isExternalHref } from '../lib/content'
+
+const chips = spectrumVentures()
+const memreyHref = caseStudyHref('memrey') ?? '/#engineering'
+const rotavoxHref = caseStudyHref('rotavox') ?? '/engineering'
+const andacityHref = caseStudyHref('andacity') ?? '/engineering'
+const shadowcatHref = filmHref('shadowcat') ?? '/#media'
+---
+
+<Base title="Alden Gillespy" zone="neutral" work="house">
+  <!-- THE HERO — the claim -->
+  <section class="hero z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <span class="mono" data-reveal>Salt Lake City · Available</span>
+      <h1 style="margin-top:22px;--reveal-i:1" data-reveal>I build the whole thing.</h1>
+      <p class="lead" data-reveal style="--reveal-i:2">Architecture, interface, infrastructure, brand. I don't hand work off — I finish it, ship it, and then keep it running.</p>
+    </div>
+  </section>
+
+  <!-- THE SPECTRUM — the proof of the claim, in colour. hover one. (data-driven) -->
+  <div class="spectrum" data-zone="neutral" data-work="house">
+    {
+      chips.map((v, i) => (
+        <a class="chip" href={ventureHref(v.slug)} data-w={v.slug} data-reveal style={`--c:${v.palette.key};--o:${v.palette.on};--reveal-i:${i}`}>
+          <span class="hex">{v.palette.key}</span>
+          <span class="zn">{zoneLabel(v.zone)}</span>
+          <span class="n">{v.name}</span>
+          <span class="d">{v.tagline}</span>
+        </a>
+      ))
+    }
+  </div>
+  <p class="spectrum__note z-neutral" data-reveal>Every colour on this site comes from something I made. Hover one.</p>
+
+  <!-- PROOF (data-driven from siteMeta.proofNumbers) -->
+  <section class="proof z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <div class="grid">
+        {
+          siteMeta.proofNumbers.map((n, i) => (
+            <div data-reveal style={`--reveal-i:${i}`}>
+              <span class="n num" data-countup>{n.value}</span>
+              <span class="l">{n.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW I WORK -->
+  <section class="how z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <div class="sechead" data-reveal><h3>How I work</h3><span class="mono">2020 — 2026</span></div>
+      <div class="three">
+        <div data-reveal style="--reveal-i:0">
+          <div class="bar" style="background:#6A7688"></div>
+          <h5>I own the whole surface.</h5>
+          <p>Most engineers stop at the API. Most designers stop at the mockup. I take a product from the first sketch to the thing running in production with real users, and I don't need a team to do it.</p>
+        </div>
+        <div data-reveal style="--reveal-i:1">
+          <div class="bar" style="background:#2F4BFF"></div>
+          <h5>I build systems, not screens.</h5>
+          <p>Design tokens, scheduling engines, ingest pipelines, brand kits. If it has to hold up under load — technical or visual — I'd rather build the system that makes a thousand of them than hand-make one.</p>
+        </div>
+        <div data-reveal style="--reveal-i:2">
+          <div class="bar" style="background:#E2A03C"></div>
+          <h5>I know what good looks like.</h5>
+          <p>Two years leading engineering at a national broadcaster, two and a half shipping to millions at Ancestry, and a film school habit of not letting anything out that isn't finished.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGINEERING — the ground becomes the work's ground -->
+  <section class="z-eng" data-zone="engineering" data-zwork="memrey" id="engineering">
+    <div class="col">
+      <div class="zonehead" data-reveal>
+        <div class="kick"><i></i><span class="mono">Engineering</span></div>
+        <h3>Nine products. All of them mine, from the architecture to the wordmark.</h3>
+        <p>Everything here runs in production. The colour of this room is the colour of whatever you're standing in front of.</p>
+      </div>
+
+      <div class="work" data-work="memrey" data-reveal>
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">Memrey</span><span class="work__yr">2025 — NOW</span></div>
+          <h4>An AI archive that gives a lifetime of photographs its memory back.</h4>
+          <p>Ingest, understand and retrieve decades of images by the thing you actually remember about them — not by a tag nobody wrote.</p>
+          <a class="go" href={memreyHref}>Read the case study <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#2A0F3A;--b:#C7513F;--c2:#150720">
+            <span class="wm" style="font-family:'Fraunces',serif;font-weight:700;font-size:clamp(28px,3vw,52px);letter-spacing:-.02em">Memrey</span>
+            <div class="lab"><b>Memrey</b> <span>Interface · 2025</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work" id="rotavox" data-work="rotavox" data-reveal>
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">Rotavox</span><span class="work__yr">2024 — NOW</span></div>
+          <h4>Scheduling software for radio, rebuilt from nothing.</h4>
+          <p>The planner, the engine, the library, the reporting. One system, one person, and a real network running on it every day.</p>
+          <a class="go" href={rotavoxHref}>Read the case study <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#05261A;--b:#38D08C;--c2:#03150F">
+            <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="lab"><b>Rotavox</b> <span>Hard crop · the planner · 2024</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work" id="andacity" data-work="andacity" data-reveal>
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">Andacity</span><span class="work__yr">2024 — NOW</span></div>
+          <h4>Plan the whole trip, not just book a flight.</h4>
+          <p>Discovery-first travel across destinations, hotels, flights and cars — one planner and one shareable trip, instead of twelve tabs and a spreadsheet.</p>
+          <a class="go" href={andacityHref}>Read the case study <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#0A1A3A;--b:#4F86FF;--c2:#050d1f">
+            <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="lab"><b>Andacity</b> <span>Hard crop · UI · 2026</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- The "in build" list is the tail of the engineering room: hold the last venture's
+           colour across it (data-work=andacity) so the ground stays in the engineering
+           palette instead of dropping to neutral grey mid-section. The rows themselves carry
+           no data-work, so hovering them doesn't re-tint the site. -->
+      <div class="index" data-work="andacity" data-reveal>
+        <div class="row">
+          <span class="nm"><i style="--c:#6A7688"></i> Soldera</span>
+          <span class="ds">An AI listing assistant — photograph the thing, it writes the listing and prices it.</span>
+          <span class="yr">2025 —</span>
+        </div>
+        <div class="row">
+          <span class="nm"><i style="--c:#6A7688"></i> Wardroab</span>
+          <span class="ds">Body modelling and apparel recommendation.</span>
+          <span class="yr">2025 —</span>
+        </div>
+        <div class="row">
+          <span class="nm"><i style="--c:#6A7688"></i> Blossum</span>
+          <span class="ds">Early stage, in build. Not ready to be talked about yet.</span>
+          <span class="yr">2026 —</span>
+        </div>
+      </div>
+      <div style="height:clamp(30px,3.4vw,56px)"></div>
+    </div>
+  </section>
+
+  <!-- MEDIA — the flood, delivered as light -->
+  <section class="z-media" data-zone="media" data-zwork="bolt" id="bolt" style="--fx:64%;--fy:38%;--fw:88%;--fh:82%">
+    <div class="flood" aria-hidden="true"></div>
+    <div class="col">
+      <div class="zonehead" data-reveal>
+        <div class="kick"><i></i><span class="mono">Media</span></div>
+        <h3 class="halo">The part you can watch.</h3>
+        <p>Shadowcat isn't a hobby sitting next to the engineering. It's the same instinct pointed at a different surface — control the whole chain, and don't let anything out that isn't finished.</p>
+      </div>
+
+      <div class="work" data-work="bolt" data-reveal>
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">The Bolt · Night Signal</span><span class="work__yr">2024 — NOW</span></div>
+          <h4 class="halo">A radio network built end to end.</h4>
+          <p>Three stations. The software that runs them, the sound that comes out of them, and the brand wrapped around them. This is the one that lives in both halves of my work.</p>
+          <a class="go" href="/#bolt">See the network <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#1a0a06;--b:#FF3B1E;--c2:#0a0503">
+            <span class="wm" style="font-family:'Geist',sans-serif;font-weight:800;font-style:italic;font-size:clamp(26px,2.8vw,48px);letter-spacing:-.03em">THE BOLT</span>
+            <div class="lab"><b>The Bolt</b> <span>Brand · 2025</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work" data-work="shadowcat" data-reveal>
+        <div class="work__t">
+          <div class="work__meta"><span class="wchip">Shadowcat Pictures</span><span class="work__yr">2019 — NOW</span></div>
+          <h4 class="halo">I write it, shoot it, cut it, grade it and score it.</h4>
+          <p>Then I build the site it lives on. Both halves of my work are judged the same way: does it hold your attention, and does it hold up on a second pass.</p>
+          <a class="go" href={shadowcatHref}>Open the film page <span>→</span></a>
+        </div>
+        <div class="work__a">
+          <div class="shot" style="--a:#16323a;--b:#a67b3a;--c2:#05070a">
+            <span class="wm" style="font-family:'Zodiak',serif;font-weight:400;font-size:clamp(22px,2.4vw,42px);letter-spacing:.24em;text-transform:uppercase">Shadowcat</span>
+            <div class="lab"><b>Fault Lines</b> <span>2.39:1 · 2026</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="height:clamp(36px,4.4vw,72px)"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT — back to the house colour. (data-driven from siteMeta) -->
+  <section class="contact z-neutral" data-zone="neutral" data-work="house" id="contact">
+    <div class="col">
+      <h3 data-reveal>{siteMeta.ctaText}</h3>
+      <p data-reveal style="--reveal-i:1">I'm open to senior and staff full-stack roles, and to the occasional contract that's actually interesting. Tell me what you're building. I answer everything.</p>
+      <div class="contact__row" data-reveal style="--reveal-i:2">
+        <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
+        {
+          siteMeta.social.map((s) => (
+            <a
+              class="alt"
+              href={s.url}
+              target={isExternalHref(s.url) ? '_blank' : undefined}
+              rel={isExternalHref(s.url) ? 'noopener noreferrer' : undefined}
+            >
+              {s.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,124 @@
+[
+  {
+    "name": "Alden",
+    "slug": "house",
+    "zone": "neutral",
+    "order": 0,
+    "tagline": null,
+    "palette": {
+      "key": "#6A7688",
+      "hi": "#8CA0FF",
+      "deep": "#161B23",
+      "lift": "#F1F4F7",
+      "on": "#FFFFFF"
+    },
+    "links": [],
+    "proposed": false
+  },
+  {
+    "name": "Memrey",
+    "slug": "memrey",
+    "zone": "engineering",
+    "order": 1,
+    "tagline": "AI photo archive. Plum ground, rising sun.",
+    "palette": {
+      "key": "#5B2470",
+      "hi": "#FF8A3D",
+      "deep": "#2A0F3A",
+      "lift": "#F4ECF8",
+      "on": "#FFFFFF"
+    },
+    "links": [],
+    "proposed": false
+  },
+  {
+    "name": "Rotavox",
+    "slug": "rotavox",
+    "zone": "engineering",
+    "order": 2,
+    "tagline": "Music scheduling for radio.",
+    "palette": {
+      "key": "#0F7A52",
+      "hi": "#38D08C",
+      "deep": "#05261A",
+      "lift": "#E9F7F0",
+      "on": "#FFFFFF"
+    },
+    "links": [
+      {
+        "label": "rotavox.com",
+        "url": "https://rotavox.com"
+      }
+    ],
+    "proposed": false
+  },
+  {
+    "name": "Andacity",
+    "slug": "andacity",
+    "zone": "engineering",
+    "order": 3,
+    "tagline": "Discovery-first travel planning.",
+    "palette": {
+      "key": "#2563EB",
+      "hi": "#4F86FF",
+      "deep": "#0A1A3A",
+      "lift": "#EAF1FE",
+      "on": "#FFFFFF"
+    },
+    "links": [
+      {
+        "label": "andacity.com",
+        "url": "https://andacity.com"
+      }
+    ],
+    "proposed": false
+  },
+  {
+    "name": "The Bolt",
+    "slug": "bolt",
+    "zone": "media",
+    "order": 4,
+    "tagline": "Molten orange. A station, built end to end.",
+    "palette": {
+      "key": "#FF3B1E",
+      "hi": "#FF7A45",
+      "deep": "#1A0904",
+      "lift": "#FFEDE9",
+      "on": "#1A0904"
+    },
+    "links": [],
+    "proposed": false
+  },
+  {
+    "name": "Night Signal",
+    "slug": "signal",
+    "zone": "media",
+    "order": 5,
+    "tagline": "The network the stations sit inside.",
+    "palette": {
+      "key": "#00E8D0",
+      "hi": "#7DF7EA",
+      "deep": "#04201E",
+      "lift": "#E4FBF8",
+      "on": "#04211E"
+    },
+    "links": [],
+    "proposed": false
+  },
+  {
+    "name": "Shadowcat",
+    "slug": "shadowcat",
+    "zone": "media",
+    "order": 6,
+    "tagline": "Films and photography.",
+    "palette": {
+      "key": "#E2A03C",
+      "hi": "#FFD08A",
+      "deep": "#120C04",
+      "lift": "#FBF3E5",
+      "on": "#241703"
+    },
+    "links": [],
+    "proposed": true
+  }
+]

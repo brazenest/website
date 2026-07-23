@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Alden Gillespy">
+  <!-- A 7-sided mark, point-up: seven congruent triangles meeting at the centre, each base
+       spanning two vertices. One wedge per property, in canonical site order (not spectral),
+       so the mark carries the palette of the work, not a rainbow. -->
+  <path d="M16 16 16 1 27.73 6.65Z"       fill="#6A7688"/><!-- house    -->
+  <path d="M16 16 27.73 6.65 30.62 19.34Z" fill="#5B2470"/><!-- memrey   -->
+  <path d="M16 16 30.62 19.34 22.51 29.51Z" fill="#0F7A52"/><!-- rotavox  -->
+  <path d="M16 16 22.51 29.51 9.49 29.51Z" fill="#2563EB"/><!-- andacity -->
+  <path d="M16 16 9.49 29.51 1.38 19.34Z"  fill="#FF3B1E"/><!-- bolt     -->
+  <path d="M16 16 1.38 19.34 4.27 6.65Z"   fill="#00E8D0"/><!-- signal   -->
+  <path d="M16 16 4.27 6.65 16 1Z"         fill="#E2A03C"/><!-- shadowcat-->
+</svg>

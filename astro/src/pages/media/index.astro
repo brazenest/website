@@ -1,0 +1,110 @@
+---
+/**
+ * MEDIA — category landing page (the header nav's "Media" target).
+ * Lists the media ventures as .work blocks in the media zone (dark ground, colour as
+ * light), each linking to its dedicated page when one exists (Shadowcat → the film page).
+ * Data-driven from the ventures collection + filmHref.
+ */
+import Base from '../../layouts/Base.astro'
+import { venturesByZone, filmHref } from '../../lib/content'
+
+const COPY: Record<string, { meta: string; headline: string; blurb: string; wordmark: string; wmStyle: string }> = {
+  bolt: {
+    meta: '2024 — NOW',
+    headline: 'A radio network built end to end.',
+    blurb:
+      'Three stations. The software that runs them, the sound that comes out of them, and the brand wrapped around them — the project that lives in both halves of my work.',
+    wordmark: 'THE BOLT',
+    wmStyle: "font-family:'Geist',sans-serif;font-weight:800;font-style:italic;font-size:clamp(26px,2.8vw,48px);letter-spacing:-.03em",
+  },
+  signal: {
+    meta: '2024 — NOW',
+    headline: 'Night Signal — the after-hours voice of the network.',
+    blurb:
+      'Its own identity and its own sound, sitting inside the same system as the rest of the network. All of it made in-house.',
+    wordmark: 'NIGHT SIGNAL',
+    wmStyle: "font-family:'Geist',sans-serif;font-weight:800;font-size:clamp(22px,2.4vw,40px);letter-spacing:.02em",
+  },
+  shadowcat: {
+    meta: '2019 — NOW',
+    headline: 'I write it, shoot it, cut it, grade it and score it.',
+    blurb:
+      'Then I build the site it lives on. The film, the photography, the score — one hand through the whole chain, judged the same way the engineering is.',
+    wordmark: 'Shadowcat',
+    wmStyle: "font-family:'Zodiak',serif;font-weight:400;font-size:clamp(22px,2.4vw,42px);letter-spacing:.24em;text-transform:uppercase",
+  },
+}
+
+const order = ['bolt', 'signal', 'shadowcat']
+const projects = venturesByZone()
+  .media.filter((v) => COPY[v.slug])
+  .sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug))
+---
+
+<Base title="Media — Alden Gillespy" zone="media" work={projects[0]?.slug ?? 'house'}>
+  <section class="z-media catpage" data-zone="media" data-zwork={projects[0]?.slug ?? 'house'} style="--fx:64%;--fy:30%;--fw:88%;--fh:80%">
+    <div class="flood" aria-hidden="true"></div>
+    <div class="col">
+      <div class="crumb" data-reveal><span class="on">Media</span></div>
+      <div class="zonehead" data-reveal>
+        <div class="kick"><i></i><span class="mono">Media</span></div>
+        <h1 class="halo">The part you can watch, and the network you can hear.</h1>
+        <p>Shadowcat Pictures and a three-station radio network — the same instinct as the engineering, pointed at a different surface. Control the whole chain; don't let anything out that isn't finished.</p>
+      </div>
+
+      {
+        projects.map((v) => {
+          const c = COPY[v.slug]
+          const href = filmHref(v.slug)
+          const { deep, hi, key } = v.palette
+          return (
+            <div class="work" data-work={v.slug} data-reveal>
+              <div class="work__t">
+                <div class="work__meta"><span class="wchip">{v.name}</span><span class="work__yr">{c.meta}</span></div>
+                <h4 class="halo">{c.headline}</h4>
+                <p>{c.blurb}</p>
+                {href ? (
+                  <a class="go" href={href}>Open the film page <span>→</span></a>
+                ) : (
+                  <span class="go go--soon">Page in progress</span>
+                )}
+              </div>
+              <div class="work__a">
+                <div class="shot" style={`--a:${deep};--b:${hi};--c2:#05060a`}>
+                  <span class="wm" style={c.wmStyle}>{c.wordmark}</span>
+                  <div class="lab"><b>{v.name}</b> <span style={`color:${key}`}>{v.palette.key}</span></div>
+                </div>
+              </div>
+            </div>
+          )
+        })
+      }
+      <div style="height:clamp(36px,4.4vw,72px)"></div>
+    </div>
+  </section>
+
+  <section class="contact z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <h3 data-reveal>Got something you want made?</h3>
+      <p data-reveal style="--reveal-i:1">Commissions, collaborations, or a role where you need someone who can do all of it. Either way, start here.</p>
+      <div class="contact__row" data-reveal style="--reveal-i:2">
+        <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .catpage { padding-block: clamp(28px, 4vw, 60px) clamp(20px, 3vw, 44px); }
+  .catpage .crumb { margin-bottom: clamp(18px, 2.4vw, 30px); }
+  .go--soon {
+    display: inline-flex;
+    align-items: center;
+    color: var(--muted);
+    cursor: default;
+    font-family: var(--f-m);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+</style>

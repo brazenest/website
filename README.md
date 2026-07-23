@@ -1,126 +1,67 @@
-# Personal Site v3.0.0
+# Payload Blank Template
 
-Full-featured Qwik + Fastify production site for alden.dev.
+This template comes configured with the bare minimum to get started on anything you need.
 
-### Implementation Complete
+## Quick start
 
-- ✅ Qwik 1.19.2 + Qwik City with SSR/SSG
-- ✅ TypeScript 5.4.5 + Vite 7.3.1 multi-stage build (SSG blocker resolved)
-- ✅ Tailwind CSS 4.2.1 with v4 engine
-- ✅ Full routing: home, about, engineering, production, blog, contact, resume
-- ✅ Dynamic routes for blog posts and project details
-- ✅ **Blog backed by PostgreSQL database** (3 launch posts seeded and verified)
-- ✅ Structured data (Person, WebSite, Article, CreativeWork schemas)
-- ✅ Accessibility verified (skip links, landmarks, ARIA labels, motion preferences)
-- ✅ Responsive design and mobile navigation
-- ✅ Environment-based configuration with ORIGIN, PORT, HOST, DATABASE_URL
-- ✅ Production Docker build with multi-stage optimization
-- ✅ Static site generation (SSG) with full route prerendering
+This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
 
-## Development Setup
+## Quick Start - local setup
 
-### Prerequisites
+To spin up this template locally, follow these steps:
 
-- Node.js 20+ (specified in Dockerfile)
-- pnpm 8+ (package manager)
-- PostgreSQL 12+ (if running blog locally; optional for development)
+### Clone
 
-### Environment Configuration
+After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
 
-Create a `.env` file based on `.env.example`:
+### Development
 
-```bash
-# Server configuration
-ORIGIN=http://localhost:4173      # URL for SSR/prerendering
-PORT=3000                         # Fastify server port
-HOST=0.0.0.0                      # Bind address
-NODE_ENV=production
+1. First [clone the repo](#clone) if you have not done so already
+2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
 
-# Database configuration (for blog functionality)
-DATABASE_URL=postgresql://user:password@host:port/database  # Optional; falls back to static data
+3. `pnpm install && pnpm dev` to install dependencies and start the dev server
+4. open `http://localhost:3000` to open the app in your browser
 
-# Private admin access (server-side HTTP Basic Auth)
-ADMIN_BASIC_AUTH_USERNAME=admin
-ADMIN_BASIC_AUTH_PASSWORD=change-me
+That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
 
-# Contact form delivery (Resend — https://resend.com)
-RESEND_API_KEY=re_your_api_key
-CONTACT_FORM_FROM_EMAIL=no-reply@example.com
-CONTACT_FORM_TO_EMAIL=you@example.com
-CONTACT_FORM_SUBJECT_PREFIX=Alden Gillespy Website
-```
+#### Docker (Optional)
 
-The admin credentials are server-only values for the `/admin` route group. Do not expose them as
-client-side environment variables or commit production secrets.
+If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
 
-The contact form sends through [Resend](https://resend.com) on the server via its HTTP API.
+To do so, follow these steps:
 
-- `RESEND_API_KEY`: API key from the Resend dashboard (server-only secret).
-- `CONTACT_FORM_FROM_EMAIL`: the `From` address; its domain must be verified in Resend.
-- `CONTACT_FORM_TO_EMAIL`: mailbox where inquiries should be delivered (comma-separated for multiple).
-- `CONTACT_FORM_SUBJECT_PREFIX`: optional prefix for inbound subject lines.
+- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
+- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
+- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
 
-### Running Locally
+## How it works
 
-**Development mode** (with live reload):
+The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
 
-```bash
-pnpm install
-pnpm run dev
-```
+### Collections
 
-Then visit [http://localhost:5173/](http://localhost:5173/)
+See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
 
-**Production build** (static prerendering + SSG):
+- #### Users (Authentication)
 
-```bash
-pnpm run build
-```
+  Users are auth-enabled collections that have access to the admin panel.
 
-This executes:
+  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
 
-1. `build.types` — TypeScript type checking
-2. `build.client` — Vite client bundle
-3. `lint` — ESLint validation
-4. `build.server` — SSR bundle + Fastify adapter
-5. SSG Phase — Prerender all routes to static HTML
+- #### Media
 
-**Serving production build**:
+  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
 
-```bash
-pnpm run serve
-```
+### Docker
 
-Then visit [http://localhost:3000/](http://localhost:3000/)
+Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
 
-## Build Notes
+1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
+1. Next run `docker-compose up`
+1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
 
-### Known Configuration
+That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
 
-- **Minification**: Currently disabled in production build
-  - Reason: Workaround for Qwik SSG initialization incompatibility with esbuild
-  - Impact: ~2-3x larger pre-gzip bundles; ~15-30 KB increase post-gzip
-  - Status: Stable and acceptable for v3.0.0; see [Performance Audit](./docs/performance-audit.md#18-task-138) for details
-  - Future: Re-enable after investigating esbuild/Qwik root cause
+## Questions
 
-### Blog Database Integration
-
-The blog system is database-backed (PostgreSQL) for content management:
-
-- **Schema**: `blog_posts` table with published flag, timestamps, markdown content
-- **Connectivity**: Environment-driven config; SSL/TLS support via `PGSSLMODE`
-- **Content**: 3 launch posts seeded in PostgreSQL
-- **Routing**: Dynamic `/blog/[slug]` routes query database at build time (SSG enumeration)
-- **SEO**: Sitemap automatically includes published blog slugs from database
-
-For local development without a database, the system can fall back to static content (configured in `src/lib/db.ts`).
-
-## Fastify Server
-
-This app has a minimal [Fastify server](https://fastify.dev/) implementation. The production server serves prerendered static HTML and handles dynamic requests (if any).
-
-The build pipeline produces:
-
-- Static HTML files (one per route)
-- Versioned JS/CSS chunks with content hashing (immutable caching)
-- Optimized async Qwik component bundles
+If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).

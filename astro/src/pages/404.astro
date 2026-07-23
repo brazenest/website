@@ -1,0 +1,25 @@
+---
+/**
+ * 404 — Cloudflare Pages serves /404.html with an HTTP 404 for any unmatched path
+ * (without it, misses fall back to index.html with a 200, which is bad for SEO/UX).
+ * House/neutral identity.
+ */
+import Base from '../layouts/Base.astro'
+---
+
+<Base title="Not found — Alden Gillespy" zone="neutral" work="house">
+  <section class="z-neutral" data-zone="neutral" data-work="house" style="min-height:62vh;display:flex;align-items:center">
+    <div class="col">
+      <span class="mono">404</span>
+      <h1 style="margin-top:18px;font-size:clamp(40px,6vw,92px)">This page went somewhere I didn't build.</h1>
+      <p class="lead" style="margin-top:22px;color:var(--muted);max-width:44ch">
+        The link's broken or the page moved. Everything I've made is one hop away.
+      </p>
+      <div class="contact__row" style="margin-top:clamp(24px,3vw,40px)">
+        <a class="big" href="/">Back home <span>→</span></a>
+        <a class="alt" href="/engineering">Engineering</a>
+        <a class="alt" href="/media">Media</a>
+      </div>
+    </div>
+  </section>
+</Base>

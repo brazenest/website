@@ -1,0 +1,580 @@
+/* ============================================================================
+   engine.css — the static colour-engine + Triptych stylesheet.
+   Ported VERBATIM from v6/v6-engine-r2.html's <style> block (BUILD.md §4,
+   the preserve-exactly list). The ONLY change from source: the 7 hardcoded
+   [data-work] venture blocks are removed — they are generated from data now.
+   Keep the @property declarations and html{transition} exactly as-is (§3a).
+   ============================================================================ */
+
+/* ============================================================================
+   ALDEN GILLESPY — v6
+   COLOUR ENGINE (primary, ~75%) · TRIPTYCH (secondary, ~25%)
+
+   ── THE ENGINE (primary) ───────────────────────────────────────────────────
+   This site does not have a palette. It has a colour FUNCTION.
+
+   Every venture already owns a brand. Memrey's plum and rising sun. The Bolt's
+   molten orange. Night Signal's cyan. The site takes its colour from whichever
+   piece of work you're standing in front of, and everything adopts it — the
+   rail, the ground, the links, the rules, the metrics, the button, the light.
+   Walk the site and you walk through the actual colours of the portfolio.
+
+   The colour is EARNED, not chosen. And it scales for free: ship a venture
+   with a brand, and the site gains a colour world with no redesign.
+
+   Spine    : THE RAIL. A stack of the portfolio's colours down the left edge.
+              The one you're in swells and lights. The engine, made visible,
+              on every page, at every scroll position.
+   Motion   : colour. Only colour. Nothing on this site moves — it re-tints.
+              (One exception, earned: the media zone's light comes up when you
+              arrive. Light isn't movement.)
+
+   ── TRIPTYCH (secondary) — it fixes exactly three things ───────────────────
+   1. THE RAIL IS GROUPED INTO THREE ZONES. Seven colours, clustered
+      neutral / engineering / media. The rail is the spectrum AND the map.
+   2. THE GROUNDS ABUT, at hard edges. Triptych supplies the RULE (each zone
+      owns a ground); the engine supplies the VALUE. So the engineering room is
+      a pale plum wash for Memrey and a pale green wash for Rotavox. The room
+      is the work's room.
+   3. A DISPLAY FACE PER ZONE. Text and mono stay immutable — that is the
+      engine's discipline, one variable changed properly. But the headline
+      face carries the zone: Cabinet Grotesk / Geist / Zodiak.
+
+   ── WHAT COLOUR DOES, BY ZONE ──────────────────────────────────────────────
+     NEUTRAL      the SPECTRUM. Every colour at once — the portfolio as an
+                  inventory — plus the house grey, which is just me.
+     ENGINEERING  DATA. Flat, functional, restrained: rules, links, metrics,
+                  the diagram. Light ground washed with the work's hue.
+     MEDIA        LIGHT. The flood — full strength, dark ground — delivered as
+                  glow, rim and halo rather than as a flat rectangle.
+
+   ── STILL OPEN ─────────────────────────────────────────────────────────────
+   Rotavox, Shadowcat and Soldera's colours are MY PROPOSALS, not yours. They
+   are load-bearing. Change three lines in THE ENGINE block below and the whole
+   site re-tints. That is the entire point of building it this way.
+   ============================================================================ */
+
+/* ---------- REGISTERED TOKENS — so colour can actually interpolate ---------- */
+@property --w-key  { syntax:'<color>'; inherits:true; initial-value:#6A7688 }
+@property --w-hi   { syntax:'<color>'; inherits:true; initial-value:#2F4BFF }
+@property --w-deep { syntax:'<color>'; inherits:true; initial-value:#161B23 }
+@property --w-lift { syntax:'<color>'; inherits:true; initial-value:#F1F4F7 }
+
+:root{
+  /* immutable type — the constant against which colour is the variable */
+  --f-s:'Schibsted Grotesk','Helvetica Neue',Arial,sans-serif;
+  --f-m:'Spline Sans Mono',ui-monospace,Menlo,monospace;
+  /* the 25%: a display face per zone */
+  --f-d-neutral:'Cabinet Grotesk','Schibsted Grotesk',sans-serif;
+  --f-d-eng:'Geist','Schibsted Grotesk',sans-serif;
+  --f-d-media:'Zodiak','Times New Roman',serif;
+
+  --ease:cubic-bezier(.3,.7,.25,1);
+  --rail:16px;
+  --pad:clamp(20px,3.6vw,64px);
+  --colw:1280px;
+  --T:480ms;
+}
+
+/* ---------- THE ENGINE ---------- */
+/* --w-on is whichever of ink/paper clears 4.5:1 against the key. That is the
+   whole rule. It SNAPS rather than interpolating, so text never passes through
+   mid-grey on its way somewhere. */
+/* THE ENGINE's per-venture blocks live in venture-tokens.generated.css,
+   generated from the Payload `ventures` collection by `pnpm run export` (BUILD.md §3a).
+   Do not hardcode [data-work="..."] blocks here — add a venture in the CMS instead. */
+html{transition:--w-key var(--T) var(--ease), --w-hi var(--T) var(--ease),
+                --w-deep var(--T) var(--ease), --w-lift var(--T) var(--ease)}
+
+/* ---------- THE GROUNDS (Triptych's rule, the engine's values) ---------- */
+/* they abut. hard edges. and the engineering ground is made of the work. */
+[data-mode="light"]{ --ink:#0B0E13; --muted:#5C6879; --line:#E2E6EB; --paper:#FFFFFF; }
+[data-mode="dark"] { --ink:#F1F4F7; --muted:#8B96A4; --line:rgba(255,255,255,.13); --paper:#0E1116; }
+
+[data-mode="light"] .z-neutral{ --bg:#FFFFFF; --card:#F6F8FA; }
+[data-mode="dark"]  .z-neutral{ --bg:#0E1116; --card:#161B23; }
+
+[data-mode="light"] .z-eng{ --bg:var(--w-lift); --card:#FFFFFF; }
+[data-mode="dark"]  .z-eng{ --bg:var(--w-deep); --card:color-mix(in srgb, var(--w-deep) 78%, #FFFFFF 8%); --ink:#F2F5F8; --muted:#A3ACB8; }
+
+/* media, dark — the flood, delivered as light */
+[data-mode="dark"]  .z-media{ --bg:var(--w-deep); --card:color-mix(in srgb, var(--w-deep) 82%, #FFFFFF 6%); --ink:#F8F3EA; --muted:#948C80; --line:rgba(255,255,255,.11); }
+/* media, light — the gallery. the flood becomes a wash; the glow becomes a shadow. */
+[data-mode="light"] .z-media{ --bg:#FAFAF8; --card:#FFFFFF; --ink:#0F0E0C; --muted:#6E695F; --line:#E7E5E0; }
+
+/* DARK-MODE ACCENT LIFT — in dark mode the key sits on its own deep ground
+   (plum on plum = nothing), so accents move to --w-hi, the venture's second
+   colour. Memrey's sun, Rotavox's mint. This is what --w-hi was always for. */
+[data-mode="dark"] .z-eng   .go,
+[data-mode="dark"] .z-media .go{color:var(--w-hi);border-color:var(--w-hi)}
+[data-mode="dark"] .z-eng   .results .n,
+[data-mode="dark"] .z-eng   .crumb .on,
+[data-mode="dark"] .z-eng   .rail2 .live i,
+[data-mode="dark"] .z-eng   .prose li::before,
+[data-mode="dark"] .z-eng   .zonehead .kick i{color:var(--w-hi);background:var(--w-hi)}
+[data-mode="dark"] .z-eng   .wchip{background:var(--w-hi);color:var(--w-deep)}
+
+/* ---------- BASE ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
+body{
+  font-family:var(--f-s);
+  font-size:clamp(16px,1.1vw,17.5px);
+  line-height:1.62;
+  background:var(--paper);color:var(--ink);
+  padding-left:var(--rail);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  transition:background-color var(--T) var(--ease), color var(--T) var(--ease);
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--w-key);color:var(--w-on)}
+:focus-visible{outline:3px solid var(--w-key);outline-offset:3px}
+.skip{position:fixed;left:26px;top:-90px;z-index:500;background:var(--ink);color:var(--paper);padding:12px 20px;font-weight:700}
+.skip:focus{top:16px}
+
+section{
+  background:var(--bg);color:var(--ink);position:relative;
+  transition:background-color var(--T) var(--ease), color var(--T) var(--ease);
+}
+.col{width:100%;max-width:var(--colw);margin-inline:auto;padding-inline:var(--pad);position:relative;z-index:2}
+.mono{font-family:var(--f-m);font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.num{font-family:var(--f-m);font-weight:400;font-feature-settings:"tnum" 1;letter-spacing:-.035em}
+
+/* the 25%: the display face carries the zone. text and mono never change. */
+h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight:900}
+.z-neutral h1,.z-neutral h2,.z-neutral h3,.z-neutral h4{font-family:var(--f-d-neutral);font-weight:900}
+.z-eng h1,.z-eng h2,.z-eng h3,.z-eng h4{font-family:var(--f-d-eng);font-weight:700;letter-spacing:-.032em}
+.z-media h1,.z-media h2,.z-media h3,.z-media h4{font-family:var(--f-d-media);font-weight:700;letter-spacing:-.018em;line-height:1}
+
+/* ---------- THE SPINE: the rail (grouped into three zones) ---------- */
+.rail{
+  position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:200;
+  display:flex;flex-direction:column;gap:7px;padding-block:7px;
+  background:var(--paper);
+  transition:background-color var(--T) var(--ease);
+}
+.rgroup{flex:1;display:flex;flex-direction:column;gap:1.5px;transition:flex-grow 520ms var(--ease)}
+.rgroup[data-on]{flex-grow:1.55}
+.rail a{
+  flex:1;position:relative;display:block;background:var(--seg);
+  opacity:.3;
+  transition:opacity 320ms var(--ease), flex-grow 460ms var(--ease);
+}
+.rail a:hover{opacity:1}
+.rgroup[data-on] a{opacity:.55}
+.rail a[data-on]{opacity:1;flex-grow:2.4}
+.rail a::after{
+  content:attr(data-name);
+  position:absolute;left:calc(var(--rail) + 10px);top:50%;transform:translateY(-50%);
+  font-family:var(--f-m);font-weight:500;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  white-space:nowrap;color:var(--ink);background:var(--paper);padding:5px 9px;
+  opacity:0;pointer-events:none;box-shadow:0 0 0 1px var(--line);
+}
+.rail a:hover::after,.rail a:focus-visible::after{opacity:1}
+
+/* ---------- HEADER — a consumer of the engine, not the engine ---------- */
+.top{
+  position:sticky;top:0;z-index:150;
+  /* --paper is defined globally by [data-mode]; --bg is only set inside zoned
+     sections, so the header (a body child) must key off --paper or the tint
+     silently drops to transparent. Translucent + blur keeps nav legible over
+     whatever scrolls beneath. */
+  background:color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+  transition:background-color var(--T) var(--ease), border-color var(--T) var(--ease);
+}
+.top__in{display:flex;align-items:center;gap:32px;height:66px;max-width:var(--colw);margin-inline:auto;padding-inline:var(--pad)}
+.wordmark{display:flex;align-items:center;gap:12px;line-height:1;font-family:var(--f-d-neutral);font-weight:900;font-size:16.5px;letter-spacing:-.03em;white-space:nowrap}
+/* Logo mark: a small square in the CURRENT work's colour (the live --w-key), rotated 45° into
+   a diamond. The colour is lifted to a visible lightness so dark keys (the plum) don't vanish
+   on the header, and it transitions with the work as you scroll. */
+.wordmark i{
+  width:11px; height:11px; flex:none;
+  background:oklch(from var(--w-key) max(l, .62) c h);
+  /* rotate to a diamond and lift it to the wordmark's optical centre (its x-height/cap band),
+     off the descender-weighted glyph midline the flex would otherwise centre it on. */
+  rotate:45deg;
+  translate:0 -3px;
+  transition:background-color var(--T) var(--ease);
+}
+.menu{display:flex;gap:26px;margin-left:auto;align-items:center}
+.menu a{font-size:14.5px;font-weight:500;color:var(--muted);padding-block:5px;position:relative}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--w-key);transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease),background-color var(--T) var(--ease)}
+.menu a:hover{color:var(--ink)}
+.menu a[aria-current="page"]{color:var(--ink);font-weight:700}
+.menu a[aria-current="page"]::after,.menu a:hover::after{transform:scaleX(1)}
+.tmode{display:grid;place-items:center;width:34px;height:34px;flex:none;border:1px solid var(--line);color:var(--muted);transition:color 160ms,border-color 160ms}
+.tmode:hover{color:var(--ink);border-color:var(--ink)}
+.tmode svg{width:15px;height:15px}
+[data-mode="light"] .tmode .moon{display:none}
+[data-mode="dark"]  .tmode .sun{display:none}
+/* contact, one click away, from anywhere */
+.hire{
+  flex:none;display:inline-flex;align-items:center;gap:8px;
+  background:var(--w-key);color:var(--w-on);
+  padding:10px 18px;font-size:14px;font-weight:700;letter-spacing:-.015em;
+  transition:background-color var(--T) var(--ease), color 1ms;
+}
+.hire:hover{background:var(--w-hi)}
+
+/* ---------- THE HERO — the claim, then the proof of it, in colour ---------- */
+.hero{padding-block:clamp(60px,7.6vw,124px) clamp(38px,4.6vw,68px)}
+.hero h1{font-size:clamp(44px,6.8vw,120px)}
+.hero .lead{margin-top:clamp(22px,2.2vw,36px);font-size:clamp(18px,1.6vw,25px);line-height:1.46;color:var(--muted);max-width:38ch}
+
+/* THE SPECTRUM — the colour index of everything I've made. hover one. */
+.spectrum{display:grid;grid-template-columns:repeat(6,1fr);width:100%}
+.chip{
+  position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:clamp(196px,27vh,300px);
+  padding:clamp(16px,1.6vw,26px);
+  background:var(--c);color:var(--o);
+}
+.chip .zn{position:absolute;top:clamp(14px,1.4vw,22px);right:clamp(16px,1.6vw,26px);font-family:var(--f-m);font-weight:500;font-size:9px;letter-spacing:.16em;text-transform:uppercase;opacity:.5}
+.chip .hex{position:absolute;top:clamp(14px,1.4vw,22px);left:clamp(16px,1.6vw,26px);font-family:var(--f-m);font-weight:500;font-size:10px;letter-spacing:.08em;opacity:.62}
+.chip .n{font-family:var(--f-d-neutral);font-size:clamp(17px,1.6vw,25px);font-weight:900;letter-spacing:-.03em;line-height:1.02}
+.chip .d{margin-top:8px;font-size:12.5px;line-height:1.4;opacity:.8;max-width:24ch}
+.chip:hover{box-shadow:inset 0 0 0 3px var(--o)}
+.spectrum__note{padding:17px var(--pad);font-family:var(--f-m);font-size:11px;letter-spacing:.06em;color:var(--muted);text-align:center;background:var(--bg)}
+
+/* ---------- PROOF ---------- */
+.proof{padding-block:clamp(54px,6.6vw,104px);border-bottom:1px solid var(--line)}
+.proof .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:clamp(18px,2.4vw,44px)}
+.proof .n{display:block;font-size:clamp(42px,5.2vw,92px);font-weight:900;letter-spacing:-.055em;line-height:.86}
+.proof .l{display:block;margin-top:14px;font-size:13.5px;line-height:1.42;color:var(--muted);max-width:20ch}
+.proof .grid>div:nth-child(2) .n{color:var(--w-key);transition:color var(--T) var(--ease)}
+
+/* ---------- HOW I WORK ---------- */
+.how{padding-block:clamp(54px,6.6vw,104px)}
+.sechead{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:clamp(30px,3.4vw,54px)}
+.sechead h3{font-size:clamp(26px,2.7vw,44px)}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.4vw,40px)}
+.three .bar{height:4px;width:46px;margin-bottom:18px}
+.three h5{font-size:19px;font-weight:800;letter-spacing:-.022em;margin-bottom:10px}
+.three p{font-size:14.5px;line-height:1.62;color:var(--muted)}
+
+/* ---------- IMAGES ---------- */
+.shot{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(94% 84% at 26% 20%, var(--b,#5c6d80) 0%, transparent 62%),
+    linear-gradient(152deg, var(--a,#26313f) 0%, var(--c2,#0b0e14) 100%);
+}
+.shot::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;opacity:.32;
+}
+/* every image carries a label. title · medium · year. */
+.shot .lab{
+  position:absolute;left:0;right:0;bottom:0;z-index:3;padding:10px 13px;
+  background:linear-gradient(to top, rgba(0,0,0,.8), rgba(0,0,0,.2) 66%, transparent);
+  display:flex;gap:10px;align-items:baseline;
+  font-family:var(--f-m);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:rgba(255,255,255,.6);
+}
+.shot .lab b{font-family:var(--f-s);font-weight:700;font-size:12px;letter-spacing:-.01em;text-transform:none;color:#fff}
+.shot .wm{position:absolute;inset:0;z-index:2;display:grid;place-items:center;color:#fff}
+.r-4x3{aspect-ratio:4/3}.r-16x9{aspect-ratio:16/9}.r-21x9{aspect-ratio:21/9}.r-239{aspect-ratio:2.39/1}
+
+/* INTERFACE AS IMAGE — a hard crop of live UI at poster scale, not a mockup */
+.uicrop{position:absolute;inset:0;z-index:1;opacity:.92}
+.uicrop i{position:absolute;display:block}
+.uicrop i:nth-child(1){left:8%;top:21%;width:40%;height:3px;background:rgba(255,255,255,.92)}
+.uicrop i:nth-child(2){left:8%;top:30%;width:64%;height:13%;border:2px solid rgba(255,255,255,.9);background:rgba(255,255,255,.11)}
+.uicrop i:nth-child(3){left:8%;top:53%;width:24%;height:29%;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.06)}
+.uicrop i:nth-child(4){left:36%;top:53%;width:24%;height:29%;border:1.5px solid rgba(255,255,255,.5);background:rgba(255,255,255,.06)}
+.uicrop i:nth-child(5){left:64%;top:53%;width:24%;height:29%;border:1.5px solid rgba(255,255,255,.88);background:rgba(255,255,255,.14)}
+
+/* ---------- ENGINEERING — colour as DATA ---------- */
+.zonehead{padding-block:clamp(54px,6.4vw,104px) clamp(24px,2.6vw,40px)}
+.zonehead :is(h1,h3){font-size:clamp(28px,3.4vw,56px)}
+.zonehead p{margin-top:16px;color:var(--muted);max-width:54ch}
+.zonehead .kick{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.zonehead .kick i{width:34px;height:4px;background:var(--w-key);transition:background-color var(--T) var(--ease)}
+
+.work{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(28px,3.4vw,64px);align-items:center;padding-block:clamp(34px,4vw,68px);border-top:1px solid var(--line)}
+.work:nth-of-type(even){grid-template-columns:.98fr 1.02fr}
+.work:nth-of-type(even) .work__t{order:2}
+.work__meta{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.wchip{font-family:var(--f-m);font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;padding:4px 9px;background:var(--w-key);color:var(--w-on);transition:background-color var(--T) var(--ease), color 1ms}
+.work__yr{font-family:var(--f-m);font-size:11px;letter-spacing:.09em;color:var(--muted)}
+.work h4{font-size:clamp(27px,3.2vw,52px)}
+.work p{margin-top:18px;font-size:clamp(15px,1.15vw,18px);line-height:1.58;color:var(--muted);max-width:46ch}
+.go{
+  display:inline-flex;align-items:center;gap:9px;margin-top:26px;
+  font-size:14.5px;font-weight:700;color:var(--w-key);
+  border-bottom:2px solid var(--w-key);padding-bottom:3px;
+  transition:gap 180ms var(--ease), color var(--T) var(--ease), border-color var(--T) var(--ease);
+}
+.go:hover{gap:15px}
+.work__a .shot{aspect-ratio:4/3}
+
+/* the rest of the portfolio — hover a row and the whole site re-tints */
+.index{padding-block:clamp(30px,3.4vw,56px);border-top:1px solid var(--line)}
+.index .row{display:grid;grid-template-columns:170px 1fr auto;gap:clamp(16px,2.4vw,44px);align-items:baseline;padding-block:clamp(15px,1.7vw,24px);border-bottom:1px solid var(--line)}
+.index .nm{display:flex;align-items:center;gap:11px;font-family:var(--f-d-eng);font-weight:700;font-size:clamp(17px,1.5vw,22px);letter-spacing:-.028em}
+.index .nm i{width:11px;height:11px;flex:none;background:var(--c)}
+.index .ds{font-size:14.5px;line-height:1.5;color:var(--muted)}
+.index .yr{font-family:var(--f-m);font-size:11px;letter-spacing:.09em;color:var(--muted)}
+
+/* ---------- MEDIA — the FLOOD, delivered as LIGHT ---------- */
+.z-media{overflow:hidden}
+.flood{
+  position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(var(--fw,90%) var(--fh,76%) at var(--fx,50%) var(--fy,42%),
+    color-mix(in srgb, var(--w-key) 44%, transparent) 0%,
+    color-mix(in srgb, var(--w-key) 13%, transparent) 40%,
+    transparent 74%);
+  opacity:.26;
+  transition:opacity 900ms var(--ease), background var(--T) var(--ease);
+}
+.z-media.lit .flood{opacity:1}
+/* the gallery: the flood becomes a wash, the glow becomes a shadow */
+[data-mode="light"] .flood{
+  background:radial-gradient(var(--fw,90%) var(--fh,76%) at var(--fx,50%) var(--fy,42%),
+    color-mix(in srgb, var(--w-key) 13%, transparent) 0%, transparent 70%);
+}
+/* a lit subject: rim on the side facing the light, falloff on the other */
+[data-mode="dark"] .z-media .shot{
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--w-key) 50%, transparent),
+             inset 1px 0 0 color-mix(in srgb, var(--w-key) 26%, transparent);
+  -webkit-mask-image:linear-gradient(203deg,#000 0%,#000 58%,rgba(0,0,0,.72) 84%,rgba(0,0,0,.34) 100%);
+  mask-image:linear-gradient(203deg,#000 0%,#000 58%,rgba(0,0,0,.72) 84%,rgba(0,0,0,.34) 100%);
+}
+[data-mode="light"] .z-media .shot{box-shadow:0 46px 76px -46px rgba(20,16,10,.42), 0 2px 8px rgba(20,16,10,.06)}
+[data-mode="dark"] .halo{text-shadow:0 0 70px color-mix(in srgb, var(--w-key) 34%, transparent)}
+[data-mode="dark"] .z-media .go:hover{text-shadow:0 0 24px color-mix(in srgb, var(--w-key) 90%, transparent)}
+/* in the gallery the colour still has to be PRESENT — so it becomes a band */
+.band{background:var(--w-key);color:var(--w-on);padding:clamp(22px,2.4vw,38px) 0;transition:background-color var(--T) var(--ease), color 1ms}
+.band .col{display:flex;flex-wrap:wrap;gap:18px 40px;align-items:baseline}
+.band .t{font-family:var(--f-m);font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.8}
+.band .v{font-family:var(--f-s);font-weight:700;font-size:clamp(15px,1.3vw,19px);letter-spacing:-.015em}
+
+/* ---------- IDENTITY STRIP — brand + engineering, shown as one system ---------- */
+/* the four tokens this page is literally built from. proves the claim. */
+.idstrip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-block:clamp(30px,3.4vw,52px);background:var(--card)}
+.idstrip .sw{position:relative;min-height:clamp(96px,10vw,132px);display:flex;flex-direction:column;justify-content:flex-end;padding:14px 15px;border-right:1px solid var(--line);background:var(--swc)}
+.idstrip .sw:last-child{border-right:0}
+.idstrip .sw .role{font-family:var(--f-m);font-size:9px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--swo);opacity:.72}
+.idstrip .sw .hex{font-family:var(--f-m);font-size:12px;font-weight:500;letter-spacing:.02em;color:var(--swo);margin-top:3px}
+.idstrip__cap{grid-column:1/-1;padding:13px 16px;border-top:1px solid var(--line);font-family:var(--f-m);font-size:11px;letter-spacing:.04em;color:var(--muted)}
+.idstrip__cap b{color:var(--ink);font-weight:700}
+
+/* ---------- QUERY TRACE — the whole product as one object. the MOMENT. ---------- */
+.trace{border:1px solid var(--line);margin-block:clamp(30px,3.4vw,52px);background:var(--card);overflow:hidden}
+.trace__q,.trace__r{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;padding:clamp(20px,2.2vw,30px) clamp(20px,2.4vw,34px)}
+.trace__q{background:var(--w-key);color:var(--w-on);transition:background-color var(--T) var(--ease),color 1ms}
+.trace__q .k{font-family:var(--f-m);font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;opacity:.82}
+.trace__q .s{font-family:var(--f-d-media);font-size:clamp(19px,2vw,29px);font-weight:400;letter-spacing:-.01em;font-style:italic}
+.trace__step{display:grid;grid-template-columns:132px 1fr 1.05fr;gap:clamp(14px,2vw,32px);padding:clamp(18px,2vw,26px) clamp(20px,2.4vw,34px);border-top:1px solid var(--line);align-items:start}
+.trace__step .st{display:flex;flex-direction:column;gap:5px}
+.trace__step .st .no{font-family:var(--f-m);font-size:10px;font-weight:600;letter-spacing:.14em;color:var(--w-key);transition:color var(--T) var(--ease)}
+.trace__step .st .nm{font-family:var(--f-d-eng);font-weight:700;font-size:clamp(15px,1.3vw,19px);letter-spacing:-.02em}
+.trace__step .ds{font-size:14px;line-height:1.52;color:var(--muted)}
+.trace__step .ds b{color:var(--ink);font-weight:700}
+.trace__step .io{font-family:var(--f-m);font-size:12px;line-height:1.7;color:var(--ink);white-space:pre-line}
+.trace__step .io .dim{color:var(--muted)}
+.trace__step.key{background:color-mix(in srgb, var(--w-key) 7%, transparent)}
+.trace__r{border-top:1px solid var(--line);justify-content:space-between}
+.trace__r .thumbs{display:flex;gap:8px}
+.trace__r .thumbs .shot{width:clamp(52px,6vw,76px);aspect-ratio:3/2}
+.trace__r .rr{font-family:var(--f-d-eng);font-weight:700;font-size:clamp(16px,1.5vw,22px);letter-spacing:-.02em}
+.trace__r .rr b{color:var(--w-key);transition:color var(--T) var(--ease)}
+.tracefail{margin-top:20px;padding-left:20px;border-left:2px solid var(--w-key);transition:border-color var(--T) var(--ease)}
+.tracefail .h{font-family:var(--f-d-eng);font-weight:700;font-size:16px;letter-spacing:-.02em;margin-bottom:8px}
+.tracefail p{font-size:15px;line-height:1.62;color:var(--muted);max-width:64ch;margin:0}
+
+/* ---------- DECISION LOG — the roads not taken ---------- */
+.decisions{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-block:clamp(30px,3.4vw,52px)}
+.decision{background:var(--card);padding:clamp(22px,2.4vw,34px)}
+.decision .q{font-family:var(--f-d-eng);font-weight:700;font-size:clamp(17px,1.5vw,22px);letter-spacing:-.022em;line-height:1.24;margin-bottom:12px}
+.decision .q::before{content:"“";color:var(--w-key);transition:color var(--T) var(--ease)}
+.decision .q::after{content:"”";color:var(--w-key);transition:color var(--T) var(--ease)}
+.decision p{font-size:15px;line-height:1.64;color:var(--muted);margin:0;max-width:70ch}
+.decision p b{color:var(--ink);font-weight:700}
+
+/* ---------- THE GRADE — colour is this site's subject. show it. ---------- */
+.grade{position:relative;overflow:hidden;margin-block:clamp(30px,3.4vw,52px);cursor: pointer}
+.grade .shot{aspect-ratio:2.39/1}
+.grade .raw{position:absolute;inset:0;opacity:0;transition:opacity 420ms var(--ease)}
+.grade:hover .raw{opacity:1}
+.grade .tag{position:absolute;top:14px;left:15px;z-index:4;font-family:var(--f-m);font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.5);padding:5px 10px;backdrop-filter:blur(6px)}
+.grade:hover .tag .g1{display:none}
+.grade .tag .g2{display:none}
+.grade:hover .tag .g2{display:inline}
+.grade__cap{font-family:var(--f-m);font-size:11px;letter-spacing:.04em;color:var(--muted);margin-top:12px}
+
+/* ---------- CASE STUDY ---------- */
+.crumb{display:flex;gap:10px;align-items:center;font-family:var(--f-m);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-block:clamp(26px,3vw,44px) clamp(16px,1.8vw,26px)}
+.crumb .on{color:var(--w-key);transition:color var(--T) var(--ease)}
+.daybreak{
+  position:relative;overflow:hidden;color:#fff;
+  padding:clamp(44px,5.6vw,100px) clamp(26px,3.6vw,64px);
+  min-height:min(52svh,460px);display:flex;flex-direction:column;justify-content:flex-end;
+  background:
+    radial-gradient(120% 130% at 78% 104%, var(--w-hi) 0%, #C7513F 26%, transparent 62%),
+    linear-gradient(168deg, var(--w-deep) 0%, var(--w-key) 62%, #6b2a56 100%);
+  transition:background var(--T) var(--ease);
+}
+.daybreak .wm{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(46px,7.2vw,126px);line-height:.88;letter-spacing:-.035em}
+.daybreak .tl{margin-top:24px;font-size:clamp(17px,1.6vw,25px);line-height:1.4;max-width:30ch;opacity:.92}
+.daybreak .kick{font-family:var(--f-m);font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.75;margin-bottom:22px}
+
+.case{display:grid;grid-template-columns:250px 1fr;gap:clamp(30px,4.6vw,84px);padding-block:clamp(44px,5.6vw,92px)}
+.rail2{position:sticky;top:96px;align-self:start}
+.rail2 dl{display:grid;gap:24px}
+.rail2 dt{font-family:var(--f-m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rail2 dd{font-size:15px;font-weight:500;line-height:1.45}
+.rail2 .live{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+.rail2 .live i{width:8px;height:8px;border-radius:999px;background:var(--w-key);flex:none;transition:background-color var(--T) var(--ease)}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chips span{font-family:var(--f-m);font-size:10.5px;padding:4px 8px;border:1px solid var(--line);color:var(--muted);background:var(--card)}
+
+.prose h3{font-size:clamp(23px,2.2vw,34px);margin-top:clamp(46px,5.4vw,86px);margin-bottom:22px;line-height:1.1}
+.prose h3:first-child{margin-top:0}
+.prose p{font-size:clamp(16px,1.15vw,18.5px);line-height:1.68;max-width:68ch;margin-bottom:20px}
+.prose .dim{color:var(--muted)}
+.prose .drop{font-size:clamp(19px,1.6vw,26px);line-height:1.44;font-weight:800;max-width:28ch;letter-spacing:-.025em}
+.prose ul{list-style:none;max-width:68ch;margin-bottom:20px}
+.prose li{position:relative;padding-left:27px;margin-bottom:14px;font-size:16px;line-height:1.6;color:var(--muted)}
+.prose li::before{content:"";position:absolute;left:0;top:11px;width:14px;height:2px;background:var(--w-key);transition:background-color var(--T) var(--ease)}
+.prose li b{color:var(--ink);font-weight:700}
+.figure{margin:clamp(38px,4.4vw,72px) 0}
+.figure figcaption{font-family:var(--f-m);font-size:11px;letter-spacing:.05em;color:var(--muted);margin-top:14px}
+.arch{background:var(--card);border:1px solid var(--line);padding:clamp(22px,2.8vw,44px)}
+.arch svg{width:100%;height:auto}
+.arch text{font-family:var(--f-m);font-size:9px;letter-spacing:.06em;fill:var(--muted)}
+.arch .lbl{font-family:var(--f-d-eng);font-size:11.5px;font-weight:700;fill:var(--ink);letter-spacing:0}
+.screens{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.results{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,36px);padding-block:clamp(34px,4vw,64px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-block:clamp(36px,4.2vw,68px)}
+.results .n{display:block;font-size:clamp(28px,2.9vw,46px);font-weight:900;letter-spacing:-.05em;line-height:.9;color:var(--w-key);transition:color var(--T) var(--ease)}
+.results .l{display:block;margin-top:12px;font-size:13px;line-height:1.42;color:var(--muted)}
+.nextup{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;padding-block:clamp(38px,4.6vw,76px);border-top:1px solid var(--line)}
+.nextup h4{font-size:clamp(26px,3.2vw,48px);margin-top:10px}
+
+/* ---------- FILM PAGE ---------- */
+.reel{position:relative;min-height:min(80svh,780px);display:flex;align-items:flex-end;overflow:hidden}
+.reel .shot{position:absolute;inset:0;--a:#16323a;--b:#a67b3a;--c2:#05070a}
+.reel .cap{position:relative;z-index:3;width:100%;padding-block:clamp(30px,4.6vw,80px);
+  background:linear-gradient(to top, color-mix(in srgb, var(--bg) 94%, transparent) 6%, color-mix(in srgb, var(--bg) 45%, transparent) 50%, transparent 100%)}
+.reel h1{font-size:clamp(46px,9.6vw,164px);font-weight:400;letter-spacing:.04em;text-transform:uppercase;line-height:.9}
+.reel .logline{margin-top:26px;font-size:clamp(16px,1.5vw,23px);line-height:1.45;max-width:44ch;color:var(--muted)}
+.stills{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;padding-block:clamp(38px,4.6vw,76px)}
+.stills .shot:nth-child(1){grid-column:span 4}
+.stills .shot:nth-child(2){grid-column:span 2}
+.stills .shot:nth-child(3){grid-column:span 2}
+.stills .shot:nth-child(4){grid-column:span 4}
+.credits{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,4.4vw,80px);padding-block:clamp(38px,4.6vw,76px);border-top:1px solid var(--line)}
+.credits dl{display:grid;grid-template-columns:auto 1fr;gap:14px 40px}
+.credits dt{font-family:var(--f-m);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.credits dd{font-size:16px;font-weight:600;text-align:right}
+.credits .note{font-size:15.5px;line-height:1.7;color:var(--muted)}
+.credits .note b{color:var(--ink);font-weight:800}
+.makes{padding-block:clamp(38px,4.6vw,76px);border-top:1px solid var(--line)}
+.makes .row{display:grid;grid-template-columns:56px 1fr auto;gap:26px;align-items:center;padding-block:clamp(18px,2vw,30px);border-bottom:1px solid var(--line)}
+.makes .idx{font-family:var(--f-m);font-size:11px;color:var(--muted);letter-spacing:.1em}
+.makes .nm{font-family:var(--f-d-media);font-weight:400;font-size:clamp(19px,2vw,32px);letter-spacing:-.005em}
+[data-mode="dark"] .makes .row:hover .nm{text-shadow:0 0 26px color-mix(in srgb, var(--w-key) 85%, transparent)}
+.makes .dt{font-size:14px;color:var(--muted);text-align:right;max-width:38ch}
+
+/* ---------- CONTACT — the journey ends back at the house colour ---------- */
+.contact{padding-block:clamp(70px,8.6vw,148px)}
+.contact h3{font-size:clamp(38px,6.4vw,108px);max-width:16ch;line-height:.92}
+.contact p{margin-top:28px;font-size:clamp(16px,1.3vw,20px);line-height:1.55;color:var(--muted);max-width:52ch}
+.contact__row{display:flex;flex-wrap:wrap;gap:26px;align-items:center;margin-top:clamp(32px,3.8vw,58px)}
+.contact .big{display:inline-flex;align-items:center;gap:12px;background:var(--w-key);color:var(--w-on);padding:17px 28px;font-size:17px;font-weight:800;letter-spacing:-.02em;transition:background-color var(--T) var(--ease),color 1ms}
+.contact .big:hover{background:var(--w-hi)}
+.contact .alt{font-family:var(--f-m);font-size:12px;letter-spacing:.06em;color:var(--muted);border-bottom:1px solid currentColor;padding-bottom:2px}
+.contact .alt:hover{color:var(--ink)}
+
+/* ---------- FOOTER ---------- */
+.foot{border-top:1px solid var(--line);padding-block:clamp(30px,3.4vw,54px);display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between;font-size:13px;color:var(--muted);background:var(--paper)}
+.foot .col{display:flex;flex-wrap:wrap;gap:22px;align-items:center;justify-content:space-between;width:100%}
+.foot .mini{display:flex;height:4px;width:120px;gap:5px}
+.foot .mini b{flex:1;display:flex;gap:1.5px}
+.foot .mini i{flex:1;background:var(--s)}
+.foot .links{display:flex;gap:22px;flex-wrap:wrap}
+.foot a:hover{color:var(--ink)}
+
+.page{display:none}
+.page.is-live{display:block}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:1080px){
+  .case{grid-template-columns:1fr;gap:36px}
+  .rail2{position:static}
+  .rail2 dl{grid-template-columns:repeat(2,1fr)}
+  .spectrum{grid-template-columns:repeat(3,1fr)}
+  .proof .grid{grid-template-columns:repeat(2,1fr)}
+  .results{grid-template-columns:repeat(2,1fr)}
+  .stills{grid-template-columns:repeat(2,1fr)}
+  .stills .shot{grid-column:span 1 !important}
+  .index .row{grid-template-columns:1fr;gap:6px}
+}
+@media (max-width:860px){
+  .work,.work:nth-of-type(even){grid-template-columns:1fr;gap:26px}
+  .work:nth-of-type(even) .work__t{order:0}
+  .three{grid-template-columns:1fr;gap:28px}
+  .credits{grid-template-columns:1fr}
+  .credits dd{text-align:left}
+  .makes .row{grid-template-columns:40px 1fr}
+  .makes .dt{grid-column:2;text-align:left;margin-top:6px}
+  .menu{display:none}
+  .trace__step{grid-template-columns:1fr;gap:12px}
+  .trace__step .io{border-top:1px dashed var(--line);padding-top:12px}
+  .idstrip{grid-template-columns:repeat(2,1fr)}
+  .idstrip .sw:nth-child(2){border-right:0}
+}
+@media (max-width:560px){
+  :root{--rail:9px}
+  .spectrum{grid-template-columns:repeat(2,1fr)}
+  .proof .grid{grid-template-columns:1fr}
+  .results,.screens,.stills{grid-template-columns:1fr}
+  .contact__row{flex-direction:column;align-items:flex-start}
+  .trace__r{flex-direction:column;align-items:flex-start;gap:16px}
+}
+/* ---------- PAGE TRANSITIONS (native cross-document view transitions) ---------- */
+/* MPA view transitions: a restrained cross-fade between pages, on the site's own easing.
+   No client router — pages still load normally (every script re-runs fresh), this only
+   animates the old→new paint where the browser supports it (Chrome/Edge). Elsewhere it's
+   an ordinary navigation. The per-element rise still comes from the reveal system. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: vt-out .14s cubic-bezier(.3,.7,.25,1) both; }
+::view-transition-new(root) { animation: vt-in .2s cubic-bezier(.3,.7,.25,1) both; }
+@keyframes vt-out { to { opacity: 0; } }
+@keyframes vt-in  { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* Fallback for browsers without native cross-document view transitions (Firefox):
+   the head script tags navigated pages with .page-enter, and we fade the incoming page
+   in — a simulation of the cross-fade so those browsers still get a page transition. */
+.page-enter body { animation: page-enter-fade .2s cubic-bezier(.3,.7,.25,1) both; }
+@keyframes page-enter-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .page-enter body { animation: none; }
+}
+
+/* ---------- ENTRANCE MOTION (restrained; progressive-enhancement gated) ---------- */
+/* Active only under <html class="anim">, set by a head inline script when JS runs AND
+   prefers-reduced-motion is unset. No JS / reduced motion → [data-reveal] is untouched
+   and fully visible. A subtle fade + 14px rise, on the engine's own easing; grouped
+   items stagger via --reveal-i. */
+.anim [data-reveal]{
+  opacity:0; transform:translateY(14px);
+  transition:opacity .3s var(--ease), transform .3s var(--ease);
+  transition-delay:calc(var(--reveal-i, 0) * 30ms);
+}
+.anim [data-reveal].is-in{opacity:1; transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition-duration:.01ms !important}
+  .flood{opacity:1 !important}
+  /* Belt-and-suspenders: if motion pref flips at runtime, reveal instantly. */
+  .anim [data-reveal]{opacity:1 !important; transform:none !important}
+}

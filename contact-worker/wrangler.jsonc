@@ -1,0 +1,35 @@
+{
+  // Contact-form handler for aldengillespy.com (v6).
+  //
+  // This is the ONE piece of server-side compute in the v6 stack. It is a
+  // SEPARATE Worker on purpose: the Astro site on Pages stays 100% static
+  // (BUILD.md §1 — "Cloudflare only ever serves pre-built static assets"),
+  // and all dynamic work (Turnstile verification + transactional email) lives
+  // here, behind an explicit endpoint. Free tier: 100k requests/day.
+  //
+  // Flow: browser modal --POST /contact--> this Worker
+  //   1. verify the Cloudflare Turnstile token server-side (never in the browser)
+  //   2. send the inquiry via Resend's HTTP API (BUILD.md §7's original plan)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aldengillespy-contact",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-01",
+  "observability": { "enabled": true },
+
+  "vars": {
+    // Origin allow-list is by HOST SUFFIX (see isAllowedOrigin): each entry
+    // matches that exact host and any subdomain. "aldengillespy-v6.pages.dev"
+    // therefore covers the hashed preview deploys (<hash>.aldengillespy-v6.pages.dev),
+    // and "aldengillespy.com" covers the eventual production cutover + www.
+    "ALLOWED_HOSTS": "aldengillespy.com,aldengillespy-v6.pages.dev,localhost,127.0.0.1",
+    // Where inquiries land. A Worker var (not hardcoded) so it can be repointed
+    // — e.g. to ag@aldengillespy.com — with no redeploy of code.
+    "TO_ADDRESS": "website.inquiries@aldengillespy.com",
+    "TO_NAME": "Alden Gillespy",
+    // from must be on a domain verified in Resend (mailer.aldengillespy.com).
+    "FROM_ADDRESS": "website.inquiries@mailer.aldengillespy.com",
+    "FROM_NAME": "aldengillespy.com"
+    // RESEND_API_KEY is set as an encrypted secret, never committed:
+    //   echo "$KEY" | wrangler secret put RESEND_API_KEY
+  }
+}

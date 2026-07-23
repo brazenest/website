@@ -1,0 +1,80 @@
+---
+/**
+ * BLOG POST (BUILD.md §7 — deferred design pass). Minimal template stub.
+ * One page per post in the posts collection; inherits the related venture's colour
+ * via data-work="{venture.slug}". Renders the post title, date, excerpt, and richText
+ * body in a clean reading style. The contact CTA at the bottom is house/neutral.
+ */
+import Base from '../../layouts/Base.astro'
+import { posts, venturesBySlug, siteMeta, isExternalHref } from '../../lib/content'
+import { renderRichText } from '../../lib/richText'
+
+export function getStaticPaths() {
+  return posts.map((p) => ({
+    params: { slug: p.slug },
+    props: { post: p },
+  }))
+}
+
+const { post } = Astro.props
+const venture = post.relatedVenture ? venturesBySlug[post.relatedVenture as string] : venturesBySlug.house
+---
+
+<Base title={`${post.title} — Alden Gillespy`} zone="neutral" work={venture.slug}>
+  <section class="z-neutral" data-zone="neutral" data-work={venture.slug}>
+    <div class="col">
+      <div class="crumb"><span>Blog</span><span>/</span><span class="on">{post.title}</span></div>
+      <article class="post">
+        <header class="post__header">
+          <h1 class="halo">{post.title}</h1>
+          <div class="post__meta">
+            {post.publishedAt && <time>{new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>}
+            {post.excerpt && <p class="excerpt">{post.excerpt}</p>}
+          </div>
+        </header>
+        <div class="post__body dim" set:html={renderRichText(post.body)} />
+      </article>
+
+      <div class="nextup">
+        <div><span class="mono">Back to</span><h4>Blog</h4></div>
+        <a class="go" href="/blog">Read more <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <h3>Got a response?</h3>
+      <p>Find me at the email below or on the socials — I read everything.</p>
+      <div class="contact__row">
+        <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
+        {siteMeta.social.map((s) => <a class="alt" href={s.url} target={isExternalHref(s.url) ? '_blank' : undefined} rel={isExternalHref(s.url) ? 'noopener noreferrer' : undefined}>{s.label}</a>)}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .post {
+    margin-block: clamp(30px, 3.4vw, 56px);
+  }
+  .post__header {
+    margin-bottom: clamp(30px, 3.4vw, 56px);
+  }
+  .post__header h1 {
+    margin-bottom: clamp(20px, 2vw, 32px);
+  }
+  .post__meta {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: clamp(20px, 2vw, 32px);
+  }
+  .excerpt {
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .post__body {
+    max-width: 70ch;
+    line-height: 1.8;
+  }
+</style>

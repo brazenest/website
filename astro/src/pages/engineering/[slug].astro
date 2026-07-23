@@ -1,0 +1,195 @@
+---
+/**
+ * ENGINEERING CASE STUDY (BUILD.md §9.5) — ported from v6-engine-r2.html lines 789-961
+ * (data-page="/engineering", the Memrey case study). One static page per row in the
+ * case-studies collection, keyed by the related venture's slug — add a second engineering
+ * case study in the CMS (e.g. Rotavox) and it gets a page with zero code change.
+ *
+ * The architecture SVG is a bespoke component (§4), not a CMS field — ArchitectureSVG.astro,
+ * with the venture `key` piped into the terminal box.
+ *
+ * A few bits of source copy (the "tl" hook line under the wordmark, the idstrip caption)
+ * aren't named fields in BUILD.md §2's caseStudies schema — kept as static editorial per
+ * the convention set in step 4 (only §2-enumerated fields are CMS-driven).
+ */
+import Base from '../../layouts/Base.astro'
+import ArchitectureSVG from '../../components/ArchitectureSVG.astro'
+import { caseStudies, venturesBySlug } from '../../lib/content'
+import { renderRichText } from '../../lib/richText'
+
+export function getStaticPaths() {
+  return caseStudies
+    .filter((c) => c.venture)
+    .map((c) => ({ params: { slug: c.venture }, props: { caseStudy: c } }))
+}
+
+const { caseStudy } = Astro.props
+const venture = venturesBySlug[caseStudy.venture!]
+const { key, hi, deep, lift } = venture.palette
+
+// Source hardcodes the 2nd query-trace step (Graph) as the emphasized ".key" step — the
+// step every other photo tool skips. No per-step "highlighted" field in the schema (§2),
+// so this mirrors the source positionally rather than being CMS-authorable.
+const HIGHLIGHTED_STEP_INDEX = 1
+
+// The architecture diagram is a BESPOKE component per venture (BUILD.md §4 — not a CMS
+// field). Only ventures with a hand-built diagram get the Architecture section; others
+// omit it cleanly. Add a slug here once its diagram component exists.
+const VENTURES_WITH_DIAGRAM = new Set(['memrey'])
+const hasDiagram = VENTURES_WITH_DIAGRAM.has(venture.slug)
+
+// A live/external link for the product (e.g. rotavox.com), if the venture has one.
+const ventureLink = venture.links?.[0] ?? null
+---
+
+<Base title={`${venture.name} — Alden Gillespy`} zone="engineering" work={venture.slug}>
+  <section class="z-eng" data-zone="engineering" data-work={venture.slug}>
+    <div class="col">
+      <div class="crumb"><span>Engineering</span><span>/</span><span class="on">{venture.name}</span></div>
+      <div class="daybreak" data-reveal>
+        <div class="kick">Case study · {caseStudy.timeline}</div>
+        <h1 class="wm">{venture.name}</h1>
+        {caseStudy.hook && <div class="tl">{caseStudy.hook}</div>}
+        {ventureLink && (
+          <a class="go" href={ventureLink.url} target="_blank" rel="noopener noreferrer" style="margin-top:18px">Visit {ventureLink.label} <span>→</span></a>
+        )}
+      </div>
+
+      <!-- IDENTITY STRIP — the values this page is literally built from (from venture.palette) -->
+      <div class="idstrip">
+        <div class="sw" style={`--swc:${key};--swo:#fff`}><span class="role">Key</span><span class="hex">{key}</span></div>
+        <div class="sw" style={`--swc:${hi};--swo:#241703`}><span class="role">Hi</span><span class="hex">{hi}</span></div>
+        <div class="sw" style={`--swc:${deep};--swo:#fff`}><span class="role">Deep</span><span class="hex">{deep}</span></div>
+        <div class="sw" style={`--swc:${lift};--swo:#2A0F3A`}><span class="role">Lift</span><span class="hex">{lift}</span></div>
+        <div class="idstrip__cap">I designed the brand and built the product — <b>this page is literally made out of these four values.</b></div>
+      </div>
+
+      <div class="case">
+        <aside class="rail2">
+          <dl>
+            <div><dt>My role</dt><dd>{caseStudy.role}</dd></div>
+            <div><dt>Timeline</dt><dd>{caseStudy.timeline}</dd></div>
+            <div><dt>Status</dt><dd><span class="live"><i></i> {caseStudy.status}</span></dd></div>
+            <div><dt>Stack</dt><dd class="chips">
+              {caseStudy.stack.map((s: string) => <span>{s}</span>)}
+            </dd></div>
+            <div><dt>Identity</dt><dd>{caseStudy.identityNote}</dd></div>
+          </dl>
+        </aside>
+
+        <div class="prose">
+          <h3>The problem</h3>
+          <p class="drop">{caseStudy.problem?.drop}</p>
+          <div class="dim" set:html={renderRichText(caseStudy.problem?.body)} />
+
+          <h3>What I built</h3>
+          <ul>
+            {
+              caseStudy.built.map((b: { lead: string; body: string }) => (
+                <li><b>{b.lead}</b> {b.body}</li>
+              ))
+            }
+          </ul>
+
+          {hasDiagram && (
+            <>
+              <h3>Architecture</h3>
+              <figure class="figure" data-reveal>
+                <div class="arch">
+                  <ArchitectureSVG keyColor={key} />
+                </div>
+                <figcaption>Fig. 1 — Ingest is dumb on purpose. Everything expensive happens once, on the way in.</figcaption>
+              </figure>
+            </>
+          )}
+
+          {caseStudy.queryTrace && (
+            <>
+              <h3>One query, all the way down</h3>
+              <p class="dim">This is the whole product as a single object. A sentence goes in the top. Every hop it makes to find the answer is on the page — because the interesting part of this system isn't any one stage, it's that they compose.</p>
+
+              <div class="trace">
+                <div class="trace__q">
+                  <span class="k">Query</span>
+                  <span class="s">"{caseStudy.queryTrace.query}"</span>
+                </div>
+                {
+                  caseStudy.queryTrace.steps.map((step: { no: string; name: string; description: any; io: string | null }, i: number) => (
+                    <div class={`trace__step${i === HIGHLIGHTED_STEP_INDEX ? ' key' : ''}`}>
+                      <div class="st"><span class="no">{step.no}</span><span class="nm">{step.name}</span></div>
+                      <div class="ds" set:html={renderRichText(step.description)} />
+                      {step.io && <div class="io">{step.io}</div>}
+                    </div>
+                  ))
+                }
+                <div class="trace__r">
+                  <div class="thumbs">
+                    <div class="shot" style={`--a:${deep};--b:#C7513F;--c2:#180a24`} />
+                    <div class="shot" style={`--a:${deep};--b:${hi};--c2:#180a24`} />
+                    <div class="shot" style={`--a:${deep};--b:#C7513F;--c2:#180a24`} />
+                    <div class="shot" style={`--a:${deep};--b:#E0A050;--c2:#180a24`} />
+                  </div>
+                  <div class="rr">{caseStudy.queryTrace.resultCount} · <b>{caseStudy.queryTrace.resultTime}</b></div>
+                </div>
+              </div>
+
+              {caseStudy.queryTrace.failureNote && (
+                <div class="tracefail">
+                  <div class="h">And where it breaks.</div>
+                  <div set:html={renderRichText(caseStudy.queryTrace.failureNote)} />
+                </div>
+              )}
+            </>
+          )}
+
+          {caseStudy.decisions.length > 0 && (
+            <>
+              <h3>Three things I didn't build</h3>
+              <div class="decisions">
+                {
+                  caseStudy.decisions.map((d: { question: string; answer: any }) => (
+                    <div class="decision">
+                      <div class="q">{d.question}</div>
+                      <div set:html={renderRichText(d.answer)} />
+                    </div>
+                  ))
+                }
+              </div>
+            </>
+          )}
+
+          <h3>The interface</h3>
+          <p class="dim">Hard crops of the real thing at poster scale — the product as it actually looks, not a browser-chrome mockup.</p>
+          <div class="screens">
+            {caseStudy.screens.length > 0 ? (
+              caseStudy.screens.map((s: any) => (
+                <div class="shot r-4x3" style={`--a:${deep};--b:${hi};--c2:#0b0710`}>
+                  <div class="lab"><b>{s?.alt || venture.name}</b> <span>Hard crop · UI</span></div>
+                </div>
+              ))
+            ) : (
+              <>
+                <div class="shot r-4x3" style={`--a:${deep};--b:${hi};--c2:#0b0710`}><div class="uicrop" aria-hidden="true"><i /><i /><i /><i /><i /></div><div class="lab"><b>{venture.name}</b> <span>Hard crop · UI</span></div></div>
+                <div class="shot r-4x3" style={`--a:${deep};--b:${key};--c2:#0b0710`}><div class="lab"><b>{venture.name}</b> <span>Hard crop · UI</span></div></div>
+              </>
+            )}
+          </div>
+
+          <div class="results">
+            {
+              caseStudy.results.map((r: { value: string; label: string }) => (
+                <div><span class="n num">{r.value}</span><span class="l">{r.label}</span></div>
+              ))
+            }
+          </div>
+          {caseStudy.resultsCaveat && <p class="dim">{caseStudy.resultsCaveat}</p>}
+        </div>
+      </div>
+
+      <div class="nextup">
+        <div><span class="mono">Back to</span><h4>Engineering</h4></div>
+        <a class="go" href="/engineering" style="margin-top:0">See all the work <span>→</span></a>
+      </div>
+    </div>
+  </section>
+</Base>

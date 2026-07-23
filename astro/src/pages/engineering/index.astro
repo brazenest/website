@@ -1,0 +1,124 @@
+---
+/**
+ * ENGINEERING — category landing page (the header nav's "Engineering" target).
+ * Lists every engineering venture as a .work block (so the colour engine's hover +
+ * scroll retint work exactly as on the home page), each linking to its dedicated case
+ * study when one exists. Data-driven from the ventures collection + caseStudyHref.
+ */
+import Base from '../../layouts/Base.astro'
+import { venturesByZone, caseStudyHref } from '../../lib/content'
+
+// Per-venture display copy for the listing. Kept here (bespoke editorial, like the home
+// section) — the CMS drives palette/name/zone; the headline + blurb are page copy.
+const COPY: Record<string, { meta: string; headline: string; blurb: string }> = {
+  memrey: {
+    meta: '2025 — NOW',
+    headline: 'An AI archive that gives a lifetime of photographs its memory back.',
+    blurb:
+      'Ingest, understand and retrieve decades of images by the thing you actually remember about them — not by a tag nobody wrote.',
+  },
+  rotavox: {
+    meta: '2024 — NOW',
+    headline: 'Scheduling software for radio, rebuilt from nothing.',
+    blurb:
+      'The planner, the engine, the library, the reporting. One system, one person, and a real network running on it every day.',
+  },
+  andacity: {
+    meta: '2024 — NOW',
+    headline: 'Plan the whole trip, not just book a flight.',
+    blurb:
+      'Discovery-first travel across destinations, hotels, flights and cars — one planner and one shareable trip, instead of twelve tabs and a spreadsheet.',
+  },
+}
+
+const projects = venturesByZone().engineering.filter((v) => COPY[v.slug])
+
+// The smaller products — in build, not yet their own page (mirrors the home index list).
+const secondary = [
+  { name: 'Soldera', ds: 'An AI listing assistant — photograph the thing, it writes the listing and prices it.', yr: '2025 —' },
+  { name: 'Wardroab', ds: 'Body modelling and apparel recommendation.', yr: '2025 —' },
+  { name: 'Blossum', ds: 'Early stage, in build. Not ready to be talked about yet.', yr: '2026 —' },
+]
+---
+
+<Base title="Engineering — Alden Gillespy" zone="engineering" work={projects[0]?.slug ?? 'house'}>
+  <section class="z-eng catpage" data-zone="engineering" data-zwork={projects[0]?.slug ?? 'house'}>
+    <div class="col">
+      <div class="crumb" data-reveal><span class="on">Engineering</span></div>
+      <div class="zonehead" data-reveal>
+        <div class="kick"><i></i><span class="mono">Engineering</span></div>
+        <h1>Nine products. All of them mine, from the architecture to the wordmark.</h1>
+        <p>Everything here runs in production. Each one is designed, built, shipped and operated by one person. Open any of them for the full story.</p>
+      </div>
+
+      {
+        projects.map((v) => {
+          const c = COPY[v.slug]
+          const href = caseStudyHref(v.slug)
+          const { deep, hi, key } = v.palette
+          return (
+            <div class="work" data-work={v.slug} data-reveal>
+              <div class="work__t">
+                <div class="work__meta"><span class="wchip">{v.name}</span><span class="work__yr">{c.meta}</span></div>
+                <h4>{c.headline}</h4>
+                <p>{c.blurb}</p>
+                {href ? (
+                  <a class="go" href={href}>Read the case study <span>→</span></a>
+                ) : (
+                  <span class="go go--soon">Case study in progress</span>
+                )}
+              </div>
+              <div class="work__a">
+                <div class="shot" style={`--a:${deep};--b:${hi};--c2:#0b0710`}>
+                  <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                  <div class="lab"><b>{v.name}</b> <span style={`color:${key}`}>{v.palette.key}</span></div>
+                </div>
+              </div>
+            </div>
+          )
+        })
+      }
+
+      {/* Hold the last listed venture's colour across the "in build" list (like the home
+          page) so the ground stays in the engineering palette instead of dropping to grey;
+          rows carry no data-work, so hovering them doesn't retint the site. */}
+      <div class="index" data-work={projects.at(-1)?.slug ?? 'house'} data-reveal>
+        {
+          secondary.map((row) => (
+            <div class="row">
+              <span class="nm"><i style="--c:#6A7688"></i> {row.name}</span>
+              <span class="ds">{row.ds}</span>
+              <span class="yr">{row.yr}</span>
+            </div>
+          ))
+        }
+      </div>
+      <div style="height:clamp(30px,3.4vw,56px)"></div>
+    </div>
+  </section>
+
+  <section class="contact z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <h3 data-reveal>Building something that needs all of it?</h3>
+      <p data-reveal style="--reveal-i:1">Architecture through interface through ops — one person who can take it the whole way. Tell me what you're making.</p>
+      <div class="contact__row" data-reveal style="--reveal-i:2">
+        <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .catpage { padding-block: clamp(28px, 4vw, 60px) clamp(20px, 3vw, 44px); }
+  .catpage .crumb { margin-bottom: clamp(18px, 2.4vw, 30px); }
+  .go--soon {
+    display: inline-flex;
+    align-items: center;
+    color: var(--muted);
+    cursor: default;
+    font-family: var(--f-m);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+</style>

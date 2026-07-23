@@ -1,0 +1,88 @@
+---
+/**
+ * CONTACT — the dedicated contact page. Renders the shared ContactForm inline (same
+ * component the site-wide modal uses, same Worker endpoint). This page is also the
+ * no-JS fallback target for every [data-contact-open] trigger, so it must stand on its
+ * own without the modal.
+ */
+import Base from '../layouts/Base.astro'
+import ContactForm from '../components/ContactForm.astro'
+import { siteMeta, isExternalHref } from '../lib/content'
+---
+
+<Base title="Contact — Alden Gillespy" zone="neutral" work="house">
+  <section class="z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <div class="crumb"><span>Contact</span></div>
+
+      <div class="contactpage">
+        <div class="contactpage__lede">
+          <h1 class="halo">Get in touch</h1>
+          <p class="dim">
+            I build products from the ground up — engineering, design, infrastructure, film. If
+            you have something to make, a role to fill, or just want to talk shop, this comes
+            straight to me.
+          </p>
+          {
+            siteMeta.social.length > 0 && (
+              <div class="contactpage__social">
+                {siteMeta.social.map((s) => (
+                  <a href={s.url} target={isExternalHref(s.url) ? '_blank' : undefined} rel={isExternalHref(s.url) ? 'noopener noreferrer' : undefined}>{s.label}</a>
+                ))}
+              </div>
+            )
+          }
+        </div>
+
+        <div class="contactpage__form">
+          <ContactForm id="contact-inline" />
+        </div>
+      </div>
+
+      <div class="nextup">
+        <div><span class="mono">Back to</span><h4>Home</h4></div>
+        <a class="go" href="/">Go back <span>→</span></a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contactpage {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vw, 64px);
+    margin-block: clamp(30px, 3.4vw, 56px);
+  }
+  @media (min-width: 860px) {
+    .contactpage {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+  .contactpage__lede h1 {
+    margin-bottom: clamp(16px, 2vw, 24px);
+  }
+  .contactpage__lede .dim {
+    max-width: 46ch;
+    line-height: 1.7;
+  }
+  .contactpage__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: clamp(20px, 3vw, 32px);
+    font-family: var(--f-m, monospace);
+    font-size: 13px;
+  }
+  .contactpage__social a {
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+    transition: color 160ms var(--ease), border-color 160ms var(--ease);
+  }
+  .contactpage__social a:hover {
+    color: var(--w-key);
+    border-color: var(--w-key);
+  }
+</style>
