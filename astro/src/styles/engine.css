@@ -89,16 +89,19 @@ html{transition:--w-key var(--T) var(--ease), --w-hi var(--T) var(--ease),
 /* ---------- THE GROUNDS (Triptych's rule, the engine's values) ---------- */
 /* they abut. hard edges. and the engineering ground is made of the work. */
 [data-mode="light"]{ --ink:#0B0E13; --muted:#5C6879; --line:#E2E6EB; --paper:#FFFFFF; }
-[data-mode="dark"] { --ink:#F1F4F7; --muted:#8B96A4; --line:rgba(255,255,255,.13); --paper:#0E1116; }
+[data-mode="dark"] { --ink:#F1F4F7; --muted:#8B96A4; --line:rgba(255,255,255,.13); --paper:#0E1116; --room-l:.43; }
 
 [data-mode="light"] .z-neutral{ --bg:#FFFFFF; --card:#F6F8FA; }
 [data-mode="dark"]  .z-neutral{ --bg:#0E1116; --card:#161B23; }
 
 [data-mode="light"] .z-eng{ --bg:var(--w-lift); --card:#FFFFFF; }
-[data-mode="dark"]  .z-eng{ --bg:var(--w-deep); --card:color-mix(in srgb, var(--w-deep) 78%, #FFFFFF 8%); --ink:#F2F5F8; --muted:#A3ACB8; }
+/* The dark room is the property's HUE at a fixed PERCEPTUAL lightness (OKLCH), derived live
+   from the transitioning --w-key — so every room is equally, visibly coloured (the raw
+   --w-deep values were all ~black, L<0.02). Tune the one --room-l knob to taste. */
+[data-mode="dark"]  .z-eng{ --bg:oklch(from var(--w-key) var(--room-l) c h); --card:oklch(from var(--w-key) calc(var(--room-l) + .06) c h); --ink:#F2F5F8; --muted:#B7BEC8; }
 
 /* media, dark — the flood, delivered as light */
-[data-mode="dark"]  .z-media{ --bg:var(--w-deep); --card:color-mix(in srgb, var(--w-deep) 82%, #FFFFFF 6%); --ink:#F8F3EA; --muted:#948C80; --line:rgba(255,255,255,.11); }
+[data-mode="dark"]  .z-media{ --bg:oklch(from var(--w-key) var(--room-l) c h); --card:oklch(from var(--w-key) calc(var(--room-l) + .06) c h); --ink:#F8F3EA; --muted:#B3A99B; --line:rgba(255,255,255,.11); }
 /* media, light — the gallery. the flood becomes a wash; the glow becomes a shadow. */
 [data-mode="light"] .z-media{ --bg:#FAFAF8; --card:#FFFFFF; --ink:#0F0E0C; --muted:#6E695F; --line:#E7E5E0; }
 
