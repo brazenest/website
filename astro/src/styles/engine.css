@@ -189,7 +189,21 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 }
 .top__in{display:flex;align-items:center;gap:32px;height:66px;max-width:var(--colw);margin-inline:auto;padding-inline:var(--pad)}
 .wordmark{display:flex;align-items:center;gap:11px;font-family:var(--f-d-neutral);font-weight:900;font-size:16.5px;letter-spacing:-.03em;white-space:nowrap}
-.wordmark i{width:12px;height:12px;flex:none;background:var(--w-key);transition:background-color var(--T) var(--ease)}
+/* The logo IS the colour engine: a 7-wedge mark carrying every property's colour, softened,
+   with the one that's currently active (as you scroll or hover — html[data-work]) lit to
+   full strength. The favicon is the all-lit reference version of this same mark. */
+.wordmark .logo{width:21px;height:21px;flex:none;display:block}
+/* Muted = softened (desaturated + slightly dimmed), NOT faded to the background — so the
+   palette stays legible as real colours. The active wedge is the only fully-saturated,
+   full-opacity one, so it clearly reads as the "live" colour. */
+.wordmark .logo [data-seg]{opacity:.78;filter:saturate(.5);transition:opacity 320ms var(--ease), filter 320ms var(--ease)}
+html[data-work="house"]     .wordmark .logo [data-seg="house"],
+html[data-work="memrey"]    .wordmark .logo [data-seg="memrey"],
+html[data-work="rotavox"]   .wordmark .logo [data-seg="rotavox"],
+html[data-work="andacity"]  .wordmark .logo [data-seg="andacity"],
+html[data-work="bolt"]      .wordmark .logo [data-seg="bolt"],
+html[data-work="signal"]    .wordmark .logo [data-seg="signal"],
+html[data-work="shadowcat"] .wordmark .logo [data-seg="shadowcat"]{opacity:1;filter:saturate(1.25)}
 .menu{display:flex;gap:26px;margin-left:auto;align-items:center}
 .menu a{font-size:14.5px;font-weight:500;color:var(--muted);padding-block:5px;position:relative}
 .menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--w-key);transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease),background-color var(--T) var(--ease)}
