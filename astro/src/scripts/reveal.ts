@@ -16,7 +16,7 @@ export function initReveal(): void {
 
   const revealEls = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
 
-  // Prime count-up targets: stash the final value, show padded zeros until revealed.
+  // Prime count-up targets: stash the final value, show padded zeros until counted.
   for (const el of document.querySelectorAll<HTMLElement>('[data-countup]')) {
     const raw = (el.textContent ?? '').trim()
     if (!/^\d+$/.test(raw)) continue
@@ -25,10 +25,35 @@ export function initReveal(): void {
     el.textContent = '0'.repeat(raw.length)
   }
 
+  // Count-up runs on its OWN viewport trigger, decoupled from the entrance reveal: each
+  // stat counts as it scrolls into view. So the numbers animate when they ENTER the
+  // viewport (never while off-screen), and a page/view transition can't swallow the count
+  // the way it would if it fired with the load entrance — by the time you scroll to the
+  // stats, any transition is long finished.
+  const countEls = Array.from(document.querySelectorAll<HTMLElement>('[data-countup]')).filter(
+    (el) => el.dataset.countTo,
+  )
+  if (countEls.length) {
+    if ('IntersectionObserver' in window) {
+      const cio = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              countUp(e.target as HTMLElement)
+              cio.unobserve(e.target)
+            }
+          }
+        },
+        { threshold: 0.35 },
+      )
+      countEls.forEach((el) => cio.observe(el))
+    } else {
+      countEls.forEach(countUp)
+    }
+  }
+
   const reveal = (el: HTMLElement) => {
     el.classList.add('is-in')
-    if (el.dataset.countTo) countUp(el)
-    else for (const c of el.querySelectorAll<HTMLElement>('[data-countup]')) if (c.dataset.countTo) countUp(c)
   }
 
   if (!('IntersectionObserver' in window) || revealEls.length === 0) {
