@@ -2,12 +2,12 @@
  * Contact-form Worker for aldengillespy.com (v6).
  *
  * POST /contact with a JSON body:
- *   { name, email, category, message, company (honeypot), token (Turnstile) }
+ *   { name, email, category, message, hpot (honeypot), token (Turnstile) }
  *
  * Security model — every inquiry must clear all of these server-side before an
  * email is ever sent:
  *   1. Origin is on the host allow-list (CORS + a cheap CSRF gate).
- *   2. Honeypot field ("company") is empty (kills naive bots for free).
+ *   2. Honeypot field ("hpot") is empty (kills naive bots for free).
  *   3. Fields validate (present, sane lengths, real-looking email).
  *   4. The Turnstile token verifies against Cloudflare siteverify. The token is
  *      NEVER trusted client-side — the browser cannot fake success here.
@@ -47,9 +47,10 @@ export default {
     if (request.method !== 'POST') {
       return json({ ok: false, error: 'method_not_allowed' }, 405, cors);
     }
-    // A browser fetch always sends Origin; reject anything off-list. (Turnstile is
-    // the real gate, but this stops the endpoint being trivially driven from elsewhere.)
-    if (origin && !originOk) {
+    // A browser fetch always sends Origin; require one that's on the allow-list. Rejecting a
+    // MISSING Origin too closes the "curl with no Origin" hole in this cheap CSRF gate.
+    // (Turnstile is still the real gate — no email sends without a verified token.)
+    if (!originOk) {
       return json({ ok: false, error: 'forbidden_origin' }, 403, cors);
     }
 
@@ -98,7 +99,7 @@ export default {
     const sentAt = new Date().toISOString();
     const sent = await sendViaResend(env, {
       replyTo: email, // reply in your mail client goes straight to the sender
-      subject: `[${label}] ${name}`,
+      subject: `[${label}] ${name.replace(/[\r\n]+/g, ' ')}`,
       text: textBody({ name, email, label, message, ip, sentAt }),
       html: htmlBody({ name, email, label, message, ip, sentAt }),
     });
