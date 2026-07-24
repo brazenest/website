@@ -7,6 +7,8 @@ import { rotavoxCaseStudySeed } from './rotavox'
 import { andacityCaseStudySeed } from './andacity'
 import { shadowcatFilmSeed } from './films'
 import { siteMetaSeed } from './site-meta'
+import { postsSeed } from './posts'
+import { normalizeLegacyMarkdown } from './markdown'
 
 async function run() {
   const { getPayload } = await import('payload')
@@ -80,6 +82,64 @@ async function run() {
   await upsertByVenture('case-studies', 'rotavox', rotavoxCaseStudySeed)
   await upsertByVenture('case-studies', 'andacity', andacityCaseStudySeed)
   await upsertByVenture('films', 'shadowcat', shadowcatFilmSeed)
+
+  // Blog archive (src/seed/posts.ts). Bodies are markdown in the seed and are converted
+  // here with Payload's own converter, so the stored richText matches what the Lexical
+  // admin editor produces.
+  //
+  // Posts are CREATE-ONLY by default: once a post exists, Payload is the authority and a
+  // re-seed must not clobber an edit made in the admin (the same trap that used to wipe
+  // siteMeta). SEED_POSTS=1 forces a re-import from the seed.
+  const { convertMarkdownToLexical, editorConfigFactory } = await import('@payloadcms/richtext-lexical')
+  const editorConfig = await editorConfigFactory.default({ config: payload.config })
+  const forcePosts = process.env.SEED_POSTS === '1'
+  let postsCreated = 0
+  let postsUpdated = 0
+  let postsPreserved = 0
+
+  for (const post of postsSeed) {
+    const existing = await payload.find({
+      collection: 'posts',
+      where: { slug: { equals: post.slug } },
+      limit: 1,
+    })
+
+    if (existing.docs.length > 0 && !forcePosts) {
+      postsPreserved++
+      continue
+    }
+
+    const data = {
+      legacyId: post.legacyId,
+      title: post.title,
+      slug: post.slug,
+      excerpt: post.excerpt,
+      category: post.category,
+      status: post.status,
+      publishedAt: post.publishedAt,
+      readTime: post.readTime,
+      body: convertMarkdownToLexical({
+        editorConfig,
+        markdown: normalizeLegacyMarkdown(post.bodyMarkdown, (warning) =>
+          payload.logger.warn(`[posts] ${post.slug}: dropped unrenderable image ${warning.detail}`),
+        ),
+      }),
+    }
+
+    if (existing.docs.length > 0) {
+      await payload.update({ collection: 'posts', id: existing.docs[0].id, data })
+      postsUpdated++
+    } else {
+      await payload.create({ collection: 'posts', data })
+      postsCreated++
+    }
+  }
+
+  payload.logger.info(
+    `Posts: ${postsCreated} created, ${postsUpdated} re-imported, ${postsPreserved} preserved${
+      postsPreserved && !forcePosts ? ' (SEED_POSTS=1 to overwrite)' : ''
+    }.`,
+  )
 
   // siteMeta is ADMIN-OWNED: nav/social/contact are edited in Payload, then `pnpm run
   // export` pulls them into the static build. So only seed it on a fresh/empty DB — never
