@@ -37,6 +37,10 @@
       "href": "/media"
     },
     {
+      "label": "Blog",
+      "href": "/blog"
+    },
+    {
       "label": "Résumé",
       "href": "/resume.pdf"
     }

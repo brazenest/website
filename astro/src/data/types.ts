@@ -71,11 +71,17 @@ export interface Film {
   services: { title: string; note: string }[]
 }
 
+/** Legacy editorial taxonomy, carried over from the pre-v6 `categories` table. */
+export type PostCategory = 'engineering' | 'cinematic' | 'process' | 'other'
+
+/** Only published posts are exported — see the posts block in src/export/index.ts. */
 export interface Post {
   title: string
   slug: string
   publishedAt: string | null
   excerpt: string | null
+  category: PostCategory | null
+  readTime: number | null
   relatedVenture: string | null // venture slug
   body: RichText
 }

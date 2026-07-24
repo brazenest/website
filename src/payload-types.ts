@@ -423,8 +423,23 @@ export interface Film {
 export interface Post {
   id: number;
   title: string;
+  /**
+   * kebab-case. Becomes the URL: /blog/posts/<slug>. Changing it breaks inbound links — add a rule to astro/public/_redirects if you do.
+   */
   slug: string;
+  /**
+   * Only published posts are written out by `pnpm run export` — drafts never reach a build.
+   */
+  status: 'draft' | 'published';
+  /**
+   * Sorts the blog index, newest first.
+   */
   publishedAt?: string | null;
+  category: 'engineering' | 'cinematic' | 'process' | 'other';
+  /**
+   * Minutes. Leave blank to omit it from the page.
+   */
+  readTime?: number | null;
   excerpt?: string | null;
   /**
    * Load-bearing: how a post inherits its venture's colour (BUILD.md §3d). Template itself is deferred design (§7).
@@ -445,6 +460,10 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Primary key from the pre-v6 `articles` table. Set by the import; keeps re-seeding idempotent.
+   */
+  legacyId?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -724,10 +743,14 @@ export interface FilmsSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  status?: T;
   publishedAt?: T;
+  category?: T;
+  readTime?: T;
   excerpt?: T;
   relatedVenture?: T;
   body?: T;
+  legacyId?: T;
   updatedAt?: T;
   createdAt?: T;
 }

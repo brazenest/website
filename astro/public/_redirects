@@ -15,6 +15,16 @@
 /engineering/projects/andacity-booking-system  /engineering/andacity  301
 /engineering/projects                          /engineering           301
 
+# Blog canonicalized to /blog/posts/<slug>. Two older shapes redirect in:
+#   /blog/articles/<slug>  — the pre-v6 WordPress-era site (still linked from post bodies)
+#   /blog/<slug>           — v6.0.0's own short-lived flat shape
+# The two bare exacts must stay ABOVE /blog/:slug, or ":slug" swallows the literal segment
+# and sends /blog/posts to /blog/posts/posts.
+/blog/articles                                 /blog                  301
+/blog/posts                                    /blog                  301
+/blog/articles/:slug                           /blog/posts/:slug      301
+/blog/:slug                                    /blog/posts/:slug      301
+
 # Retired top-level pages
 /work                                          /                      301
 /for-hire                                      /contact               301

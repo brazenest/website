@@ -8,7 +8,7 @@ import filmsJson from '../data/films.json'
 import postsJson from '../data/posts.json'
 import siteMetaJson from '../data/site-meta.json'
 
-import type { Venture, CaseStudy, Film, Post, SiteMeta } from '../data/types'
+import type { Venture, CaseStudy, Film, Post, PostCategory, SiteMeta } from '../data/types'
 
 export const ventures = venturesJson as Venture[]
 export const caseStudies = caseStudiesJson as CaseStudy[]
@@ -68,6 +68,34 @@ export function ventureHref(slug: string): string {
 /** Title-case the zone for a chip's corner label. */
 export function zoneLabel(zone: string): string {
   return zone.charAt(0).toUpperCase() + zone.slice(1)
+}
+
+/**
+ * Blog posts live under /blog/posts/<slug>. Every link goes through here so the prefix is
+ * stated once — /blog/<slug> and the pre-v6 /blog/articles/<slug> both 301 here from
+ * public/_redirects.
+ */
+export function postHref(slug: string): string {
+  return `/blog/posts/${slug}`
+}
+
+/** Display names for the legacy editorial categories (the old `categories` table). */
+const POST_CATEGORY_LABELS: Record<PostCategory, string> = {
+  engineering: 'Engineering',
+  cinematic: 'Cinematic',
+  process: 'Process',
+  other: 'Other Topics',
+}
+
+export function categoryLabel(category: PostCategory): string {
+  return POST_CATEGORY_LABELS[category] ?? category
+}
+
+/** Published posts, newest first. The export already filters drafts and sorts. */
+export function publishedPosts(): Post[] {
+  return [...posts]
+    .filter((p) => p.publishedAt)
+    .sort((a, b) => new Date(b.publishedAt!).getTime() - new Date(a.publishedAt!).getTime())
 }
 
 /** A link that should open in a new tab: off-site, or a downloadable doc (résumé PDF). */

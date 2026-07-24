@@ -21,6 +21,7 @@ export const siteMetaSeed = {
     { label: 'Home', href: '/' },
     { label: 'Engineering', href: '/engineering' },
     { label: 'Media', href: '/media' },
+    { label: 'Blog', href: '/blog' },
     { label: 'Résumé', href: '/resume.pdf' },
   ],
   // NOTE: siteMeta is admin-owned — the seed only populates it on a FRESH/empty DB and

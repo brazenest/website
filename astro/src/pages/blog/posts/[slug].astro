@@ -1,13 +1,13 @@
 ---
 /**
- * BLOG POST (BUILD.md §7 — deferred design pass). Minimal template stub.
- * One page per post in the posts collection; inherits the related venture's colour
- * via data-work="{venture.slug}". Renders the post title, date, excerpt, and richText
- * body in a clean reading style. The contact CTA at the bottom is house/neutral.
+ * BLOG POST — /blog/posts/<slug>. One page per published post in the posts collection;
+ * inherits the related venture's colour via data-work="{venture.slug}". Renders the post
+ * title, date, category, read time, excerpt and richText body in a clean reading style.
+ * The contact CTA at the bottom is house/neutral.
  */
-import Base from '../../layouts/Base.astro'
-import { posts, venturesBySlug, siteMeta, isExternalHref } from '../../lib/content'
-import { renderRichText } from '../../lib/richText'
+import Base from '../../../layouts/Base.astro'
+import { posts, venturesBySlug, siteMeta, isExternalHref, categoryLabel } from '../../../lib/content'
+import { renderRichText } from '../../../lib/richText'
 
 export function getStaticPaths() {
   return posts.map((p) => ({
@@ -18,21 +18,24 @@ export function getStaticPaths() {
 
 const { post } = Astro.props
 const venture = post.relatedVenture ? venturesBySlug[post.relatedVenture as string] : venturesBySlug.house
+const published = post.publishedAt ? new Date(post.publishedAt) : null
 ---
 
 <Base title={`${post.title} — Alden Gillespy`} zone="neutral" work={venture.slug}>
   <section class="z-neutral" data-zone="neutral" data-work={venture.slug}>
     <div class="col">
-      <div class="crumb"><span>Blog</span><span>/</span><span class="on">{post.title}</span></div>
+      <div class="crumb"><a href="/blog">Blog</a><span>/</span><span class="on">{post.title}</span></div>
       <article class="post">
         <header class="post__header">
           <h1 class="halo">{post.title}</h1>
           <div class="post__meta">
-            {post.publishedAt && <time>{new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>}
-            {post.excerpt && <p class="excerpt">{post.excerpt}</p>}
+            {published && <time datetime={published.toISOString()}>{published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>}
+            {post.category && <><span aria-hidden="true">·</span><span>{categoryLabel(post.category)}</span></>}
+            {post.readTime && <><span aria-hidden="true">·</span><span>{post.readTime} min read</span></>}
           </div>
+          {post.excerpt && <p class="post__excerpt">{post.excerpt}</p>}
         </header>
-        <div class="post__body dim" set:html={renderRichText(post.body)} />
+        <div class="post__body prose" set:html={renderRichText(post.body)} />
       </article>
 
       <div class="nextup">
@@ -65,16 +68,23 @@ const venture = post.relatedVenture ? venturesBySlug[post.relatedVenture as stri
     margin-bottom: clamp(20px, 2vw, 32px);
   }
   .post__meta {
-    font-size: 13px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: var(--f-m);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: clamp(20px, 2vw, 32px);
   }
-  .excerpt {
-    margin-top: 8px;
-    font-style: italic;
+  .post__excerpt {
+    margin-top: clamp(20px, 2vw, 32px);
+    max-width: 62ch;
+    font-size: clamp(17px, 1.35vw, 21px);
+    line-height: 1.5;
+    color: var(--muted);
   }
   .post__body {
     max-width: 70ch;
-    line-height: 1.8;
   }
 </style>

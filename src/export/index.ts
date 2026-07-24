@@ -176,12 +176,24 @@ async function run() {
   await fs.writeFile(path.join(DATA_OUT_DIR, 'films.json'), JSON.stringify(filmExport, null, 2) + '\n')
 
   // ---- posts -------------------------------------------------------------------
-  const posts = (await payload.find({ collection: 'posts', limit: 1000, depth: 2, sort: 'createdAt' })).docs
+  // Published only: a draft must never reach a build, not even as unlinked HTML at a
+  // guessable URL. Sorted newest-first so the blog index can render posts.json as-is.
+  const posts = (
+    await payload.find({
+      collection: 'posts',
+      where: { status: { equals: 'published' } },
+      limit: 1000,
+      depth: 2,
+      sort: '-publishedAt',
+    })
+  ).docs
   const postExport = posts.map((p: any) => ({
     title: p.title,
     slug: p.slug,
     publishedAt: p.publishedAt || null,
     excerpt: p.excerpt || null,
+    category: p.category || null,
+    readTime: p.readTime ?? null,
     relatedVenture: ventureSlug(p.relatedVenture),
     body: p.body || null,
   }))
