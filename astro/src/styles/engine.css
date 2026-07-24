@@ -443,6 +443,27 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 .prose li{position:relative;padding-left:27px;margin-bottom:14px;font-size:16px;line-height:1.6;color:var(--muted)}
 .prose li::before{content:"";position:absolute;left:0;top:11px;width:14px;height:2px;background:var(--w-key);transition:background-color var(--T) var(--ease)}
 .prose li b{color:var(--ink);font-weight:700}
+/* Blog bodies come from Payload's lexical editor, so .prose has to cover every element the
+   serializer can emit — not just the hand-authored h3/p/ul the case studies use. */
+.prose h2{font-size:clamp(27px,2.7vw,42px);margin-top:clamp(50px,5.8vw,92px);margin-bottom:22px;line-height:1.06}
+.prose h4{font-size:clamp(19px,1.6vw,25px);margin-top:clamp(38px,4.4vw,68px);margin-bottom:16px;line-height:1.16}
+.prose h5{font-size:clamp(17px,1.3vw,20px);margin-top:clamp(32px,3.6vw,56px);margin-bottom:14px;line-height:1.2}
+.prose h2:first-child,.prose h4:first-child,.prose h5:first-child{margin-top:0}
+.prose ol{list-style:none;counter-reset:prose-ol;max-width:68ch;margin-bottom:20px}
+.prose ol>li{counter-increment:prose-ol}
+.prose ol>li::before{content:counter(prose-ol) ".";top:0;width:auto;height:auto;background:none;font-family:var(--f-m);font-size:12px;color:var(--w-key);transition:color var(--T) var(--ease)}
+.prose ul ul,.prose ul ol,.prose ol ul,.prose ol ol{margin-top:14px;margin-bottom:0}
+.prose blockquote{position:relative;max-width:64ch;margin-bottom:20px;padding-left:clamp(18px,1.8vw,28px);border-left:2px solid var(--w-key);font-size:clamp(16px,1.15vw,18.5px);line-height:1.6;color:var(--muted);transition:border-color var(--T) var(--ease)}
+/* An imported blockquote is one node PER PARAGRAPH (lexical's quote node cannot hold a
+   break), so consecutive quotes must read as a single pulled-out passage, not a stack. */
+.prose blockquote+blockquote{margin-top:-4px}
+.prose a{color:var(--w-key);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:color var(--T) var(--ease)}
+.prose a:hover{text-decoration-thickness:2px}
+.prose code{font-family:var(--f-m);font-size:.88em;padding:2px 5px;background:var(--card);border:1px solid var(--line);word-break:break-word}
+.prose hr{border:0;border-top:1px solid var(--line);margin-block:clamp(38px,4.4vw,72px);max-width:68ch}
+.prose strong,.prose b{color:var(--ink);font-weight:700}
+[data-mode="dark"] .z-eng .prose ol>li::before,[data-mode="dark"] .z-eng .prose a{color:var(--w-hi)}
+[data-mode="dark"] .z-eng .prose blockquote{border-color:var(--w-hi)}
 .figure{margin:clamp(38px,4.4vw,72px) 0}
 .figure figcaption{font-family:var(--f-m);font-size:11px;letter-spacing:.05em;color:var(--muted);margin-top:14px}
 .arch{background:var(--card);border:1px solid var(--line);padding:clamp(22px,2.8vw,44px)}

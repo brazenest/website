@@ -1,35 +1,56 @@
 ---
 /**
- * BLOG INDEX (BUILD.md §7 — deferred design pass). Minimal list of all posts.
- * Renders in the house/neutral identity.
+ * BLOG INDEX — /blog. Opens with the section intro, then lists every published post,
+ * newest first; each links to /blog/posts/<slug>. Renders in the house/neutral identity.
+ *
+ * The intro copy lives here rather than in the CMS, matching the engineering/media
+ * landing pages: Payload drives the posts, the section's editorial framing is page copy.
  */
 import Base from '../../layouts/Base.astro'
-import { posts } from '../../lib/content'
+import { publishedPosts, postHref, categoryLabel } from '../../lib/content'
 
-const sorted = [...posts]
-  .filter((p) => p.publishedAt)
-  .sort((a, b) => new Date(b.publishedAt!).getTime() - new Date(a.publishedAt!).getTime())
+const sorted = publishedPosts()
+const earliest = sorted.length ? sorted[sorted.length - 1].publishedAt : null
+const sinceYear = earliest ? new Date(earliest).getFullYear() : null
 ---
 
 <Base title="Blog — Alden Gillespy" zone="neutral" work="house">
   <section class="z-neutral" data-zone="neutral" data-work="house">
     <div class="col">
-      <div class="crumb"><span>Blog</span></div>
-      <article style="margin-block: clamp(30px, 3.4vw, 56px);">
-        <h1 class="halo">Writing</h1>
+      <div class="crumb" data-reveal><span class="on">Blog</span></div>
+      <div class="zonehead" data-reveal>
+        <div class="kick"><i></i><span class="mono">Blog</span></div>
+        <h1 class="halo">Working notes on the software, the craft, and the arguments underneath both.</h1>
+        <p>
+          Writing about what I build and why — architecture decisions, the tools I lean on, and
+          the occasional argument about who actually controls the network.
+          {sinceYear ? <> It goes back to {sinceYear}, so some of it is a period piece by now; </> : <> Some of it is a period piece by now; </>}
+          it stays up because the reasoning still holds, even where the technology moved on.
+        </p>
+        {sorted.length > 0 && (
+          <p class="mono blog__count">
+            {sorted.length} posts{sinceYear && <> · {sinceYear}—{new Date(sorted[0].publishedAt!).getFullYear()}</>}
+          </p>
+        )}
+      </div>
+      <article>
         {
           sorted.length > 0 ? (
-            <div class="post__list" style="margin-top: clamp(30px, 3.4vw, 56px);">
+            <div class="post__list">
               {sorted.map((post) => (
-                <article class="post__item" style="margin-bottom: clamp(30px, 3.4vw, 56px); padding-bottom: clamp(30px, 3.4vw, 56px); border-bottom: 1px solid var(--line);">
-                  <a href={`/blog/${post.slug}`} style="text-decoration: none;">
-                    <h3 class="halo" style="margin-bottom: 12px;">{post.title}</h3>
+                <article class="post__item">
+                  <a href={postHref(post.slug)} class="post__link">
+                    <h3 class="halo">{post.title}</h3>
                   </a>
-                  <div style="font-size: 13px; color: var(--muted); margin-bottom: 12px;">
-                    <time>{new Date(post.publishedAt!).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+                  <div class="post__meta">
+                    <time datetime={new Date(post.publishedAt!).toISOString()}>
+                      {new Date(post.publishedAt!).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    </time>
+                    {post.category && <><span aria-hidden="true">·</span><span>{categoryLabel(post.category)}</span></>}
+                    {post.readTime && <><span aria-hidden="true">·</span><span>{post.readTime} min read</span></>}
                   </div>
-                  {post.excerpt && <p class="dim">{post.excerpt}</p>}
-                  <a href={`/blog/${post.slug}`} style="display: inline-block; margin-top: 12px;">Read more <span>→</span></a>
+                  {post.excerpt && <p class="dim post__excerpt">{post.excerpt}</p>}
+                  <a class="go" href={postHref(post.slug)}>Read more <span>→</span></a>
                 </article>
               ))}
             </div>
@@ -48,3 +69,41 @@ const sorted = [...posts]
     </div>
   </section>
 </Base>
+
+<style>
+  .blog__count {
+    margin-top: 20px;
+  }
+  .post__list {
+    margin-top: clamp(24px, 2.8vw, 44px);
+    border-top: 1px solid var(--line);
+    padding-top: clamp(30px, 3.4vw, 56px);
+  }
+  .post__item {
+    margin-bottom: clamp(30px, 3.4vw, 56px);
+    padding-bottom: clamp(30px, 3.4vw, 56px);
+    border-bottom: 1px solid var(--line);
+  }
+  .post__item:last-child {
+    margin-bottom: 0;
+  }
+  .post__link h3 {
+    margin-bottom: 12px;
+    max-width: 24ch;
+  }
+  .post__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: var(--f-m);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .post__excerpt {
+    max-width: 68ch;
+    margin-bottom: 16px;
+  }
+</style>

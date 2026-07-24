@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro'
-import { caseStudies, films, posts } from '../lib/content'
+import { caseStudies, films, posts, postHref } from '../lib/content'
 
 /**
  * /sitemap.xml — generated from the same content the pages build from, so it never goes
@@ -18,7 +18,7 @@ export const GET: APIRoute = () => {
     '/blog',
     ...caseStudies.filter((c) => c.venture).map((c) => `/engineering/${c.venture}`),
     ...films.filter((f) => f.venture).map((f) => `/media/${f.venture}`),
-    ...posts.map((p) => `/blog/${p.slug}`),
+    ...posts.map((p) => postHref(p.slug)),
   ]
 
   const body =
