@@ -145,11 +145,16 @@ export function initEngine() {
     root.setAttribute('data-mode', e.matches ? 'dark' : 'light')
   })
 
-  // multi-page nav highlight: mark the link whose route matches the current path.
+  // multi-page nav highlight: mark the link whose route matches the current path. A section
+  // link stays lit anywhere INSIDE its section (/blog → /blog/posts/<slug>, /engineering →
+  // /engineering/memrey), so you never lose your place while reading. '/' is exact-only,
+  // or Home would match every page on the site.
   const path = window.location.pathname.replace(/\/$/, '') || '/'
-  navs.forEach((a) =>
-    a.dataset.route === path ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'),
-  )
+  navs.forEach((a) => {
+    const route = a.dataset.route
+    const active = !!route && (route === path || (route !== '/' && path.startsWith(`${route}/`)))
+    active ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')
+  })
 
   measure()
   observe()
