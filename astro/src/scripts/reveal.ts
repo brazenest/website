@@ -108,31 +108,40 @@ export function initReveal(): void {
   // transitions (@view-transition), a navigation/reload freezes the incoming page into
   // a snapshot and cross-fades it; revealing synchronously bakes the rise INTO that
   // snapshot, so the motion is never seen (Firefox has no such transition, so it always
-  // played there — hence "works on FF, not Chromium"). Fix: where the transition exists
-  // (feature-detected via the `pagereveal` event), play AFTER it finishes, on the live
-  // page. Elsewhere, play next frame — which also guarantees the hidden state paints once
-  // so the CSS transition actually fires.
-  if ('onpagereveal' in window) {
-    window.addEventListener(
-      'pagereveal',
-      (e) => {
-        const vt = (e as unknown as { viewTransition?: { finished: Promise<void> } }).viewTransition
-        if (vt) vt.finished.then(playEntrance, playEntrance)
-        else requestAnimationFrame(() => requestAnimationFrame(playEntrance))
-      },
-      { once: true },
-    )
-  } else {
+  // played there — hence "works on FF, not Chromium"). So where a transition exists we play
+  // AFTER it finishes, on the live page; elsewhere next frame, which also guarantees the
+  // hidden state paints once so the CSS transition actually fires.
+  //
+  // The moment itself is captured by an inline script in <head> (see Base.astro) and handed
+  // over as window.__agEntrance. It CANNOT be captured here: `pagereveal` fires when the
+  // document is first rendered, which on any non-trivial connection is before this deferred
+  // module executes — measured at 374ms against a module that ran at 566ms. Listening here
+  // meant attaching to an event that had already fired, and the entrance then waited on the
+  // failsafe below: 1.6s of blank content on every load, invisible when testing locally.
+  const gate = (window as unknown as { __agEntrance?: Promise<{ finished: Promise<void> } | null> })
+    .__agEntrance
+  const afterFrame = (): void => {
     requestAnimationFrame(() => requestAnimationFrame(playEntrance))
   }
 
-  // Failsafe: if the entrance never played (e.g. a `pagereveal` that never arrives), reveal
-  // the entrance set so nothing above the fold is stranded hidden. Scoped to `inView` on
-  // PURPOSE — below-the-fold elements must keep waiting for the observer, or this would fade
-  // them in off-screen and they'd never play their scroll reveal.
+  if (gate) {
+    gate.then((vt) => {
+      if (vt) vt.finished.then(playEntrance, playEntrance)
+      else afterFrame()
+    }, afterFrame)
+  } else {
+    // No gate (head script blocked or an older build's cached HTML) — don't hold the content
+    // hostage to a promise that will never arrive.
+    afterFrame()
+  }
+
+  // Failsafe, and now genuinely one: the gate resolves on first render, so the only way here
+  // is a `pagereveal` that never arrives or a view transition that never settles. Scoped to
+  // `inView` on PURPOSE — below-the-fold elements must keep waiting for the observer, or this
+  // would fade them in off-screen and they'd never play their scroll reveal.
   window.setTimeout(() => {
     if (!played) inView.forEach(reveal)
-  }, 1600)
+  }, 800)
 }
 
 /** Counts an integer stat from 0 → target once, easing out, preserving leading zeros. */

@@ -158,6 +158,27 @@ const zones = [
       })
     </script>
     <script is:inline>
+      // The entrance gate. `pagereveal` fires as soon as the document is first rendered —
+      // EARLIER than the deferred module that plays the entrance can execute. Registering the
+      // listener inside that module is a race: it won on localhost and lost on any real
+      // connection, and losing it meant [data-reveal] content stayed blank until a 1600ms
+      // failsafe fired (measured: content visible at 2174ms against a 532ms first paint).
+      //
+      // So the moment is captured HERE, synchronously, before the event can be missed, and
+      // handed to the module as a promise. Resolves with the view transition when there is one
+      // (a cross-document navigation on Chromium), otherwise null.
+      window.__agEntrance = new Promise(function (resolve) {
+        if (!('onpagereveal' in window)) return resolve(null)
+        addEventListener(
+          'pagereveal',
+          function (e) {
+            resolve(e.viewTransition || null)
+          },
+          { once: true },
+        )
+      })
+    </script>
+    <script is:inline>
       // Entrance choreography, decided before the body paints (motion allowed only):
       //  - .anim plays the reveal "swipe" on EVERY page load (hides [data-reveal] until the
       //    reveal script fades them up). This is the signature motion — always on.
@@ -168,10 +189,13 @@ const zones = [
         if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
           var d = document.documentElement
           d.classList.add('anim')
-          // Failsafe: if the reveal module never initializes, un-hide everything.
+          // Failsafe: if the reveal module never initializes, un-hide everything. 1500ms, not
+          // 4000 — this is the window in which a reader stares at an empty page because a
+          // script did not arrive, so it must be short enough to be a recoverable hiccup.
+          // Losing the animation is always better than withholding the content.
           setTimeout(function () {
             if (!window.__revealReady) d.classList.remove('anim')
-          }, 4000)
+          }, 1500)
           var hasNativeVT = false
           try {
             hasNativeVT = window.CSS && CSS.supports('view-transition-name', 'none')
@@ -291,29 +315,35 @@ const zones = [
       import { initEngine } from '../scripts/engine.ts'
       import { initReveal } from '../scripts/reveal.ts'
       import { initNav } from '../scripts/nav.ts'
-      // The mobile menu is the one control a visitor on a phone cannot do without, so it
-      // initializes FIRST and in its own guard — a throw in the colour engine must never
-      // cost them the navigation.
+
+      // ORDER IS BY USER IMPACT, not by importance to the design.
+      //
+      // initReveal is what makes the page's content visible — everything under [data-reveal]
+      // is held at opacity:0 until it runs. initEngine is the colour engine: it reads layout
+      // for every [data-zone]/[data-work] on the page, which is the most expensive work here
+      // and, on a throttled CPU, enough to push the reveal back by a noticeable amount. Its
+      // output is also purely cosmetic on first paint — the correct zone and work are already
+      // stamped on <html> server-side, and the engine only starts mattering once you scroll.
+      //
+      // So: nav (cheap, and the one control a phone cannot do without), then reveal, then the
+      // engine. Each in its own guard, so a throw in one cannot cost the others.
       try {
         initNav()
       } catch (e) {
         console.error(e)
       }
-      // initReveal must run even if the colour engine throws, or [data-reveal]
-      // content (hidden by the .anim gate) would be stranded invisible.
-      try {
-        initEngine()
-      } catch (e) {
-        console.error(e)
-      }
-      // initReveal is guarded separately: if it throws, drop `.anim` so [data-reveal]
-      // content can't be stranded invisible (the head failsafe is already disarmed once
-      // __revealReady is set at the top of initReveal).
+      // If initReveal throws, drop `.anim` so [data-reveal] content can't be stranded
+      // invisible (the head failsafe is disarmed once __revealReady is set at its top).
       try {
         initReveal()
       } catch (e) {
         console.error(e)
         document.documentElement.classList.remove('anim')
+      }
+      try {
+        initEngine()
+      } catch (e) {
+        console.error(e)
       }
     </script>
   </body>
