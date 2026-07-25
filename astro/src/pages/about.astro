@@ -223,7 +223,11 @@ const accentFor = (a: string) => (a === 'media' ? medAccent : engAccent)
     align-items: start;
   }
   .about__portrait { margin: 0; }
-  .about__portrait img {
+  /* :global on the img is LOAD-BEARING — see the note in blog/posts/[slug].astro. The <img>
+     comes from astro:assets' <Image>, so it never carries this page's scope attribute, and
+     a plain `.about__portrait img` would compile to `img[data-astro-cid-…]` and match
+     nothing — the portrait would render uncropped and unstyled. */
+  .about__portrait :global(img) {
     display: block;
     width: 100%;
     height: auto;

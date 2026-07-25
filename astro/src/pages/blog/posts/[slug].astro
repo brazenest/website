@@ -106,10 +106,31 @@ const schema = [
   .post {
     margin-block: clamp(30px, 3.4vw, 56px);
   }
-  /* Wider than the reading column on purpose — the art is the page's one full-bleed moment
-     before the prose narrows back down. */
-  .post__hero {
+  /* :global is LOAD-BEARING. Astro appends its scope to the LAST compound in a selector, so
+     a plain `.post__hero` compiles to `.post__hero[data-astro-cid-…]` — and this class lands
+     on the <figure> that CoverArt.astro renders, which never receives this page's scope
+     attribute. Without :global the rule silently matches nothing and the hero sits flush
+     against the H1. Same trap as .prose on the case-study page: styles aimed at markup this
+     file doesn't literally contain have to be global. */
+  :global(.post__hero) {
     margin-bottom: clamp(26px, 3vw, 48px);
+    /* The cover is a band above the headline, not the subject of the page. At the column's
+       full width the shared 1200/630 comes out ~615px tall, which put the H1 at or below the
+       fold on a laptop — the one thing a reader opening a post needs to see first.
+       Re-proportioned rather than capped: a max-height fights the inherited aspect-ratio and
+       the ratio wins, collapsing the width to 640px instead of cropping. Overriding the ratio
+       keeps the box full-width, and .cover already crops (overflow:hidden + object-fit:cover,
+       and preserveAspectRatio="slice" on the generated SVG) so a photograph and the generated
+       art both lose their edges rather than distorting. */
+    aspect-ratio: 16 / 5;
+  }
+  /* A 3.2:1 band is 107px tall on a phone — a sliver rather than an image. Narrow screens
+     have the vertical room to spare (the headline still lands well above the fold), so the
+     cover goes back to something with presence. */
+  @media (max-width: 640px) {
+    :global(.post__hero) {
+      aspect-ratio: 16 / 9;
+    }
   }
   .post__header {
     margin-bottom: clamp(30px, 3.4vw, 56px);
