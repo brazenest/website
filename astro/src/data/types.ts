@@ -79,11 +79,61 @@ export interface Post {
   title: string
   slug: string
   publishedAt: string | null
+  updatedAt: string | null
   excerpt: string | null
   category: PostCategory | null
   readTime: number | null
   relatedVenture: string | null // venture slug
+  /** null → the page falls back to generated cover art (lib/coverArt.ts). */
+  coverImage: MediaRef | null
+  seo: PageSeo
   body: RichText
+}
+
+/**
+ * A blog category as authored in the `blog-categories` global: what the category means
+ * visually. `defaultCover` is the image every post in the category inherits unless it sets
+ * its own; null falls through to build-time generated art.
+ */
+export interface BlogCategory {
+  value: PostCategory
+  label: string | null
+  accentVenture: string | null // venture slug
+  defaultCover: MediaRef | null
+}
+
+/** Per-document search/social overrides. Every field is optional by design. */
+export interface PageSeo {
+  metaTitle: string | null
+  metaDescription: string | null
+  keywords: string[]
+}
+
+export interface About {
+  metaDescription: string | null
+  keywords: string[]
+  /** null → the About page omits the portrait block entirely. */
+  profilePhoto: MediaRef | null
+  profilePhotoCaption: string | null
+  location: string | null
+  intro: string | null
+  bio: RichText
+  disciplines: {
+    label: string
+    tagline: string | null
+    accent: 'engineering' | 'media'
+    points: string[]
+  }[]
+  experience: {
+    org: string
+    role: string | null
+    period: string | null
+    summary: string | null
+    stack: string | null
+  }[]
+  principles: { title: string; body: string | null }[]
+  now: { text: string; updated: string | null } | null
+  selectedWork: { label: string; href: string; blurb: string | null }[]
 }
 
 export interface SiteMeta {
@@ -92,4 +142,12 @@ export interface SiteMeta {
   ctaText: string | null
   nav: { label: string; href: string }[]
   social: { label: string; url: string }[]
+  seo: {
+    titleSuffix: string | null
+    defaultDescription: string | null
+    defaultKeywords: string[]
+    twitterSite: string | null
+    jobTitle: string | null
+    ogImage: MediaRef | null
+  }
 }

@@ -7,14 +7,44 @@
  * landing pages: Payload drives the posts, the section's editorial framing is page copy.
  */
 import Base from '../../layouts/Base.astro'
-import { publishedPosts, postHref, categoryLabel } from '../../lib/content'
+import CoverArt from '../../components/CoverArt.astro'
+import { publishedPosts, postHref, categoryLabel, coverFor } from '../../lib/content'
+import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema } from '../../lib/seo'
 
 const sorted = publishedPosts()
+// Resolve each post's cover once, up front: post upload → category default → generated.
+const items = sorted.map((post) => ({ post, cover: coverFor(post) }))
 const earliest = sorted.length ? sorted[sorted.length - 1].publishedAt : null
 const sinceYear = earliest ? new Date(earliest).getFullYear() : null
+
+// A Blog node listing the posts, so the archive is legible to search engines as a body of
+// writing rather than a page of links.
+const schema = [
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }]),
+  {
+    '@type': 'Blog',
+    '@id': `${absoluteUrl('/blog')}#blog`,
+    name: 'Alden Gillespy — Blog',
+    url: absoluteUrl('/blog'),
+    blogPost: sorted.map((p) => ({
+      '@type': 'BlogPosting',
+      headline: p.title,
+      url: absoluteUrl(postHref(p.slug)),
+      datePublished: p.publishedAt || undefined,
+    })),
+  },
+]
 ---
 
-<Base title="Blog — Alden Gillespy" zone="neutral" work="house">
+<Base
+  title="Blog — Engineering, Craft & Argument"
+  description="Working notes on the software and the craft: architecture decisions, the tools I lean on, and the occasional argument about who really controls the network."
+  keywords={PAGE_KEYWORDS.blog}
+  ogKey="blog"
+  schema={schema}
+  zone="neutral"
+  work="house"
+>
   <section class="z-neutral" data-zone="neutral" data-work="house">
     <div class="col">
       <div class="crumb" data-reveal><span class="on">Blog</span></div>
@@ -35,10 +65,19 @@ const sinceYear = earliest ? new Date(earliest).getFullYear() : null
       </div>
       <article>
         {
-          sorted.length > 0 ? (
+          items.length > 0 ? (
             <div class="post__list">
-              {sorted.map((post) => (
+              {items.map(({ post, cover }) => (
                 <article class="post__item">
+                  <a href={postHref(post.slug)} class="post__cover" tabindex="-1" aria-hidden="true">
+                    <CoverArt
+                      image={cover.image}
+                      palette={cover.palette}
+                      seed={cover.seed}
+                      alt=""
+                      sizes="(max-width:860px) 100vw, 300px"
+                    />
+                  </a>
                   <a href={postHref(post.slug)} class="post__link">
                     <h3 class="halo">{post.title}</h3>
                   </a>
@@ -79,7 +118,13 @@ const sinceYear = earliest ? new Date(earliest).getFullYear() : null
     border-top: 1px solid var(--line);
     padding-top: clamp(30px, 3.4vw, 56px);
   }
+  /* Cover left, words right. The cover column is fixed so every row's text starts on the
+     same line — a ragged left edge would undo the list's rhythm. */
   .post__item {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: clamp(20px, 2.4vw, 36px);
+    align-items: start;
     margin-bottom: clamp(30px, 3.4vw, 56px);
     padding-bottom: clamp(30px, 3.4vw, 56px);
     border-bottom: 1px solid var(--line);
@@ -87,9 +132,35 @@ const sinceYear = earliest ? new Date(earliest).getFullYear() : null
   .post__item:last-child {
     margin-bottom: 0;
   }
+  /* The cover is decorative and its own row-mate link already carries the title, so it is
+     out of the tab order (aria-hidden + tabindex="-1" in the markup) — but still clickable. */
+  .post__cover {
+    grid-row: 1 / span 4;
+    display: block;
+  }
+  .post__cover .cover {
+    transition: opacity 200ms var(--ease);
+  }
+  .post__item:hover .post__cover .cover {
+    opacity: 0.86;
+  }
   .post__link h3 {
     margin-bottom: 12px;
     max-width: 24ch;
+  }
+  @media (max-width: 860px) {
+    .post__item {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .post__cover {
+      grid-row: auto;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .post__cover .cover {
+      transition: none;
+    }
   }
   .post__meta {
     display: flex;

@@ -6,9 +6,11 @@ import { memreyCaseStudySeed } from './memrey'
 import { rotavoxCaseStudySeed } from './rotavox'
 import { andacityCaseStudySeed } from './andacity'
 import { shadowcatFilmSeed } from './films'
-import { siteMetaSeed } from './site-meta'
+import { siteMetaSeed, siteMetaSeoSeed } from './site-meta'
+import { aboutSeed, aboutKeywordsSeed } from './about'
 import { postsSeed } from './posts'
 import { normalizeLegacyMarkdown } from './markdown'
+import { CATEGORY_SEED, seedCategoryCovers } from './category-covers'
 
 async function run() {
   const { getPayload } = await import('payload')
@@ -151,6 +153,94 @@ async function run() {
     payload.logger.info('Seeded siteMeta global.')
   } else {
     payload.logger.info('siteMeta already populated — preserved (SEED_SITEMETA=1 to overwrite).')
+  }
+
+  // about is ADMIN-OWNED, same rule as siteMeta: seed only on a fresh/empty DB, never
+  // overwrite admin edits on re-seed. Force with SEED_ABOUT=1.
+  const existingAbout = await payload.findGlobal({ slug: 'about' })
+  if (process.env.SEED_ABOUT === '1' || !(existingAbout?.bio)) {
+    await payload.updateGlobal({ slug: 'about', data: aboutSeed })
+    payload.logger.info('Seeded about global.')
+  } else {
+    payload.logger.info('about already populated — preserved (SEED_ABOUT=1 to overwrite).')
+  }
+
+  // v6.2 BACKFILL — the seo group on siteMeta and the keywords on about are NEW fields on
+  // globals that are otherwise admin-owned and preserved above. A plain re-seed would never
+  // reach them on an existing DB, and forcing SEED_SITEMETA=1 would clobber real admin edits
+  // (the contact email, for one, already diverges from the seed). So fill in ONLY what is
+  // still empty, and leave every other field exactly as the admin left it.
+  const metaNow = (await payload.findGlobal({ slug: 'site-meta' })) as any
+  if (!metaNow?.seo?.titleSuffix && !metaNow?.seo?.defaultDescription) {
+    // Payload returns an unfilled group as an object of nulls, so a plain spread of the
+    // live value over the seed would overwrite every default with null. Take the seed only
+    // where the admin has genuinely left the field empty.
+    const live = metaNow?.seo || {}
+    const seeded: Record<string, unknown> = siteMetaSeoSeed()
+    const merged: Record<string, unknown> = { ...seeded }
+    for (const [k, v] of Object.entries(live)) {
+      if (v !== null && v !== undefined && !(Array.isArray(v) && v.length === 0)) merged[k] = v
+    }
+    await payload.updateGlobal({
+      slug: 'site-meta',
+      // Spread the live doc first so nothing else is touched — updateGlobal is a full write.
+      data: { ...metaNow, seo: merged },
+    })
+    payload.logger.info('Backfilled siteMeta.seo defaults (other fields untouched).')
+  } else {
+    payload.logger.info('siteMeta.seo already populated — preserved.')
+  }
+
+  const aboutNow = (await payload.findGlobal({ slug: 'about' })) as any
+  if (!aboutNow?.keywords?.length) {
+    await payload.updateGlobal({ slug: 'about', data: { ...aboutNow, keywords: aboutKeywordsSeed() } })
+    payload.logger.info('Backfilled about.keywords (other fields untouched).')
+  } else {
+    payload.logger.info('about.keywords already populated — preserved.')
+  }
+
+  // v6.2 — BLOG CATEGORIES. Each category owns an accent venture and a default cover, so a
+  // post with no coverImage of its own still gets artwork. The four defaults are generated
+  // by the same code the front-end uses and uploaded as real media documents, which is what
+  // makes them visible and swappable in the admin rather than invisible build-time output.
+  //
+  // Per-row preservation: a row whose defaultCover the author has already pointed somewhere
+  // keeps it. Only empty slots are filled, so replacing a generated cover with a photograph
+  // survives every subsequent re-seed.
+  const palettesBySlug: Record<string, any> = Object.fromEntries(
+    venturesSeed.map((v) => [v.slug, v.palette]),
+  )
+  const existingCats = (await payload.findGlobal({ slug: 'blog-categories' })) as any
+  const rows: any[] = Array.isArray(existingCats?.categories) ? existingCats.categories : []
+  const byValue = new Map(rows.map((r) => [r.value, r]))
+  const missing = CATEGORY_SEED.filter((c) => {
+    const row = byValue.get(c.value)
+    return !row || !row.defaultCover
+  })
+
+  if (missing.length === 0) {
+    payload.logger.info(`Blog categories already populated — preserved (${rows.length} rows).`)
+  } else {
+    const coverIds = await seedCategoryCovers(payload, palettesBySlug)
+    const merged = CATEGORY_SEED.map((c) => {
+      const row = byValue.get(c.value) || {}
+      const venture = ventureIds[c.venture]
+      return {
+        value: c.value,
+        label: row.label || c.label,
+        // A relationship comes back populated (an object) at depth>0; keep whatever the
+        // author chose, normalized to an id.
+        accentVenture:
+          (typeof row.accentVenture === 'object' && row.accentVenture?.id) || row.accentVenture || venture,
+        defaultCover:
+          (typeof row.defaultCover === 'object' && row.defaultCover?.id) ||
+          row.defaultCover ||
+          coverIds[c.value] ||
+          null,
+      }
+    })
+    await payload.updateGlobal({ slug: 'blog-categories', data: { categories: merged } })
+    payload.logger.info(`Seeded blog categories — filled ${missing.length} default cover(s).`)
   }
 
   payload.logger.info('Seed complete.')

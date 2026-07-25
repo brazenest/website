@@ -3,10 +3,17 @@
     "title": "Working with ChatGPT: Golden Rules for Generative AI Copilot Interaction [Part 3]",
     "slug": "working-with-chatgpt-generative-ai-copilot-interaction-rules-part-3",
     "publishedAt": "2025-11-26T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.314Z",
     "excerpt": "Today we dig into the schizophrenic nature of AI and how to tackle it with attention, attention, attention, language contracts, addressing errors immediately whenever they happen, and relating to your copilot.",
     "category": "engineering",
     "readTime": 6,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -1171,10 +1178,17 @@
     "title": "Working with ChatGPT: Golden Rules for Generative AI Copilot Interaction [Part 2]",
     "slug": "working-with-chatgpt-generative-ai-copilot-interaction-rules-part-2",
     "publishedAt": "2025-11-25T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.295Z",
     "excerpt": "AI is a wonderful tool but can be a hidden menace if not understood well. The next two rules (3 and 4) in this series are about understanding AI's prompt structure and exercising control.",
     "category": "engineering",
     "readTime": 5,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -2328,10 +2342,17 @@
     "title": "Working with ChatGPT: Golden Rules for Generative AI Copilot Interaction [Part 1]",
     "slug": "working-with-chatgpt-generative-ai-copilot-interaction-rules-part-1",
     "publishedAt": "2025-11-24T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.276Z",
     "excerpt": "In this series, I present what I believe are some golden rules for interaction with generative AI and copilot agents. Part 1 includes my first two rules, about authority and specificity.",
     "category": "engineering",
     "readTime": 5,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -2880,10 +2901,17 @@
     "title": "Best Practices: Naming Conventions in React Code Development",
     "slug": "best-practices-naming-conventions-in-react-code-development",
     "publishedAt": "2025-11-22T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.253Z",
     "excerpt": "Consistency in variable types. Consistency in variable names. Consistency in methodology. Here is the React naming conventions guide I've developed over the years.",
     "category": "engineering",
     "readTime": 5,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -4360,10 +4388,17 @@
     "title": "Say Hello to Shadowcat Pictures, my video channel on YouTube!",
     "slug": "shadowcat-pictures-youtube-video-bellagio-fountains-airbus-boeing",
     "publishedAt": "2020-03-21T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.231Z",
     "excerpt": "Let me introduce you to my video media company, Shadowcat Pictures. Over the past two years, I have developed rich video content for distribution on YouTube. Today, I announce my project to you all.",
     "category": "cinematic",
     "readTime": 3,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -5074,10 +5109,17 @@
     "title": "What killed Toys “R” Us? It wasn’t Amazon",
     "slug": "millenials-toys-r-us-death-by-bad-leveraged-buyout",
     "publishedAt": "2018-11-06T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.211Z",
     "excerpt": "Amazon kills. Its sale-prediction technology is the queen, its logistics infrastructure the king. To their competitors, they are not merciful. But, strong as they are, this isn’t another death-by-Bezos.",
     "category": "other",
     "readTime": 4,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -6395,10 +6437,17 @@
     "title": "How I use Chrome’s Lighthouse to improve site performance",
     "slug": "how-use-chrome-lighthouse-improve-site-performance-page-speed",
     "publishedAt": "2018-04-18T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.189Z",
     "excerpt": "The more effort we put toward fixing a bug, three others appear. This week, as I was improving my site’s performance, Google’s Lighthouse became my new best friend.",
     "category": "process",
     "readTime": 7,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -8655,10 +8704,17 @@
     "title": "Why you need React for your site’s UI: contextual awareness",
     "slug": "why-need-react-for-site-ui-contextual-awareness",
     "publishedAt": "2018-04-11T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.163Z",
     "excerpt": "To provide a truly context-driven experience, we need a context-driven interface. React delivers that in spades. But what are the costs? And how do we make the case for it?",
     "category": "engineering",
     "readTime": 9,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -10471,10 +10527,17 @@
     "title": "Why TDD? It takes the guesswork out of debugging",
     "slug": "why-tdd-it-takes-the-guesswork-out-of-debugging",
     "publishedAt": "2017-12-26T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.140Z",
     "excerpt": "Hate debugging your code? Then do yourself a favor: test your code before you write it. You won’t have to guess anymore, if you take the test-driven approach.",
     "category": "engineering",
     "readTime": 5,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -11392,10 +11455,17 @@
     "title": "A new reason why you should ditch email",
     "slug": "a-new-reason-why-you-should-ditch-email",
     "publishedAt": "2017-12-13T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.117Z",
     "excerpt": "Every time you open a piece of email, you may inadvertently, quietly, very accurately tell the sender a lot about you.",
     "category": "process",
     "readTime": 3,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -12046,10 +12116,17 @@
     "title": "Does location privacy exist anymore?",
     "slug": "cell-network-location-privacy-calea-carpenter-united-states",
     "publishedAt": "2017-11-29T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.095Z",
     "excerpt": "The U.S. Supreme Court will soon decide whether warrantless seizure of a person’s cell network usage records violates the Constitution. What’s really at stake? Hasn’t the Constitution and court already addressed the issue?",
     "category": "other",
     "readTime": 5,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -13096,10 +13173,17 @@
     "title": "What creates net neutrality — market forces or the FCC?",
     "slug": "what-creates-net-neutrality-market-forces-or-the-fcc",
     "publishedAt": "2017-11-25T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.072Z",
     "excerpt": "You know the reasons why net neutrality is a good thing — but do you know how in(significant) the FCC’s rules have been? Do you understand the real threat?",
     "category": "other",
     "readTime": 7,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [
@@ -14284,10 +14368,17 @@
     "title": "Begin using OpenType Variable Fonts! Full support in Safari 11",
     "slug": "variable-fonts-safari-11-support-macos-and-ios-font-wars",
     "publishedAt": "2017-09-26T00:00:00.000Z",
+    "updatedAt": "2026-07-23T22:23:05.044Z",
     "excerpt": "Resurrected from the era of the Font Wars, the Variable Fonts spec now enjoys full support from Apple devices in Safari 11, and brings irresistible improvements over the predecessors.v",
     "category": "process",
     "readTime": 3,
     "relatedVenture": null,
+    "coverImage": null,
+    "seo": {
+      "metaTitle": null,
+      "metaDescription": null,
+      "keywords": []
+    },
     "body": {
       "root": {
         "children": [

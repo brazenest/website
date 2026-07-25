@@ -41,6 +41,10 @@
       "href": "/blog"
     },
     {
+      "label": "About",
+      "href": "/about"
+    },
+    {
       "label": "Résumé",
       "href": "/resume.pdf"
     }
@@ -58,5 +62,19 @@
       "label": "GitHub",
       "url": "https://github.com/brazenest"
     }
-  ]
+  ],
+  "seo": {
+    "titleSuffix": " — Alden Gillespy",
+    "defaultDescription": "Alden Gillespy builds and operates software products end to end — and shoots the films. Engineering case studies, cinematic work, and working notes on both.",
+    "defaultKeywords": [
+      "Alden Gillespy",
+      "software engineer",
+      "product engineer",
+      "video producer",
+      "Radiant Ventures"
+    ],
+    "twitterSite": null,
+    "jobTitle": "Software Engineer & Video Producer",
+    "ogImage": null
+  }
 }

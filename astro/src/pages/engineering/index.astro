@@ -7,6 +7,7 @@
  */
 import Base from '../../layouts/Base.astro'
 import { venturesByZone, caseStudyHref } from '../../lib/content'
+import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords } from '../../lib/seo'
 
 // Per-venture display copy for the listing. Kept here (bespoke editorial, like the home
 // section) — the CMS drives palette/name/zone; the headline + blurb are page copy.
@@ -33,6 +34,29 @@ const COPY: Record<string, { meta: string; headline: string; blurb: string }> = 
 
 const projects = venturesByZone().engineering.filter((v) => COPY[v.slug])
 
+// Product names are the highest-intent terms this page can own — someone searching
+// "Memrey" or "Rotavox" should land here or on the case study, not nowhere.
+const keywords = mergeKeywords(
+  projects.map((v) => v.name),
+  PAGE_KEYWORDS.engineering,
+)
+const schema = [
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Engineering', path: '/engineering' }]),
+  {
+    '@type': 'CollectionPage',
+    '@id': `${absoluteUrl('/engineering')}#collection`,
+    name: 'Engineering Case Studies',
+    url: absoluteUrl('/engineering'),
+    hasPart: projects.map((v) => ({
+      '@type': 'SoftwareApplication',
+      name: v.name,
+      applicationCategory: 'WebApplication',
+      url: absoluteUrl(caseStudyHref(v.slug) ?? '/engineering'),
+      description: COPY[v.slug]?.blurb,
+    })),
+  },
+]
+
 // The smaller products — in build, not yet their own page (mirrors the home index list).
 const secondary = [
   { name: 'Soldera', ds: 'An AI listing assistant — photograph the thing, it writes the listing and prices it.', yr: '2025 —' },
@@ -41,7 +65,15 @@ const secondary = [
 ]
 ---
 
-<Base title="Engineering — Alden Gillespy" zone="engineering" work={projects[0]?.slug ?? 'house'}>
+<Base
+  title="Engineering Case Studies"
+  description="Products I own end to end — Memrey, Rotavox, and Andacity — with the architecture, interface, infrastructure and brand decisions behind each one."
+  keywords={keywords}
+  ogKey="engineering"
+  schema={schema}
+  zone="engineering"
+  work={projects[0]?.slug ?? 'house'}
+>
   <section class="z-eng catpage" data-zone="engineering" data-zwork={projects[0]?.slug ?? 'house'}>
     <div class="col">
       <div class="crumb" data-reveal><span class="on">Engineering</span></div>

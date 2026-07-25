@@ -17,6 +17,7 @@ import Base from '../../layouts/Base.astro'
 import ChainSVG from '../../components/ChainSVG.astro'
 import YouTubeFacade from '../../components/YouTubeFacade.astro'
 import { films, venturesBySlug, siteMeta, isExternalHref } from '../../lib/content'
+import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords, ogImageFor } from '../../lib/seo'
 
 export function getStaticPaths() {
   return films
@@ -27,9 +28,43 @@ export function getStaticPaths() {
 const { film } = Astro.props
 const venture = venturesBySlug[film.venture!]
 const { key, hi, deep, on } = venture.palette
+
+const path = `/media/${venture.slug}`
+const description = film.logline || venture.tagline || undefined
+const keywords = mergeKeywords(
+  [film.title, venture.name, film.camera].filter((t): t is string => !!t),
+  PAGE_KEYWORDS.media,
+)
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Media', path: '/media' },
+    { name: film.title, path },
+  ]),
+  {
+    // VideoObject gives the film a chance at a video-rich result; the YouTube embed is the
+    // canonical stream, and the page's own social card stands in as the thumbnail.
+    '@type': 'VideoObject',
+    '@id': `${absoluteUrl(path)}#film`,
+    name: film.title,
+    description,
+    thumbnailUrl: ogImageFor(`media-${venture.slug}`),
+    uploadDate: film.year ? `${film.year}-01-01` : undefined,
+    embedUrl: film.youtubeId ? `https://www.youtube.com/embed/${film.youtubeId}` : undefined,
+    creator: { '@id': `${absoluteUrl('/')}#person` },
+  },
+]
 ---
 
-<Base title={`${film.title} — Alden Gillespy`} zone="media" work={venture.slug}>
+<Base
+  title={`${film.title} — Film`}
+  description={description}
+  keywords={keywords}
+  ogKey={`media-${venture.slug}`}
+  schema={schema}
+  zone="media"
+  work={venture.slug}
+>
   <section class="z-media" data-zone="media" data-work={venture.slug} style="--fx:44%;--fy:32%;--fw:96%;--fh:80%">
     <div class="flood" aria-hidden="true"></div>
 

@@ -1,35 +1,398 @@
 ---
 /**
- * ABOUT (BUILD.md §7 — deferred design pass). Minimal stub.
- * Renders in the house/neutral identity. TODO: design pass.
+ * ABOUT — /about (BUILD.md §7, design pass). Renders in the house/neutral identity.
+ * Content is authored in the Payload `about` global and mirrored into about.json by
+ * `pnpm run export`; social links + contact CTA come from siteMeta (single source of
+ * truth). Sections: intro, long-form bio, the two-discipline split (engineering /
+ * cinematic), professional experience, working principles, a dated "Now" line, curated
+ * selected-work cross-links, and the house/neutral contact block.
+ *
+ * The two discipline columns take a static accent from a representative venture palette
+ * (engineering vs media) — set as a local CSS var, NOT via data-work, so the global chrome
+ * doesn't retint as the columns scroll past.
  */
+import { Image } from 'astro:assets'
 import Base from '../layouts/Base.astro'
+import { about, siteMeta, ventures, venturesByZone, isExternalHref } from '../lib/content'
+import { renderRichText } from '../lib/richText'
+import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, jobTitle, mergeKeywords } from '../lib/seo'
 
-const content = `
-About this site and Radiant Ventures.
+const bioHtml = renderRichText(about.bio)
+const nowUpdated = about.now?.updated ? new Date(about.now.updated) : null
+const description = about.metaDescription || about.intro || undefined
 
-(This is a stub. Design pass to follow.)
-`.trim()
+// The portrait. The whole block is omitted while nothing is uploaded, so the page never
+// shows a placeholder face — upload one in the Payload admin (about → profilePhoto) and it
+// appears here and on the /about social card with no code change.
+const portraits = import.meta.glob<{ default: ImageMetadata }>('../assets/media/*.{jpg,jpeg,png,webp,avif}')
+const portrait = about.profilePhoto ? portraits[`../assets/media/${about.profilePhoto.filename}`] : undefined
+
+const keywords = mergeKeywords(about.keywords, PAGE_KEYWORDS.about)
+// ProfilePage + the Person it is about: the strongest signal available that this page is
+// the authoritative one for the name.
+const schema = [
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }]),
+  {
+    '@type': 'ProfilePage',
+    '@id': `${absoluteUrl('/about')}#profile`,
+    url: absoluteUrl('/about'),
+    name: 'About Alden Gillespy',
+    description,
+    mainEntity: {
+      '@id': `${absoluteUrl('/')}#person`,
+      '@type': 'Person',
+      name: 'Alden Gillespy',
+      jobTitle,
+      ...(about.location ? { address: { '@type': 'PostalAddress', addressLocality: about.location } } : {}),
+      ...(about.profilePhoto ? { image: absoluteUrl('/og/about.png') } : {}),
+      ...(about.experience.length
+        ? { worksFor: about.experience.map((e) => ({ '@type': 'Organization', name: e.org })) }
+        : {}),
+    },
+  },
+]
+
+// Representative accent per discipline, pulled from the venture palettes so the two
+// columns speak the site's engineering / cinematic colour worlds without the live engine.
+const engAccent = venturesByZone().engineering[0]?.palette.key ?? '#6A7688'
+const medAccent = (ventures.find((v) => v.slug === 'shadowcat') ?? venturesByZone().media[0])?.palette.key ?? '#6A7688'
+const accentFor = (a: string) => (a === 'media' ? medAccent : engAccent)
 ---
 
-<Base title="About — Alden Gillespy" zone="neutral" work="house">
-  <section class="z-neutral" data-zone="neutral" data-work="house">
+<Base
+  title="About Alden Gillespy — Software Engineer & Video Producer"
+  description={description}
+  keywords={keywords}
+  ogKey="about"
+  ogType="profile"
+  schema={schema}
+  zone="neutral"
+  work="house"
+>
+  <section class="z-neutral about" data-zone="neutral" data-work="house">
     <div class="col">
-      <div class="crumb"><span>About</span></div>
-      <article style="margin-block: clamp(30px, 3.4vw, 56px); max-width: 70ch;">
-        <h1 class="halo">About Alden Gillespy</h1>
-        <div class="dim" style="margin-top: clamp(20px, 2vw, 32px);">
-          <p>{content}</p>
-          <p style="margin-top: 1em; font-size: 13px; color: var(--muted);">
-            <strong>TODO: design pass</strong> — This page will be properly designed once the pipeline is live.
-          </p>
-        </div>
-      </article>
+      <div class="crumb" data-reveal><span class="on">About</span></div>
 
-      <div class="nextup">
-        <div><span class="mono">Back to</span><h4>Home</h4></div>
-        <a class="go" href="/">Go back <span>→</span></a>
+      <header class="about__head" data-reveal>
+        <div class="kick"><i></i><span class="mono">About</span></div>
+        <div class:list={['about__lede', portrait && 'about__lede--photo']}>
+          <div>
+            <h1 class="halo">About Alden Gillespy</h1>
+            {about.location && <p class="about__loc"><span class="mono">{about.location}</span></p>}
+            {about.intro && <p class="about__intro">{about.intro}</p>}
+          </div>
+          {portrait && (
+            <figure class="about__portrait">
+              <Image
+                src={portrait()}
+                alt={about.profilePhoto!.alt || 'Alden Gillespy'}
+                widths={[320, 640, 960]}
+                sizes="(max-width:860px) 60vw, 320px"
+                loading="eager"
+              />
+              {about.profilePhotoCaption && <figcaption class="mono">{about.profilePhotoCaption}</figcaption>}
+            </figure>
+          )}
+        </div>
+      </header>
+
+      {bioHtml && <div class="about__bio prose" data-reveal style="--reveal-i:1" set:html={bioHtml} />}
+
+      {about.disciplines.length > 0 && (
+        <div class="disc" data-reveal style="--reveal-i:2">
+          {about.disciplines.map((d) => (
+            <div class="disc__col" style={`--accent:${accentFor(d.accent)}`}>
+              <div class="disc__head">
+                <span class="disc__mark" aria-hidden="true"></span>
+                <div>
+                  <h2 class="disc__label">{d.label}</h2>
+                  {d.tagline && <p class="disc__tagline">{d.tagline}</p>}
+                </div>
+              </div>
+              {d.points.length > 0 && (
+                <ul class="disc__points">
+                  {d.points.map((p) => <li>{p}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {about.experience.length > 0 && (
+        <div class="xp" data-reveal style="--reveal-i:3">
+          <h2 class="sec__title"><span class="mono">Experience</span></h2>
+          <div class="xp__list">
+            {about.experience.map((e) => (
+              <div class="xp__item">
+                <div class="xp__meta">
+                  <span class="xp__org">{e.org}</span>
+                  {e.period && <span class="xp__period num">{e.period}</span>}
+                </div>
+                <div class="xp__body">
+                  {e.role && <h3 class="xp__role">{e.role}</h3>}
+                  {e.summary && <p class="xp__summary">{e.summary}</p>}
+                  {e.stack && <p class="xp__stack">{e.stack}</p>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {about.principles.length > 0 && (
+        <div class="pr" data-reveal>
+          <h2 class="sec__title"><span class="mono">How I work</span></h2>
+          <div class="pr__grid">
+            {about.principles.map((p) => (
+              <div class="pr__card">
+                <h3 class="pr__title">{p.title}</h3>
+                {p.body && <p class="pr__body">{p.body}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {about.now && (
+        <div class="now" data-reveal>
+          <div class="now__label">
+            <span class="mono">Now</span>
+            {nowUpdated && (
+              <time datetime={nowUpdated.toISOString()}>
+                {nowUpdated.toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
+              </time>
+            )}
+          </div>
+          <p>{about.now.text}</p>
+        </div>
+      )}
+
+      {about.selectedWork.length > 0 && (
+        <div class="sw" data-reveal>
+          <h2 class="sec__title"><span class="mono">Selected work</span></h2>
+          <div class="sw__grid">
+            {about.selectedWork.map((w) => (
+              <a
+                class="sw__card"
+                href={w.href}
+                target={isExternalHref(w.href) ? '_blank' : undefined}
+                rel={isExternalHref(w.href) ? 'noopener noreferrer' : undefined}
+              >
+                <span class="sw__label">{w.label} <span aria-hidden="true">→</span></span>
+                {w.blurb && <span class="sw__blurb">{w.blurb}</span>}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <section class="contact z-neutral" data-zone="neutral" data-work="house">
+    <div class="col">
+      <h3 data-reveal>Let's build something.</h3>
+      <p data-reveal style="--reveal-i:1">Engineering, a product, or a piece of visual work — find me at the email below or on the socials. I read everything.</p>
+      <div class="contact__row" data-reveal style="--reveal-i:2">
+        <a class="big" href="/contact" data-contact-open>Start a conversation <span>→</span></a>
+        {siteMeta.social.map((s) => (
+          <a
+            class="alt"
+            href={s.url}
+            target={isExternalHref(s.url) ? '_blank' : undefined}
+            rel={isExternalHref(s.url) ? 'noopener noreferrer' : undefined}
+          >{s.label}</a>
+        ))}
       </div>
     </div>
   </section>
 </Base>
+
+<style>
+  .about { padding-block: clamp(28px, 4vw, 60px) clamp(20px, 3vw, 44px); }
+  .about .crumb { margin-bottom: clamp(18px, 2.4vw, 30px); }
+
+  .about__head { max-width: 72ch; }
+  .about__head h1 { margin-block: clamp(16px, 1.6vw, 26px) 0; }
+  /* Words first, portrait beside them. Without a photo the grid collapses to one column,
+     so the page reads exactly as it did before anything was uploaded. */
+  .about__lede--photo {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: clamp(24px, 3vw, 52px);
+    align-items: start;
+  }
+  .about__portrait { margin: 0; }
+  .about__portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    /* A hairline in the live work colour ties the portrait to the running colour engine. */
+    border-bottom: 3px solid var(--w-key);
+    transition: border-color var(--T) var(--ease);
+  }
+  .about__portrait figcaption {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  @media (max-width: 860px) {
+    .about__lede--photo {
+      grid-template-columns: 1fr;
+    }
+    /* On a phone the portrait comes first — a face is a better opening than a kicker. */
+    .about__lede--photo > :first-child { order: 2; }
+    .about__portrait { order: 1; max-width: 260px; }
+  }
+  .about__loc { margin-top: 12px; }
+  .about__intro {
+    margin-top: clamp(20px, 2vw, 32px);
+    max-width: 62ch;
+    font-size: clamp(18px, 1.5vw, 23px);
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  .about__bio {
+    margin-top: clamp(30px, 3.4vw, 56px);
+    max-width: 70ch;
+  }
+
+  /* Shared section heading (Experience / How I work / Selected work / …). */
+  .sec__title { margin-bottom: clamp(16px, 1.8vw, 26px); }
+  .sec__title .mono { color: var(--muted); }
+
+  /* Two disciplines — engineering vs cinematic, each tinted by a --accent from a venture. */
+  .disc {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(20px, 2.6vw, 44px);
+    margin-top: clamp(40px, 4.4vw, 72px);
+  }
+  .disc__col {
+    padding: clamp(22px, 2.2vw, 34px);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--accent);
+    border-radius: 14px;
+  }
+  .disc__head { display: flex; gap: 14px; align-items: flex-start; }
+  .disc__mark {
+    flex: none;
+    width: 12px;
+    height: 12px;
+    margin-top: 6px;
+    background: var(--accent);
+    border-radius: 3px;
+    transform: rotate(45deg);
+  }
+  .disc__label { font-size: clamp(19px, 1.6vw, 24px); line-height: 1.2; }
+  .disc__tagline { margin-top: 6px; color: var(--muted); font-size: 14.5px; }
+  .disc__points { margin-top: clamp(16px, 1.8vw, 24px); list-style: none; padding: 0; }
+  .disc__points li {
+    position: relative;
+    padding-left: 20px;
+    padding-block: 7px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    border-top: 1px solid var(--line);
+  }
+  .disc__points li:first-child { border-top: 0; }
+  .disc__points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 7px;
+    height: 7px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  /* Experience — a timeline-ish two-column list. */
+  .xp { margin-top: clamp(48px, 5vw, 84px); }
+  .xp__item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: clamp(16px, 2.4vw, 44px);
+    padding-block: clamp(20px, 2.2vw, 32px);
+    border-top: 1px solid var(--line);
+  }
+  .xp__meta { display: flex; flex-direction: column; gap: 4px; }
+  .xp__org { font-weight: 600; font-size: clamp(16px, 1.3vw, 19px); }
+  .xp__period { font-size: 12px; color: var(--muted); letter-spacing: 0.02em; }
+  .xp__role { font-size: 15.5px; font-weight: 600; }
+  .xp__summary { margin-top: 8px; max-width: 60ch; color: var(--muted); line-height: 1.6; font-size: 15px; }
+  .xp__stack {
+    margin-top: 10px;
+    font-family: var(--f-m);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+
+  /* Principles — a compact card grid. */
+  .pr { margin-top: clamp(48px, 5vw, 84px); }
+  .pr__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(14px, 1.6vw, 22px);
+  }
+  .pr__card {
+    padding: clamp(18px, 1.9vw, 26px);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .pr__title { font-size: clamp(16px, 1.3vw, 19px); }
+  .pr__body { margin-top: 8px; color: var(--muted); line-height: 1.55; font-size: 14.5px; }
+
+  /* Now — a compact, dated "current focus" strip. */
+  .now {
+    margin-top: clamp(48px, 5vw, 84px);
+    max-width: 70ch;
+    padding: clamp(18px, 1.8vw, 26px) clamp(20px, 2vw, 30px);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+  }
+  .now__label { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .now__label .mono { color: var(--w-key); }
+  .now__label time {
+    font-family: var(--f-m);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .now p { margin: 0; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.5; }
+
+  /* Selected work — curated doors into the rest of the site. */
+  .sw { margin-top: clamp(48px, 5vw, 84px); }
+  .sw__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(12px, 1.4vw, 20px);
+  }
+  .sw__card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: clamp(18px, 1.8vw, 26px);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .sw__card:hover { border-color: var(--w-key); transform: translateY(-2px); }
+  .sw__label { font-size: clamp(17px, 1.35vw, 20px); font-weight: 600; }
+  .sw__card:hover .sw__label span { color: var(--w-key); }
+  .sw__blurb { font-size: 14px; line-height: 1.45; color: var(--muted); }
+
+  @media (max-width: 720px) {
+    .disc { grid-template-columns: 1fr; }
+    .xp__item { grid-template-columns: 1fr; gap: 10px; }
+  }
+</style>

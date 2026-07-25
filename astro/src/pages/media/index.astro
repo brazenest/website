@@ -7,6 +7,7 @@
  */
 import Base from '../../layouts/Base.astro'
 import { venturesByZone, filmHref } from '../../lib/content'
+import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords } from '../../lib/seo'
 
 const COPY: Record<string, { meta: string; headline: string; blurb: string; wordmark: string; wmStyle: string }> = {
   bolt: {
@@ -39,9 +40,38 @@ const order = ['bolt', 'signal', 'shadowcat']
 const projects = venturesByZone()
   .media.filter((v) => COPY[v.slug])
   .sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug))
+
+const keywords = mergeKeywords(
+  projects.map((v) => v.name),
+  ['Radiant Radio', 'internet radio station', 'radio branding'],
+  PAGE_KEYWORDS.media,
+)
+const schema = [
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Media', path: '/media' }]),
+  {
+    '@type': 'CollectionPage',
+    '@id': `${absoluteUrl('/media')}#collection`,
+    name: 'Film, Video & Radio',
+    url: absoluteUrl('/media'),
+    hasPart: projects.map((v) => ({
+      '@type': 'CreativeWork',
+      name: v.name,
+      url: absoluteUrl(filmHref(v.slug) ?? '/media'),
+      description: COPY[v.slug]?.blurb,
+    })),
+  },
+]
 ---
 
-<Base title="Media — Alden Gillespy" zone="media" work={projects[0]?.slug ?? 'house'}>
+<Base
+  title="Film, Video & Radio Production"
+  description="Cinematic video, photography and a three-station radio network — written, shot, cut, graded and scored in-house, then built into the systems that broadcast them."
+  keywords={keywords}
+  ogKey="media"
+  schema={schema}
+  zone="media"
+  work={projects[0]?.slug ?? 'house'}
+>
   <section class="z-media catpage" data-zone="media" data-zwork={projects[0]?.slug ?? 'house'} style="--fx:64%;--fy:30%;--fw:88%;--fh:80%">
     <div class="flood" aria-hidden="true"></div>
     <div class="col">

@@ -16,6 +16,7 @@ import Base from '../../layouts/Base.astro'
 import ArchitectureSVG from '../../components/ArchitectureSVG.astro'
 import { caseStudies, venturesBySlug } from '../../lib/content'
 import { renderRichText } from '../../lib/richText'
+import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords } from '../../lib/seo'
 
 export function getStaticPaths() {
   return caseStudies
@@ -40,9 +41,45 @@ const hasDiagram = VENTURES_WITH_DIAGRAM.has(venture.slug)
 
 // A live/external link for the product (e.g. rotavox.com), if the venture has one.
 const ventureLink = venture.links?.[0] ?? null
+
+// The product's own name plus its actual stack — the terms someone evaluating this specific
+// build would search. The hook is already written as a one-line summary, so it makes the
+// best description; the tagline backs it up.
+const path = `/engineering/${venture.slug}`
+const description = caseStudy.hook || venture.tagline || undefined
+const keywords = mergeKeywords(
+  [venture.name, `${venture.name} case study`],
+  caseStudy.stack,
+  PAGE_KEYWORDS.engineering,
+)
+const schema = [
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Engineering', path: '/engineering' },
+    { name: venture.name, path },
+  ]),
+  {
+    '@type': 'SoftwareApplication',
+    '@id': `${absoluteUrl(path)}#product`,
+    name: venture.name,
+    applicationCategory: 'WebApplication',
+    url: ventureLink?.url || absoluteUrl(path),
+    description,
+    author: { '@id': `${absoluteUrl('/')}#person` },
+    ...(caseStudy.stack.length ? { softwareRequirements: caseStudy.stack.join(', ') } : {}),
+  },
+]
 ---
 
-<Base title={`${venture.name} — Alden Gillespy`} zone="engineering" work={venture.slug}>
+<Base
+  title={`${venture.name} — Engineering Case Study`}
+  description={description}
+  keywords={keywords}
+  ogKey={`engineering-${venture.slug}`}
+  schema={schema}
+  zone="engineering"
+  work={venture.slug}
+>
   <section class="z-eng" data-zone="engineering" data-work={venture.slug}>
     <div class="col">
       <div class="crumb"><span>Engineering</span><span>/</span><span class="on">{venture.name}</span></div>

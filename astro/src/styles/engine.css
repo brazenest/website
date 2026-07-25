@@ -73,6 +73,9 @@
   --rail:16px;
   --pad:clamp(20px,3.6vw,64px);
   --colw:1280px;
+  /* Header height — also the offset the mobile nav panel hangs from, so the two can
+     never drift apart. Shrinks with the header on the narrowest screens. */
+  --top-h:66px;
   --T:480ms;
 }
 
@@ -187,7 +190,7 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   border-bottom:1px solid var(--line);
   transition:background-color var(--T) var(--ease), border-color var(--T) var(--ease);
 }
-.top__in{display:flex;align-items:center;gap:32px;height:66px;max-width:var(--colw);margin-inline:auto;padding-inline:var(--pad)}
+.top__in{display:flex;align-items:center;gap:32px;height:var(--top-h);max-width:var(--colw);margin-inline:auto;padding-inline:var(--pad)}
 .wordmark{display:flex;align-items:center;gap:12px;line-height:1;font-family:var(--f-d-neutral);font-weight:900;font-size:16.5px;letter-spacing:-.03em;white-space:nowrap}
 /* Logo mark: a small square in the CURRENT work's colour (the live --w-key), rotated 45° into
    a diamond. The colour is lifted to a visible lightness so dark keys (the plum) don't vanish
@@ -201,7 +204,9 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   translate:0 -3px;
   transition:background-color var(--T) var(--ease);
 }
-.menu{display:flex;gap:26px;margin-left:auto;align-items:center}
+/* .nav wraps the links AND the mode toggle — one box the breakpoint can relocate whole. */
+.nav{display:flex;align-items:center;gap:32px;margin-left:auto}
+.menu{display:flex;gap:26px;align-items:center}
 .menu a{font-size:14.5px;font-weight:500;color:var(--muted);padding-block:5px;position:relative}
 .menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--w-key);transform:scaleX(0);transform-origin:left;transition:transform 200ms var(--ease),background-color var(--T) var(--ease)}
 .menu a:hover{color:var(--ink)}
@@ -212,6 +217,22 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 .tmode svg{width:15px;height:15px}
 [data-mode="light"] .tmode .moon{display:none}
 [data-mode="dark"]  .tmode .sun{display:none}
+/* Toggle label — desktop shows the icon alone; the mobile panel needs a worded row.
+   The word names the ACTION, so it flips with the current mode. */
+.tmode__t{display:none}
+.tmode__t::after{content:"Dark mode"}
+[data-mode="dark"] .tmode__t::after{content:"Light mode"}
+
+/* Hamburger — desktop-hidden; two bars that cross into an X when the panel is open. */
+.navbtn{
+  display:none;flex:none;width:34px;height:34px;padding:0;
+  border:1px solid var(--line);color:var(--ink);
+  place-items:center;align-content:center;gap:5px;
+  transition:border-color 160ms}
+.navbtn:hover{border-color:var(--ink)}
+.navbtn i{display:block;width:16px;height:2px;background:currentColor;transition:transform 220ms var(--ease)}
+.top[data-open] .navbtn i:first-child{transform:translateY(3.5px) rotate(45deg)}
+.top[data-open] .navbtn i:last-child{transform:translateY(-3.5px) rotate(-45deg)}
 /* contact, one click away, from anywhere */
 .hire{
   flex:none;display:inline-flex;align-items:center;gap:8px;
@@ -521,6 +542,12 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 .foot .links{display:flex;gap:22px;flex-wrap:wrap}
 .foot a:hover{color:var(--ink)}
 
+/* ---------- COVER ART (v6.2) ----------
+   Shared by CoverArt.astro wherever a post shows its visual. The element is the frame; the
+   inner SVG or <img> fills it. Both variants crop rather than letterbox, so a generated
+   composition and an uploaded photo occupy exactly the same box. */
+.cover{position:relative;overflow:hidden;background:var(--w-deep);aspect-ratio:1200/630;margin:0}
+.cover svg,.cover img{display:block;width:100%;height:100%;object-fit:cover}
 .page{display:none}
 .page.is-live{display:block}
 
@@ -544,14 +571,59 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   .credits dd{text-align:left}
   .makes .row{grid-template-columns:40px 1fr}
   .makes .dt{grid-column:2;text-align:left;margin-top:6px}
-  .menu{display:none}
   .trace__step{grid-template-columns:1fr;gap:12px}
   .trace__step .io{border-top:1px dashed var(--line);padding-top:12px}
   .idstrip{grid-template-columns:repeat(2,1fr)}
   .idstrip .sw:nth-child(2){border-right:0}
 }
+/* ---------- MOBILE NAV ----------
+   1024px, measured rather than guessed: the six authored links plus wordmark, toggle and
+   CTA still FIT at 950px, but with only ~100px of air left between the wordmark and the
+   first link — and the nav is CMS-driven, so a seventh item added in Payload would overrun
+   a tighter breakpoint with no code change to catch it. Below this the .nav wrapper stops
+   being a header row and becomes a panel hanging off the header's bottom edge, carrying the
+   links AND the mode toggle. Same DOM, same #mode button. The panel is display-collapsed
+   when closed, not merely transparent, so its links are out of the tab order without any JS.
+   KEEP IN SYNC with BREAKPOINT in scripts/nav.ts. */
+@media (max-width:1024px){
+  .navbtn{display:grid}
+  .hire{margin-left:auto}
+  .nav{
+    position:fixed;left:0;right:0;top:var(--top-h);z-index:140;
+    margin-left:0;flex-direction:column;align-items:stretch;gap:0;
+    padding:4px var(--pad) 18px;
+    background:var(--paper);border-bottom:1px solid var(--line);
+    max-height:calc(100dvh - var(--top-h));overflow-y:auto;
+    box-shadow:0 18px 40px -24px rgb(0 0 0 / .5);
+    /* Closed: collapsed AND untabbable. Opened by [data-open] on the header. */
+    display:none;
+  }
+  .top[data-open] .nav{display:flex;animation:navdrop 220ms var(--ease) both}
+  @media (prefers-reduced-motion:reduce){
+    .top[data-open] .nav{animation:none}
+    .navbtn i{transition:none}
+  }
+  /* Links become full-width rows; the key-coloured underline doubles as the active marker. */
+  .menu{flex-direction:column;align-items:stretch;gap:0;width:100%}
+  .menu a{font-size:18px;color:var(--ink);padding-block:15px;border-bottom:1px solid var(--line)}
+  .menu a::after{bottom:-1px;height:2px}
+  /* The toggle stops being a 34px square and becomes the panel's last row. */
+  .tmode{
+    width:100%;height:auto;display:flex;justify-content:flex-start;align-items:center;gap:12px;
+    border:0;padding-block:15px;font-size:18px;font-weight:500;color:var(--muted)}
+  .tmode:hover{border-color:transparent}
+  .tmode svg{width:18px;height:18px}
+  .tmode__t{display:inline}
+}
+@keyframes navdrop{from{opacity:0;transform:translateY(-10px)}}
+/* Scroll lock while the panel is open — set by nav.ts, not by a :has() guess. */
+html.nav-open,html.nav-open body{overflow:hidden}
+
 @media (max-width:560px){
-  :root{--rail:9px}
+  :root{--rail:9px;--top-h:58px}
+  .wordmark{font-size:15px;gap:9px}
+  .hire{padding:9px 13px;font-size:13px}
+  .hire span{display:none}
   .spectrum{grid-template-columns:repeat(2,1fr)}
   .proof .grid{grid-template-columns:1fr}
   .results,.screens,.stills{grid-template-columns:1fr}

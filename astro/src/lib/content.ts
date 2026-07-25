@@ -7,14 +7,29 @@ import caseStudiesJson from '../data/case-studies.json'
 import filmsJson from '../data/films.json'
 import postsJson from '../data/posts.json'
 import siteMetaJson from '../data/site-meta.json'
+import aboutJson from '../data/about.json'
+import blogCategoriesJson from '../data/blog-categories.json'
 
-import type { Venture, CaseStudy, Film, Post, PostCategory, SiteMeta } from '../data/types'
+import type {
+  Venture,
+  CaseStudy,
+  Film,
+  Post,
+  PostCategory,
+  SiteMeta,
+  About,
+  BlogCategory,
+  MediaRef,
+} from '../data/types'
+import type { Palette } from './coverArt'
 
 export const ventures = venturesJson as Venture[]
 export const caseStudies = caseStudiesJson as CaseStudy[]
 export const films = filmsJson as Film[]
 export const posts = postsJson as Post[]
 export const siteMeta = siteMetaJson as SiteMeta
+export const about = aboutJson as About
+export const blogCategories = blogCategoriesJson as BlogCategory[]
 
 export const venturesBySlug: Record<string, Venture> = Object.fromEntries(
   ventures.map((v) => [v.slug, v]),
@@ -79,7 +94,15 @@ export function postHref(slug: string): string {
   return `/blog/posts/${slug}`
 }
 
-/** Display names for the legacy editorial categories (the old `categories` table). */
+export const blogCategoryByValue: Record<string, BlogCategory> = Object.fromEntries(
+  blogCategories.map((c) => [c.value, c]),
+)
+
+/**
+ * Compiled-in fallback labels. The authored labels on the `blog-categories` global win; these
+ * only cover a category that has no row yet (a value added to Posts.category before the
+ * global caught up), so a missing row degrades to a sensible name instead of a raw slug.
+ */
 const POST_CATEGORY_LABELS: Record<PostCategory, string> = {
   engineering: 'Engineering',
   cinematic: 'Cinematic',
@@ -88,7 +111,52 @@ const POST_CATEGORY_LABELS: Record<PostCategory, string> = {
 }
 
 export function categoryLabel(category: PostCategory): string {
-  return POST_CATEGORY_LABELS[category] ?? category
+  return blogCategoryByValue[category]?.label || POST_CATEGORY_LABELS[category] || category
+}
+
+/**
+ * Which venture's colour world a post borrows. An explicit relatedVenture always wins — that
+ * is the whole point of the field (BUILD.md §3d) — then the category's authored accent, then
+ * the house slate. The category→venture mapping is authored in Payload, not hard-coded.
+ */
+export function paletteForPost(category: PostCategory | null, relatedVenture: string | null): Palette {
+  const accent = category ? blogCategoryByValue[category]?.accentVenture : null
+  const slug =
+    (relatedVenture && venturesBySlug[relatedVenture] ? relatedVenture : null) ??
+    (accent && venturesBySlug[accent] ? accent : null) ??
+    'house'
+  return (venturesBySlug[slug] ?? venturesBySlug.house).palette
+}
+
+/**
+ * THE one place a post's cover is decided. Every consumer — the blog index, the post page and
+ * the social-card endpoint — goes through here, so a card can never disagree with the page.
+ *
+ * Order, most specific first:
+ *   1. the post's own coverImage
+ *   2. its category's defaultCover (the four seeded contour images, swappable in the admin)
+ *   3. neither → `image: null`, and the caller draws generated art from `palette`
+ *
+ * `seed` is what step 3 draws from. It keys off the CATEGORY rather than the post slug so the
+ * generated safety net matches the seeded category default instead of inventing a fifth,
+ * unrelated shape for one post.
+ */
+export function coverFor(post: Post): {
+  image: MediaRef | null
+  source: 'post' | 'category' | 'generated'
+  palette: Palette
+  seed: string
+} {
+  const category = post.category
+  const palette = paletteForPost(category, post.relatedVenture)
+  const seed = category ?? 'other'
+
+  if (post.coverImage) return { image: post.coverImage, source: 'post', palette, seed }
+
+  const inherited = category ? blogCategoryByValue[category]?.defaultCover : null
+  if (inherited) return { image: inherited, source: 'category', palette, seed }
+
+  return { image: null, source: 'generated', palette, seed }
 }
 
 /** Published posts, newest first. The export already filters drafts and sorts. */

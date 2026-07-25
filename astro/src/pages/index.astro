@@ -9,6 +9,7 @@
  */
 import Base from '../layouts/Base.astro'
 import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, filmHref, isExternalHref } from '../lib/content'
+import { PAGE_KEYWORDS } from '../lib/seo'
 
 const chips = spectrumVentures()
 const memreyHref = caseStudyHref('memrey') ?? '/#engineering'
@@ -17,7 +18,14 @@ const andacityHref = caseStudyHref('andacity') ?? '/engineering'
 const shadowcatHref = filmHref('shadowcat') ?? '/#media'
 ---
 
-<Base title="Alden Gillespy" zone="neutral" work="house">
+<Base
+  title="Alden Gillespy — Software Engineer & Video Producer"
+  description="I build the whole thing — architecture, interface, infrastructure, and brand. Full-stack engineering and cinematic production from one pair of hands, in Salt Lake City."
+  keywords={PAGE_KEYWORDS.home}
+  ogKey="home"
+  zone="neutral"
+  work="house"
+>
   <!-- THE HERO — the claim -->
   <section class="hero z-neutral" data-zone="neutral" data-work="house">
     <div class="col">

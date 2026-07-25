@@ -97,9 +97,13 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'site-meta': SiteMeta;
+    about: About;
+    'blog-categories': BlogCategory;
   };
   globalsSelect: {
     'site-meta': SiteMetaSelect<false> | SiteMetaSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
+    'blog-categories': BlogCategoriesSelect<false> | BlogCategoriesSelect<true>;
   };
   locale: null;
   widgets: {
@@ -442,6 +446,32 @@ export interface Post {
   readTime?: number | null;
   excerpt?: string | null;
   /**
+   * Optional. Leave blank and the post gets generated cover art instead — a colour composition derived from its category (or relatedVenture) and slug, so no post is ever imageless. Upload one to override that.
+   */
+  coverImage?: (number | null) | Media;
+  /**
+   * Per-post search/social overrides. Everything here is optional and falls back sensibly.
+   */
+  seo?: {
+    /**
+     * Overrides the <title>. Falls back to the post title. Keep under ~60 characters.
+     */
+    metaTitle?: string | null;
+    /**
+     * Overrides the meta/social description. Falls back to the excerpt. Aim for 150–160 characters.
+     */
+    metaDescription?: string | null;
+    /**
+     * Post-specific terms. Merged with the site-wide defaults and emitted as article:tag as well.
+     */
+    keywords?:
+      | {
+          term: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
    * Load-bearing: how a post inherits its venture's colour (BUILD.md §3d). Template itself is deferred design (§7).
    */
   relatedVenture?: (number | null) | Venture;
@@ -748,6 +778,19 @@ export interface PostsSelect<T extends boolean = true> {
   category?: T;
   readTime?: T;
   excerpt?: T;
+  coverImage?: T;
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        keywords?:
+          | T
+          | {
+              term?: T;
+              id?: T;
+            };
+      };
   relatedVenture?: T;
   body?: T;
   legacyId?: T;
@@ -826,6 +869,210 @@ export interface SiteMeta {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Site-wide search/social defaults. Every page can override these; anything left blank here falls back to the values hard-coded in astro/src/lib/seo.ts.
+   */
+  seo?: {
+    /**
+     * Appended to every page title, e.g. " — Alden Gillespy". Pages whose title already ends with it are left alone, so it is never doubled.
+     */
+    titleSuffix?: string | null;
+    /**
+     * Used when a page supplies no description of its own. Aim for 150–160 characters.
+     */
+    defaultDescription?: string | null;
+    /**
+     * Site-wide terms, merged into every page's own list. NOTE: Google and Bing have ignored <meta name="keywords"> for years — these are carried into the JSON-LD `keywords` property too, which does get read.
+     */
+    defaultKeywords?:
+      | {
+          term: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * X/Twitter handle including the @, e.g. "@aldengillespy". Leave blank to omit the tag.
+     */
+    twitterSite?: string | null;
+    /**
+     * Used in the Person structured data, e.g. "Software Engineer & Video Producer".
+     */
+    jobTitle?: string | null;
+    /**
+     * Site-wide social card (1200×630). Leave blank to use the generated house-palette card at /og/site.png.
+     */
+    ogImage?: (number | null) | Media;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  /**
+   * SEO / social-card description for /about (~150–160 chars). Falls back to intro if blank.
+   */
+  metaDescription?: string | null;
+  /**
+   * Search terms for /about. Merged with the site-wide defaults on siteMeta.seo.
+   */
+  keywords?:
+    | {
+        term: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Portrait for the top of /about, and the page's social card. Upload at least 1200px on the long edge — Astro generates the responsive sizes at build. The whole photo block is omitted while this is empty, so the page never renders a placeholder face.
+   */
+  profilePhoto?: (number | null) | Media;
+  /**
+   * Optional line under the portrait — e.g. where and when it was taken. Hidden if blank.
+   */
+  profilePhotoCaption?: string | null;
+  /**
+   * e.g. "Salt Lake City, Utah". ⚠ verify exact wording. Shown under the H1.
+   */
+  location?: string | null;
+  /**
+   * One or two sentences up top — the dual-identity lead-in above the bio. Plain text; keep it tight.
+   */
+  intro?: string | null;
+  /**
+   * Long-form bio. Renders as the main prose column.
+   */
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * The two sides of the work — engineering and cinematic production. Two entries; each renders as a column with its capability points.
+   */
+  disciplines?:
+    | {
+        /**
+         * e.g. "Engineering & product" / "Cinematic production".
+         */
+        label: string;
+        /**
+         * One line under the label.
+         */
+        tagline?: string | null;
+        /**
+         * Which zone palette tints this column.
+         */
+        accent?: ('engineering' | 'media') | null;
+        points?:
+          | {
+              text?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Professional roles, newest first. ⚠ verify titles/dates and only include employers cleared for publication (see handoff §4, §19).
+   */
+  experience?:
+    | {
+        org: string;
+        role?: string | null;
+        /**
+         * e.g. "2023–2025".
+         */
+        period?: string | null;
+        summary?: string | null;
+        /**
+         * Comma-separated technologies shown as a caption.
+         */
+        stack?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * A few working/product principles (handoff §10). Keep to 3–5.
+   */
+  principles?:
+    | {
+        title: string;
+        body?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * A short "what I'm working on right now" line. Leave text blank to hide the whole block.
+   */
+  now?: {
+    text?: string | null;
+    /**
+     * Shown next to the Now line so readers know how current it is.
+     */
+    updated?: string | null;
+  };
+  /**
+   * Curated doors into the rest of the site. Order here is the order shown. href can be internal (/engineering) or external.
+   */
+  selectedWork?:
+    | {
+        label: string;
+        href: string;
+        /**
+         * One-line description under the label.
+         */
+        blurb?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * What each blog category means: its accent colour and its default cover image. Posts without their own coverImage inherit the default for their category.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-categories".
+ */
+export interface BlogCategory {
+  id: number;
+  /**
+   * One row per category on Posts. Seeded automatically — you normally only come here to swap a default cover for a real photograph.
+   */
+  categories?:
+    | {
+        /**
+         * Must match the category value on Posts. Rows are matched by this, not by order.
+         */
+        value: 'engineering' | 'cinematic' | 'process' | 'other';
+        /**
+         * Display name shown on post cards and in the post meta line.
+         */
+        label?: string | null;
+        /**
+         * The venture whose palette this category borrows. Drives the generated cover's colour and the post page's tint. No new colours are invented — every value comes from the ventures collection.
+         */
+        accentVenture?: (number | null) | Venture;
+        /**
+         * The cover every post in this category gets unless it sets its own. Seeded with generated contour art at 1200×630; replace it with a photograph whenever you have one.
+         */
+        defaultCover?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -855,6 +1102,105 @@ export interface SiteMetaSelect<T extends boolean = true> {
     | {
         label?: T;
         url?: T;
+        id?: T;
+      };
+  seo?:
+    | T
+    | {
+        titleSuffix?: T;
+        defaultDescription?: T;
+        defaultKeywords?:
+          | T
+          | {
+              term?: T;
+              id?: T;
+            };
+        twitterSite?: T;
+        jobTitle?: T;
+        ogImage?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  metaDescription?: T;
+  keywords?:
+    | T
+    | {
+        term?: T;
+        id?: T;
+      };
+  profilePhoto?: T;
+  profilePhotoCaption?: T;
+  location?: T;
+  intro?: T;
+  bio?: T;
+  disciplines?:
+    | T
+    | {
+        label?: T;
+        tagline?: T;
+        accent?: T;
+        points?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  experience?:
+    | T
+    | {
+        org?: T;
+        role?: T;
+        period?: T;
+        summary?: T;
+        stack?: T;
+        id?: T;
+      };
+  principles?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        id?: T;
+      };
+  now?:
+    | T
+    | {
+        text?: T;
+        updated?: T;
+      };
+  selectedWork?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        blurb?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-categories_select".
+ */
+export interface BlogCategoriesSelect<T extends boolean = true> {
+  categories?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        accentVenture?: T;
+        defaultCover?: T;
         id?: T;
       };
   updatedAt?: T;

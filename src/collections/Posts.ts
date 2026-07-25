@@ -70,6 +70,40 @@ export const Posts: CollectionConfig = {
     },
     { name: 'excerpt', type: 'textarea' },
     {
+      name: 'coverImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description:
+          'Optional. Leave blank and the post gets generated cover art instead — a colour composition derived from its category (or relatedVenture) and slug, so no post is ever imageless. Upload one to override that.',
+      },
+    },
+    {
+      name: 'seo',
+      type: 'group',
+      admin: {
+        description: 'Per-post search/social overrides. Everything here is optional and falls back sensibly.',
+      },
+      fields: [
+        {
+          name: 'metaTitle',
+          type: 'text',
+          admin: { description: 'Overrides the <title>. Falls back to the post title. Keep under ~60 characters.' },
+        },
+        {
+          name: 'metaDescription',
+          type: 'textarea',
+          admin: { description: 'Overrides the meta/social description. Falls back to the excerpt. Aim for 150–160 characters.' },
+        },
+        {
+          name: 'keywords',
+          type: 'array',
+          admin: { description: 'Post-specific terms. Merged with the site-wide defaults and emitted as article:tag as well.' },
+          fields: [{ name: 'term', type: 'text', required: true }],
+        },
+      ],
+    },
+    {
       name: 'relatedVenture',
       type: 'relationship',
       relationTo: 'ventures',

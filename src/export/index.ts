@@ -74,6 +74,12 @@ function resolveMedia(value: unknown, mediaDocs: Map<string, MediaDoc>): MediaRe
   }
 }
 
+/** Flattens a Payload keyword array ([{term}]) to a clean string[], dropping blanks. */
+function terms(value: unknown): string[] {
+  if (!Array.isArray(value)) return []
+  return value.map((t: any) => (t?.term ?? '').trim()).filter(Boolean)
+}
+
 function ventureSlug(value: unknown): string | null {
   if (typeof value === 'string') return null
   if (typeof value === 'object' && value !== null && 'slug' in value) {
@@ -191,10 +197,18 @@ async function run() {
     title: p.title,
     slug: p.slug,
     publishedAt: p.publishedAt || null,
+    updatedAt: p.updatedAt || null,
     excerpt: p.excerpt || null,
     category: p.category || null,
     readTime: p.readTime ?? null,
     relatedVenture: ventureSlug(p.relatedVenture),
+    // null → the post falls back to generated cover art keyed to its category + slug.
+    coverImage: resolveMedia(p.coverImage, mediaDocs),
+    seo: {
+      metaTitle: p.seo?.metaTitle || null,
+      metaDescription: p.seo?.metaDescription || null,
+      keywords: terms(p.seo?.keywords),
+    },
     body: p.body || null,
   }))
   await fs.writeFile(path.join(DATA_OUT_DIR, 'posts.json'), JSON.stringify(postExport, null, 2) + '\n')
@@ -207,11 +221,86 @@ async function run() {
     ctaText: siteMeta.ctaText || null,
     nav: (siteMeta.nav || []).map((n: any) => ({ label: n.label, href: n.href })),
     social: (siteMeta.social || []).map((s: any) => ({ label: s.label, url: s.url })),
+    seo: {
+      titleSuffix: siteMeta.seo?.titleSuffix || null,
+      defaultDescription: siteMeta.seo?.defaultDescription || null,
+      defaultKeywords: terms(siteMeta.seo?.defaultKeywords),
+      twitterSite: siteMeta.seo?.twitterSite || null,
+      jobTitle: siteMeta.seo?.jobTitle || null,
+      ogImage: resolveMedia(siteMeta.seo?.ogImage, mediaDocs),
+    },
   }
   await fs.writeFile(
     path.join(DATA_OUT_DIR, 'site-meta.json'),
     JSON.stringify(siteMetaExport, null, 2) + '\n',
   )
+
+  // ---- about global --------------------------------------------------------------
+  // Content-only. Social links / contact email deliberately live on siteMeta (single
+  // source of truth) — the About page reads those from site-meta.json, not from here.
+  const about = (await payload.findGlobal({ slug: 'about' })) as any
+  const aboutExport = {
+    metaDescription: about.metaDescription || null,
+    keywords: terms(about.keywords),
+    // null → the About page omits the whole portrait block rather than showing a placeholder.
+    profilePhoto: resolveMedia(about.profilePhoto, mediaDocs),
+    profilePhotoCaption: about.profilePhotoCaption || null,
+    location: about.location || null,
+    intro: about.intro || null,
+    bio: about.bio || null,
+    disciplines: (about.disciplines || []).map((d: any) => ({
+      label: d.label,
+      tagline: d.tagline || null,
+      accent: d.accent || 'engineering',
+      points: (d.points || []).map((p: any) => p.text).filter(Boolean),
+    })),
+    experience: (about.experience || []).map((e: any) => ({
+      org: e.org,
+      role: e.role || null,
+      period: e.period || null,
+      summary: e.summary || null,
+      stack: e.stack || null,
+    })),
+    principles: (about.principles || []).map((p: any) => ({
+      title: p.title,
+      body: p.body || null,
+    })),
+    now: about.now && about.now.text
+      ? { text: about.now.text, updated: about.now.updated || null }
+      : null,
+    selectedWork: (about.selectedWork || []).map((w: any) => ({
+      label: w.label,
+      href: w.href,
+      blurb: w.blurb || null,
+    })),
+  }
+  await fs.writeFile(
+    path.join(DATA_OUT_DIR, 'about.json'),
+    JSON.stringify(aboutExport, null, 2) + '\n',
+  )
+
+  // ---- blog categories global ------------------------------------------------------
+  // What a post's category MEANS: its display label, the venture palette it borrows, and the
+  // default cover it falls back to when the post brings none. resolveMedia registers the
+  // cover for copying, so the four generated defaults land in astro/src/assets/media with
+  // every other upload and go through Astro's image pipeline like a photograph would.
+  const blogCategories = (await payload.findGlobal({ slug: 'blog-categories', depth: 2 })) as any
+  const blogCategoryExport = (blogCategories.categories || []).map((c: any) => ({
+    value: c.value,
+    label: c.label || null,
+    accentVenture: ventureSlug(c.accentVenture),
+    defaultCover: resolveMedia(c.defaultCover, mediaDocs),
+  }))
+  await fs.writeFile(
+    path.join(DATA_OUT_DIR, 'blog-categories.json'),
+    JSON.stringify(blogCategoryExport, null, 2) + '\n',
+  )
+  const missingCover = blogCategoryExport.filter((c: any) => !c.defaultCover).map((c: any) => c.value)
+  if (missingCover.length) {
+    console.warn(
+      `[export] blog categories with no default cover: ${missingCover.join(', ')} — posts in them fall back to build-time generated art.`,
+    )
+  }
 
   // ---- media files -----------------------------------------------------------------
   const copiedCount = await copyMediaFiles(mediaDocs)

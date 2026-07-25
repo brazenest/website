@@ -6,8 +6,10 @@
  * The contact CTA at the bottom is house/neutral.
  */
 import Base from '../../../layouts/Base.astro'
-import { posts, venturesBySlug, siteMeta, isExternalHref, categoryLabel } from '../../../lib/content'
+import CoverArt from '../../../components/CoverArt.astro'
+import { posts, postHref, venturesBySlug, siteMeta, isExternalHref, categoryLabel, coverFor } from '../../../lib/content'
 import { renderRichText } from '../../../lib/richText'
+import { absoluteUrl, blogPostingSchema, breadcrumbSchema, ogImageFor, postKeywords } from '../../../lib/seo'
 
 export function getStaticPaths() {
   return posts.map((p) => ({
@@ -19,13 +21,56 @@ export function getStaticPaths() {
 const { post } = Astro.props
 const venture = post.relatedVenture ? venturesBySlug[post.relatedVenture as string] : venturesBySlug.house
 const published = post.publishedAt ? new Date(post.publishedAt) : null
+
+const url = absoluteUrl(postHref(post.slug))
+const cover = coverFor(post)
+const ogKey = `post-${post.slug}`
+const keywords = postKeywords(post)
+// The author's own metaDescription wins; the excerpt is the natural fallback since it is
+// already written as a summary.
+const description = post.seo?.metaDescription || post.excerpt || undefined
+const schema = [
+  blogPostingSchema(post, url, ogImageFor(ogKey), keywords),
+  breadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+    { name: post.title, path: postHref(post.slug) },
+  ]),
+]
 ---
 
-<Base title={`${post.title} — Alden Gillespy`} zone="neutral" work={venture.slug}>
+<Base
+  title={post.seo?.metaTitle || post.title}
+  description={description}
+  keywords={keywords}
+  ogKey={ogKey}
+  ogType="article"
+  article={{
+    publishedTime: post.publishedAt,
+    // No modifiedTime: Payload's updatedAt is a database timestamp, not a revision date —
+    // see modifiedDate() in lib/seo.ts for why publishing it would be actively misleading.
+    section: post.category ? categoryLabel(post.category) : null,
+  }}
+  schema={schema}
+  zone="neutral"
+  work={venture.slug}
+>
   <section class="z-neutral" data-zone="neutral" data-work={venture.slug}>
     <div class="col">
       <div class="crumb"><a href="/blog">Blog</a><span>/</span><span class="on">{post.title}</span></div>
       <article class="post">
+        {/* A category default is shared by every post in that category, so it carries no
+            information about THIS post — mark it decorative. A cover uploaded for the post
+            itself is content, and keeps its own alt text. */}
+        <CoverArt
+          image={cover.image}
+          palette={cover.palette}
+          seed={cover.seed}
+          alt={cover.source === 'post' ? cover.image?.alt || post.title : ''}
+          sizes="(max-width:1280px) 100vw, 1200px"
+          loading="eager"
+          class="post__hero"
+        />
         <header class="post__header">
           <h1 class="halo">{post.title}</h1>
           <div class="post__meta">
@@ -60,6 +105,11 @@ const published = post.publishedAt ? new Date(post.publishedAt) : null
 <style>
   .post {
     margin-block: clamp(30px, 3.4vw, 56px);
+  }
+  /* Wider than the reading column on purpose — the art is the page's one full-bleed moment
+     before the prose narrows back down. */
+  .post__hero {
+    margin-bottom: clamp(26px, 3vw, 48px);
   }
   .post__header {
     margin-bottom: clamp(30px, 3.4vw, 56px);

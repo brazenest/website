@@ -1,0 +1,46 @@
+[
+  {
+    "value": "engineering",
+    "label": "Engineering",
+    "accentVenture": "andacity",
+    "defaultCover": {
+      "filename": "blog-cover-engineering.png",
+      "alt": "Engineering — generated contour cover art",
+      "width": 1200,
+      "height": 630
+    }
+  },
+  {
+    "value": "cinematic",
+    "label": "Cinematic",
+    "accentVenture": "shadowcat",
+    "defaultCover": {
+      "filename": "blog-cover-cinematic.png",
+      "alt": "Cinematic — generated contour cover art",
+      "width": 1200,
+      "height": 630
+    }
+  },
+  {
+    "value": "process",
+    "label": "Process",
+    "accentVenture": "rotavox",
+    "defaultCover": {
+      "filename": "blog-cover-process.png",
+      "alt": "Process — generated contour cover art",
+      "width": 1200,
+      "height": 630
+    }
+  },
+  {
+    "value": "other",
+    "label": "Other Topics",
+    "accentVenture": "house",
+    "defaultCover": {
+      "filename": "blog-cover-other.png",
+      "alt": "Other Topics — generated contour cover art",
+      "width": 1200,
+      "height": 630
+    }
+  }
+]

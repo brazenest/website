@@ -32,4 +32,30 @@ export const siteMetaSeed = {
     { label: 'LinkedIn', url: 'https://www.linkedin.com/in/alden-gillespy' },
     { label: 'GitHub', url: 'https://github.com/brazenest' },
   ],
+  seo: siteMetaSeoSeed(),
+}
+
+/**
+ * Site-wide search/social defaults (v6.2). Deliberately BROAD — these are merged into every
+ * page, so anything specific belongs on the page itself (astro/src/lib/seo.ts owns the
+ * per-page term sets) or on the document in the admin. Backfilled onto an existing DB
+ * without touching any other siteMeta field — see the seo backfill in seed/index.ts.
+ */
+export function siteMetaSeoSeed() {
+  return {
+    titleSuffix: ' — Alden Gillespy',
+    defaultDescription:
+      'Alden Gillespy builds and operates software products end to end — and shoots the films. Engineering case studies, cinematic work, and working notes on both.',
+    defaultKeywords: [
+      { term: 'Alden Gillespy' },
+      { term: 'software engineer' },
+      { term: 'product engineer' },
+      { term: 'video producer' },
+      { term: 'Radiant Ventures' },
+    ],
+    // ⚠ author to verify — no X/Twitter handle was on record at v6.2. Blank omits the tag
+    // entirely (twitter:card still works without it).
+    twitterSite: null,
+    jobTitle: 'Software Engineer & Video Producer',
+  }
 }

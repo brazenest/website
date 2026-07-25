@@ -8,9 +8,20 @@
 import Base from '../layouts/Base.astro'
 import ContactForm from '../components/ContactForm.astro'
 import { siteMeta, isExternalHref } from '../lib/content'
+import { PAGE_KEYWORDS, breadcrumbSchema } from '../lib/seo'
+
+const schema = [breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Contact', path: '/contact' }])]
 ---
 
-<Base title="Contact — Alden Gillespy" zone="neutral" work="house">
+<Base
+  title="Contact"
+  description="Get in touch about engineering work, a film or photography commission, a full-time role, or a collaboration. Every message comes straight to me."
+  keywords={PAGE_KEYWORDS.contact}
+  ogKey="contact"
+  schema={schema}
+  zone="neutral"
+  work="house"
+>
   <section class="z-neutral" data-zone="neutral" data-work="house">
     <div class="col">
       <div class="crumb"><span>Contact</span></div>

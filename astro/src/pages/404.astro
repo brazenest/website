@@ -7,7 +7,14 @@
 import Base from '../layouts/Base.astro'
 ---
 
-<Base title="Not found — Alden Gillespy" zone="neutral" work="house">
+{/* noindex: a 404 must never be indexed, but `follow` keeps the recovery links crawlable. */}
+<Base
+  title="Page not found"
+  description="That link is broken or the page moved. Everything I've built is one hop away."
+  noindex
+  zone="neutral"
+  work="house"
+>
   <section class="z-neutral" data-zone="neutral" data-work="house" style="min-height:62vh;display:flex;align-items:center">
     <div class="col">
       <span class="mono">404</span>

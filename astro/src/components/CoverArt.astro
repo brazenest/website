@@ -1,0 +1,60 @@
+---
+/**
+ * A post's visual (v6.2). Takes whatever coverFor() resolved — the post's own upload, its
+ * category's default, or nothing — and renders it. Nothing in the blog is ever imageless.
+ *
+ * Uploads (including the four seeded category defaults) go through Astro's image pipeline so
+ * they arrive responsively sized and in a modern format. The generated fallback is inlined as
+ * SVG rather than referenced as a file: a few hundred bytes, no extra request, and it
+ * recolours with the palette in both light and dark mode.
+ */
+import { Image } from 'astro:assets'
+import { buildCover, coverSvg } from '../lib/coverArt'
+import type { Palette } from '../lib/coverArt'
+import type { MediaRef } from '../data/types'
+
+interface Props {
+  /** The resolved image, or null to draw generated art. From coverFor(). */
+  image: MediaRef | null
+  /** Colour world for the generated fallback. From coverFor(). */
+  palette: Palette
+  /** Stable seed for the generated geometry. From coverFor(). */
+  seed: string
+  /** Overrides the upload's own alt text. Pass '' to mark it decorative. */
+  alt?: string
+  sizes?: string
+  class?: string
+  loading?: 'lazy' | 'eager'
+}
+
+const {
+  image,
+  palette,
+  seed,
+  alt,
+  sizes = '(max-width:860px) 100vw, 480px',
+  class: className = '',
+  loading = 'lazy',
+} = Astro.props
+
+// Astro needs a static glob to bundle the exported uploads; the export writes them all here.
+const uploads = import.meta.glob<{ default: ImageMetadata }>('../assets/media/*.{jpg,jpeg,png,webp,avif,gif}')
+const uploadLoader = image ? uploads[`../assets/media/${image.filename}`] : undefined
+
+// A referenced upload missing from src/assets/media (export run against a different media
+// dir, file deleted by hand) must not blank the card — fall back to the generated art.
+const svg = uploadLoader ? null : coverSvg(buildCover(seed, palette), { inline: true })
+const resolvedAlt = alt ?? image?.alt ?? ''
+---
+
+{
+  uploadLoader ? (
+    <figure class={`cover cover--photo ${className}`}>
+      <Image src={uploadLoader()} alt={resolvedAlt} sizes={sizes} loading={loading} widths={[480, 960, 1440]} />
+    </figure>
+  ) : (
+    /* Generated art carries no information the page doesn't already state in text, so it is
+       hidden from assistive tech rather than described by its own colours. */
+    <figure class={`cover cover--art ${className}`} aria-hidden="true" set:html={svg} />
+  )
+}
