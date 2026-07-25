@@ -1,0 +1,6 @@
+{
+  "projectId": "5dc4b945-6d3d-41af-9f49-cd948ea0214e",
+  "projectName": "aldengillespy.com — Colour Engine",
+  "shape": "tokens-only",
+  "note": "This repo is an Astro/Payload website, not a React component library — there is no bundlable component design system to sync. Only design tokens (colour engine, type, spacing, motion) and self-hosted fonts are synced. See .design-sync/NOTES.md."
+}
