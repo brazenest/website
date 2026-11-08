@@ -22,6 +22,8 @@ const shadowcatFilm = filmsByVentureSlug.shadowcat
 const shadowcatFrame = mediaImage(shadowcatFilm?.heroImage)
 const rotavoxScreen = caseStudyLeadScreen('rotavox')
 const rotavoxShot = mediaImage(rotavoxScreen)
+const andacityScreen = caseStudyLeadScreen('andacity')
+const andacityShot = mediaImage(andacityScreen)
 ---
 
 <Base
@@ -147,9 +149,13 @@ const rotavoxShot = mediaImage(rotavoxScreen)
           <a class="go" href={andacityHref}>Read the case study <span>→</span></a>
         </div>
         <div class="work__a">
-          <div class="shot" style="--a:#0A1A3A;--b:#4F86FF;--c2:#050d1f">
-            <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="lab"><b>Andacity</b> <span>Hard crop · UI · 2026</span></div>
+          <div class:list={['shot', andacityShot && 'shot--img']} style="--a:#0A1A3A;--b:#4F86FF;--c2:#050d1f;--op:0% 0%">
+            {andacityShot ? (
+              <Image class="shot__img" src={andacityShot} alt={andacityScreen?.alt || 'Andacity'} widths={[480, 960, 1280]} sizes="(max-width:760px) 100vw, 45vw" />
+            ) : (
+              <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            )}
+            <div class="lab"><b>Andacity</b> <span>Dev build · 2026</span></div>
           </div>
         </div>
       </div>

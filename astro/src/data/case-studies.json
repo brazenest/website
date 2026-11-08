@@ -558,10 +558,35 @@
     ],
     "queryTrace": null,
     "decisions": [],
-    "screens": [],
+    "screens": [
+      {
+        "filename": "andacity-home.png",
+        "alt": "Home — one search for flights, hotels, cars and destinations",
+        "width": 1020,
+        "height": 765
+      },
+      {
+        "filename": "andacity-flight-results.png",
+        "alt": "Flight results — Denver to New York, every total including taxes and fees",
+        "width": 1020,
+        "height": 765
+      },
+      {
+        "filename": "andacity-flight-itinerary.png",
+        "alt": "A flight itinerary — one canonical entity, resolved from provider inventory",
+        "width": 1020,
+        "height": 765
+      },
+      {
+        "filename": "andacity-car-results.png",
+        "alt": "Car rentals at DEN — filtered, ranked, and priced as a full total",
+        "width": 1020,
+        "height": 765
+      }
+    ],
     "interface": {
-      "mode": "hidden",
-      "note": null
+      "mode": "show",
+      "note": "Hard crops of the dev build at dev.andacity.com — one search, then flights and cars resolved to the same canonical places and itinerary."
     },
     "results": [
       {

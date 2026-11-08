@@ -4,7 +4,7 @@ loadEnv()
 import { venturesSeed } from './ventures'
 import { memreyCaseStudySeed } from './memrey'
 import { rotavoxCaseStudySeed, rotavoxScreenFiles } from './rotavox'
-import { andacityCaseStudySeed } from './andacity'
+import { andacityCaseStudySeed, andacityScreenFiles } from './andacity'
 import { shadowcatFilmSeed, shadowcatFilmImages } from './films'
 import { upsertSeedMedia, seedImageArray } from './media'
 import { siteMetaSeed, siteMetaSeoSeed } from './site-meta'
@@ -87,7 +87,8 @@ async function run() {
   // Seed-owned imagery (src/seed/assets): uploaded idempotently by filename, then wired in.
   const rotavoxScreens = await seedImageArray(payload, rotavoxScreenFiles)
   await upsertByVenture('case-studies', 'rotavox', { ...rotavoxCaseStudySeed, screens: rotavoxScreens })
-  await upsertByVenture('case-studies', 'andacity', andacityCaseStudySeed)
+  const andacityScreens = await seedImageArray(payload, andacityScreenFiles)
+  await upsertByVenture('case-studies', 'andacity', { ...andacityCaseStudySeed, screens: andacityScreens })
   const filmHero = await upsertSeedMedia(payload, shadowcatFilmImages.hero.file, shadowcatFilmImages.hero.alt)
   const filmStills = await seedImageArray(payload, shadowcatFilmImages.stills)
   await upsertByVenture('films', 'shadowcat', {

@@ -64,6 +64,17 @@ export const andacityCaseStudySeed = {
     { value: '1', label: 'engineer, from the edge render to the database' },
   ],
   resultsCaveat: null,
-  // Hidden until real screenshots exist — then upload them to `screens` and flip to 'show'.
-  interface: { mode: 'hidden' as const, note: null },
+  interface: {
+    mode: 'show' as const,
+    note: 'Hard crops of the dev build at dev.andacity.com — one search, then flights and cars resolved to the same canonical places and itinerary.',
+  },
 }
+
+/** Dev-build screenshots (src/seed/assets/andacity), uploaded by the seed and wired into `screens`.
+ *  The first is the lead image on the home and /engineering cards. */
+export const andacityScreenFiles = [
+  { file: 'andacity/andacity-home.png', alt: 'Home — one search for flights, hotels, cars and destinations' },
+  { file: 'andacity/andacity-flight-results.png', alt: 'Flight results — Denver to New York, every total including taxes and fees' },
+  { file: 'andacity/andacity-flight-itinerary.png', alt: 'A flight itinerary — one canonical entity, resolved from provider inventory' },
+  { file: 'andacity/andacity-car-results.png', alt: 'Car rentals at DEN — filtered, ranked, and priced as a full total' },
+]
