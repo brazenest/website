@@ -13,8 +13,9 @@ important near the top or bottom edge.
 ## Style recipe (paste first, every time)
 
 > Editorial conceptual still-life photograph for a technology and film journal. A single physical object or small
-> arrangement that stands in for the idea, shot in a dark studio against a deep near-black seamless backdrop. Soft
-> directional key light from one side, gentle falloff, shallow depth of field, fine film grain. One dominant accent
+> arrangement that stands in for the idea, shot in a moody studio against a deep charcoal seamless backdrop (not pure
+> black), lifted shadows with visible detail. Soft directional key light from one side, gentle falloff, the
+> subject brightly and clearly lit, shallow depth of field, fine film grain. One dominant accent
 > colour: **{ACCENT}**. Everything else is neutral charcoal and warm grey. Minimal, calm, generous negative space,
 > subject centred in the middle horizontal band of a 16:9 frame. No text, no letters, no numbers, no logos, no
 > brand marks, no screens showing UI, no human faces.
