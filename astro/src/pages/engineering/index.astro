@@ -13,6 +13,15 @@ import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords } from '../
 
 // Per-venture display copy for the listing. Kept here (bespoke editorial, like the home
 // section) — the CMS drives palette/name/zone; the headline + blurb are page copy.
+// Ventures whose interface can't be shown get a wordmark panel instead of placeholder bars —
+// kept identical to the home page's card for the same venture.
+const WORDMARKS: Record<string, { style: string; font: string }> = {
+  memrey: {
+    style: '--a:#2A0F3A;--b:#C7513F;--c2:#150720',
+    font: "font-family:'Fraunces',serif;font-weight:700;font-size:clamp(28px,3vw,52px);letter-spacing:-.02em",
+  },
+}
+
 const COPY: Record<string, { meta: string; headline: string; blurb: string }> = {
   memrey: {
     meta: '2025 — NOW',
@@ -92,6 +101,8 @@ const secondary = [
           const { deep, hi, key } = v.palette
           const leadRef = caseStudyLeadScreen(v.slug)
           const lead = mediaImage(leadRef)
+          // No screens to show (Memrey is under NDA): the same wordmark panel as its home card.
+          const wordmark = !lead ? WORDMARKS[v.slug] : undefined
           return (
             <div class="work" data-work={v.slug} data-reveal>
               <div class="work__t">
@@ -105,9 +116,11 @@ const secondary = [
                 )}
               </div>
               <div class="work__a">
-                <div class:list={['shot', lead && 'shot--img']} style={`--a:${deep};--b:${hi};--c2:#0b0710;--op:0% 0%`}>
+                <div class:list={['shot', lead && 'shot--img']} style={wordmark ? wordmark.style : `--a:${deep};--b:${hi};--c2:#0b0710;--op:0% 0%`}>
                   {lead ? (
                     <Image class="shot__img" src={lead} alt={leadRef?.alt || `${v.name} interface`} widths={[480, 960, 1280]} sizes="(max-width:760px) 100vw, 45vw" />
+                  ) : wordmark ? (
+                    <span class="wm" style={wordmark.font}>{v.name}</span>
                   ) : (
                     <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
                   )}
