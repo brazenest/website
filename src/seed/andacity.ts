@@ -12,7 +12,7 @@ import { richText } from './lexical'
  */
 export const andacityCaseStudySeed = {
   role: 'Founder, architect, designer, sole engineer',
-  timeline: '2024 — present',
+  timeline: '2025 — present',
   status: 'In development',
   hook: 'Booking a flight is easy. Deciding what the trip should be is the part every travel site leaves to you.',
   stack: [
