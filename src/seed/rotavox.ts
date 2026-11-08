@@ -11,7 +11,7 @@ import { richText } from './lexical'
  */
 export const rotavoxCaseStudySeed = {
   role: 'Founder, architect, designer, sole engineer',
-  timeline: '2024 — present',
+  timeline: '2026 — present',
   status: 'Early access — waitlist open at rotavox.com',
   hook: 'Most internet radio still runs on shuffle. Rotavox schedules it the way a real station does — deliberately.',
   // ⚠ draft stack — confirm/replace in Payload.

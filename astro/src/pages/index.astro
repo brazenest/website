@@ -10,7 +10,7 @@
 import Base from '../layouts/Base.astro'
 import { Image } from 'astro:assets'
 import { mediaImage } from '../lib/media'
-import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, filmHref, filmsByVentureSlug, isExternalHref } from '../lib/content'
+import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, caseStudyLeadScreen, filmHref, filmsByVentureSlug, isExternalHref } from '../lib/content'
 import { PAGE_KEYWORDS } from '../lib/seo'
 
 const chips = spectrumVentures()
@@ -20,6 +20,8 @@ const andacityHref = caseStudyHref('andacity') ?? '/engineering'
 const shadowcatHref = filmHref('shadowcat') ?? '/#media'
 const shadowcatFilm = filmsByVentureSlug.shadowcat
 const shadowcatFrame = mediaImage(shadowcatFilm?.heroImage)
+const rotavoxScreen = caseStudyLeadScreen('rotavox')
+const rotavoxShot = mediaImage(rotavoxScreen)
 ---
 
 <Base
@@ -120,15 +122,19 @@ const shadowcatFrame = mediaImage(shadowcatFilm?.heroImage)
 
       <div class="work" id="rotavox" data-work="rotavox" data-reveal>
         <div class="work__t">
-          <div class="work__meta"><span class="wchip">Rotavox</span><span class="work__yr">2024 — NOW</span></div>
+          <div class="work__meta"><span class="wchip">Rotavox</span><span class="work__yr">2026 — NOW</span></div>
           <h4>Scheduling software for radio, rebuilt from nothing.</h4>
           <p>The planner, the engine, the library, the reporting. One system, one person, and a real network running on it every day.</p>
           <a class="go" href={rotavoxHref}>Read the case study <span>→</span></a>
         </div>
         <div class="work__a">
-          <div class="shot" style="--a:#05261A;--b:#38D08C;--c2:#03150F">
-            <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-            <div class="lab"><b>Rotavox</b> <span>Hard crop · the planner · 2024</span></div>
+          <div class:list={['shot', rotavoxShot && 'shot--img']} style="--a:#0B0B0C;--b:#D4FF00;--c2:#050505;--op:0% 0%">
+            {rotavoxShot ? (
+              <Image class="shot__img" src={rotavoxShot} alt={rotavoxScreen?.alt || 'The Rotavox Cockpit'} widths={[480, 960, 1280]} sizes="(max-width:760px) 100vw, 45vw" />
+            ) : (
+              <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+            )}
+            <div class="lab"><b>Rotavox</b> <span>The Cockpit · 2026</span></div>
           </div>
         </div>
       </div>

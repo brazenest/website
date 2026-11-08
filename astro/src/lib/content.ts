@@ -57,6 +57,11 @@ export const caseStudiesByVentureSlug: Record<string, CaseStudy> = Object.fromEn
   caseStudies.filter((c) => c.venture).map((c) => [c.venture as string, c]),
 )
 
+/** The first real interface screen of a venture's case study (null if none are shown). */
+export function caseStudyLeadScreen(ventureSlug: string) {
+  return caseStudiesByVentureSlug[ventureSlug]?.screens?.[0] ?? null
+}
+
 export function caseStudyHref(ventureSlug: string): string | null {
   return caseStudiesByVentureSlug[ventureSlug] ? `/engineering/${ventureSlug}` : null
 }
