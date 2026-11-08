@@ -1,0 +1,28 @@
+{
+  // First-party relay for PostHog analytics on aldengillespy.com.
+  //
+  // Why it exists: ad/tracker blockers drop requests to *.posthog.com, and this
+  // site's audience (engineers, founders, recruiters) blocks at a high rate. Served
+  // from our own subdomain, the SDK's requests look like any other first-party call.
+  //
+  // Naming is deliberate: blocklists match words like "analytics", "tracking",
+  // "telemetry", "posthog" and "ph" in hostnames and paths, so the Worker name and
+  // the subdomain ("e.") avoid all of them. Do not rename it to something descriptive.
+  //
+  // The Pages site stays 100% static (BUILD.md §1) — this is a separate Worker,
+  // like contact-worker. Free tier: 100k requests/day.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aldengillespy-edge",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-01",
+  "workers_dev": false,
+  "routes": [{ "pattern": "e.aldengillespy.com", "custom_domain": true }],
+
+  "vars": {
+    // PostHog cloud region. US: us.i.posthog.com / us-assets.i.posthog.com.
+    // EU: eu.i.posthog.com / eu-assets.i.posthog.com. Must match the region the
+    // PostHog project was created in, and POSTHOG_UI_HOST in astro/src/config/analytics.ts.
+    "API_HOST": "us.i.posthog.com",
+    "ASSET_HOST": "us-assets.i.posthog.com"
+  }
+}

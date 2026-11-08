@@ -387,7 +387,8 @@ const fieldId = (name: string) => `${id}-${name}`
 
         if (data.ok) {
           // Hand off to the global success modal; the contact modal (if open) closes.
-          document.dispatchEvent(new CustomEvent('contact:success'))
+          // detail.category feeds the analytics `contact_submitted` event (no personal fields).
+          document.dispatchEvent(new CustomEvent('contact:success', { detail: { category: payload.category } }))
           form.reset()
           clearErrors()
           return

@@ -315,6 +315,7 @@ const zones = [
       import { initEngine } from '../scripts/engine.ts'
       import { initReveal } from '../scripts/reveal.ts'
       import { initNav } from '../scripts/nav.ts'
+      import { initAnalytics } from '../scripts/analytics.ts'
 
       // ORDER IS BY USER IMPACT, not by importance to the design.
       //
@@ -342,6 +343,13 @@ const zones = [
       }
       try {
         initEngine()
+      } catch (e) {
+        console.error(e)
+      }
+      // Analytics last: it defers itself to after load + idle, so it never competes with
+      // the reveal. No-op off the production host or without a PostHog token.
+      try {
+        initAnalytics()
       } catch (e) {
         console.error(e)
       }
