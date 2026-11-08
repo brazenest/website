@@ -74,10 +74,19 @@ try {
   )
   if (result.status !== 0) throw new Error(`chrome exited ${result.status}: ${result.stderr}`)
   await fs.copyFile(tmp, OUT_DIST)
-  await fs.copyFile(tmp, OUT_PUBLIC)
+  // Chrome stamps CreationDate/ModDate into every print, so an unchanged résumé would still
+  // dirty the committed public/resume.pdf on each deploy. Only replace it when something
+  // other than those timestamps differs.
+  const stripDates = (buf) => buf.toString('latin1').replace(/\/(CreationDate|ModDate) \(D:[^)]*\)/g, '')
+  const fresh = await fs.readFile(tmp)
+  const current = await fs.readFile(OUT_PUBLIC).catch(() => null)
+  const changed = !current || stripDates(current) !== stripDates(fresh)
+  if (changed) await fs.copyFile(tmp, OUT_PUBLIC)
   await fs.rm(tmp)
-  const { size } = await fs.stat(OUT_PUBLIC)
-  console.log(`[resume:pdf] wrote dist/resume.pdf + public/resume.pdf (${(size / 1024).toFixed(0)} KB)`)
+  const { size } = await fs.stat(OUT_DIST)
+  console.log(
+    `[resume:pdf] wrote dist/resume.pdf (${(size / 1024).toFixed(0)} KB); public/resume.pdf ${changed ? 'updated' : 'unchanged'}`,
+  )
 } finally {
   try {
     process.kill(-server.pid)
