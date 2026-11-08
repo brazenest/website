@@ -13,6 +13,7 @@
  */
 import { Image } from 'astro:assets'
 import Base from '../layouts/Base.astro'
+import AboutInterlude from '../components/AboutInterlude.astro'
 import { about, siteMeta, ventures, venturesByZone, isExternalHref } from '../lib/content'
 import { renderRichText } from '../lib/richText'
 import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, jobTitle, mergeKeywords } from '../lib/seo'
@@ -97,6 +98,7 @@ const accentFor = (a: string) => (a === 'media' ? medAccent : engAccent)
       </header>
 
       {bioHtml && <div class="about__bio prose" data-reveal style="--reveal-i:1" set:html={bioHtml} />}
+      <AboutInterlude after="bio" />
 
       {about.disciplines.length > 0 && (
         <div class="disc" data-reveal style="--reveal-i:2">
@@ -119,6 +121,8 @@ const accentFor = (a: string) => (a === 'media' ? medAccent : engAccent)
         </div>
       )}
 
+      <AboutInterlude after="disciplines" />
+
       {about.experience.length > 0 && (
         <div class="xp" data-reveal style="--reveal-i:3">
           <h2 class="sec__title"><span class="mono">Experience</span></h2>
@@ -140,6 +144,8 @@ const accentFor = (a: string) => (a === 'media' ? medAccent : engAccent)
         </div>
       )}
 
+      <AboutInterlude after="experience" />
+
       {about.principles.length > 0 && (
         <div class="pr" data-reveal>
           <h2 class="sec__title"><span class="mono">How I work</span></h2>
@@ -153,6 +159,8 @@ const accentFor = (a: string) => (a === 'media' ? medAccent : engAccent)
           </div>
         </div>
       )}
+
+      <AboutInterlude after="principles" />
 
       {about.now && (
         <div class="now" data-reveal>

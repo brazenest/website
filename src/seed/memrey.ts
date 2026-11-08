@@ -106,6 +106,11 @@ export const memreyCaseStudySeed = {
     { value: '<1s', label: 'median retrieval over the demo corpus' },
     { value: '0', label: 'tags a user has to write, ever' },
   ],
+  // The product UI is under NDA at this stage — the page shows a notice instead of screens.
+  interface: {
+    mode: 'nda' as const,
+    note: 'Memrey’s interface is under NDA at this phase of development. I’m glad to walk through it live — get in touch.',
+  },
   resultsCaveat:
     "These are the numbers I can stand behind today. When the beta opens I'll replace them with the ones that matter — corpus size, recall, and how often the first result is the right one.",
 }

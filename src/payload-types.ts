@@ -99,11 +99,13 @@ export interface Config {
     'site-meta': SiteMeta;
     about: About;
     'blog-categories': BlogCategory;
+    resume: Resume;
   };
   globalsSelect: {
     'site-meta': SiteMetaSelect<false> | SiteMetaSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
     'blog-categories': BlogCategoriesSelect<false> | BlogCategoriesSelect<true>;
+    resume: ResumeSelect<false> | ResumeSelect<true>;
   };
   locale: null;
   widgets: {
@@ -209,6 +211,18 @@ export interface Venture {
      * Optional override for the text colour on key. Must clear 4.5:1 contrast against key — it snaps, never interpolates. Leave blank to compute at export.
      */
     on?: string | null;
+    /**
+     * Optional dark-mode key. For a brand whose key only works on one ground — e.g. Rotavox: ink in light mode, volt on ink in dark (volt is never legal on a light surface).
+     */
+    keyDark?: string | null;
+    /**
+     * Optional dark-mode second colour (defaults to hi).
+     */
+    hiDark?: string | null;
+    /**
+     * Optional text colour on keyDark. Leave blank to compute at export (4.5:1 snap).
+     */
+    onDark?: string | null;
   };
   links?:
     | {
@@ -349,6 +363,16 @@ export interface CaseStudy {
         id?: string | null;
       }[]
     | null;
+  /**
+   * The "The interface" section. Show = render the screens below; NDA = replace them with an "under NDA" notice (screens are NOT exported); Hidden = omit the section.
+   */
+  interface?: {
+    mode?: ('show' | 'nda' | 'hidden') | null;
+    /**
+     * Optional. Replaces the default line under the heading (or the NDA notice copy).
+     */
+    note?: string | null;
+  };
   /**
    * Hard-crop UI images.
    */
@@ -645,6 +669,9 @@ export interface VenturesSelect<T extends boolean = true> {
         deep?: T;
         lift?: T;
         on?: T;
+        keyDark?: T;
+        hiDark?: T;
+        onDark?: T;
       };
   links?:
     | T
@@ -710,6 +737,12 @@ export interface CaseStudiesSelect<T extends boolean = true> {
         question?: T;
         answer?: T;
         id?: T;
+      };
+  interface?:
+    | T
+    | {
+        mode?: T;
+        note?: T;
       };
   screens?:
     | T
@@ -960,6 +993,20 @@ export interface About {
     [k: string]: unknown;
   } | null;
   /**
+   * Full-width images that break up the long page. Pick an image, a caption, and which section it follows. Several can follow the same section — they sit side by side.
+   */
+  interludes?:
+    | {
+        image: number | Media;
+        /**
+         * Optional line under the image.
+         */
+        caption?: string | null;
+        after: 'bio' | 'disciplines' | 'experience' | 'principles';
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * The two sides of the work — engineering and cinematic production. Two entries; each renders as a column with its capability points.
    */
   disciplines?:
@@ -1078,6 +1125,86 @@ export interface BlogCategory {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resume".
+ */
+export interface Resume {
+  id: number;
+  name: string;
+  /**
+   * One line under the name.
+   */
+  headline?: string | null;
+  location?: string | null;
+  summary?: string | null;
+  /**
+   * Shown in the header, in order. Leave href blank for plain text.
+   */
+  contact?:
+    | {
+        label: string;
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  experience?:
+    | {
+        title: string;
+        organization: string;
+        timeframe?: string | null;
+        /**
+         * e.g. "Remote · Contract".
+         */
+        context?: string | null;
+        bullets?:
+          | {
+              text: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Independent products (Radiant Ventures).
+   */
+  ventures?:
+    | {
+        name: string;
+        category?: string | null;
+        status?: string | null;
+        tagline?: string | null;
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  skills?:
+    | {
+        title: string;
+        /**
+         * Comma-separated.
+         */
+        items?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * ⚠ Rows are only shown when "verified" is ticked — the institution/degree details were flagged for verification (see the About notes).
+   */
+  education?:
+    | {
+        credential: string;
+        institution?: string | null;
+        timeframe?: string | null;
+        description?: string | null;
+        verified?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "site-meta_select".
  */
 export interface SiteMetaSelect<T extends boolean = true> {
@@ -1140,6 +1267,14 @@ export interface AboutSelect<T extends boolean = true> {
   location?: T;
   intro?: T;
   bio?: T;
+  interludes?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        after?: T;
+        id?: T;
+      };
   disciplines?:
     | T
     | {
@@ -1201,6 +1336,68 @@ export interface BlogCategoriesSelect<T extends boolean = true> {
         label?: T;
         accentVenture?: T;
         defaultCover?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resume_select".
+ */
+export interface ResumeSelect<T extends boolean = true> {
+  name?: T;
+  headline?: T;
+  location?: T;
+  summary?: T;
+  contact?:
+    | T
+    | {
+        label?: T;
+        href?: T;
+        id?: T;
+      };
+  experience?:
+    | T
+    | {
+        title?: T;
+        organization?: T;
+        timeframe?: T;
+        context?: T;
+        bullets?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  ventures?:
+    | T
+    | {
+        name?: T;
+        category?: T;
+        status?: T;
+        tagline?: T;
+        href?: T;
+        id?: T;
+      };
+  skills?:
+    | T
+    | {
+        title?: T;
+        items?: T;
+        id?: T;
+      };
+  education?:
+    | T
+    | {
+        credential?: T;
+        institution?: T;
+        timeframe?: T;
+        description?: T;
+        verified?: T;
         id?: T;
       };
   updatedAt?: T;

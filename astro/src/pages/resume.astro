@@ -1,0 +1,292 @@
+---
+/**
+ * RÉSUMÉ — /resume (v6.3). The canonical résumé: real, indexable HTML in the house identity,
+ * with a print stylesheet that strips the site chrome and sets it on US Letter. The
+ * downloadable /resume.pdf is printed FROM this page (`pnpm --dir astro run resume:pdf`), so
+ * the PDF and the page can never drift. Content: the Payload `resume` global → resume.json.
+ *
+ * Deliberately no data-reveal here: nothing on a résumé should depend on a script running —
+ * not for a recruiter's crawler, not for an ATS, and not for the headless print.
+ */
+import Base from '../layouts/Base.astro'
+import { resume, isExternalHref } from '../lib/content'
+import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords } from '../lib/seo'
+
+const description = resume.summary
+  ? resume.summary.split('. ')[0] + '.'
+  : 'Résumé of Alden Gillespy — software engineer, founder, and filmmaker.'
+
+const keywords = mergeKeywords(
+  ['Alden Gillespy résumé', 'Alden Gillespy resume', 'software engineer resume'],
+  resume.skills.flatMap((s) => s.items).slice(0, 12),
+  PAGE_KEYWORDS.about,
+)
+
+const schema = [
+  breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Résumé', path: '/resume' }]),
+  {
+    '@type': 'ProfilePage',
+    '@id': `${absoluteUrl('/resume')}#resume`,
+    url: absoluteUrl('/resume'),
+    name: `${resume.name} — Résumé`,
+    description,
+    mainEntity: {
+      '@id': `${absoluteUrl('/')}#person`,
+      '@type': 'Person',
+      name: resume.name,
+      ...(resume.headline ? { description: resume.headline } : {}),
+      knowsAbout: resume.skills.flatMap((s) => s.items),
+      worksFor: resume.experience
+        .filter((e) => /present/i.test(e.timeframe ?? ''))
+        .flatMap((e) => e.organization.split('·').map((o) => ({ '@type': 'Organization', name: o.trim() }))),
+      ...(resume.education.length
+        ? {
+            alumniOf: resume.education
+              .filter((e) => e.institution)
+              .map((e) => ({ '@type': 'EducationalOrganization', name: e.institution })),
+          }
+        : {}),
+    },
+  },
+]
+
+const ext = (href: string) =>
+  isExternalHref(href) && !href.endsWith('.pdf') ? { target: '_blank', rel: 'noopener noreferrer' } : {}
+---
+
+<Base
+  title={`Résumé — ${resume.name}`}
+  description={description}
+  keywords={keywords}
+  ogKey="resume"
+  ogType="profile"
+  schema={schema}
+  zone="neutral"
+  work="house"
+>
+  <section class="z-neutral cv" data-zone="neutral" data-work="house">
+    <div class="col">
+      <div class="crumb cv__noprint"><span class="on">Résumé</span></div>
+
+      <header class="cv__head">
+        <div>
+          <h1 class="cv__name">{resume.name}</h1>
+          {resume.headline && <p class="cv__headline">{resume.headline}</p>}
+          <ul class="cv__contact">
+            {resume.location && <li>{resume.location}</li>}
+            {resume.contact.map((c) => (
+              <li>{c.href ? <a href={c.href} {...ext(c.href)}>{c.label}</a> : c.label}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="cv__actions cv__noprint">
+          <a class="go" href="/resume.pdf" download="Alden-Gillespy-Resume.pdf">Download PDF <span>↓</span></a>
+          <button class="cv__print mono" type="button" onclick="window.print()">Print</button>
+        </div>
+      </header>
+
+      {resume.summary && (
+        <section class="cv__sec" aria-labelledby="cv-summary">
+          <h2 id="cv-summary" class="cv__h">Summary</h2>
+          <p class="cv__summary">{resume.summary}</p>
+        </section>
+      )}
+
+      {resume.experience.length > 0 && (
+        <section class="cv__sec" aria-labelledby="cv-xp">
+          <h2 id="cv-xp" class="cv__h">Experience</h2>
+          {resume.experience.map((e) => (
+            <article class="cv__job">
+              <div class="cv__jobhead">
+                <h3 class="cv__role">{e.title} <span class="cv__org">· {e.organization}</span></h3>
+                {e.timeframe && <span class="cv__when num">{e.timeframe}</span>}
+              </div>
+              {e.context && <p class="cv__ctx">{e.context}</p>}
+              {e.bullets.length > 0 && (
+                <ul class="cv__bullets">
+                  {e.bullets.map((b) => <li>{b}</li>)}
+                </ul>
+              )}
+            </article>
+          ))}
+        </section>
+      )}
+
+      {resume.ventures.length > 0 && (
+        <section class="cv__sec" aria-labelledby="cv-ventures">
+          <h2 id="cv-ventures" class="cv__h">Independent products · Radiant Ventures</h2>
+          <div class="cv__ventures">
+            {resume.ventures.map((v) => (
+              <div class="cv__venture">
+                <div class="cv__vhead">
+                  <h3 class="cv__vname">
+                    {v.href ? <a href={v.href} {...ext(v.href)}>{v.name}</a> : v.name}
+                  </h3>
+                  <span class="cv__vmeta mono">{[v.category, v.status].filter(Boolean).join(' · ')}</span>
+                </div>
+                {v.tagline && <p>{v.tagline}</p>}
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {resume.skills.length > 0 && (
+        <section class="cv__sec" aria-labelledby="cv-skills">
+          <h2 id="cv-skills" class="cv__h">Skills</h2>
+          <dl class="cv__skills">
+            {resume.skills.map((g) => (
+              <div>
+                <dt>{g.title}</dt>
+                <dd>{g.items.join(' · ')}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )}
+
+      {resume.education.length > 0 && (
+        <section class="cv__sec" aria-labelledby="cv-edu">
+          <h2 id="cv-edu" class="cv__h">Education</h2>
+          {resume.education.map((e) => (
+            <div class="cv__job">
+              <div class="cv__jobhead">
+                <h3 class="cv__role">{e.credential}{e.institution && <span class="cv__org"> · {e.institution}</span>}</h3>
+                {e.timeframe && <span class="cv__when num">{e.timeframe}</span>}
+              </div>
+              {e.description && <p class="cv__ctx">{e.description}</p>}
+            </div>
+          ))}
+        </section>
+      )}
+
+      <p class="cv__foot cv__printonly">aldengillespy.com/resume — the live version of this document.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cv { padding-block: clamp(28px, 4vw, 60px) clamp(48px, 5vw, 84px); }
+  .cv .crumb { margin-bottom: clamp(18px, 2.4vw, 30px); }
+  .cv .col { max-width: 920px; }
+
+  .cv__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding-bottom: clamp(18px, 2vw, 28px);
+    border-bottom: 3px solid var(--w-key);
+  }
+  .cv__name { font-size: clamp(38px, 5.4vw, 72px); line-height: 0.95; letter-spacing: -0.03em; }
+  .cv__headline { margin-top: 12px; font-size: clamp(16px, 1.35vw, 20px); color: var(--muted); }
+  .cv__contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 16px;
+    padding: 0;
+    list-style: none;
+    font-family: var(--f-m);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  .cv__contact a { color: inherit; text-decoration-color: color-mix(in srgb, var(--w-key) 60%, transparent); text-underline-offset: 3px; }
+  .cv__actions { display: flex; align-items: center; gap: 18px; }
+  .cv__actions .go { margin-top: 0; }
+  .cv__print {
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: none;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .cv__print:hover { color: var(--ink); border-color: var(--w-key); }
+
+  .cv__sec { margin-top: clamp(30px, 3.2vw, 48px); }
+  .cv__h {
+    margin-bottom: 14px;
+    font-family: var(--f-m);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .cv__summary { max-width: 72ch; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.6; }
+
+  .cv__job { padding-block: 16px; border-top: 1px solid var(--line); }
+  .cv__jobhead { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+  .cv__role { font-size: clamp(16px, 1.3vw, 19px); font-weight: 700; }
+  .cv__org { font-weight: 500; color: var(--muted); }
+  .cv__when { font-family: var(--f-m); font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .cv__ctx { margin-top: 4px; font-size: 13.5px; color: var(--muted); }
+  .cv__bullets { margin-top: 10px; padding-left: 18px; }
+  .cv__bullets li { margin-top: 6px; font-size: 15px; line-height: 1.55; max-width: 76ch; }
+  .cv__bullets li::marker { color: var(--w-key); }
+
+  .cv__ventures { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .cv__venture { padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; }
+  .cv__vhead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .cv__vname { font-size: 16px; font-weight: 700; }
+  .cv__vname a { color: inherit; }
+  .cv__vmeta { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .cv__venture p { margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+
+  .cv__skills { display: grid; gap: 10px; }
+  .cv__skills > div { display: grid; grid-template-columns: 190px 1fr; gap: 16px; padding-block: 8px; border-top: 1px solid var(--line); }
+  .cv__skills dt { font-weight: 700; font-size: 14.5px; }
+  .cv__skills dd { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--muted); }
+
+  .cv__printonly { display: none; }
+
+  @media (max-width: 720px) {
+    .cv__ventures { grid-template-columns: 1fr; }
+    .cv__skills > div { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  /* ---------- PRINT / PDF ----------
+     The site chrome lives in Base.astro, outside this file's scope — hence :global. Everything
+     is forced to black-on-white regardless of the visitor's colour mode, and sized for Letter. */
+  @media print {
+    @page { size: Letter; margin: 0.5in 0.55in; }
+    :global(html), :global(body) { background: #fff !important; color: #111 !important; }
+    :global(.rail), :global(.top), :global(.foot), :global(.skip), :global(.flood),
+    :global(.contact-modal), :global(dialog) { display: none !important; }
+    :global(main) { padding: 0 !important; margin: 0 !important; }
+    .cv { padding: 0; background: #fff; }
+    .cv .col { max-width: none; padding: 0; }
+    .cv__noprint { display: none !important; }
+    .cv__printonly { display: block; margin-top: 18px; font-family: var(--f-m); font-size: 9px; color: #666; }
+    .cv, .cv * { color: #111 !important; }
+    .cv__org, .cv__when, .cv__ctx, .cv__headline, .cv__venture p, .cv__skills dd, .cv__vmeta, .cv__h { color: #555 !important; }
+    .cv__head { border-bottom-color: #111; padding-bottom: 12px; }
+    .cv__name { font-size: 30pt; }
+    .cv__headline { font-size: 11pt; margin-top: 6px; }
+    .cv__contact { font-size: 8.5pt; margin-top: 8px; }
+    .cv__contact a { text-decoration: none; }
+    .cv__sec { margin-top: 16px; }
+    .cv__h { margin-bottom: 6px; font-size: 8pt; }
+    .cv__summary { font-size: 10pt; line-height: 1.45; max-width: none; }
+    .cv__job { padding-block: 8px; break-inside: avoid; }
+    .cv__role { font-size: 10.5pt; }
+    .cv__when, .cv__ctx { font-size: 8.5pt; }
+    .cv__bullets { margin-top: 4px; }
+    .cv__bullets li { margin-top: 2px; font-size: 9.5pt; line-height: 1.38; max-width: none; }
+    .cv__ventures { gap: 8px; }
+    .cv__venture { padding: 8px 10px; break-inside: avoid; border-color: #ccc; }
+    .cv__vname { font-size: 10pt; }
+    .cv__venture p { font-size: 8.8pt; }
+    .cv__skills { gap: 0; }
+    .cv__skills > div { grid-template-columns: 150px 1fr; padding-block: 4px; border-color: #ddd; break-inside: avoid; }
+    .cv__skills dt, .cv__skills dd { font-size: 9pt; }
+    .cv__job, .cv__skills > div { border-top-color: #ddd; }
+    .cv__sec:first-of-type { break-before: avoid; }
+    h2 { break-after: avoid; }
+  }
+</style>

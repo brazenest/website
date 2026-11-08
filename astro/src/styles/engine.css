@@ -107,11 +107,13 @@ html{transition:--w-key var(--T) var(--ease), --w-hi var(--T) var(--ease),
 
 /* DARK-MODE ACCENT LIFT — in dark mode the key sits on its own deep ground
    (plum on plum = nothing), so accents move to --w-hi, the venture's second
-   colour. Memrey's sun, Rotavox's mint. This is what --w-hi was always for. */
+   colour. Memrey's sun, Rotavox's volt. This is what --w-hi was always for. */
 [data-mode="dark"] .z-eng   .go,
 [data-mode="dark"] .z-media .go{color:var(--w-hi);border-color:var(--w-hi)}
+/* text accents take the colour only — giving them the background too painted the label
+   the same colour as its own fill (the breadcrumb rendered as a solid block) */
 [data-mode="dark"] .z-eng   .results .n,
-[data-mode="dark"] .z-eng   .crumb .on,
+[data-mode="dark"] .z-eng   .crumb .on{color:var(--w-hi)}
 [data-mode="dark"] .z-eng   .rail2 .live i,
 [data-mode="dark"] .z-eng   .prose li::before,
 [data-mode="dark"] .z-eng   .zonehead .kick i{color:var(--w-hi);background:var(--w-hi)}
@@ -166,6 +168,8 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   opacity:.3;
   transition:opacity 320ms var(--ease), flex-grow 460ms var(--ease);
 }
+/* dark-mode key where a venture defines one (Rotavox: volt, not ink-on-ink) */
+[data-mode="dark"] .rail a{background:var(--seg-d,var(--seg))}
 .rail a:hover{opacity:1}
 .rgroup[data-on] a{opacity:.55}
 .rail a[data-on]{opacity:1;flex-grow:2.4}
@@ -240,7 +244,8 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   padding:10px 18px;font-size:14px;font-weight:700;letter-spacing:-.015em;
   transition:background-color var(--T) var(--ease), color 1ms;
 }
-.hire:hover{background:var(--w-hi)}
+/* hi becomes the fill on hover, so the text snaps to hi's own 4.5:1 partner (--w-hi-on). */
+.hire:hover{background:var(--w-hi);color:var(--w-hi-on,var(--w-on))}
 
 /* ---------- THE HERO — the claim, then the proof of it, in colour ---------- */
 .hero{padding-block:clamp(60px,7.6vw,124px) clamp(38px,4.6vw,68px)}
@@ -248,7 +253,7 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 .hero .lead{margin-top:clamp(22px,2.2vw,36px);font-size:clamp(18px,1.6vw,25px);line-height:1.46;color:var(--muted);max-width:38ch}
 
 /* THE SPECTRUM — the colour index of everything I've made. hover one. */
-.spectrum{display:grid;grid-template-columns:repeat(6,1fr);width:100%}
+.spectrum{display:grid;grid-template-columns:repeat(var(--n,6),1fr);width:100%}
 .chip{
   position:relative;display:flex;flex-direction:column;justify-content:flex-end;
   min-height:clamp(196px,27vh,300px);
@@ -260,6 +265,8 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 .chip .n{font-family:var(--f-d-neutral);font-size:clamp(17px,1.6vw,25px);font-weight:900;letter-spacing:-.03em;line-height:1.02}
 .chip .d{margin-top:8px;font-size:12.5px;line-height:1.4;opacity:.8;max-width:24ch}
 .chip:hover{box-shadow:inset 0 0 0 3px var(--o)}
+[data-mode="dark"] .chip{background:var(--c-d,var(--c));color:var(--o-d,var(--o))}
+[data-mode="dark"] .chip:hover{box-shadow:inset 0 0 0 3px var(--o-d,var(--o))}
 .spectrum__note{padding:17px var(--pad);font-family:var(--f-m);font-size:11px;letter-spacing:.06em;color:var(--muted);text-align:center;background:var(--bg)}
 
 /* ---------- PROOF ---------- */
@@ -299,6 +306,13 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 }
 .shot .lab b{font-family:var(--f-s);font-weight:700;font-size:12px;letter-spacing:-.01em;text-transform:none;color:#fff}
 .shot .wm{position:absolute;inset:0;z-index:2;display:grid;place-items:center;color:#fff}
+/* A real image inside a .shot frame (film stills, UI hard crops). Global on purpose: the <img>
+   comes from astro:assets' <Image>, which never carries a page's scope attribute. The grain
+   overlay is a placeholder texture — on a photograph or a UI crop it only muddies the pixels. */
+.shot--img::after{display:none}
+.shot > .shot__img{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;object-position:var(--op,50% 50%)}
+.shot > a.shot__open{position:absolute;inset:0;z-index:2}
+.shot > a.shot__open:focus-visible{outline:2px solid var(--w-key);outline-offset:-4px}
 .r-4x3{aspect-ratio:4/3}.r-16x9{aspect-ratio:16/9}.r-21x9{aspect-ratio:21/9}.r-239{aspect-ratio:2.39/1}
 
 /* INTERFACE AS IMAGE — a hard crop of live UI at poster scale, not a mockup */
@@ -437,12 +451,15 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   padding:clamp(44px,5.6vw,100px) clamp(26px,3.6vw,64px);
   min-height:min(52svh,460px);display:flex;flex-direction:column;justify-content:flex-end;
   background:
-    radial-gradient(120% 130% at 78% 104%, var(--w-hi) 0%, #C7513F 26%, transparent 62%),
-    linear-gradient(168deg, var(--w-deep) 0%, var(--w-key) 62%, #6b2a56 100%);
+    radial-gradient(120% 130% at 78% 104%, var(--w-hi) 0%, var(--db-mid,#C7513F) 26%, transparent 62%),
+    linear-gradient(168deg, var(--w-deep) 0%, var(--w-key-l,var(--w-key)) 62%, var(--db-tail,#6b2a56) 100%);
   transition:background var(--T) var(--ease);
 }
 .daybreak .wm{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(46px,7.2vw,126px);line-height:.88;letter-spacing:-.035em}
 .daybreak .tl{margin-top:24px;font-size:clamp(17px,1.6vw,25px);line-height:1.4;max-width:30ch;opacity:.92}
+/* the hero is always a dark field with white type, so its link follows the type in light
+   mode (the key-coloured .go vanished into a hero built from that same key) */
+[data-mode="light"] .daybreak .go{color:#fff;border-color:currentColor}
 .daybreak .kick{font-family:var(--f-m);font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.75;margin-bottom:22px}
 
 .case{display:grid;grid-template-columns:250px 1fr;gap:clamp(30px,4.6vw,84px);padding-block:clamp(44px,5.6vw,92px)}
@@ -510,6 +527,10 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 .stills .shot:nth-child(2){grid-column:span 2}
 .stills .shot:nth-child(3){grid-column:span 2}
 .stills .shot:nth-child(4){grid-column:span 4}
+.stills .shot:nth-child(5),.stills .shot:nth-child(6){grid-column:span 3}
+/* With real frames, the narrow tiles stretch to their wide row-mate's height (a taller crop)
+   instead of leaving a gap under a short 16:9 box. Reset to 16:9 when the grid collapses. */
+.stills .shot--img:nth-child(2),.stills .shot--img:nth-child(3){aspect-ratio:auto;min-height:100%}
 .credits{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,4.4vw,80px);padding-block:clamp(38px,4.6vw,76px);border-top:1px solid var(--line)}
 .credits dl{display:grid;grid-template-columns:auto 1fr;gap:14px 40px}
 .credits dt{font-family:var(--f-m);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-top:3px}
@@ -539,6 +560,7 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
 .foot .mini{display:flex;height:4px;width:120px;gap:5px}
 .foot .mini b{flex:1;display:flex;gap:1.5px}
 .foot .mini i{flex:1;background:var(--s)}
+[data-mode="dark"] .foot .mini i{background:var(--s-d,var(--s))}
 .foot .links{display:flex;gap:22px;flex-wrap:wrap}
 .foot a:hover{color:var(--ink)}
 
@@ -561,6 +583,7 @@ h1,h2,h3,h4{letter-spacing:-.035em;line-height:.96;text-wrap:balance;font-weight
   .results{grid-template-columns:repeat(2,1fr)}
   .stills{grid-template-columns:repeat(2,1fr)}
   .stills .shot{grid-column:span 1 !important}
+  .stills .shot--img{aspect-ratio:16/9 !important}
   .index .row{grid-template-columns:1fr;gap:6px}
 }
 @media (max-width:860px){

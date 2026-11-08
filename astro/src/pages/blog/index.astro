@@ -75,7 +75,7 @@ const schema = [
                       palette={cover.palette}
                       seed={cover.seed}
                       alt=""
-                      sizes="(max-width:860px) 100vw, 300px"
+                      sizes="(max-width:860px) 100vw, 380px"
                     />
                   </a>
                   <a href={postHref(post.slug)} class="post__link">
@@ -122,7 +122,7 @@ const schema = [
      same line — a ragged left edge would undo the list's rhythm. */
   .post__item {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: minmax(0, 380px) 1fr;
     gap: clamp(20px, 2.4vw, 36px);
     align-items: start;
     margin-bottom: clamp(30px, 3.4vw, 56px);
@@ -148,9 +148,13 @@ const schema = [
   .post__item:hover .post__cover :global(.cover) {
     opacity: 0.86;
   }
+  /* Titles carry the list — sized as headlines, not row labels. */
   .post__link h3 {
-    margin-bottom: 12px;
-    max-width: 24ch;
+    margin-bottom: 14px;
+    max-width: 26ch;
+    font-size: clamp(26px, 2.7vw, 42px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
   }
   @media (max-width: 860px) {
     .post__item {

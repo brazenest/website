@@ -3,13 +3,14 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "Static Astro front-end for aldengillespy.com — builds from the Payload export's JSON",
+  "description": "Static Astro front-end for aldengillespy.com \u2014 builds from the Payload export's JSON",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "resume:pdf": "node scripts/resume-pdf.mjs"
   },
   "dependencies": {
     "astro": "7.0.9",

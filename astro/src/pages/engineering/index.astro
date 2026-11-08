@@ -103,7 +103,7 @@ const secondary = [
               <div class="work__a">
                 <div class="shot" style={`--a:${deep};--b:${hi};--c2:#0b0710`}>
                   <div class="uicrop" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-                  <div class="lab"><b>{v.name}</b> <span style={`color:${key}`}>{v.palette.key}</span></div>
+                  <div class="lab"><b>{v.name}</b> <span style={`color:${v.palette.keyDark ?? key}`}>{v.palette.keyDark ?? v.palette.key}</span></div>
                 </div>
               </div>
             </div>

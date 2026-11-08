@@ -1,0 +1,66 @@
+---
+/**
+ * About-page image break (v6.3). Renders every `about.interludes` row whose `after` matches,
+ * so the long page gets visual rests between sections. Authored entirely in the Payload admin
+ * (About → Interludes): pick an image, a caption, and the section it follows. One image runs
+ * full width; two or more share the row.
+ */
+import { Image } from 'astro:assets'
+import { about } from '../lib/content'
+import { mediaImage } from '../lib/media'
+
+interface Props {
+  after: 'bio' | 'disciplines' | 'experience' | 'principles'
+}
+
+const { after } = Astro.props
+const items = (about.interludes ?? [])
+  .filter((i) => i.after === after)
+  .map((i) => ({ ...i, src: mediaImage(i.image) }))
+  .filter((i) => i.src)
+---
+
+{
+  items.length > 0 && (
+    <div class:list={['interlude', items.length > 1 && 'interlude--row']} data-reveal>
+      {items.map((i) => (
+        <figure class="interlude__fig">
+          <Image
+            src={i.src!}
+            alt={i.image.alt || ''}
+            widths={[640, 1024, 1600]}
+            sizes={items.length > 1 ? '(max-width:720px) 100vw, 50vw' : '100vw'}
+          />
+          {i.caption && <figcaption class="mono">{i.caption}</figcaption>}
+        </figure>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .interlude {
+    margin-top: clamp(40px, 4.4vw, 72px);
+    display: grid;
+    gap: clamp(12px, 1.4vw, 20px);
+  }
+  .interlude--row { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .interlude__fig { margin: 0; }
+  /* :global — the <img> is rendered by <Image> and carries no scope attribute. */
+  .interlude__fig :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 14px;
+  }
+  .interlude:not(.interlude--row) .interlude__fig :global(img) { aspect-ratio: 21 / 9; }
+  .interlude__fig figcaption {
+    margin-top: 10px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+</style>

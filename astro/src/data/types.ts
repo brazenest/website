@@ -24,6 +24,10 @@ export interface Venture {
     deep: string
     lift: string
     on: string
+    /** Optional dark-mode overrides (null when the key works on both grounds). */
+    keyDark?: string | null
+    hiDark?: string | null
+    onDark?: string | null
   }
   links: { label: string; url: string }[]
   proposed: boolean
@@ -51,6 +55,8 @@ export interface CaseStudy {
   } | null
   decisions: { question: string; answer: RichText }[]
   screens: (MediaRef | null)[]
+  /** show → render screens; nda → "under NDA" notice; hidden → omit the section. */
+  interface: { mode: 'show' | 'nda' | 'hidden'; note: string | null }
   results: { value: string; label: string }[]
   resultsCaveat: string | null
 }
@@ -118,6 +124,12 @@ export interface About {
   location: string | null
   intro: string | null
   bio: RichText
+  /** Images placed between sections; `after` names the section each one follows. */
+  interludes: {
+    image: MediaRef
+    caption: string | null
+    after: 'bio' | 'disciplines' | 'experience' | 'principles'
+  }[]
   disciplines: {
     label: string
     tagline: string | null
@@ -150,4 +162,24 @@ export interface SiteMeta {
     jobTitle: string | null
     ogImage: MediaRef | null
   }
+}
+
+/** The `resume` global — drives /resume and the generated /resume.pdf. */
+export interface Resume {
+  name: string
+  headline: string | null
+  location: string | null
+  summary: string | null
+  contact: { label: string; href: string | null }[]
+  experience: {
+    title: string
+    organization: string
+    timeframe: string | null
+    context: string | null
+    bullets: string[]
+  }[]
+  ventures: { name: string; category: string | null; status: string | null; tagline: string | null; href: string | null }[]
+  skills: { title: string; items: string[] }[]
+  /** Verified rows only — the export drops unverified ones. */
+  education: { credential: string; institution: string | null; timeframe: string | null; description: string | null }[]
 }

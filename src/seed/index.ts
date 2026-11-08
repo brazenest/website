@@ -3,11 +3,13 @@ loadEnv()
 
 import { venturesSeed } from './ventures'
 import { memreyCaseStudySeed } from './memrey'
-import { rotavoxCaseStudySeed } from './rotavox'
+import { rotavoxCaseStudySeed, rotavoxScreenFiles } from './rotavox'
 import { andacityCaseStudySeed } from './andacity'
-import { shadowcatFilmSeed } from './films'
+import { shadowcatFilmSeed, shadowcatFilmImages } from './films'
+import { upsertSeedMedia, seedImageArray } from './media'
 import { siteMetaSeed, siteMetaSeoSeed } from './site-meta'
 import { aboutSeed, aboutKeywordsSeed } from './about'
+import { resumeSeed } from './resume'
 import { postsSeed } from './posts'
 import { normalizeLegacyMarkdown } from './markdown'
 import { CATEGORY_SEED, seedCategoryCovers } from './category-covers'
@@ -70,7 +72,8 @@ async function run() {
   // Soldera was demoted from a spectrum venture to the "in build" list — remove its
   // orphaned venture + case study so it drops out of the spectrum/rail and no page builds.
   // (Upserts don't delete; this keeps the DB in sync with the seed.)
-  for (const slug of ['soldera']) {
+  // Night Signal was retired at network level (v6.3) — same treatment.
+  for (const slug of ['soldera', 'signal']) {
     const v = await payload.find({ collection: 'ventures', where: { slug: { equals: slug } }, limit: 1 })
     if (v.docs.length) {
       const cs = await payload.find({ collection: 'case-studies', where: { venture: { equals: v.docs[0].id } }, limit: 1 })
@@ -81,9 +84,20 @@ async function run() {
   }
 
   await upsertByVenture('case-studies', 'memrey', memreyCaseStudySeed)
-  await upsertByVenture('case-studies', 'rotavox', rotavoxCaseStudySeed)
+  // Seed-owned imagery (src/seed/assets): uploaded idempotently by filename, then wired in.
+  const rotavoxScreens = await seedImageArray(payload, rotavoxScreenFiles)
+  await upsertByVenture('case-studies', 'rotavox', { ...rotavoxCaseStudySeed, screens: rotavoxScreens })
   await upsertByVenture('case-studies', 'andacity', andacityCaseStudySeed)
-  await upsertByVenture('films', 'shadowcat', shadowcatFilmSeed)
+  const filmHero = await upsertSeedMedia(payload, shadowcatFilmImages.hero.file, shadowcatFilmImages.hero.alt)
+  const filmStills = await seedImageArray(payload, shadowcatFilmImages.stills)
+  await upsertByVenture('films', 'shadowcat', {
+    ...shadowcatFilmSeed,
+    heroImage: filmHero,
+    stills: filmStills,
+    // The Grade block is gone from the page; clear its placeholders too.
+    gradeGraded: null,
+    gradeRaw: null,
+  })
 
   // Blog archive (src/seed/posts.ts). Bodies are markdown in the seed and are converted
   // here with Payload's own converter, so the stored richText matches what the Lexical
@@ -199,6 +213,27 @@ async function run() {
     payload.logger.info('about.keywords already populated — preserved.')
   }
 
+  // v6.3 — ABOUT INTERLUDES. New field on an admin-owned global: fill it only while empty,
+  // reusing the film frames + Cockpit screen uploaded above, so the long page gets image
+  // breaks out of the box. Once the admin edits the list, a re-seed leaves it alone.
+  const aboutForInterludes = (await payload.findGlobal({ slug: 'about' })) as any
+  if (!aboutForInterludes?.interludes?.length) {
+    await payload.updateGlobal({
+      slug: 'about',
+      data: {
+        ...aboutForInterludes,
+        interludes: [
+          { image: filmStills[2].image, caption: 'Con Te Partiro — Shadowcat Pictures, 2024', after: 'bio' },
+          { image: rotavoxScreens[0].image, caption: 'Rotavox — the week grid, scheduling The BOLT', after: 'disciplines' },
+          { image: filmStills[3].image, caption: 'Con Te Partiro — shot, cut and graded solo', after: 'disciplines' },
+        ],
+      },
+    })
+    payload.logger.info('Backfilled about.interludes (other fields untouched).')
+  } else {
+    payload.logger.info('about.interludes already populated — preserved.')
+  }
+
   // v6.2 — BLOG CATEGORIES. Each category owns an accent venture and a default cover, so a
   // post with no coverImage of its own still gets artwork. The four defaults are generated
   // by the same code the front-end uses and uploaded as real media documents, which is what
@@ -241,6 +276,29 @@ async function run() {
     })
     await payload.updateGlobal({ slug: 'blog-categories', data: { categories: merged } })
     payload.logger.info(`Seeded blog categories — filled ${missing.length} default cover(s).`)
+  }
+
+  // v6.3 — the "Résumé" nav item pointed at the PDF; /resume is a page again. Targeted
+  // migration on the admin-owned siteMeta: retarget ONLY that one link, touch nothing else.
+  const metaForNav = (await payload.findGlobal({ slug: 'site-meta' })) as any
+  if (Array.isArray(metaForNav?.nav) && metaForNav.nav.some((n: any) => n.href === '/resume.pdf')) {
+    await payload.updateGlobal({
+      slug: 'site-meta',
+      data: {
+        ...metaForNav,
+        nav: metaForNav.nav.map((n: any) => (n.href === '/resume.pdf' ? { ...n, href: '/resume' } : n)),
+      },
+    })
+    payload.logger.info('Retargeted the Résumé nav link to /resume.')
+  }
+
+  // résumé is ADMIN-OWNED (v6.3): seed only into an empty global. Force with SEED_RESUME=1.
+  const existingResume = (await payload.findGlobal({ slug: 'resume' })) as any
+  if (process.env.SEED_RESUME === '1' || !existingResume?.experience?.length) {
+    await payload.updateGlobal({ slug: 'resume', data: resumeSeed })
+    payload.logger.info('Seeded resume global.')
+  } else {
+    payload.logger.info('resume already populated — preserved (SEED_RESUME=1 to overwrite).')
   }
 
   payload.logger.info('Seed complete.')

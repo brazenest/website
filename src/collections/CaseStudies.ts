@@ -77,6 +77,31 @@ export const CaseStudies: CollectionConfig = {
       ],
     },
     {
+      name: 'interface',
+      type: 'group',
+      admin: {
+        description:
+          'The "The interface" section. Show = render the screens below; NDA = replace them with an "under NDA" notice (screens are NOT exported); Hidden = omit the section.',
+      },
+      fields: [
+        {
+          name: 'mode',
+          type: 'select',
+          defaultValue: 'show',
+          options: [
+            { label: 'Show screens', value: 'show' },
+            { label: 'Under NDA', value: 'nda' },
+            { label: 'Hidden', value: 'hidden' },
+          ],
+        },
+        {
+          name: 'note',
+          type: 'text',
+          admin: { description: 'Optional. Replaces the default line under the heading (or the NDA notice copy).' },
+        },
+      ],
+    },
+    {
       name: 'screens',
       type: 'array',
       admin: { description: 'Hard-crop UI images.' },

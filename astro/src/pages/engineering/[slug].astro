@@ -14,6 +14,8 @@
  */
 import Base from '../../layouts/Base.astro'
 import ArchitectureSVG from '../../components/ArchitectureSVG.astro'
+import { Image } from 'astro:assets'
+import { resolvedImages } from '../../lib/media'
 import { caseStudies, venturesBySlug } from '../../lib/content'
 import { renderRichText } from '../../lib/richText'
 import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords } from '../../lib/seo'
@@ -38,6 +40,14 @@ const HIGHLIGHTED_STEP_INDEX = 1
 // omit it cleanly. Add a slug here once its diagram component exists.
 const VENTURES_WITH_DIAGRAM = new Set(['memrey'])
 const hasDiagram = VENTURES_WITH_DIAGRAM.has(venture.slug)
+
+// The Interface section has three states, authored per case study (caseStudies.interface):
+//   show   → real hard crops from `screens` (the section is omitted if none resolve)
+//   nda    → an explicit "under NDA" notice instead of images, so the gap reads as a
+//            decision rather than a missing asset
+//   hidden → no section at all
+const interfaceMode = caseStudy.interface?.mode ?? 'show'
+const screens = resolvedImages(caseStudy.screens)
 
 // A live/external link for the product (e.g. rotavox.com), if the venture has one.
 const ventureLink = venture.links?.[0] ?? null
@@ -195,22 +205,32 @@ const schema = [
             </>
           )}
 
-          <h3>The interface</h3>
-          <p class="dim">Hard crops of the real thing at poster scale — the product as it actually looks, not a browser-chrome mockup.</p>
-          <div class="screens">
-            {caseStudy.screens.length > 0 ? (
-              caseStudy.screens.map((s: any) => (
-                <div class="shot r-4x3" style={`--a:${deep};--b:${hi};--c2:#0b0710`}>
-                  <div class="lab"><b>{s?.alt || venture.name}</b> <span>Hard crop · UI</span></div>
-                </div>
-              ))
-            ) : (
-              <>
-                <div class="shot r-4x3" style={`--a:${deep};--b:${hi};--c2:#0b0710`}><div class="uicrop" aria-hidden="true"><i /><i /><i /><i /><i /></div><div class="lab"><b>{venture.name}</b> <span>Hard crop · UI</span></div></div>
-                <div class="shot r-4x3" style={`--a:${deep};--b:${key};--c2:#0b0710`}><div class="lab"><b>{venture.name}</b> <span>Hard crop · UI</span></div></div>
-              </>
-            )}
-          </div>
+          {interfaceMode === 'show' && screens.length > 0 && (
+            <>
+              <h3>The interface</h3>
+              <p class="dim">{caseStudy.interface?.note || 'Hard crops of the real thing — the product as it actually looks, not a browser-chrome mockup.'}</p>
+              <div class="screens">
+                {screens.map(({ ref, image }) => (
+                  <figure class="shot shot--img r-4x3" style="margin:0;--op:0% 0%">
+                    <Image class="shot__img" src={image} alt={ref.alt || `${venture.name} interface`} widths={[560, 960, 1280]} sizes="(max-width:760px) 100vw, 45vw" />
+                    <a class="shot__open" href={image.src} target="_blank" rel="noopener" aria-label={`Open full size: ${ref.alt || venture.name}`}></a>
+                    <figcaption class="lab"><b>{ref.alt || venture.name}</b> <span>Hard crop · UI</span></figcaption>
+                  </figure>
+                ))}
+              </div>
+            </>
+          )}
+
+          {interfaceMode === 'nda' && (
+            <>
+              <h3>The interface</h3>
+              <div class="nda" role="note">
+                <span class="nda__tag mono">Under NDA</span>
+                <p>{caseStudy.interface?.note || `${venture.name}'s interface is shared under NDA at this stage of development. Happy to walk through it live — get in touch.`}</p>
+                <a class="go" href="/contact" data-contact-open style="margin-top:14px">Request a walkthrough <span>→</span></a>
+              </div>
+            </>
+          )}
 
           <div class="results">
             {
@@ -230,3 +250,23 @@ const schema = [
     </div>
   </section>
 </Base>
+
+<style>
+  .nda {
+    padding: clamp(20px, 2.2vw, 32px);
+    border: 1px dashed color-mix(in srgb, var(--w-key) 60%, var(--line));
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--w-key) 6%, transparent);
+  }
+  .nda__tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--w-on);
+    background: var(--w-key);
+  }
+  .nda p { margin-top: 12px; max-width: 60ch; color: var(--muted); line-height: 1.6; }
+</style>

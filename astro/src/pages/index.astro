@@ -8,7 +8,9 @@
  * carries data-work so the runtime engine retints on hover and scroll.
  */
 import Base from '../layouts/Base.astro'
-import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, filmHref, isExternalHref } from '../lib/content'
+import { Image } from 'astro:assets'
+import { mediaImage } from '../lib/media'
+import { spectrumVentures, siteMeta, ventureHref, zoneLabel, caseStudyHref, filmHref, filmsByVentureSlug, isExternalHref } from '../lib/content'
 import { PAGE_KEYWORDS } from '../lib/seo'
 
 const chips = spectrumVentures()
@@ -16,6 +18,8 @@ const memreyHref = caseStudyHref('memrey') ?? '/#engineering'
 const rotavoxHref = caseStudyHref('rotavox') ?? '/engineering'
 const andacityHref = caseStudyHref('andacity') ?? '/engineering'
 const shadowcatHref = filmHref('shadowcat') ?? '/#media'
+const shadowcatFilm = filmsByVentureSlug.shadowcat
+const shadowcatFrame = mediaImage(shadowcatFilm?.heroImage)
 ---
 
 <Base
@@ -36,10 +40,10 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
   </section>
 
   <!-- THE SPECTRUM — the proof of the claim, in colour. hover one. (data-driven) -->
-  <div class="spectrum" data-zone="neutral" data-work="house">
+  <div class="spectrum" data-zone="neutral" data-work="house" style={`--n:${chips.length}`}>
     {
       chips.map((v, i) => (
-        <a class="chip" href={ventureHref(v.slug)} data-w={v.slug} data-reveal style={`--c:${v.palette.key};--o:${v.palette.on};--reveal-i:${i}`}>
+        <a class="chip" href={ventureHref(v.slug)} data-w={v.slug} data-reveal style={`--c:${v.palette.key};--o:${v.palette.on};${v.palette.keyDark ? `--c-d:${v.palette.keyDark};--o-d:${v.palette.onDark};` : ''}--reveal-i:${i}`}>
           <span class="hex">{v.palette.key}</span>
           <span class="zn">{zoneLabel(v.zone)}</span>
           <span class="n">{v.name}</span>
@@ -181,10 +185,10 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
 
       <div class="work" data-work="bolt" data-reveal>
         <div class="work__t">
-          <div class="work__meta"><span class="wchip">The Bolt · Night Signal</span><span class="work__yr">2024 — NOW</span></div>
-          <h4 class="halo">A radio network built end to end.</h4>
-          <p>Three stations. The software that runs them, the sound that comes out of them, and the brand wrapped around them. This is the one that lives in both halves of my work.</p>
-          <a class="go" href="/#bolt">See the network <span>→</span></a>
+          <div class="work__meta"><span class="wchip">The BOLT</span><span class="work__yr">2024 — NOW</span></div>
+          <h4 class="halo">A radio station built end to end.</h4>
+          <p>On air now. The software that runs it, the sound that comes out of it, and the brand wrapped around it. This is the one that lives in both halves of my work.</p>
+          <a class="go" href="https://thebolt.stream" target="_blank" rel="noopener noreferrer">Listen live at thebolt.stream <span>→</span></a>
         </div>
         <div class="work__a">
           <div class="shot" style="--a:#1a0a06;--b:#FF3B1E;--c2:#0a0503">
@@ -202,9 +206,10 @@ const shadowcatHref = filmHref('shadowcat') ?? '/#media'
           <a class="go" href={shadowcatHref}>Open the film page <span>→</span></a>
         </div>
         <div class="work__a">
-          <div class="shot" style="--a:#16323a;--b:#a67b3a;--c2:#05070a">
+          <div class:list={['shot', shadowcatFrame && 'shot--img']} style="--a:#16323a;--b:#a67b3a;--c2:#05070a">
+            {shadowcatFrame && <Image class="shot__img" src={shadowcatFrame} alt="" widths={[480, 960]} sizes="(max-width:760px) 100vw, 45vw" />}
             <span class="wm" style="font-family:'Zodiak',serif;font-weight:400;font-size:clamp(22px,2.4vw,42px);letter-spacing:.24em;text-transform:uppercase">Shadowcat</span>
-            <div class="lab"><b>Fault Lines</b> <span>2.39:1 · 2026</span></div>
+            <div class="lab"><b>{shadowcatFilm?.title ?? 'Shadowcat Pictures'}</b> <span>{shadowcatFilm?.year ?? ''}</span></div>
           </div>
         </div>
       </div>

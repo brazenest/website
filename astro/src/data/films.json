@@ -26,14 +26,51 @@
       }
     ],
     "heroImage": {
-      "filename": "mqdefault.jpg",
-      "alt": "Thumbnail image of the YouTube video featured on this page.",
-      "width": 320,
-      "height": 180
+      "filename": "con-te-partiro-hero.jpg",
+      "alt": "The Bellagio at night behind a full arc of fountains",
+      "width": 1920,
+      "height": 1080
     },
     "gradeGraded": null,
     "gradeRaw": null,
-    "stills": [],
+    "stills": [
+      {
+        "filename": "con-te-partiro-still-01.jpg",
+        "alt": "Fountain jets crossing in a lattice of light",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "filename": "con-te-partiro-still-02.jpg",
+        "alt": "Twin arches of water framing the lake",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "filename": "con-te-partiro-still-03.jpg",
+        "alt": "A wave of mist sweeping across the lake",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "filename": "con-te-partiro-still-04.jpg",
+        "alt": "A glowing curtain of water in front of the hotel",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "filename": "con-te-partiro-still-05.jpg",
+        "alt": "A central tower of water rising at the climax",
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "filename": "con-te-partiro-still-06.jpg",
+        "alt": "Columns of water bursting skyward",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
     "services": [
       {
         "title": "Narrative short film",
@@ -49,7 +86,7 @@
       },
       {
         "title": "Broadcast identity & sound",
-        "note": "Three stations, all of it made in-house"
+        "note": "The BOLT — imaging, sound and brand, all made in-house"
       }
     ]
   }

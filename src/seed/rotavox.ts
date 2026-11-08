@@ -12,7 +12,7 @@ import { richText } from './lexical'
 export const rotavoxCaseStudySeed = {
   role: 'Founder, architect, designer, sole engineer',
   timeline: '2024 — present',
-  status: 'Early access — rotavox.com',
+  status: 'Early access — waitlist open at rotavox.com',
   hook: 'Most internet radio still runs on shuffle. Rotavox schedules it the way a real station does — deliberately.',
   // ⚠ draft stack — confirm/replace in Payload.
   stack: [
@@ -21,7 +21,7 @@ export const rotavoxCaseStudySeed = {
     { value: 'Node' },
     { value: 'Postgres' },
   ],
-  identityNote: 'Deep pine ground, a mint signal, Geist. The colour of this page.',
+  identityNote: 'Ink ground, a volt signal — and volt only ever on ink. The colour of this page.',
   problem: {
     drop: "AutoDJ isn't programming. It's shuffle with a nicer name — and it's what most internet radio is stuck running on.",
     body: richText([
@@ -60,5 +60,17 @@ export const rotavoxCaseStudySeed = {
     { value: '1', label: 'engineer, from the scheduler to rotavox.com' },
   ],
   resultsCaveat:
-    'Rotavox is in early access — sign up at rotavox.com. Real usage numbers replace these as it opens up.',
+    'Rotavox is in early access — join the waitlist at rotavox.com. Real usage numbers replace these as it opens up.',
+  interface: {
+    mode: 'show' as const,
+    note: 'Hard crops of the Cockpit (app.rotavox.com) running The BOLT — real clocks, a real grid, a log that is airing right now.',
+  },
 }
+
+/** Cockpit screenshots (src/seed/assets/rotavox), uploaded by the seed and wired into `screens`. */
+export const rotavoxScreenFiles = [
+  { file: 'rotavox/rotavox-week-grid.png', alt: 'Week grid — which clock plays each hour, across a two-week rotation' },
+  { file: 'rotavox/rotavox-airing-log.png', alt: 'An airing log — projected vs. actual air time, item by item' },
+  { file: 'rotavox/rotavox-format-clock.png', alt: 'A format clock — every position in the hour, with its fallback' },
+  { file: 'rotavox/rotavox-categories.png', alt: 'Categories — each pool’s turnover against its target' },
+]

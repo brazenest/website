@@ -53,6 +53,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   add('blog', 'blog', housePalette())
   add('contact', 'contact', housePalette())
   add('about', 'about', housePalette(), about.profilePhoto)
+  add('resume', 'resume', housePalette(), about.profilePhoto)
   // The two category pages borrow the colour of the first venture in their zone, matching
   // what the page itself tints to on arrival.
   add('engineering', 'engineering', venturesBySlug.andacity?.palette ?? housePalette())

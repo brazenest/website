@@ -110,7 +110,17 @@ async function run() {
     // concrete `on`. The home spectrum chips (index.astro) and ChainSVG read it straight from
     // this JSON, and the generated CSS below reads the same resolved value — no divergence if
     // an admin uses the documented "leave on blank to compute at export" workflow.
-    palette: { ...v.palette, on: v.palette.on || pickOnColor(v.palette.key) },
+    palette: {
+      key: v.palette.key,
+      hi: v.palette.hi,
+      deep: v.palette.deep,
+      lift: v.palette.lift,
+      on: v.palette.on || pickOnColor(v.palette.key),
+      // Optional dark-mode overrides (e.g. Rotavox: ink accents on light, volt on ink in dark).
+      keyDark: v.palette.keyDark || null,
+      hiDark: v.palette.hiDark || null,
+      onDark: v.palette.keyDark ? v.palette.onDark || pickOnColor(v.palette.keyDark) : null,
+    },
     links: (v.links || []).map((l: any) => ({ label: l.label, url: l.url })),
     proposed: v.proposed,
   }))
@@ -153,7 +163,13 @@ async function run() {
         }
       : null,
     decisions: (c.decisions || []).map((d: any) => ({ question: d.question, answer: d.answer })),
-    screens: (c.screens || []).map((s: any) => resolveMedia(s.image, mediaDocs)),
+    // An NDA'd interface must not ship its screens even if some are still attached in the
+    // admin — skip resolving them so the files never get copied into the static build.
+    screens:
+      c.interface?.mode === 'show' || !c.interface?.mode
+        ? (c.screens || []).map((s: any) => resolveMedia(s.image, mediaDocs))
+        : [],
+    interface: { mode: c.interface?.mode || 'show', note: c.interface?.note || null },
     results: (c.results || []).map((r: any) => ({ value: r.value, label: r.label })),
     resultsCaveat: c.resultsCaveat || null,
   }))
@@ -248,6 +264,13 @@ async function run() {
     location: about.location || null,
     intro: about.intro || null,
     bio: about.bio || null,
+    interludes: (about.interludes || [])
+      .map((i: any) => ({
+        image: resolveMedia(i.image, mediaDocs),
+        caption: i.caption || null,
+        after: i.after || 'bio',
+      }))
+      .filter((i: any) => i.image),
     disciplines: (about.disciplines || []).map((d: any) => ({
       label: d.label,
       tagline: d.tagline || null,
@@ -278,6 +301,47 @@ async function run() {
     path.join(DATA_OUT_DIR, 'about.json'),
     JSON.stringify(aboutExport, null, 2) + '\n',
   )
+
+  // ---- résumé global ----------------------------------------------------------------
+  // Education rows render only once verified (see globals/Resume.ts), so filter here: an
+  // unverified degree never reaches the static build, not even as hidden markup.
+  const resume = (await payload.findGlobal({ slug: 'resume' })) as any
+  const csv = (v: unknown) =>
+    String(v || '')
+      .split(',')
+      .map((x) => x.trim())
+      .filter(Boolean)
+  const resumeExport = {
+    name: resume.name || 'Alden Gillespy',
+    headline: resume.headline || null,
+    location: resume.location || null,
+    summary: resume.summary || null,
+    contact: (resume.contact || []).map((c: any) => ({ label: c.label, href: c.href || null })),
+    experience: (resume.experience || []).map((e: any) => ({
+      title: e.title,
+      organization: e.organization,
+      timeframe: e.timeframe || null,
+      context: e.context || null,
+      bullets: (e.bullets || []).map((x: any) => x.text).filter(Boolean),
+    })),
+    ventures: (resume.ventures || []).map((v: any) => ({
+      name: v.name,
+      category: v.category || null,
+      status: v.status || null,
+      tagline: v.tagline || null,
+      href: v.href || null,
+    })),
+    skills: (resume.skills || []).map((g: any) => ({ title: g.title, items: csv(g.items) })),
+    education: (resume.education || [])
+      .filter((e: any) => e.verified)
+      .map((e: any) => ({
+        credential: e.credential,
+        institution: e.institution || null,
+        timeframe: e.timeframe || null,
+        description: e.description || null,
+      })),
+  }
+  await fs.writeFile(path.join(DATA_OUT_DIR, 'resume.json'), JSON.stringify(resumeExport, null, 2) + '\n')
 
   // ---- blog categories global ------------------------------------------------------
   // What a post's category MEANS: its display label, the venture palette it borrows, and the
@@ -320,7 +384,23 @@ async function run() {
       on = pickOnColor(key)
     }
     const proposedComment = v.proposed ? ' /* PROPOSED */' : ''
-    return `[data-work="${v.slug}"]{--w-key:${key};--w-hi:${hi};--w-deep:${deep};--w-lift:${lift};--w-on:${on}}${proposedComment}`
+    // --w-hi-on: the text colour that clears 4.5:1 on --w-hi (used where hi becomes a fill,
+    // e.g. the Contact button's hover).
+    const base = `[data-work="${v.slug}"]{--w-key:${key};--w-hi:${hi};--w-deep:${deep};--w-lift:${lift};--w-on:${on};--w-hi-on:${pickOnColor(hi)}}${proposedComment}`
+    const { keyDark, hiDark, onDark } = v.palette
+    if (!keyDark && !hiDark) return base
+    const dk = keyDark || key
+    const dh = hiDark || hi
+    const don = keyDark ? onDark! : on
+    if (contrastRatio(dk, don) < 4.5) {
+      console.warn(`[export] venture "${v.slug}" dark on "${don}" only clears ${contrastRatio(dk, don).toFixed(2)}:1 against keyDark "${dk}"`)
+    }
+    const sel = `[data-mode="dark"][data-work="${v.slug}"],[data-mode="dark"] [data-work="${v.slug}"]`
+    // A ground-specific key means the brand is a mono field + one signal colour (Rotavox: ink +
+    // volt). The case-study hero keeps the light-mode key in BOTH modes (so its white type never
+    // lands on the bright key) and swaps its fixed sunrise tones for the venture's own deep.
+    const hero = `[data-work="${v.slug}"]{--w-key-l:${key};--db-mid:${deep};--db-tail:${deep}}`
+    return `${base}\n${hero}\n${sel}{--w-key:${dk};--w-hi:${dh};--w-on:${don};--w-hi-on:${pickOnColor(dh)}}`
   })
   const css = `/* AUTO-GENERATED by \`pnpm run export\` from the ventures collection — do not edit by hand. */\n${cssLines.join('\n')}\n`
   await fs.writeFile(path.join(STYLES_OUT_DIR, 'venture-tokens.generated.css'), css)

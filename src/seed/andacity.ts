@@ -3,16 +3,17 @@ import { richText } from './lexical'
 /**
  * Andacity case study.
  *
- * Content drawn from the real project (github: @sunthetic/andacity, live at andacity.com,
- * v0.6.0) — a discovery-first travel planner across destinations, hotels, flights and cars,
+ * Content drawn from the real project (github: @sunthetic/andacity, v0.6.0) — a discovery-first travel planner across destinations, hotels, flights and cars,
  * built on Qwik/QwikCity at the edge over a Fastify + Drizzle/Postgres core. The stack is
  * real. Query-trace, decision-log and architecture diagram are omitted rather than invented
- * — author in Payload when ready. ⚠ confirm the status wording (Live vs public beta).
+ * — author in Payload when ready. NOT in production: andacity.com currently hosts the
+ * development build (expected to move to dev.andacity.com, with an early-access signup page
+ * taking over the apex), so the page makes no "live" claim and links nowhere yet.
  */
 export const andacityCaseStudySeed = {
   role: 'Founder, architect, designer, sole engineer',
   timeline: '2024 — present',
-  status: 'Live — andacity.com',
+  status: 'In development',
   hook: 'Booking a flight is easy. Deciding what the trip should be is the part every travel site leaves to you.',
   stack: [
     { value: 'TypeScript' },
@@ -62,6 +63,7 @@ export const andacityCaseStudySeed = {
     { value: '0', label: 'tabs and spreadsheets to plan a trip' },
     { value: '1', label: 'engineer, from the edge render to the database' },
   ],
-  resultsCaveat:
-    'Andacity is live at andacity.com (v0.6.0) and still moving fast — real usage and conversion numbers replace these as it grows.',
+  resultsCaveat: null,
+  // Hidden until real screenshots exist — then upload them to `screens` and flip to 'show'.
+  interface: { mode: 'hidden' as const, note: null },
 }

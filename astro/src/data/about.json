@@ -8,129 +8,178 @@
     "video producer Utah",
     "engineer and filmmaker"
   ],
-  "profilePhoto": null,
+  "profilePhoto": {
+    "filename": "Gemini_Generated_Image_7unrxo7unrxo7unr - cropped.png",
+    "alt": "Profile photo of Alden Gillespy, software engineer, AI engineer",
+    "width": 644,
+    "height": 645
+  },
   "profilePhotoCaption": null,
   "location": "Salt Lake City, Utah",
   "intro": "I’m a software engineer and video producer who builds digital systems and the visual stories that go with them — the engineering and the storytelling by the same hands.",
   "bio": {
     "root": {
-      "type": "root",
-      "format": "",
-      "indent": 0,
-      "version": 1,
-      "direction": "ltr",
       "children": [
         {
-          "type": "paragraph",
-          "format": "",
-          "indent": 0,
-          "version": 1,
-          "direction": "ltr",
           "children": [
             {
-              "type": "text",
-              "format": 0,
-              "style": "",
-              "mode": "normal",
               "detail": 0,
-              "version": 1,
-              "text": "I’m Alden Gillespy. I work across two disciplines that most people keep apart: software engineering and cinematic production. On one side I design, build, ship, and operate full-stack web applications; on the other I direct, shoot, and edit video and photography. They’re not a day job and a hobby — they’re one body of work."
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "I’m Alden Gillespy. I work across two disciplines that most people keep apart: software engineering and cinematic production. On one side I design, build, ship, and operate full-stack web applications; on the other I direct, shoot, and edit video and photography. They’re not a day job and a hobby — they’re one body of work.",
+              "type": "text",
+              "version": 1
             }
-          ]
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
         },
         {
-          "type": "paragraph",
-          "format": "",
-          "indent": 0,
-          "version": 1,
-          "direction": "ltr",
           "children": [
             {
-              "type": "text",
-              "format": 0,
-              "style": "",
-              "mode": "normal",
               "detail": 0,
-              "version": 1,
-              "text": "The two sides share more than it first seems. Structure, timing, focus, hierarchy, pacing, and the way an audience actually experiences a thing matter as much in an interface as they do in a cut. Engineering gives my visual work repeatability and precision; filmmaking gives my software a sense of motion, atmosphere, and emotional clarity. I don’t treat design as decoration added after the code — architecture, interface, motion, language, and story are parts of the same product."
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "The two sides share more than it first seems. Structure, timing, focus, hierarchy, pacing, and the way an audience actually experiences a thing matter as much in an interface as they do in a cut. Engineering gives my visual work repeatability and precision; filmmaking gives my software a sense of motion, atmosphere, and emotional clarity. I don’t treat design as decoration added after the code — architecture, interface, motion, language, and story are parts of the same product.",
+              "type": "text",
+              "version": 1
             }
-          ]
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
         },
         {
-          "type": "paragraph",
-          "format": "",
-          "indent": 0,
-          "version": 1,
-          "direction": "ltr",
           "children": [
             {
-              "type": "text",
-              "format": 0,
-              "style": "",
-              "mode": "normal",
               "detail": 0,
-              "version": 1,
-              "text": "On the engineering side I’ve contributed to production software at real scale — including a consumer DNA-kit activation experience at Ancestry (React, Redux, Node, Kotlin) and a search-driven marketplace platform at Concepta (PHP, MySQL, Apache Solr) — alongside a growing portfolio of products I’ve built independently, end to end: architecture, frontend, backend, data model, cloud deployment, and the design system tying them together."
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "On the engineering side I’ve contributed to production software at real scale — including a consumer DNA-kit activation experience at Ancestry (React, Redux, Node, Kotlin) and a search-driven marketplace platform at Concepta (PHP, MySQL, Apache Solr) — alongside a growing portfolio of products I’ve built independently, end to end: architecture, frontend, backend, data model, cloud deployment, and the design system tying them together.",
+              "type": "text",
+              "version": 1
             }
-          ]
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
         },
         {
-          "type": "paragraph",
-          "format": "",
-          "indent": 0,
-          "version": 1,
-          "direction": "ltr",
           "children": [
             {
-              "type": "text",
-              "format": 0,
-              "style": "",
-              "mode": "normal",
               "detail": 0,
-              "version": 1,
-              "text": "Those independent products include Memrey, a memory-centered system for organizing and rediscovering personal media with AI, kept honest by traceable evidence; and Andacity, a travel search-and-booking platform built on Qwik and TypeScript. Others are earlier — prototypes, investor demonstrators, and concepts still in build — and I try to say plainly which is which rather than dressing every idea up as a launched company."
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Those independent products include Memrey, a memory-centered system for organizing and rediscovering personal media with AI, kept honest by traceable evidence; and Andacity, a travel search-and-booking platform built on Qwik and TypeScript. Others are earlier — prototypes, investor demonstrators, and concepts still in build — and I try to say plainly which is which rather than dressing every idea up as a launched company.",
+              "type": "text",
+              "version": 1
             }
-          ]
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
         },
         {
-          "type": "paragraph",
-          "format": "",
-          "indent": 0,
-          "version": 1,
-          "direction": "ltr",
           "children": [
             {
-              "type": "text",
-              "format": 0,
-              "style": "",
-              "mode": "normal",
               "detail": 0,
-              "version": 1,
-              "text": "Alongside the software, I produce cinematic video and photography under Shadowcat Pictures: music-driven visual storytelling, editing for rhythm and emotion, and large-scale fountain films built around light, motion, and sound. The same instinct runs through my media systems, too — like Radiant Radio: The BOLT, an internet radio station with its own programming strategy, brand identity, and broadcast chain."
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "Alongside the software, I produce cinematic video and photography under Shadowcat Pictures: music-driven visual storytelling, editing for rhythm and emotion, and large-scale fountain films built around light, motion, and sound. The same instinct runs through my media systems, too — like Radiant Radio: The BOLT, an internet radio station with its own programming strategy, brand identity, and broadcast chain.",
+              "type": "text",
+              "version": 1
             }
-          ]
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
         },
         {
-          "type": "paragraph",
-          "format": "",
-          "indent": 0,
-          "version": 1,
-          "direction": "ltr",
           "children": [
             {
-              "type": "text",
-              "format": 0,
-              "style": "",
-              "mode": "normal",
               "detail": 0,
-              "version": 1,
-              "text": "What ties all of it together is a single problem I keep coming back to: taking something complicated — a system, an idea, a lifetime of photographs — and turning it into something clear, useful, and worth remembering. I’m interested in work and collaborators where that’s the goal, whether it’s an engineering role, an early-stage product, or a piece of visual work. (This bio is a working draft — verify the flagged details, then make it yours.)"
+              "format": 0,
+              "mode": "normal",
+              "style": "",
+              "text": "What ties all of it together is a single problem I keep coming back to: taking something complicated — a system, an idea, a lifetime of photographs — and turning it into something clear, useful, and worth remembering. I’m interested in work and collaborators where that’s the goal, whether it’s an engineering role, an early-stage product, or a piece of visual work.",
+              "type": "text",
+              "version": 1
             }
-          ]
+          ],
+          "direction": "ltr",
+          "format": "",
+          "indent": 0,
+          "type": "paragraph",
+          "version": 1,
+          "textFormat": 0,
+          "textStyle": ""
         }
-      ]
+      ],
+      "direction": "ltr",
+      "format": "",
+      "indent": 0,
+      "type": "root",
+      "version": 1
     }
   },
+  "interludes": [
+    {
+      "image": {
+        "filename": "con-te-partiro-still-03.jpg",
+        "alt": "A wave of mist sweeping across the lake",
+        "width": 1920,
+        "height": 1080
+      },
+      "caption": "Con Te Partiro — Shadowcat Pictures, 2024",
+      "after": "bio"
+    },
+    {
+      "image": {
+        "filename": "rotavox-week-grid.png",
+        "alt": "Week grid — which clock plays each hour, across a two-week rotation",
+        "width": 1020,
+        "height": 765
+      },
+      "caption": "Rotavox — the week grid, scheduling The BOLT",
+      "after": "disciplines"
+    },
+    {
+      "image": {
+        "filename": "con-te-partiro-still-04.jpg",
+        "alt": "A glowing curtain of water in front of the hotel",
+        "width": 1920,
+        "height": 1080
+      },
+      "caption": "Con Te Partiro — shot, cut and graded solo",
+      "after": "disciplines"
+    }
+  ],
   "disciplines": [
     {
       "label": "Engineering & product",

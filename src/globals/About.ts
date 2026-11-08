@@ -67,6 +67,30 @@ export const About: GlobalConfig = {
       admin: { description: 'Long-form bio. Renders as the main prose column.' },
     },
     {
+      name: 'interludes',
+      type: 'array',
+      admin: {
+        description:
+          'Full-width images that break up the long page. Pick an image, a caption, and which section it follows. Several can follow the same section — they sit side by side.',
+      },
+      fields: [
+        { name: 'image', type: 'upload', relationTo: 'media', required: true },
+        { name: 'caption', type: 'text', admin: { description: 'Optional line under the image.' } },
+        {
+          name: 'after',
+          type: 'select',
+          required: true,
+          defaultValue: 'bio',
+          options: [
+            { label: 'After the bio', value: 'bio' },
+            { label: 'After the two disciplines', value: 'disciplines' },
+            { label: 'After experience', value: 'experience' },
+            { label: 'After "How I work"', value: 'principles' },
+          ],
+        },
+      ],
+    },
+    {
       name: 'disciplines',
       type: 'array',
       maxRows: 2,

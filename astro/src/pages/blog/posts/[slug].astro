@@ -136,6 +136,11 @@ const schema = [
     margin-bottom: clamp(30px, 3.4vw, 56px);
   }
   .post__header h1 {
+    /* Was the browser-default 2em (~34px) — the page's own headline read smaller than the
+       blog index's entry titles. Sized as a display headline, capped in measure so long
+       titles break into balanced lines rather than one full-width run. */
+    font-size: clamp(38px, 5.2vw, 80px);
+    max-width: 20ch;
     margin-bottom: clamp(20px, 2vw, 32px);
   }
   .post__meta {

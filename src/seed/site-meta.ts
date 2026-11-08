@@ -8,7 +8,7 @@ export const siteMetaSeed = {
     { value: '09', label: 'products I own and operate' },
     { value: '01', label: 'engineer on all of them — start to finish' },
     { value: '06', label: 'years shipping production software' },
-    { value: '03', label: 'radio stations built, brand through playout' },
+    { value: '01', label: 'radio station on air, brand through playout' },
     { value: '02', label: 'national platforms — Ancestry, NBCUniversal' },
   ],
   contactEmail: 'ag@aldengillespy.com',
@@ -22,7 +22,7 @@ export const siteMetaSeed = {
     { label: 'Engineering', href: '/engineering' },
     { label: 'Media', href: '/media' },
     { label: 'Blog', href: '/blog' },
-    { label: 'Résumé', href: '/resume.pdf' },
+    { label: 'Résumé', href: '/resume' },
   ],
   // NOTE: siteMeta is admin-owned — the seed only populates it on a FRESH/empty DB and
   // never overwrites afterward (see seed/index.ts). Keep these in sync with Payload as the

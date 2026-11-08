@@ -5,7 +5,9 @@
  * collection, keyed by the related venture's slug — mirrors /engineering/[slug].astro.
  *
  * The chain SVG is a bespoke component (§4), sharing ArchitectureSVG's grammar on purpose.
- * The grade hover (graded↔raw) is pure CSS (:hover, engine.css .grade rules) — no script.
+ * The hero frame and stills are real frames pulled from the film (films.heroImage / stills,
+ * uploaded by the seed from src/seed/assets/shadowcat). The old graded↔raw "Grade" block was
+ * removed in v6.3 — the gradeGraded/gradeRaw fields stay on the schema but nothing renders them.
  * Video is a click-to-load YouTube facade (§5) — never self-hosted.
  *
  * The contact section reuses siteMeta.social/contactEmail rather than a page-specific link
@@ -16,6 +18,8 @@
 import Base from '../../layouts/Base.astro'
 import ChainSVG from '../../components/ChainSVG.astro'
 import YouTubeFacade from '../../components/YouTubeFacade.astro'
+import { Image } from 'astro:assets'
+import { mediaImage, resolvedImages } from '../../lib/media'
 import { films, venturesBySlug, siteMeta, isExternalHref } from '../../lib/content'
 import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords, ogImageFor } from '../../lib/seo'
 
@@ -28,6 +32,9 @@ export function getStaticPaths() {
 const { film } = Astro.props
 const venture = venturesBySlug[film.venture!]
 const { key, hi, deep, on } = venture.palette
+const hero = mediaImage(film.heroImage)
+const stills = resolvedImages(film.stills)
+const channel = venture.links?.[0]
 
 const path = `/media/${venture.slug}`
 const description = film.logline || venture.tagline || undefined
@@ -69,13 +76,22 @@ const schema = [
     <div class="flood" aria-hidden="true"></div>
 
     <div class="reel">
-      <div class="shot"><div class="lab"><b>{film.title}</b> <span>2.39:1 · hero frame or 6s loop · replace</span></div></div>
+      {hero ? (
+        <div class="shot shot--img" aria-hidden="true">
+          <Image class="shot__img" src={hero} alt="" widths={[960, 1600, 1920]} sizes="100vw" loading="eager" fetchpriority="high" />
+        </div>
+      ) : (
+        <div class="shot"><div class="lab"><b>{film.title}</b> <span>2.39:1 · hero frame · upload films.heroImage</span></div></div>
+      )}
       <div class="cap">
         <div class="col" data-reveal>
           <span class="mono">Shadowcat Pictures · Short · {film.year} · {film.runtime}</span>
           <h1 class="halo" style="margin-top:20px">{film.title}</h1>
           <p class="logline">{film.logline}</p>
           <YouTubeFacade youtubeId={film.youtubeId} title={film.title} />
+          {channel && (
+            <a class="go" href={channel.url} target="_blank" rel="noopener noreferrer" style="margin-top:22px">More from Shadowcat Pictures on {channel.label} <span>→</span></a>
+          )}
         </div>
       </div>
     </div>
@@ -104,37 +120,17 @@ const schema = [
         <figcaption>Fig. 1 — Different pipeline, same grammar as the engineering. One operator in every box. The difference: that one forks; this one doesn't — if any link in a film breaks, there is no film.</figcaption>
       </figure>
 
-      <!-- THE GRADE — hover drops back to the raw log. pure CSS; the only motion this zone permits is a colour change. -->
-      <div class="grade">
-        <div class="shot r-239" style={`--a:${deep};--b:${key};--c2:#05070a`} />
-        <div class="shot r-239 raw" style="--a:#2b2f2c;--b:#8f8a7e;--c2:#1a1c1a" />
-        <span class="tag"><span class="g1">Graded</span><span class="g2">Raw · Log</span></span>
-        <div class="lab" style="position:absolute;left:0;right:0;bottom:0;z-index:5"><b>{film.title}</b> <span>Grade · hover to compare · replace with a real frame</span></div>
-      </div>
-      <p class="grade__cap">Log in, look out. Same frame, same camera — forty minutes of decisions in between.</p>
 
-      <div class="stills">
-        {
-          film.stills.length > 0 ? (
-            film.stills.map((s: any, i: number) => (
-              <div class="shot r-16x9" style={`--a:${deep};--b:${hi};--c2:#06080b`}>
-                <div class="lab"><b>{s?.alt || `Still ${String(i + 1).padStart(2, '0')}`}</b> <span>16:9 · {film.year}</span></div>
-              </div>
-            ))
-          ) : (
-            [
-              { a: '#1b2f36', b: '#a5813f', c2: '#06080b' },
-              { a: '#2c1e28', b: '#96606a', c2: '#080609' },
-              { a: '#122028', b: '#5f8290', c2: '#05080a' },
-              { a: '#3a2a18', b: '#c79a4c', c2: '#0a0805' },
-            ].map((g, i) => (
-              <div class="shot r-16x9" style={`--a:${g.a};--b:${g.b};--c2:${g.c2}`}>
-                <div class="lab"><b>Still {String(i + 1).padStart(2, '0')}</b> <span>16:9 · {film.year}</span></div>
-              </div>
-            ))
-          )
-        }
-      </div>
+      {stills.length > 0 && (
+        <div class="stills">
+          {stills.map(({ ref, image }, i) => (
+            <figure class="shot shot--img r-16x9" style="margin:0">
+              <Image class="shot__img" src={image} alt={ref.alt || `${film.title} — still ${i + 1}`} widths={[640, 960, 1440]} sizes={i === 0 || i === 3 ? '(max-width:760px) 100vw, 66vw' : '(max-width:760px) 100vw, 33vw'} />
+              <figcaption class="lab"><b>{film.title}</b> <span>Still {String(i + 1).padStart(2, '0')} · {film.year}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
 
       <div class="credits">
         <dl>

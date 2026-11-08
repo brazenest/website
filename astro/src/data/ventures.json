@@ -10,7 +10,10 @@
       "hi": "#8CA0FF",
       "deep": "#161B23",
       "lift": "#F1F4F7",
-      "on": "#FFFFFF"
+      "on": "#FFFFFF",
+      "keyDark": null,
+      "hiDark": null,
+      "onDark": null
     },
     "links": [],
     "proposed": false
@@ -26,7 +29,10 @@
       "hi": "#FF8A3D",
       "deep": "#2A0F3A",
       "lift": "#F4ECF8",
-      "on": "#FFFFFF"
+      "on": "#FFFFFF",
+      "keyDark": null,
+      "hiDark": null,
+      "onDark": null
     },
     "links": [],
     "proposed": false
@@ -38,11 +44,14 @@
     "order": 2,
     "tagline": "Music scheduling for radio.",
     "palette": {
-      "key": "#0F7A52",
-      "hi": "#38D08C",
-      "deep": "#05261A",
-      "lift": "#E9F7F0",
-      "on": "#FFFFFF"
+      "key": "#0B0B0C",
+      "hi": "#D4FF00",
+      "deep": "#0B0B0C",
+      "lift": "#F2EFE6",
+      "on": "#D4FF00",
+      "keyDark": "#D4FF00",
+      "hiDark": "#E2FF45",
+      "onDark": "#0B0B0C"
     },
     "links": [
       {
@@ -63,14 +72,12 @@
       "hi": "#4F86FF",
       "deep": "#0A1A3A",
       "lift": "#EAF1FE",
-      "on": "#FFFFFF"
+      "on": "#FFFFFF",
+      "keyDark": null,
+      "hiDark": null,
+      "onDark": null
     },
-    "links": [
-      {
-        "label": "andacity.com",
-        "url": "https://andacity.com"
-      }
-    ],
+    "links": [],
     "proposed": false
   },
   {
@@ -84,25 +91,17 @@
       "hi": "#FF7A45",
       "deep": "#1A0904",
       "lift": "#FFEDE9",
-      "on": "#1A0904"
+      "on": "#1A0904",
+      "keyDark": null,
+      "hiDark": null,
+      "onDark": null
     },
-    "links": [],
-    "proposed": false
-  },
-  {
-    "name": "Night Signal",
-    "slug": "signal",
-    "zone": "media",
-    "order": 5,
-    "tagline": "The network the stations sit inside.",
-    "palette": {
-      "key": "#00E8D0",
-      "hi": "#7DF7EA",
-      "deep": "#04201E",
-      "lift": "#E4FBF8",
-      "on": "#04211E"
-    },
-    "links": [],
+    "links": [
+      {
+        "label": "thebolt.stream",
+        "url": "https://thebolt.stream"
+      }
+    ],
     "proposed": false
   },
   {
@@ -116,9 +115,17 @@
       "hi": "#FFD08A",
       "deep": "#120C04",
       "lift": "#FBF3E5",
-      "on": "#241703"
+      "on": "#241703",
+      "keyDark": null,
+      "hiDark": null,
+      "onDark": null
     },
-    "links": [],
+    "links": [
+      {
+        "label": "YouTube",
+        "url": "https://youtube.com/@ShadowcatPictures"
+      }
+    ],
     "proposed": true
   }
 ]

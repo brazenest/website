@@ -3,8 +3,7 @@
 # and /api/* — deliberately have NO rule: they fall through to 404.html (HTTP 404).
 # Exact rules first, splats last (Cloudflare matches exacts faster; first match wins).
 
-# Résumé is a PDF now
-/resume                                        /resume.pdf            301
+# /resume is a real page again (v6.3) — HTML résumé, with /resume.pdf generated from it.
 
 # Section rename: production → media
 /production                                    /media                 301

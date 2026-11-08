@@ -9,6 +9,7 @@ import postsJson from '../data/posts.json'
 import siteMetaJson from '../data/site-meta.json'
 import aboutJson from '../data/about.json'
 import blogCategoriesJson from '../data/blog-categories.json'
+import resumeJson from '../data/resume.json'
 
 import type {
   Venture,
@@ -20,6 +21,7 @@ import type {
   About,
   BlogCategory,
   MediaRef,
+  Resume,
 } from '../data/types'
 import type { Palette } from './coverArt'
 
@@ -30,6 +32,7 @@ export const posts = postsJson as Post[]
 export const siteMeta = siteMetaJson as SiteMeta
 export const about = aboutJson as About
 export const blogCategories = blogCategoriesJson as BlogCategory[]
+export const resume = resumeJson as Resume
 
 export const venturesBySlug: Record<string, Venture> = Object.fromEntries(
   ventures.map((v) => [v.slug, v]),
@@ -76,8 +79,7 @@ export function ventureHref(slug: string): string {
   if (slug === 'house') return '/'
   const dest = caseStudyHref(slug) ?? filmHref(slug)
   if (dest) return dest
-  const specialAnchors: Record<string, string> = { signal: '/#bolt' }
-  return specialAnchors[slug] ?? `/#${slug}`
+  return `/#${slug}`
 }
 
 /** Title-case the zone for a chip's corner label. */

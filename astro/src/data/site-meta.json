@@ -13,8 +13,8 @@
       "label": "years shipping production software"
     },
     {
-      "value": "03",
-      "label": "radio stations built, brand through playout"
+      "value": "01",
+      "label": "radio station on air, brand through playout"
     },
     {
       "value": "02",
@@ -46,7 +46,7 @@
     },
     {
       "label": "Résumé",
-      "href": "/resume.pdf"
+      "href": "/resume"
     }
   ],
   "social": [

@@ -6,25 +6,19 @@
  * Data-driven from the ventures collection + filmHref.
  */
 import Base from '../../layouts/Base.astro'
-import { venturesByZone, filmHref } from '../../lib/content'
+import { Image } from 'astro:assets'
+import { venturesByZone, filmHref, filmsByVentureSlug } from '../../lib/content'
+import { mediaImage } from '../../lib/media'
 import { PAGE_KEYWORDS, absoluteUrl, breadcrumbSchema, mergeKeywords } from '../../lib/seo'
 
 const COPY: Record<string, { meta: string; headline: string; blurb: string; wordmark: string; wmStyle: string }> = {
   bolt: {
     meta: '2024 — NOW',
-    headline: 'A radio network built end to end.',
+    headline: 'A radio station built end to end.',
     blurb:
-      'Three stations. The software that runs them, the sound that comes out of them, and the brand wrapped around them — the project that lives in both halves of my work.',
+      'On air now. The software that runs it, the sound that comes out of it, and the brand wrapped around it — the project that lives in both halves of my work.',
     wordmark: 'THE BOLT',
     wmStyle: "font-family:'Geist',sans-serif;font-weight:800;font-style:italic;font-size:clamp(26px,2.8vw,48px);letter-spacing:-.03em",
-  },
-  signal: {
-    meta: '2024 — NOW',
-    headline: 'Night Signal — the after-hours voice of the network.',
-    blurb:
-      'Its own identity and its own sound, sitting inside the same system as the rest of the network. All of it made in-house.',
-    wordmark: 'NIGHT SIGNAL',
-    wmStyle: "font-family:'Geist',sans-serif;font-weight:800;font-size:clamp(22px,2.4vw,40px);letter-spacing:.02em",
   },
   shadowcat: {
     meta: '2019 — NOW',
@@ -36,7 +30,7 @@ const COPY: Record<string, { meta: string; headline: string; blurb: string; word
   },
 }
 
-const order = ['bolt', 'signal', 'shadowcat']
+const order = ['bolt', 'shadowcat']
 const projects = venturesByZone()
   .media.filter((v) => COPY[v.slug])
   .sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug))
@@ -65,7 +59,7 @@ const schema = [
 
 <Base
   title="Film, Video & Radio Production"
-  description="Cinematic video, photography and a three-station radio network — written, shot, cut, graded and scored in-house, then built into the systems that broadcast them."
+  description="Cinematic video, photography and an independent radio station — written, shot, cut, graded and scored in-house, then built into the systems that broadcast them."
   keywords={keywords}
   ogKey="media"
   schema={schema}
@@ -79,13 +73,17 @@ const schema = [
       <div class="zonehead" data-reveal>
         <div class="kick"><i></i><span class="mono">Media</span></div>
         <h1 class="halo">The part you can watch, and the network you can hear.</h1>
-        <p>Shadowcat Pictures and a three-station radio network — the same instinct as the engineering, pointed at a different surface. Control the whole chain; don't let anything out that isn't finished.</p>
+        <p>Shadowcat Pictures and The BOLT, an independent radio station — the same instinct as the engineering, pointed at a different surface. Control the whole chain; don't let anything out that isn't finished.</p>
       </div>
 
       {
         projects.map((v) => {
           const c = COPY[v.slug]
           const href = filmHref(v.slug)
+          // A venture's own live site (e.g. thebolt.stream) when it has no page here.
+          const live = v.links?.[0] ?? null
+          // A film's hero frame stands in for the wordmark card when one exists.
+          const frame = mediaImage(filmsByVentureSlug[v.slug]?.heroImage)
           const { deep, hi, key } = v.palette
           return (
             <div class="work" data-work={v.slug} data-reveal>
@@ -95,14 +93,17 @@ const schema = [
                 <p>{c.blurb}</p>
                 {href ? (
                   <a class="go" href={href}>Open the film page <span>→</span></a>
+                ) : live ? (
+                  <a class="go" href={live.url} target="_blank" rel="noopener noreferrer">Listen live at {live.label} <span>→</span></a>
                 ) : (
                   <span class="go go--soon">Page in progress</span>
                 )}
               </div>
               <div class="work__a">
-                <div class="shot" style={`--a:${deep};--b:${hi};--c2:#05060a`}>
+                <div class:list={['shot', frame && 'shot--img']} style={`--a:${deep};--b:${hi};--c2:#05060a`}>
+                  {frame && <Image class="shot__img" src={frame} alt="" widths={[480, 960]} sizes="(max-width:760px) 100vw, 45vw" />}
                   <span class="wm" style={c.wmStyle}>{c.wordmark}</span>
-                  <div class="lab"><b>{v.name}</b> <span style={`color:${key}`}>{v.palette.key}</span></div>
+                  <div class="lab"><b>{v.name}</b> <span style={`color:${v.palette.keyDark ?? key}`}>{v.palette.keyDark ?? v.palette.key}</span></div>
                 </div>
               </div>
             </div>

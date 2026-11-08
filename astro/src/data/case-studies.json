@@ -338,6 +338,10 @@
       }
     ],
     "screens": [],
+    "interface": {
+      "mode": "nda",
+      "note": "Memrey’s interface is under NDA at this phase of development. I’m glad to walk through it live — get in touch."
+    },
     "results": [
       {
         "value": "5",
@@ -362,7 +366,7 @@
     "venture": "rotavox",
     "role": "Founder, architect, designer, sole engineer",
     "timeline": "2024 — present",
-    "status": "Early access — rotavox.com",
+    "status": "Early access — waitlist open at rotavox.com",
     "hook": "Most internet radio still runs on shuffle. Rotavox schedules it the way a real station does — deliberately.",
     "stack": [
       "TypeScript",
@@ -370,7 +374,7 @@
       "Node",
       "Postgres"
     ],
-    "identityNote": "Deep pine ground, a mint signal, Geist. The colour of this page.",
+    "identityNote": "Ink ground, a volt signal — and volt only ever on ink. The colour of this page.",
     "problem": {
       "drop": "AutoDJ isn't programming. It's shuffle with a nicer name — and it's what most internet radio is stuck running on.",
       "body": {
@@ -431,7 +435,36 @@
     ],
     "queryTrace": null,
     "decisions": [],
-    "screens": [],
+    "screens": [
+      {
+        "filename": "rotavox-week-grid.png",
+        "alt": "Week grid — which clock plays each hour, across a two-week rotation",
+        "width": 1020,
+        "height": 765
+      },
+      {
+        "filename": "rotavox-airing-log.png",
+        "alt": "An airing log — projected vs. actual air time, item by item",
+        "width": 1020,
+        "height": 765
+      },
+      {
+        "filename": "rotavox-format-clock.png",
+        "alt": "A format clock — every position in the hour, with its fallback",
+        "width": 1020,
+        "height": 765
+      },
+      {
+        "filename": "rotavox-categories.png",
+        "alt": "Categories — each pool’s turnover against its target",
+        "width": 1016,
+        "height": 762
+      }
+    ],
+    "interface": {
+      "mode": "show",
+      "note": "Hard crops of the Cockpit (app.rotavox.com) running The BOLT — real clocks, a real grid, a log that is airing right now."
+    },
     "results": [
       {
         "value": "3",
@@ -446,13 +479,13 @@
         "label": "engineer, from the scheduler to rotavox.com"
       }
     ],
-    "resultsCaveat": "Rotavox is in early access — sign up at rotavox.com. Real usage numbers replace these as it opens up."
+    "resultsCaveat": "Rotavox is in early access — join the waitlist at rotavox.com. Real usage numbers replace these as it opens up."
   },
   {
     "venture": "andacity",
     "role": "Founder, architect, designer, sole engineer",
     "timeline": "2024 — present",
-    "status": "Live — andacity.com",
+    "status": "In development",
     "hook": "Booking a flight is easy. Deciding what the trip should be is the part every travel site leaves to you.",
     "stack": [
       "TypeScript",
@@ -526,6 +559,10 @@
     "queryTrace": null,
     "decisions": [],
     "screens": [],
+    "interface": {
+      "mode": "hidden",
+      "note": null
+    },
     "results": [
       {
         "value": "4",
@@ -540,6 +577,6 @@
         "label": "engineer, from the edge render to the database"
       }
     ],
-    "resultsCaveat": "Andacity is live at andacity.com (v0.6.0) and still moving fast — real usage and conversion numbers replace these as it grows."
+    "resultsCaveat": null
   }
 ]

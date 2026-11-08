@@ -55,6 +55,20 @@ export const Ventures: CollectionConfig = {
             ],
           },
         },
+        {
+          name: 'keyDark',
+          type: 'text',
+          admin: {
+            description:
+              'Optional dark-mode key. For a brand whose key only works on one ground — e.g. Rotavox: ink in light mode, volt on ink in dark (volt is never legal on a light surface).',
+          },
+        },
+        { name: 'hiDark', type: 'text', admin: { description: 'Optional dark-mode second colour (defaults to hi).' } },
+        {
+          name: 'onDark',
+          type: 'text',
+          admin: { description: 'Optional text colour on keyDark. Leave blank to compute at export (4.5:1 snap).' },
+        },
       ],
     },
     {

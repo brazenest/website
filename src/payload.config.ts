@@ -13,6 +13,7 @@ import { Films } from './collections/Films'
 import { Posts } from './collections/Posts'
 import { SiteMeta } from './globals/SiteMeta'
 import { About } from './globals/About'
+import { Resume } from './globals/Resume'
 import { BlogCategories } from './globals/BlogCategories'
 
 const filename = fileURLToPath(import.meta.url)
@@ -26,7 +27,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Ventures, CaseStudies, Films, Posts],
-  globals: [SiteMeta, About, BlogCategories],
+  globals: [SiteMeta, About, BlogCategories, Resume],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
