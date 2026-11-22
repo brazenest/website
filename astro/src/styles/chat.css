@@ -1,0 +1,153 @@
+/* ============================================================================
+   chat.css — the v7 chat home.
+   Same rules as the rest of the site: square edges, three faces (Cabinet display,
+   Schibsted text, Spline mono), and colour that is EARNED: everything accent-coloured
+   reads the live --w-key, so when an answer links a venture the page re-tints with it.
+   Anything carrying [data-work] (a suggestion, a link, a page chip) wears its own
+   venture's colour via venture-tokens.generated.css.
+   ============================================================================ */
+
+.chat{
+  --chat-w:760px;
+  min-height:calc(100svh - var(--top-h));
+  display:flex;flex-direction:column;
+  background:var(--paper);
+}
+.chat__col{
+  flex:1;width:100%;max-width:calc(var(--chat-w) + 2 * var(--pad));
+  margin-inline:auto;padding:clamp(40px,9vh,120px) var(--pad) 24px;
+}
+.chat .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* ---------- the opening: headline, intro, suggested questions ---------- */
+.chat__intro h1{
+  margin-top:18px;
+  font-family:var(--f-d-neutral);font-weight:900;
+  font-size:clamp(46px,8.2vw,104px);line-height:.92;letter-spacing:-.045em;
+  text-wrap:balance;
+}
+.chat__lead{margin-top:22px;max-width:52ch;font-size:clamp(17px,1.5vw,19px);line-height:1.55;color:var(--muted)}
+.chat__suggest{list-style:none;margin:36px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px}
+.suggest{
+  display:inline-flex;align-items:center;gap:10px;
+  font:inherit;font-size:15px;font-weight:600;letter-spacing:-.01em;color:var(--ink);
+  background:var(--paper);border:1px solid var(--line);padding:11px 15px;cursor:pointer;
+  transition:background-color 180ms var(--ease),color 1ms,border-color 180ms var(--ease);
+}
+/* the swatch: this question's venture colour, the same diamond as the wordmark */
+.suggest::before{
+  content:"";flex:none;width:9px;height:9px;transform:rotate(45deg);
+  background:var(--w-key);
+}
+[data-mode="dark"] .suggest[data-work="house"]::before{background:var(--w-hi)}
+.suggest:hover,.suggest:focus-visible{background:var(--w-key);color:var(--w-on);border-color:var(--w-key)}
+.suggest:hover::before,.suggest:focus-visible::before{background:var(--w-on)}
+
+/* Once the conversation starts, the opening steps aside. */
+.chat[data-active] .chat__intro,
+.chat[data-active] .chat__browse{display:none}
+.chat[data-active] .chat__col{padding-top:clamp(24px,5vh,56px)}
+
+/* ---------- the transcript ---------- */
+.chat__log{display:flex;flex-direction:column;gap:26px}
+.chat__log:empty{display:none}
+.msg{max-width:100%}
+.msg--user{
+  align-self:flex-end;max-width:min(560px,88%);
+  padding:12px 16px;font-size:16px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere;
+  background:color-mix(in srgb, var(--w-key) 9%, var(--paper));
+  border:1px solid color-mix(in srgb, var(--w-key) 22%, var(--line));
+  transition:background-color var(--T) var(--ease),border-color var(--T) var(--ease);
+}
+.msg--assistant{font-size:clamp(17px,1.45vw,19px);line-height:1.62}
+.msg__body > * + *{margin-top:.8em}
+.msg__body ul,.msg__body ol{padding-left:1.2em}
+.msg__body li + li{margin-top:.35em}
+.msg__body li::marker{color:var(--w-key)}
+.msg__body strong{font-weight:700}
+.msg__body code{font-family:var(--f-m);font-size:.86em;padding:.1em .35em;background:color-mix(in srgb, var(--ink) 7%, transparent)}
+.msg__body a{
+  color:var(--ink);font-weight:600;
+  text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;
+  text-decoration-color:var(--w-key);
+  transition:background-color 160ms var(--ease);
+}
+[data-mode="dark"] .msg__body a[data-work="rotavox"],
+[data-mode="dark"] .msg__body a[data-work="memrey"]{text-decoration-color:var(--w-hi)}
+.msg__body a:hover{background:color-mix(in srgb, var(--w-key) 14%, transparent)}
+
+/* the answer is on its way: one diamond in the live colour, breathing (colour, not motion) */
+.msg[data-pending]::before{
+  content:"";display:block;width:12px;height:12px;margin:8px 0 0 3px;transform:rotate(45deg);
+  background:var(--w-key);animation:chat-breathe 1.1s var(--ease) infinite alternate;
+}
+@keyframes chat-breathe{from{opacity:.25}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){.msg[data-pending]::before{animation:none;opacity:.6}}
+
+/* the pages an answer drew on, as places to go */
+.msg__links{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pagechip{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-m);font-size:11.5px;font-weight:500;letter-spacing:.04em;
+  padding:9px 12px 9px 10px;color:var(--ink);
+  border:1px solid var(--line);border-left:4px solid var(--w-key);
+  transition:background-color 160ms var(--ease),color 1ms;
+}
+.pagechip i{font-style:normal;color:var(--muted)}
+.pagechip:hover{background:var(--w-key);color:var(--w-on)}
+.pagechip:hover i{color:inherit}
+
+.msg--notice{font-size:15px;color:var(--muted);padding:12px 16px;border:1px dashed var(--line)}
+.msg--notice a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--w-key);text-underline-offset:3px}
+
+/* ---------- browse (also the no-JS home navigation) ---------- */
+.chat__browse{display:flex;flex-wrap:wrap;align-items:center;gap:6px 20px;margin-top:56px;padding-top:20px;border-top:1px solid var(--line)}
+.chat__browse a{font-size:15px;font-weight:600;color:var(--ink);text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+.chat__browse a:hover{text-decoration-color:var(--w-key)}
+.chat__nojs{max-width:var(--chat-w);margin:0 auto 40px;padding:0 var(--pad);color:var(--muted)}
+
+/* ---------- the composer ---------- */
+.composer{
+  position:sticky;bottom:0;z-index:100;
+  padding:14px var(--pad) max(12px, env(safe-area-inset-bottom));
+  background:color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);
+  border-top:1px solid var(--line);
+}
+.chat:not([data-ready]) .composer{display:none}
+.composer__in{
+  display:flex;align-items:flex-end;gap:10px;
+  max-width:var(--chat-w);margin-inline:auto;
+  padding:8px 8px 8px 16px;background:var(--paper);
+  border:1.5px solid var(--line);
+  transition:border-color 180ms var(--ease);
+}
+.composer__in:focus-within{border-color:var(--w-key)}
+[data-mode="dark"] .composer__in:focus-within{border-color:var(--w-hi)}
+.composer textarea{
+  flex:1;resize:none;border:0;outline:0;background:transparent;color:var(--ink);
+  font:inherit;font-size:17px;line-height:1.45;padding:8px 0;max-height:180px;
+}
+.composer textarea::placeholder{color:var(--muted)}
+.composer__send{
+  flex:none;width:42px;height:42px;display:grid;place-items:center;cursor:pointer;
+  border:0;background:var(--w-key);color:var(--w-on);
+  transition:background-color var(--T) var(--ease),opacity 160ms;
+}
+.composer__send svg{width:20px;height:20px}
+.composer__send:hover:not(:disabled){background:var(--w-hi);color:var(--w-hi-on,var(--w-on))}
+.composer__send:disabled{opacity:.35;cursor:default}
+.composer__note{
+  display:flex;justify-content:space-between;gap:16px;align-items:center;
+  max-width:var(--chat-w);margin:8px auto 0;
+  font-family:var(--f-m);font-size:10.5px;letter-spacing:.06em;color:var(--muted);
+}
+.composer__reset{font:inherit;color:var(--muted);background:none;border:0;padding:4px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.composer__reset:hover{color:var(--ink)}
+.chat:not([data-active]) .composer__reset{visibility:hidden}
+
+@media (max-width:560px){
+  .chat__suggest{gap:8px}
+  .suggest{font-size:14px;padding:10px 12px}
+  .composer__note span{font-size:9.5px}
+}

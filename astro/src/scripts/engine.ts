@@ -104,6 +104,34 @@ export function initEngine() {
     sync()
   })
 
+  initTheme()
+
+  // multi-page nav highlight: mark the link whose route matches the current path. A section
+  // link stays lit anywhere INSIDE its section (/blog → /blog/posts/<slug>, /engineering →
+  // /engineering/memrey), so you never lose your place while reading. '/' is exact-only,
+  // or Home would match every page on the site.
+  const path = window.location.pathname.replace(/\/$/, '') || '/'
+  navs.forEach((a) => {
+    const route = a.dataset.route
+    const active = !!route && (route === path || (route !== '/' && path.startsWith(`${route}/`)))
+    active ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')
+  })
+
+  measure()
+  observe()
+  sync()
+  window.addEventListener('load', () => {
+    measure()
+    sync()
+  })
+}
+
+/**
+ * The light/dark toggle and OS-theme following, on its own so a page can have the theme
+ * without the scroll-driven colour engine (the chat home drives colour from the
+ * conversation instead — see scripts/chat.ts).
+ */
+export function initTheme() {
   // THEME (light/dark) — a stable user/system preference, persisted with a 7-day
   // expiry keyed off last interaction. The initial value was set pre-paint by the
   // inline script in <head>; here we wire the toggle and OS-change following.
@@ -129,6 +157,7 @@ export function initEngine() {
     }
   }
 
+  const root = document.documentElement
   const modeBtn = document.getElementById('mode')
   if (modeBtn) {
     modeBtn.addEventListener('click', () => {
@@ -143,24 +172,5 @@ export function initEngine() {
   mq.addEventListener?.('change', (e) => {
     if (storedMode()) return
     root.setAttribute('data-mode', e.matches ? 'dark' : 'light')
-  })
-
-  // multi-page nav highlight: mark the link whose route matches the current path. A section
-  // link stays lit anywhere INSIDE its section (/blog → /blog/posts/<slug>, /engineering →
-  // /engineering/memrey), so you never lose your place while reading. '/' is exact-only,
-  // or Home would match every page on the site.
-  const path = window.location.pathname.replace(/\/$/, '') || '/'
-  navs.forEach((a) => {
-    const route = a.dataset.route
-    const active = !!route && (route === path || (route !== '/' && path.startsWith(`${route}/`)))
-    active ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')
-  })
-
-  measure()
-  observe()
-  sync()
-  window.addEventListener('load', () => {
-    measure()
-    sync()
   })
 }

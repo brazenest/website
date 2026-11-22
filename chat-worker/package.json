@@ -1,0 +1,23 @@
+{
+  "name": "aldengillespy-chat-worker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chat endpoint for aldengillespy.com v7: streams Claude answers grounded in the site's own published content. Pages stays fully static.",
+  "type": "module",
+  "scripts": {
+    "knowledge": "tsx scripts/build-knowledge.ts",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test --experimental-strip-types test/*.test.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.12.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261121.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "wrangler": "^4.166.0"
+  }
+}

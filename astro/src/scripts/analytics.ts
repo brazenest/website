@@ -113,6 +113,12 @@ function wireEvents(capture: Capture): void {
     { capture: true },
   )
 
+  // Fired by the chat home on each question. Counts and where it came from — never the text.
+  document.addEventListener('chat:asked', (e) => {
+    const d = (e as CustomEvent<{ turn?: number; source?: string }>).detail ?? {}
+    capture('chat_question', { turn: d.turn, source: d.source })
+  })
+
   // Fired by ContactForm on a confirmed send (after Turnstile + the Worker accept it).
   // Only the category is recorded — never the name, email or message.
   document.addEventListener('contact:success', (e) => {

@@ -15,9 +15,11 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation tsx src/seed/index.ts",
     "export": "cross-env NODE_OPTIONS=--no-deprecation tsx src/export/index.ts",
-    "predeploy": "pnpm run export && pnpm --dir astro run build && pnpm --dir astro run resume:pdf",
+    "chat:knowledge": "tsx chat-worker/scripts/build-knowledge.ts",
+    "predeploy": "pnpm run export && pnpm run chat:knowledge && pnpm --dir astro run build && pnpm --dir astro run resume:pdf",
     "deploy:preview": "pnpm run predeploy && wrangler pages deploy astro/dist --project-name=aldengillespy-v6 --branch=preview",
-    "deploy:production": "pnpm run predeploy && wrangler pages deploy astro/dist --project-name=aldengillespy-v6 --branch=main"
+    "deploy:production": "pnpm run predeploy && wrangler pages deploy astro/dist --project-name=aldengillespy-v6 --branch=main",
+    "deploy:chat": "pnpm run chat:knowledge && npm --prefix chat-worker run deploy"
   },
   "dependencies": {
     "@payloadcms/db-sqlite": "3.86.0",

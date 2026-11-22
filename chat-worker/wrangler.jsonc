@@ -1,0 +1,33 @@
+{
+  // Chat endpoint for aldengillespy.com (v7) — the site's front door is a conversation.
+  //
+  // A SEPARATE Worker, like contact-worker and edge-worker: the Astro site on Pages stays
+  // 100% static (BUILD.md §1). The knowledge the bot answers from is compiled INTO this
+  // Worker at build time (src/knowledge.generated.ts, from the Payload export), so there is
+  // no database, no retrieval service and nothing else to keep running.
+  //
+  // Secrets (never committed):
+  //   wrangler secret put ANTHROPIC_API_KEY
+  // Without the key the Worker runs in MOCK mode (canned replies, no spend).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aldengillespy-chat",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+
+  "vars": {
+    // Same host-suffix allow-list rule as contact-worker (subdomains included).
+    "ALLOWED_HOSTS": "aldengillespy.com,aldengillespy-v6.pages.dev,localhost,127.0.0.1",
+    // Model and spend dials, as vars so they can change without a code change.
+    "MODEL": "claude-opus-5-5",
+    "EFFORT": "low",
+    "MAX_TOKENS": "4096"
+  },
+
+  // Per-IP rate limit: 8 messages a minute is a brisk human pace and a slow bot.
+  // namespace_id is an arbitrary account-unique integer.
+  "ratelimits": [
+    { "name": "CHAT_LIMITER", "namespace_id": "7001", "simple": { "limit": 8, "period": 60 } }
+  ]
+}
