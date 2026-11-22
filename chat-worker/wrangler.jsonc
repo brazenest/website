@@ -15,6 +15,10 @@
   "compatibility_date": "2026-07-01",
   "compatibility_flags": ["nodejs_compat"],
   "observability": { "enabled": true },
+  // The site calls the workers.dev URL (astro/src/config/chat.ts). No per-version preview
+  // URLs: each would be one more public door to the same API key.
+  "workers_dev": true,
+  "preview_urls": false,
 
   "vars": {
     // Same host-suffix allow-list rule as contact-worker (subdomains included).
