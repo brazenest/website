@@ -1,0 +1,3 @@
+# Local secrets for `wrangler dev` (copy to .dev.vars, never commit that file).
+# Leave the key out to run in MOCK mode: canned streamed replies, no API spend.
+ANTHROPIC_API_KEY=

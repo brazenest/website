@@ -1,0 +1,130 @@
+[
+  {
+    "href": "/",
+    "title": "Home (this chat)"
+  },
+  {
+    "href": "/engineering",
+    "title": "Engineering — all case studies"
+  },
+  {
+    "href": "/media",
+    "title": "Media — films and photography",
+    "work": "shadowcat"
+  },
+  {
+    "href": "/blog",
+    "title": "Blog — all posts"
+  },
+  {
+    "href": "/about",
+    "title": "About Alden"
+  },
+  {
+    "href": "/resume",
+    "title": "Résumé (web)"
+  },
+  {
+    "href": "/resume.pdf",
+    "title": "Résumé (PDF download)"
+  },
+  {
+    "href": "/contact",
+    "title": "Contact form — hiring, projects, commissions"
+  },
+  {
+    "href": "/engineering/memrey",
+    "title": "Memrey — engineering case study",
+    "work": "memrey"
+  },
+  {
+    "href": "/engineering/rotavox",
+    "title": "Rotavox — engineering case study",
+    "work": "rotavox"
+  },
+  {
+    "href": "/engineering/andacity",
+    "title": "Andacity — engineering case study",
+    "work": "andacity"
+  },
+  {
+    "href": "/media/shadowcat",
+    "title": "Con Te Partiro (Time To Say Goodbye) — film",
+    "work": "shadowcat"
+  },
+  {
+    "href": "/blog/posts/working-with-chatgpt-generative-ai-copilot-interaction-rules-part-3",
+    "title": "Blog: Working with ChatGPT: Golden Rules for Generative AI Copilot Interaction [Part 3]"
+  },
+  {
+    "href": "/blog/posts/working-with-chatgpt-generative-ai-copilot-interaction-rules-part-2",
+    "title": "Blog: Working with ChatGPT: Golden Rules for Generative AI Copilot Interaction [Part 2]"
+  },
+  {
+    "href": "/blog/posts/working-with-chatgpt-generative-ai-copilot-interaction-rules-part-1",
+    "title": "Blog: Working with ChatGPT: Golden Rules for Generative AI Copilot Interaction [Part 1]"
+  },
+  {
+    "href": "/blog/posts/best-practices-naming-conventions-in-react-code-development",
+    "title": "Blog: Best Practices: Naming Conventions in React Code Development"
+  },
+  {
+    "href": "/blog/posts/shadowcat-pictures-youtube-video-bellagio-fountains-airbus-boeing",
+    "title": "Blog: Say Hello to Shadowcat Pictures, my video channel on YouTube!"
+  },
+  {
+    "href": "/blog/posts/millenials-toys-r-us-death-by-bad-leveraged-buyout",
+    "title": "Blog: What killed Toys “R” Us? It wasn’t Amazon"
+  },
+  {
+    "href": "/blog/posts/how-use-chrome-lighthouse-improve-site-performance-page-speed",
+    "title": "Blog: How I use Chrome’s Lighthouse to improve site performance"
+  },
+  {
+    "href": "/blog/posts/why-need-react-for-site-ui-contextual-awareness",
+    "title": "Blog: Why you need React for your site’s UI: contextual awareness"
+  },
+  {
+    "href": "/blog/posts/why-tdd-it-takes-the-guesswork-out-of-debugging",
+    "title": "Blog: Why TDD? It takes the guesswork out of debugging"
+  },
+  {
+    "href": "/blog/posts/a-new-reason-why-you-should-ditch-email",
+    "title": "Blog: A new reason why you should ditch email"
+  },
+  {
+    "href": "/blog/posts/cell-network-location-privacy-calea-carpenter-united-states",
+    "title": "Blog: Does location privacy exist anymore?"
+  },
+  {
+    "href": "/blog/posts/what-creates-net-neutrality-market-forces-or-the-fcc",
+    "title": "Blog: What creates net neutrality — market forces or the FCC?"
+  },
+  {
+    "href": "/blog/posts/variable-fonts-safari-11-support-macos-and-ios-font-wars",
+    "title": "Blog: Begin using OpenType Variable Fonts! Full support in Safari 11"
+  },
+  {
+    "href": "https://rotavox.com",
+    "title": "Rotavox — rotavox.com",
+    "work": "rotavox"
+  },
+  {
+    "href": "https://thebolt.stream",
+    "title": "The Bolt — thebolt.stream",
+    "work": "bolt"
+  },
+  {
+    "href": "https://youtube.com/@ShadowcatPictures",
+    "title": "Shadowcat — YouTube",
+    "work": "shadowcat"
+  },
+  {
+    "href": "https://www.linkedin.com/in/alden-gillespy",
+    "title": "LinkedIn"
+  },
+  {
+    "href": "https://github.com/brazenest",
+    "title": "GitHub"
+  }
+]
