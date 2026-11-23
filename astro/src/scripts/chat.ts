@@ -5,10 +5,13 @@
  * on that venture's colour, the rail segment lights, exactly as scrolling does elsewhere.
  *
  * Privacy: the transcript container carries `ph-no-capture`, so session replays never record
- * what a visitor typed or was told. Analytics gets counts only (`chat:asked`), never text.
+ * what a visitor typed or was told. Analytics gets counts and link facts only, never text:
+ * `chat:asked`, `chat:answered` (which ventures and pages the answer linked), `chat:link`
+ * (a click on one of those links) and `chat:error`, all keyed by the Worker's answer id.
  */
 import links from '../data/chat-links.json'
 import { CHAT_ENDPOINT, CHAT_LIMITS } from '../config/chat'
+import { getAnalyticsId } from './analytics-id'
 
 type Turn = { role: 'user' | 'assistant'; content: string }
 type Link = { href: string; title: string; work?: string }
@@ -70,6 +73,19 @@ export function initChat() {
     ask(q, el.hasAttribute('data-ask') ? 'suggestion' : 'rail')
   })
 
+  // Clicks on the links an answer gave: the "did the answer send them somewhere" signal.
+  log.addEventListener('click', (e) => {
+    const a = (e.target as Element).closest<HTMLAnchorElement>('.msg--assistant a[href]')
+    if (!a) return
+    const msg = a.closest<HTMLElement>('.msg')
+    emit('chat:link', {
+      answer_id: msg?.dataset.aid,
+      href: a.getAttribute('href'),
+      work: a.dataset.work,
+      kind: a.classList.contains('pagechip') ? 'chip' : 'inline',
+    })
+  })
+
   reset?.addEventListener('click', () => {
     controller?.abort()
     turns = []
@@ -116,7 +132,10 @@ export function initChat() {
     // Screen readers: hold announcements while the answer streams, then read it once.
     log!.setAttribute('aria-busy', 'true')
     scrollDown(true)
-    document.dispatchEvent(new CustomEvent('chat:asked', { detail: { turn: turns.length, source } }))
+    // turn = which question of this conversation (1, 2, 3…), the same on every chat event.
+    const turn = turns.filter((t) => t.role === 'user').length
+    emit('chat:asked', { turn, source })
+    const started = performance.now()
 
     let text = ''
     let failed: string | null = null
@@ -125,7 +144,8 @@ export function initChat() {
       const res = await fetch(CHAT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: turns }),
+        // ph: lets the Worker's label-only `chat_classified` event join this visitor (null → none sent).
+        body: JSON.stringify({ messages: turns, ph: getAnalyticsId() ?? undefined }),
         signal: controller.signal,
       })
       if (!res.ok || !res.body) {
@@ -143,8 +163,9 @@ export function initChat() {
           const line = buf.slice(0, i)
           buf = buf.slice(i + 2)
           if (!line.startsWith('data: ')) continue
-          const msg = JSON.parse(line.slice(6)) as { t?: string; done?: boolean; error?: string }
+          const msg = JSON.parse(line.slice(6)) as { id?: string; t?: string; done?: boolean; error?: string }
           if (msg.error) throw new Error(msg.error)
+          if (msg.id) bubble.dataset.aid = msg.id
           if (msg.t) {
             text += msg.t
             bubble.removeAttribute('data-pending')
@@ -165,10 +186,24 @@ export function initChat() {
       if (!text) bubble.remove()
       renderNotice(errorCopy(failed))
       box.value = q
+      emit('chat:error', { code: failed, turn, partial: Boolean(text) })
     } else if (text) {
       turns.push({ role: 'assistant', content: text })
       paint(bubble, text, true)
       save()
+      const { linked } = renderMarkdown(text)
+      const works = [...new Set(linked.map((l) => l.work).filter((w): w is string => !!w && w !== 'house'))]
+      emit('chat:answered', {
+        answer_id: bubble.dataset.aid,
+        turn,
+        source,
+        works,
+        primary_work: works[works.length - 1] ?? null, // the one the page re-tinted to
+        pages: [...new Set(linked.map((l) => l.href))],
+        link_count: linked.length,
+        answer_chars: text.length,
+        answer_ms: Math.round(performance.now() - started),
+      })
     }
     busy = false
     controller = null
@@ -252,6 +287,10 @@ export function initChat() {
       /* private mode: the conversation just won't survive a reload */
     }
   }
+}
+
+function emit(name: string, detail: object) {
+  document.dispatchEvent(new CustomEvent(name, { detail }))
 }
 
 function errorCopy(code: string): string {

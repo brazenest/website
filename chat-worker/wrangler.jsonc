@@ -26,7 +26,13 @@
     // Model and spend dials, as vars so they can change without a code change.
     "MODEL": "claude-opus-5-5",
     "EFFORT": "low",
-    "MAX_TOKENS": "4096"
+    "MAX_TOKENS": "4096",
+    // Labels each finished exchange for analytics (src/classify.ts); the text is not kept.
+    "CLASSIFY_MODEL": "claude-haiku-5-5",
+    // PostHog project token (public, same as astro/src/config/analytics.ts) and US ingest host.
+    // Labels are sent only when the page passes the visitor's PostHog id (production, not opted out).
+    "POSTHOG_TOKEN": "phc_D4cBEL6n4zRNQbnWaFFZGxGUmYWRK3QCxcR5cQXKZCqq",
+    "POSTHOG_HOST": "https://us.i.posthog.com"
   },
 
   // Per-IP rate limit: 8 messages a minute is a brisk human pace and a slow bot.

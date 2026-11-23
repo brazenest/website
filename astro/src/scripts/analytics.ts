@@ -17,6 +17,7 @@
  * ?notrack once in each browser you use (?track undoes it).
  */
 import { POSTHOG_TOKEN, POSTHOG_API_HOST, POSTHOG_UI_HOST, ANALYTICS_HOSTS } from '../config/analytics'
+import { setAnalyticsId } from './analytics-id'
 
 const OPT_OUT_KEY = 'ag-notrack'
 
@@ -53,6 +54,7 @@ export function initAnalytics(): void {
             }),
           },
         })
+        setAnalyticsId(posthog.get_distinct_id())
         wireEvents((event, props) => posthog.capture(event, props))
       })
       .catch(() => {}) // a blocked or failed chunk must never surface to the visitor
@@ -113,11 +115,16 @@ function wireEvents(capture: Capture): void {
     { capture: true },
   )
 
-  // Fired by the chat home on each question. Counts and where it came from — never the text.
+  // The chat home. Never any text: counts, where a question came from, what an answer
+  // linked and what got clicked. The chat Worker adds `chat_classified` (topic, coverage,
+  // intent labels) server-side for the same answer_id.
   document.addEventListener('chat:asked', (e) => {
     const d = (e as CustomEvent<{ turn?: number; source?: string }>).detail ?? {}
     capture('chat_question', { turn: d.turn, source: d.source })
   })
+  document.addEventListener('chat:answered', (e) => capture('chat_answered', (e as CustomEvent).detail ?? {}))
+  document.addEventListener('chat:link', (e) => capture('chat_link_click', (e as CustomEvent).detail ?? {}))
+  document.addEventListener('chat:error', (e) => capture('chat_error', (e as CustomEvent).detail ?? {}))
 
   // Fired by ContactForm on a confirmed send (after Turnstile + the Worker accept it).
   // Only the category is recorded — never the name, email or message.
