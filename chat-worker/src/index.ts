@@ -1,8 +1,9 @@
 /**
  * Chat Worker for aldengillespy.com (v7).
  *
- * POST /chat  { messages: [{ role: 'user' | 'assistant', content: string }, ...] }
- *   → text/event-stream of   data: {"t":"<text delta>"}
+ * POST /chat  { messages: [{ role: 'user' | 'assistant', content: string }, ...], ph?: string }
+ *   → text/event-stream of   data: {"id":"<answer id>"}       (first: names this answer)
+ *                           data: {"t":"<text delta>"}
  *                           data: {"done":true}            (end of answer)
  *                           data: {"error":"<code>"}       (failure, then the stream closes)
  *
@@ -11,11 +12,16 @@
  *   2. Per-IP rate limit (Workers Rate Limiting binding).
  *   3. The conversation validates (shape, turn count, length caps — see LIMITS).
  *
+ * Analytics: `ph` is the visitor's anonymous PostHog id, sent only by pages where analytics
+ * runs (production, not opted out). With it, the finished exchange is labelled by a small
+ * model (src/classify.ts) and ONLY the labels go to PostHog — never the text.
+ *
  * Without ANTHROPIC_API_KEY the Worker answers in MOCK mode (a canned streamed reply), so the
  * UI can be developed and tested locally with no key and no spend.
  */
 import Anthropic from '@anthropic-ai/sdk'
 import { SYSTEM_PROMPT, validateMessages, type ChatTurn } from './chat.ts'
+import { capture, classify } from './classify.ts'
 
 interface Env {
   ANTHROPIC_API_KEY?: string
@@ -24,10 +30,25 @@ interface Env {
   EFFORT: 'low' | 'medium' | 'high'
   MAX_TOKENS: string
   CHAT_LIMITER?: { limit(opts: { key: string }): Promise<{ success: boolean }> }
+  CLASSIFY_MODEL: string
+  POSTHOG_TOKEN?: string
+  POSTHOG_HOST: string
 }
 
+type Answer = {
+  text: string
+  model: string
+  stop: string | null
+  firstTokenMs: number | null
+  totalMs: number
+  usage: { in: number; cache_read: number; cache_write: number; out: number }
+}
+
+/** posthog-js anonymous ids are UUIDv7s; accept only a plain token so nothing else rides along. */
+const PH_ID = /^[A-Za-z0-9._:-]{8,100}$/
+
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
     const hosts = env.ALLOWED_HOSTS.split(',').map((s) => s.trim()).filter(Boolean)
     const origin = request.headers.get('Origin') ?? ''
@@ -45,7 +66,7 @@ export default {
       if (!success) return json({ error: 'rate_limited' }, 429, cors)
     }
 
-    let body: { messages?: unknown }
+    let body: { messages?: unknown; ph?: unknown }
     try {
       body = await request.json()
     } catch {
@@ -58,8 +79,17 @@ export default {
     const writer = writable.getWriter()
     const enc = new TextEncoder()
     const send = (obj: object) => writer.write(enc.encode(`data: ${JSON.stringify(obj)}\n\n`))
+    const answerId = crypto.randomUUID()
+    const ph = typeof body.ph === 'string' && PH_ID.test(body.ph) ? body.ph : null
+    const messages = v.messages
 
-    const run = env.ANTHROPIC_API_KEY ? streamClaude(env, v.messages, send, request.signal) : streamMock(v.messages, send)
+    const run = (async () => {
+      await send({ id: answerId })
+      if (!env.ANTHROPIC_API_KEY) return streamMock(messages, send)
+      const answer = await streamClaude(env, messages, send, request.signal)
+      // After the visitor has the answer; never delays or breaks it.
+      if (ph && env.POSTHOG_TOKEN) ctx.waitUntil(report(env, ph, answerId, messages, answer).catch((e) => console.error('chat report failed', (e as Error)?.message)))
+    })()
     // Not awaited: the Response (and its stream) must go back first so deltas flow as they arrive.
     run
       .catch((err) => {
@@ -79,7 +109,10 @@ export default {
   },
 }
 
-async function streamClaude(env: Env, messages: ChatTurn[], send: (o: object) => Promise<void>, signal: AbortSignal) {
+async function streamClaude(env: Env, messages: ChatTurn[], send: (o: object) => Promise<void>, signal: AbortSignal): Promise<Answer> {
+  const started = Date.now()
+  let firstTokenMs: number | null = null
+  let text = ''
   const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY, maxRetries: 1 })
   const stream = client.beta.messages.stream(
     {
@@ -103,27 +136,49 @@ async function streamClaude(env: Env, messages: ChatTurn[], send: (o: object) =>
 
   for await (const event of stream) {
     if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+      firstTokenMs ??= Date.now() - started
+      text += event.delta.text
       await send({ t: event.delta.text })
     }
   }
   const final = await stream.finalMessage()
   if (final.stop_reason === 'refusal') {
-    await send({ t: "\n\nI can't help with that one. Ask me about Alden's work, or reach him through [the contact form](/contact)." })
+    const note = "\n\nI can't help with that one. Ask me about Alden's work, or reach him through [the contact form](/contact)."
+    text += note
+    await send({ t: note })
+  }
+  const usage = {
+    in: final.usage.input_tokens,
+    cache_read: final.usage.cache_read_input_tokens ?? 0,
+    cache_write: final.usage.cache_creation_input_tokens ?? 0,
+    out: final.usage.output_tokens,
   }
   // One line per answer in Workers observability: what each conversation actually costs.
-  console.log(
-    JSON.stringify({
-      ev: 'chat_usage',
-      model: final.model,
-      turns: messages.length,
-      stop: final.stop_reason,
-      in: final.usage.input_tokens,
-      cache_read: final.usage.cache_read_input_tokens,
-      cache_write: final.usage.cache_creation_input_tokens,
-      out: final.usage.output_tokens,
-    }),
-  )
+  console.log(JSON.stringify({ ev: 'chat_usage', model: final.model, turns: messages.length, stop: final.stop_reason, ...usage }))
   await send({ done: true })
+  return { text, model: final.model, stop: final.stop_reason, firstTokenMs, totalMs: Date.now() - started, usage }
+}
+
+/** Label the exchange and send the labels (no text) to PostHog as `chat_classified`. */
+async function report(env: Env, ph: string, answerId: string, messages: ChatTurn[], a: Answer) {
+  const c = await classify(env.ANTHROPIC_API_KEY!, env.CLASSIFY_MODEL, messages, a.text)
+  const props = {
+    answer_id: answerId,
+    turn: messages.filter((m) => m.role === 'user').length,
+    ...(c ? c.labels : { coverage: 'unlabelled' }),
+    refused: a.stop === 'refusal',
+    answer_model: a.model,
+    first_token_ms: a.firstTokenMs,
+    answer_ms: a.totalMs,
+    answer_tokens_in: a.usage.in,
+    answer_tokens_cache_read: a.usage.cache_read,
+    answer_tokens_cache_write: a.usage.cache_write,
+    answer_tokens_out: a.usage.out,
+    classify_tokens_in: c?.usage.in,
+    classify_tokens_out: c?.usage.out,
+  }
+  console.log(JSON.stringify({ ev: 'chat_labels', ...props }))
+  await capture(env.POSTHOG_HOST, env.POSTHOG_TOKEN!, ph, 'chat_classified', props)
 }
 
 /** Canned, streamed reply for local development without an API key. */
